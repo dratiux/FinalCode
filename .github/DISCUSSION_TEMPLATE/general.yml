@@ -1,0 +1,23 @@
+# FinalCode
+
+The official OpenCode production certification and repository auditing system.
+
+## About
+
+FinalCode is an AI-driven skill for OpenCode that certifies whether a project is genuinely ready for production. It performs a senior-engineering audit across 12 quality gates and produces a standardized certification report with a clear verdict: **READY TO SHIP**, **READY WITH WARNINGS**, or **NOT READY**.
+
+## Categories
+
+- **General** - General discussion about FinalCode
+- **Ideas** - Share ideas for improvements and new features
+- **Q&A** - Ask questions and get help from the community
+- **Show and Tell** - Share how you're using FinalCode
+- **Roadmap** - Discuss the future direction of FinalCode
+
+## Guidelines
+
+- Be respectful and constructive
+- Search existing discussions before posting
+- Use the appropriate category
+- Provide context and details in your posts
+- Follow the [Code of Conduct](../../CODE_OF_CONDUCT.md)

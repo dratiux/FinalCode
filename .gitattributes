@@ -1,0 +1,29 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Markdown files
+*.md text diff=markdown
+
+# YAML files
+*.yml text
+*.yaml text
+
+# Skill files (binary)
+*.skill binary
+
+# Image files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg text
+
+# Ensure consistent line endings
+*.md eol=lf
+*.yml eol=lf
+*.yaml eol=lf
+*.json eol=lf
+*.txt eol=lf
+
+# Denote files that are truly binary and should not be modified
+*.skill -diff
