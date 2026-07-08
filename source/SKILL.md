@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 1.4.1 — OpenCode Edition
+Version: 1.4.2 — OpenCode Edition
 
 ## Identity
 

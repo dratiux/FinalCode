@@ -1,6 +1,6 @@
 # FinalCode
 
-**OpenCode Edition v1.4.1**
+**OpenCode Edition v1.4.2**
 
 > The official OpenCode production certification and repository auditing system.
 
@@ -63,21 +63,72 @@ FinalCode integrates with OpenCode's Slash Command system. Use the `/finalcode` 
 
 The slash command is a lightweight entry point that delegates to the FinalCode Skill. No auditing logic is duplicated — the command simply invokes the skill with the appropriate mode.
 
-## Installation
+## Source Layout
 
-FinalCode is installed as an OpenCode skill. Copy the `finalcode.skill` file to your OpenCode skills directory, or place it in your project's `.opencode/skills/` folder.
+FinalCode follows a **Single Source of Truth (SSOT)** architecture. There is exactly one editable copy of every skill file:
+
+```
+FinalCode/
+├── source/                          ← EDIT THIS (single source of truth)
+│   ├── SKILL.md                     # Skill specification
+│   └── references/
+│       ├── examples.md              # Worked example reports
+│       ├── gates.md                 # Quality Gate checklists
+│       └── security-gate.md         # Security Gate 2.0 checklist
+├── .opencode/                       # OpenCode configuration
+│   ├── commands/
+│   │   └── finalcode.md             # Slash command entry point
+│   └── skills/
+│       └── finalcode/               ← GENERATED (never edit manually)
+│           ├── SKILL.md
+│           └── references/
+├── scripts/
+│   ├── install.sh                   # Installation script (bash)
+│   └── install.ps1                  # Installation script (PowerShell)
+├── finalcode.skill                  # Packaged skill artifact
+├── README.md
+├── LICENSE
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+├── SUPPORT.md
+└── .github/
+```
+
+**Rule:** Never edit files in `.opencode/skills/finalcode/`. Always edit `source/` files.
+
+## Installation
 
 ### From Source
 
 ```bash
 git clone https://github.com/dratiux/FinalCode.git
+cd FinalCode
+bash scripts/install.sh
 ```
 
-The skill is defined by `SKILL.md` and its reference files in the `references/` directory.
+This copies `source/SKILL.md` and `source/references/` into `.opencode/skills/finalcode/` where OpenCode can discover them.
+
+### PowerShell
+
+```powershell
+pwsh scripts/install.ps1
+```
 
 ### As a Skill File
 
 Download `finalcode.skill` and install it through OpenCode's skill management interface.
+
+### Updating
+
+After pulling changes, re-run the installation script to sync the installed skill:
+
+```bash
+bash scripts/install.sh
+```
+
+The installed copies in `.opencode/skills/finalcode/` are generated artifacts — they are git-ignored and must never be edited directly.
 
 ## Usage
 
@@ -112,39 +163,6 @@ Request final release certification:
 > Run FinalCode in Certify Mode
 
 FinalCode performs a completely new inspection and issues an authoritative certification verdict.
-
-## Repository Structure
-
-```
-FinalCode/
-├── .opencode/                     # OpenCode configuration
-│   ├── commands/
-│   │   └── finalcode.md           # Slash command entry point
-│   └── skills/
-│       └── finalcode/
-│           ├── SKILL.md           # Skill specification (installed copy)
-│           └── references/
-│               ├── examples.md
-│               ├── gates.md
-│               └── security-gate.md
-├── SKILL.md                     # Complete skill specification (source)
-├── references/
-│   ├── examples.md              # Worked example reports
-│   ├── gates.md                 # Detailed Quality Gate checklists
-│   └── security-gate.md         # Security Gate 2.0 checklist
-├── finalcode.skill              # Packaged skill artifact
-├── README.md                    # This file
-├── LICENSE                      # MIT License
-├── CHANGELOG.md                 # Version history
-├── CONTRIBUTING.md              # Contribution guidelines
-├── CODE_OF_CONDUCT.md           # Community standards
-├── SECURITY.md                  # Security policy
-├── SUPPORT.md                   # Help resources
-└── .github/                     # GitHub configuration
-    ├── ISSUE_TEMPLATE/          # Issue templates
-    ├── pull_request_template.md # PR template
-    └── DISCUSSION_TEMPLATE/     # Discussion templates
-```
 
 ## Requirements
 
@@ -183,7 +201,7 @@ FinalCode evaluates repositories across 13 gates:
 
 ## Examples
 
-See [references/examples.md](references/examples.md) for three complete worked examples:
+See [source/references/examples.md](source/references/examples.md) for three complete worked examples:
 
 1. **Clean Repository** — Certify Mode → READY TO SHIP (Exit Code 0)
 2. **Repository With Issues** — Inspect Mode → NOT READY (Exit Code 2)
