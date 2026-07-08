@@ -1,4 +1,8 @@
-# FinalCode
+<p align="center">
+  <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
+</p>
+
+<h1 align="center">FinalCode</h1>
 
 **OpenCode Edition v1.6.2**
 
