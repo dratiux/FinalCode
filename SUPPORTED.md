@@ -78,6 +78,7 @@ OpenCode remains the primary development and testing platform. All quality gates
 
 | Version | Stability | Notes |
 |---------|-----------|-------|
+| 1.8.1 | Stable | Report quality & decision support: executive dashboard, health score formula, confidence model 2.0, risk matrix, effort estimation, smart finding classification, certification checklist, trend summary, runtime capability disclosure, execution metrics, standardized navigation, quality grade, better recommendation engine |
 | 1.8.0 | Stable | Configurable engineering platform: policy engine, project configuration, profiles, baseline, ignore, incremental inspection, PR analysis, machine-readable reports, plugins, universal compatibility, performance improvements, portability, engineering policy summary |
 | 1.7.0 | Stable | Engineering intelligence: decision analysis, repository evolution, smart classification, deployment intelligence, automatic verification pipeline, intelligent repair stop, executive decision summary, engineering roadmap, release readiness predictor, human override awareness |
 | 1.6.2 | Stable | Documentation correction, project ownership clarified |

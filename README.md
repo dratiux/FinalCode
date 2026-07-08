@@ -2,7 +2,7 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
-**OpenCode Edition v1.8.0**
+**OpenCode Edition v1.8.1**
 
 > Production certification and engineering intelligence for OpenCode projects.
 
@@ -105,12 +105,25 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - **Performance Improvements** — reuses metadata, dependency analysis, and architecture maps; avoids duplicate Repair Mode inspections
 - **Repository Portability** — works across language, framework, monorepo/polyrepo, OS, package manager, and deployment platform
 - **Engineering Policy Summary** — every report states Profile, Enabled/Disabled Rules, Configuration Source, and Policy Version
+- **Executive Engineering Dashboard** — compact top-of-report view: status, risk, health score, grade, production readiness, security/maintainability ratings, testing status, remaining effort
+- **Health Score Formula** — weighted category/weight/score/contribution breakdown, never a bare number
+- **Confidence Model 2.0** — Analysis, Evidence, Verification, Runtime, and Repository Coverage plus Overall Reliability, each explained
+- **Risk Matrix** — findings by severity with blocking vs non-blocking split
+- **Engineering Effort Estimation** — per-finding effort (5 min … Multiple days) and repository-wide effort
+- **Smart Finding Classification** — engineering categories (Quick Win, Safe Refactor, Architecture/Infrastructure Decision, Human Decision Required, Breaking Change, Technical Debt, Maintainability, Documentation, Developer Experience)
+- **Certification Checklist** — Build / Type Check / Lint / Tests / Security / Docs / Accessibility / CI-CD / GitHub at a glance
+- **Trend Summary** — Health Score previous → current, resolved/new/regressions, improvement percentage
+- **Runtime Capability Disclosure** — Verified / Runtime Executed / Not Executed / Assumed, never mixed
+- **Execution Metrics** — execution time, files/directories scanned, rules executed, tool calls, reports generated
+- **Standardized Report Navigation** — fixed section order for fast reading
+- **Repository Quality Grade** — A+ … F derived from Health Score, with documented rules
+- **Better Recommendation Engine** — Priority, Estimated Effort, Expected Impact, Prerequisites, Verification Method
 
 ## Version Compatibility
 
 | Item | Value |
 |------|-------|
-| Current Version | 1.8.0 |
+| Current Version | 1.8.1 |
 | Stability | Stable |
 | Minimum OpenCode Version | Not Yet Defined |
 | Recommended OpenCode Version | Latest Stable |
@@ -192,6 +205,19 @@ Support Levels:
 | Performance Improvements | Available | Reused analysis, no duplicate inspections |
 | Repository Portability | Available | Any language, framework, mono/polyrepo, OS |
 | Engineering Policy Summary | Available | Profile and policy visibility in reports |
+| Executive Engineering Dashboard | Available | Compact top-of-report status view |
+| Health Score Formula | Available | Weighted, explained health calculation |
+| Confidence Model 2.0 | Available | Six explained confidence metrics |
+| Risk Matrix | Available | Severity counts + blocking split |
+| Engineering Effort Estimation | Available | Per-finding and repo-wide effort |
+| Smart Finding Classification | Available | Engineering categories per finding |
+| Certification Checklist | Available | Build/type/lint/test/security/CI at a glance |
+| Trend Summary | Available | Health progression vs baseline |
+| Runtime Capability Disclosure | Available | Verified/executed/not-executed/assumed |
+| Execution Metrics | Available | Time, scope, rules, tool calls, reports |
+| Standardized Report Navigation | Available | Fixed section order |
+| Repository Quality Grade | Available | A+ … F with documented rules |
+| Better Recommendation Engine | Available | Priority/effort/impact/prereqs/verification |
 
 Feature Status Values:
 

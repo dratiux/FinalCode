@@ -2,6 +2,49 @@
 
 All notable changes to FinalCode will be documented in this file.
 
+## [1.8.1] - 2026-07-08
+
+### Report Quality & Decision Support
+
+Improves report usability, engineering insight, and human decision support based on real-world execution across many repositories. Does not change the 13 Quality Gates, Security Gate 2.0, or the operational modes — only how results are presented, explained, and acted upon.
+
+### Added
+
+- **Executive Engineering Dashboard** — compact top-of-report view: Overall Status, Overall Risk, Health Score, Engineering Grade, Production Readiness, Security/Maintainability Ratings, Testing Status, Estimated Remaining Effort
+- **Health Score Formula** — weighted category/weight/score/contribution breakdown; the score never appears as a bare number
+- **Confidence Model 2.0** — replaces the single confidence number with Analysis Confidence, Evidence Coverage, Verification Coverage, Runtime Coverage, Repository Coverage, and Overall Reliability; each explained with its reason
+- **Risk Matrix** — findings by severity plus Blocking vs Non-Blocking split
+- **Engineering Effort Estimation** — per-finding Estimated Effort (5 min / 30 min / 2 hours / Half day / Multiple days) and repository-wide effort
+- **Smart Finding Classification (engineering categories)** — each finding tagged Quick Win / Safe Refactor / Architecture Decision / Infrastructure Decision / Human Decision Required / Breaking Change / Technical Debt / Maintainability / Documentation / Developer Experience (alongside the v1.7.0 occurrence classifier)
+- **Certification Checklist** — Build / Type Check / Lint / Tests / Security / Documentation / Accessibility / CI-CD / GitHub Ready at a glance
+- **Trend Summary** — Health Score previous → current, resolved/new/regressions, improvement percentage
+- **Runtime Capability Disclosure** — Verified / Runtime Executed / Not Executed / Assumed, never mixed
+- **Execution Metrics** — execution time, files/directories scanned, rules executed, tool calls, reports generated
+- **Standardized Report Navigation** — fixed section order (Dashboard → Metadata → Coverage → Risk Matrix → Gates → Findings → Security → Metrics → Trend → Checklist → Certification → Appendix)
+- **Repository Quality Grade** — A+ … F derived from Health Score, with documented rules
+- **Better Recommendation Engine** — recommendations include Priority, Estimated Effort, Expected Impact, Prerequisites, Verification Method
+- Updated `references/examples.md` with Health Score Formula, Engineering Grade, Risk Matrix, Certification Checklist, and Trend Summary examples
+
+### Changed
+
+- `source/SKILL.md` "Report Quality & Decision Support (v1.8.1)" section documents all new capabilities
+- Certification Report template rebuilt: Executive Dashboard, Risk Matrix, Health Score Formula, Confidence Model 2.0, Repository Quality Grade, Runtime Capability Disclosure, Execution Metrics, Certification Checklist, Trend Summary, standardized order
+- Finding Format extended: Engineering Category, Estimated Effort, and Recommendation Engine fields
+- Advanced Certification Rules "Confidence Breakdown" replaced by Confidence Model 2.0
+- FINALCODE_SUMMARY.md required sections extended with Engineering Grade and Overall Reliability
+- Documentation Standards metadata updated (Confidence Model 2.0)
+- Inspect and Certify pipelines updated to generate the new report sections
+- Version updated to 1.8.1
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- v1.7.0 Engineering Intelligence and v1.8.0 platform features preserved
+- Finding IDs unchanged
+- Backward compatible with v1.8.0
+
 ## [1.8.0] - 2026-07-08
 
 ### Configurable Engineering Platform

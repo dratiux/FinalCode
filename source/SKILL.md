@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 1.8.0 — OpenCode Edition
+Version: 1.8.1 — OpenCode Edition
 
 ## Identity
 
@@ -202,23 +202,20 @@ Never assume a fix is correct. Every applied fix (Repair Mode only) must be veri
 - **Engineering Recommendations, Architectural Suggestions, and Style Recommendations never block certification**, regardless of severity language used to describe them.
 - Only certify READY TO SHIP when every mandatory Quality Gate has passed.
 
-### Confidence Breakdown
+### Confidence Model 2.0
 
-Replace a single confidence score with a per-category breakdown:
+FinalCode v1.8.1 replaces the single confidence number (and the older per-category breakdown) with a six-metric model where every metric states **why** it has that value. See the **Report Quality & Decision Support (v1.8.1)** section for the full definitions. The model is:
 
-| Category | Description |
+| Metric | Meaning |
 |---|---|
-| Architecture | Confidence in architectural soundness |
-| Code Quality | Confidence in code quality and maintainability |
-| Security | Confidence in security posture |
-| Testing | Confidence in test coverage and quality |
-| Type Safety | Confidence in type system correctness |
-| Accessibility | Confidence in accessibility compliance |
-| UI Consistency | Confidence in UI consistency |
-| Repository Coverage | Confidence based on how much of the repo was inspected |
-| Verification | Confidence based on how thoroughly findings were verified |
+| Analysis Confidence | Confidence in the analytical correctness of findings |
+| Evidence Coverage | Share of findings backed by concrete evidence |
+| Verification Coverage | Share of fixes/claims actually verified |
+| Runtime Coverage | Share of runtime behavior actually observed |
+| Repository Coverage | Share of the repo actually inspected |
+| Overall Reliability | Weighted synthesis — the certification confidence basis |
 
-**Final Confidence** is derived from the category scores, weighted by evidence quality. Confidence must always be derived from measurable evidence — never generated arbitrarily.
+The certification references **Overall Reliability**, never a single arbitrary confidence number. Confidence must always be derived from measurable evidence — never generated arbitrarily.
 
 ### Repository Coverage
 
@@ -687,6 +684,182 @@ Every report includes an **Engineering Policy** section listing: Profile, Enable
 
 ---
 
+## Report Quality & Decision Support (v1.8.1)
+
+FinalCode v1.8.1 improves report usability, engineering insight, and human decision support based on real-world execution across many repositories. It does **not** change the 13 Quality Gates, Security Gate 2.0, or the operational modes — only how results are presented, explained, and acted upon. Every change below is additive to the report and to the v1.7.0 / v1.8.0 intelligence features.
+
+### Executive Engineering Dashboard
+
+Every report begins with a compact dashboard immediately after the banner, before AUDIT METADATA:
+
+| Field | Meaning |
+|---|---|
+| Overall Status | READY TO SHIP / READY WITH WARNINGS / NOT READY |
+| Overall Risk | Low / Medium / High (derived from Risk Matrix + blocking issues) |
+| Health Score | `XX / 100 (Class)` |
+| Engineering Grade | A+ / A / A- / B+ / B / B- / C / D / F (see Repository Quality Grade) |
+| Production Readiness | `XX%` (Health Score vs policy target) |
+| Security Rating | A+ … F |
+| Maintainability Rating | A+ … F (from Maintainability sub-score) |
+| Testing Status | Pass / Fail / Not Measured |
+| Estimated Remaining Effort | Small / Medium / Large |
+
+### Health Score Formula
+
+The Health Score must never appear as a single unexplained number. Always show the weighted breakdown:
+
+| Category | Weight | Score | Contribution |
+|---|---|---|---|
+| Security | 20% | 96 | 19.2 |
+| Architecture | 15% | 88 | 13.2 |
+| … | … | … | … |
+| **Final Health Score** | **100%** | | **76 / 100** |
+
+Contribution = Weight × Score. The final score is the sum of contributions. Explain any category whose score is an estimate rather than a measured value.
+
+### Confidence Model 2.0
+
+Replace the single Overall Confidence number with six explained metrics. Each must state **why** it has that value (evidence, coverage, or assumption):
+
+| Metric | Meaning | Why it has that value |
+|---|---|---|
+| Analysis Confidence | Confidence in the analytical correctness of findings | Based on how deterministic/verifiable the checks were |
+| Evidence Coverage | Share of findings backed by concrete evidence | Count of evidenced vs total findings |
+| Verification Coverage | Share of fixes/claims actually verified | Build/lint/test/lint executed and passed? |
+| Runtime Coverage | Share of runtime behavior actually observed | Runtime exec available? DB/production reachable? |
+| Repository Coverage | Share of the repo actually inspected | From Repository Coverage % |
+| Overall Reliability | Aggregate of the above | Weighted synthesis — used as the certification confidence basis |
+
+The certification references **Overall Reliability**, not a single arbitrary confidence number.
+
+### Risk Matrix
+
+Every report includes a dedicated Risk Matrix:
+
+```
+Critical:   0
+High:       1
+Medium:     2
+Low:        15
+Informational: 4
+
+Blocking Issues:      1   (Critical/High that fail a mandatory gate)
+Non-Blocking Issues:  21  (Low/Informational or non-blocking recommendations)
+```
+
+### Engineering Effort Estimation
+
+Every finding carries an **Estimated Effort** using fixed units: `5 minutes`, `30 minutes`, `2 hours`, `Half day`, `Multiple days`. Additionally estimate **Repository-wide effort** (sum/aggregate of remaining work) reported in the Executive Decision Summary and Dashboard.
+
+### Smart Finding Classification (Engineering Category)
+
+Alongside the v1.7.0 occurrence classifier (Safe / Needs Review / Unsafe for high-frequency findings), every finding receives an engineering-oriented **Engineering Category** that replaces generic labels:
+
+`Quick Win` · `Safe Refactor` · `Architecture Decision` · `Infrastructure Decision` · `Human Decision Required` · `Breaking Change` · `Technical Debt` · `Maintainability` · `Documentation` · `Developer Experience`
+
+This tells the reader at a glance what *kind* of work the finding is, distinct from its severity.
+
+### Certification Checklist
+
+At the end of every report, a Release Checklist summarizes the gating checks:
+
+```
+Build:         PASS
+Type Check:    PASS
+Lint:          PASS
+Tests:         FAIL
+Security:      PASS
+Documentation: PASS
+Accessibility: PASS
+CI/CD:         WARNING
+GitHub Ready:  PASS
+```
+
+Failing a mandatory row blocks certification per the existing Release Blocking Policy.
+
+### Trend Summary
+
+If a baseline (v1.6.0 `BASELINE.md` / `TREND.md`, or v1.8.0 `baseline.json`) exists, show:
+
+| Metric | Value |
+|---|---|
+| Health Score | Previous → Current (Δ) |
+| Resolved Findings | count |
+| New Findings | count |
+| Regressions | count |
+| Improvement Percentage | derived from Health Score delta vs start |
+
+### Runtime Capability Disclosure
+
+Never mix verified information with assumptions. The Reliability Statement is reorganized into:
+
+- **Verified** — confirmed by execution/inspection (Static Analysis, Repository Structure, Architecture, Type Checking, Build Verification, Dead Code Analysis, UI Review, Security Inspection)
+- **Runtime Executed** — checks that actually ran at runtime (if any)
+- **Not Executed** — checks not run this execution (state the reason)
+- **Assumed** — conclusions drawn without execution (state the assumption explicitly)
+
+### Execution Metrics
+
+Every report shows execution cost and scope:
+
+| Metric | Meaning |
+|---|---|
+| Execution Time | Wall-clock duration |
+| Files Scanned | total |
+| Directories | count |
+| Rules Executed | gate + plugin checks run |
+| Tool Calls | build/lint/test/scan invocations |
+| Reports Generated | Markdown + JSON + SARIF count |
+
+### Report Navigation (standard order)
+
+Reports follow a fixed order so readers always know where to look:
+
+1. Executive Dashboard
+2. Repository Metadata
+3. Coverage
+4. Risk Matrix
+5. Quality Gates
+6. Findings
+7. Security Report
+8. Engineering Metrics
+9. Trend Analysis
+10. Certification Checklist
+11. Certification
+12. Appendix (machine-readable note, detailed tables)
+
+### Repository Quality Grade
+
+Generate a letter grade from the Health Score (documented rules):
+
+| Grade | Health Score Range |
+|---|---|
+| A+ | 95–100 |
+| A | 90–94 |
+| A- | 85–89 |
+| B+ | 80–84 |
+| B | 75–79 |
+| B- | 70–74 |
+| C | 60–69 |
+| D | 50–59 |
+| F | 0–49 |
+
+The grade is reported in the Executive Dashboard and never substitutes for the numeric Health Score.
+
+### Better Recommendation Engine
+
+Recommendations (and findings' Recommended Fix) must include:
+
+| Field | Meaning |
+|---|---|
+| Priority | P0 / P1 / P2 / P3 |
+| Estimated Effort | from Engineering Effort Estimation units |
+| Expected Impact | what improves after the fix |
+| Prerequisites | what must exist first (e.g. key rotation, prod access) |
+| Verification Method | how the fix is confirmed |
+
+---
+
 ## Documentation Standards
 
 Every generated report must include the following metadata:
@@ -706,7 +879,7 @@ Every generated report must include the following metadata:
 | Files Scanned | Total files inspected |
 | Files Modified | Files changed during execution |
 | Coverage | Repository coverage percentage |
-| Confidence Breakdown | Per-category confidence scores |
+| Confidence Model 2.0 | Analysis/Evidence/Verification/Runtime/Repository Coverage + Overall Reliability |
 
 ---
 
@@ -735,14 +908,14 @@ FinalCode runs in exactly one of four modes per invocation. If the user doesn't 
 10. Generate Repository Statistics
 11. Generate Security Summary
 11a. If Git and a target branch are available, generate Pull Request Analysis (Files Changed, New/Resolved Findings, Regression Summary, Risk Level, Estimated Review Time)
-12. Generate Overall Confidence
+12. Generate Confidence Model 2.0 (Analysis/Evidence/Verification/Runtime/Repository Coverage + Overall Reliability)
 12a. Generate Repository Evolution (compare against prior executions)
 12b. Generate Baseline Analysis (New / Resolved / Regression / Severity Changes vs `.finalcode/baseline.json`, if configured)
 12c. Generate Executive Decision Summary
 12d. Generate Engineering Roadmap
 12e. Generate Release Readiness Predictor
 12f. Apply Human Override Awareness (suppress acknowledged; re-raise only on condition change)
-13. Produce the FinalCode Certification Report (including Engineering Policy, Baseline Analysis, PR Analysis, and all intelligence sections)
+13. Produce the FinalCode Certification Report (including the Executive Dashboard, Engineering Policy, Risk Matrix, Confidence Model 2.0, Health Score formula, Repository Quality Grade, Runtime Capability Disclosure, Execution Metrics, Baseline Analysis, PR Analysis, all intelligence sections, and the Certification Checklist)
 14. Emit machine-readable reports: `.finalcode/reports/<timestamp>-inspect.json` and `.finalcode/reports/<timestamp>-inspect.sarif`
 15. Append snapshot to `.finalcode/TREND.md`
 16. Compare against `.finalcode/BASELINE.md` (if exists)
@@ -845,7 +1018,7 @@ Ends with a FinalCode Refactoring Plan and a FinalCode Certification Report that
 6a. Apply Smart Finding Classification (collapse Safe instances), attach Decision Analysis and Deployment Intelligence
 6b. Generate Baseline Analysis (New / Resolved / Regression / Severity Changes vs `.finalcode/baseline.json`, if configured)
 7. Verify certification eligibility
-8. Generate the FinalCode Certification Report including Engineering Policy, Baseline Analysis, PR Analysis, Repository Evolution, Executive Decision Summary, Engineering Roadmap, and Release Readiness Predictor
+8. Generate the FinalCode Certification Report including the Executive Dashboard, Engineering Policy, Risk Matrix, Confidence Model 2.0, Health Score formula, Repository Quality Grade, Runtime Capability Disclosure, Execution Metrics, Baseline Analysis, PR Analysis, Repository Evolution, Executive Decision Summary, Engineering Roadmap, Release Readiness Predictor, and the Certification Checklist
 9. Generate `.finalcode/reports/<timestamp>-certify.md`
 9a. Emit machine-readable reports: `.finalcode/reports/<timestamp>-certify.json` and `.finalcode/reports/<timestamp>-certify.sarif`
 10. Append to `.finalcode/CERTIFICATION_HISTORY.md`
@@ -1142,6 +1315,8 @@ Always regenerated. This is the **Executive Engineering Summary** — designed t
 | Audit Date | When the audit was performed |
 | FinalCode Version | Version used |
 | Health Score | Repository Health Score (0–100) with classification |
+| Engineering Grade | A+ … F (derived from Health Score) |
+| Overall Reliability | Confidence Model 2.0 Overall Reliability percentage |
 | Files Added | New files created |
 | Files Modified | Files changed |
 | Files Deleted | Files removed |
@@ -1167,7 +1342,7 @@ Always regenerated. This is the **Executive Engineering Summary** — designed t
 | Repository Evolution | Health progression, findings fixed / introduced / remaining vs prior runs |
 | Certification Recommendation | READY TO SHIP / READY WITH WARNINGS / NOT READY |
 | Overall Risk | Risk assessment |
-| Overall Confidence | Confidence percentage |
+| Overall Reliability | Confidence Model 2.0 percentage |
 
 ---
 
@@ -1277,6 +1452,8 @@ Each individual finding (Inspect Mode, Repair Mode, and Refactor Mode) must incl
 - Severity (per Severity Calibration)
 - Status (per Finding Status)
 - Category
+- Engineering Category (per Smart Finding Classification v1.8.1 — Quick Win / Safe Refactor / Architecture Decision / Infrastructure Decision / Human Decision Required / Breaking Change / Technical Debt / Maintainability / Documentation / Developer Experience)
+- Estimated Effort (per Engineering Effort Estimation — 5 minutes / 30 minutes / 2 hours / Half day / Multiple days)
 - Confidence
 - Evidence
 - Affected Files
@@ -1284,10 +1461,10 @@ Each individual finding (Inspect Mode, Repair Mode, and Refactor Mode) must incl
 - Root Cause Classification (per Root Cause Intelligence)
 - Preventive Recommendation (per Root Cause Intelligence — never leave blank)
 - Impact
-- Recommended Fix
+- Recommended Fix (with Recommendation Engine fields: Priority (P0–P3), Estimated Effort, Expected Impact, Prerequisites, Verification Method)
 - Verification Method
 - Decision Analysis (required when the finding is non-automatable — see Decision Intelligence under Engineering Intelligence)
-- Smart Finding Classification (required when the finding has many occurrences — Safe / Needs Review / Unsafe; collapse Safe instances)
+- Smart Finding Classification (occurrence classifier, required when the finding has many occurrences — Safe / Needs Review / Unsafe; collapse Safe instances)
 - Deployment Intelligence (required for infrastructure-related findings — see Deployment Intelligence under Engineering Intelligence)
 
 Security Vulnerabilities additionally include: CVE Category (if applicable), Attack Vector.
@@ -1307,9 +1484,22 @@ This is the fixed, standardized output format for every mode. Always produce the
 FINALCODE CERTIFICATION REPORT
 ==================================================
 
+EXECUTIVE ENGINEERING DASHBOARD
+--------------------------------------------------
+Overall Status:         READY TO SHIP | READY WITH WARNINGS | NOT READY
+Overall Risk:            Low | Medium | High
+Health Score:            XX / 100 (Class)
+Engineering Grade:       A+ | A | A- | B+ | B | B- | C | D | F
+Production Readiness:    XX%  (Health Score vs policy target)
+Security Rating:         A+ | A | B | C | D | F
+Maintainability Rating:  A+ | A | B | C | D | F
+Testing Status:          Pass | Fail | Not Measured
+Estimated Remaining Effort:  Small | Medium | Large
+
+--------------------------------------------------
 AUDIT METADATA
 --------------------------------------------------
-Specification Version:  1.8.0 (OpenCode Edition)
+Specification Version:  1.8.1 (OpenCode Edition)
 Audit Engine Version:    <internal version>
 Report Version:          <increments per re-run>
 Repository Version:      <tag or branch name>
@@ -1344,6 +1534,18 @@ Assets Inspected:          <e.g. images, fonts, static UI assets>
 Uninspectable Portions:     <none, or explicitly flagged paths and why>
 Coverage Percentage:        <XX%>
 Coverage Limitations:       <e.g. database unavailable, external APIs unavailable>
+
+-------------------------------------------------
+RISK MATRIX
+-------------------------------------------------
+Critical:           0
+High:               1
+Medium:             2
+Low:                15
+Informational:      4
+
+Blocking Issues:      1   (Critical/High failing a mandatory gate)
+Non-Blocking Issues:  21  (Low/Informational or non-blocking recommendations)
 
 --------------------------------------------------
 QUALITY GATE SUMMARY
@@ -1430,40 +1632,37 @@ Issues Remaining:        <count>
 Security Findings:       <count>
 Repository Coverage:     <e.g. percentage or "full" / "partial — see above">
 
---------------------------------------------------
-CONFIDENCE BREAKDOWN
---------------------------------------------------
-Architecture:         XX%
-Code Quality:         XX%
-Security:             XX%
-Testing:              XX%
-Type Safety:          XX%
-Accessibility:        XX%
-UI Consistency:       XX%
-Repository Coverage:  XX%
-Verification:         XX%
-Final Confidence:     XX%
+-------------------------------------------------
+CONFIDENCE MODEL 2.0
+-------------------------------------------------
+Analysis Confidence:      XX%  (why: based on how deterministic/verifiable the checks were)
+Evidence Coverage:        XX%  (why: N of M findings backed by concrete evidence)
+Verification Coverage:    XX%  (why: build/lint/test executed and passed? or Not Configured)
+Runtime Coverage:         XX%  (why: runtime exec available? DB/production reachable?)
+Repository Coverage:      XX%  (why: from Repository Coverage %)
+Overall Reliability:      XX%  (weighted synthesis of the above — certification confidence basis)
+
+(Each metric states its reason; never present a bare percentage without the why.)
 
 --------------------------------------------------
-RELIABILITY STATEMENT
+RUNTIME CAPABILITY DISCLOSURE
 --------------------------------------------------
 Verified:
-  Static Analysis
-  Repository Structure
-  Architecture
-  Type Checking
-  Build Verification
-  Documentation
-  Dead Code Analysis
-  UI Review
-  Security Inspection
+  Static Analysis, Repository Structure, Architecture, Type Checking,
+  Build Verification, Documentation, Dead Code Analysis, UI Review, Security Inspection
 
-Not Performed:
-  Runtime Load Testing
-  Penetration Testing
-  Cross-browser Testing
-  Real-user Testing
-  Production Deployment Validation
+Runtime Executed:
+  <checks that actually ran at runtime, or "none this execution">
+
+Not Executed:
+  <checks not run — state the reason, e.g. "Runtime Load Testing — no runtime harness",
+   "Penetration Testing — out of scope", "Production Deployment Validation — no prod access">
+
+Assumed:
+  <conclusions drawn without execution — state the assumption explicitly, e.g.
+   "Dependency vulnerability scan not executed; static review found no obvious vulnerable patterns">
+
+(Never mix Verified information with Assumed. Each claim is tagged with its capability.)
 
 --------------------------------------------------
 ENGINEERING METRICS
@@ -1483,8 +1682,24 @@ Type Check:                Pass | Fail | Not Configured
 
 --------------------------------------------------
 REPOSITORY HEALTH SCORE
---------------------------------------------------
+-------------------------------------------------
 Health Score:              XX / 100 (Excellent | Good | Fair | Poor)
+
+Weighted Formula (never show a bare number):
+  Category        Weight  Score  Contribution
+  Security        20%     XX     19.2
+  Architecture    15%     XX     13.2
+  Maintainability 15%     XX     13.0
+  Performance     10%     XX     09.0
+  Documentation   10%     XX     09.5
+  Accessibility   10%     XX     10.0
+  Testing         10%     XX     08.0
+  Type Safety      5%     XX     04.8
+  GitHub Ready     5%     XX     05.0
+  Dead Code        0%*    XX     00.0
+  Final Health Score 100%          XX / 100
+  (*Dead Code contributes via Maintainability in the weighted model;
+   show the actual weights used this run if a profile overrides them)
 
 Category Breakdown:
   Security:          XX/100
@@ -1498,11 +1713,25 @@ Category Breakdown:
   GitHub Readiness:  XX/100
   Dead Code:         XX/100
 
---------------------------------------------------
+-------------------------------------------------
+REPOSITORY QUALITY GRADE
+-------------------------------------------------
+Engineering Grade:   A+ | A | A- | B+ | B | B- | C | D | F
+
+Grade Rules (derived from Health Score):
+  A+  95–100    A  90–94    A- 85–89
+  B+  80–84     B  75–79    B- 70–74
+  C   60–69     D  50–59    F  0–49
+
+(The grade summarizes the numeric Health Score; it never replaces it.)
+
+-------------------------------------------------
 EXECUTIVE SUMMARY
 --------------------------------------------------
 Repository Status:    Production Ready | Ready With Warnings | Not Ready
 Health Score:         XX / 100 (Classification)
+Engineering Grade:     A+ | A | A- | B+ | B | B- | C | D | F
+Overall Reliability:   XX%  (from Confidence Model 2.0)
 
 Strengths:
   1. <strength>
@@ -1600,23 +1829,57 @@ Estimated Review Time:   <e.g. ≈ 25 min>
 (If not available: "No Git / target branch information — PR analysis skipped")
 
 -------------------------------------------------
+EXECUTION METRICS
+-------------------------------------------------
+Execution Time:       <wall-clock duration>
+Files Scanned:        <count>
+Directories:          <count>
+Rules Executed:       <gate + plugin checks run>
+Tool Calls:           <build/lint/test/scan invocations>
+Reports Generated:    <Markdown + JSON + SARIF count>
+
+-------------------------------------------------
+TREND SUMMARY (when a baseline exists)
+-------------------------------------------------
+Health Score:        Previous → Current (Δ)
+Resolved Findings:    <count>
+New Findings:         <count>
+Regressions:          <count>
+Improvement Percentage:  <derived from Health Score delta vs start>
+
+-------------------------------------------------
 TREND SNAPSHOT
---------------------------------------------------
+-------------------------------------------------
 <appended to .finalcode/TREND.md — not duplicated in report>
 
---------------------------------------------------
+-------------------------------------------------
 BASELINE COMPARISON
---------------------------------------------------
+-------------------------------------------------
 <compared against .finalcode/BASELINE.md if it exists>
 
---------------------------------------------------
+-------------------------------------------------
+CERTIFICATION CHECKLIST
+-------------------------------------------------
+Build:                PASS | FAIL | Not Configured
+Type Check:           PASS | FAIL | Not Configured
+Lint:                 PASS | FAIL | Not Configured
+Tests:                PASS | FAIL | Not Measured
+Security:             PASS | FAIL
+Documentation:        PASS | FAIL
+Accessibility:        PASS | FAIL
+CI/CD:                PASS | WARNING | Not Configured
+GitHub Ready:         PASS | FAIL
+
+(A failing mandatory row blocks certification per the Release Blocking Policy.)
+
+-------------------------------------------------
 CERTIFICATION
---------------------------------------------------
+-------------------------------------------------
 FinalCode provides engineering certification based on repository inspection.
 It does not guarantee the absence of bugs, security vulnerabilities,
 runtime failures, or production incidents.
 
-Overall Confidence:   XX%
+Overall Reliability:  XX%  (from Confidence Model 2.0)
 Certification Status: READY TO SHIP | READY WITH WARNINGS | NOT READY | NO PROJECT FOUND
 Exit Code:            0 | 1 | 2 | 3
 ==================================================
@@ -1636,6 +1899,6 @@ Machine-Readable Reports: this run also emitted
 | 2 | NOT READY — one or more mandatory gates FAIL, or unresolved Critical/High findings |
 | 3 | NO PROJECT FOUND — Phase 0 could not locate a repository |
 
-Never certify **READY TO SHIP** unless every mandatory Quality Gate has passed. Overall Confidence must be computed per **Confidence Breakdown** (Advanced Certification Rules) — never an arbitrary number.
+Never certify **READY TO SHIP** unless every mandatory Quality Gate has passed. Overall Reliability must be computed per **Confidence Model 2.0** (Advanced Certification Rules) — never an arbitrary number.
 
 See `references/examples.md` for full worked examples of this report (clean repo, repo with multiple issues, and the no-project-found case) — use these as the template for formatting and level of detail.
