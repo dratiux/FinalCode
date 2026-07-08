@@ -5,6 +5,30 @@ All notable changes to FinalCode will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2026-07-08
+
+### Command Integration Update
+
+Integrates FinalCode with OpenCode's Slash Command system.
+
+### Added
+
+- **Slash Command** — `/finalcode` command with mode argument support (`inspect`, `repair`, `refactor`, `certify`)
+- **OpenCode Skill Location** — skill files installed to `.opencode/skills/finalcode/` per OpenCode conventions
+- **Command Entry Point** — `.opencode/commands/finalcode.md` delegates to the FinalCode Skill
+
+### Changed
+
+- Repository structure updated to include `.opencode/` directory
+- README.md updated with Slash Commands documentation
+
+### Not Modified
+
+- Skill behavior unchanged
+- Quality Gates unchanged
+- Auditing engine unchanged
+- Certification logic unchanged
+
 ## [1.4.0] - 2026-07-08
 
 ### Precision, Reliability & Refactoring Update

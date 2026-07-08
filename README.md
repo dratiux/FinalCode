@@ -1,6 +1,6 @@
 # FinalCode
 
-**OpenCode Edition v1.4**
+**OpenCode Edition v1.4.1**
 
 > The official OpenCode production certification and repository auditing system.
 
@@ -48,6 +48,20 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - `Run FinalCode in Repair Mode` — activates Repair Mode
 - `Run FinalCode in Refactor Mode` — activates Refactor Mode
 - `Run FinalCode in Certify Mode` — activates Certify Mode
+
+## Slash Commands
+
+FinalCode integrates with OpenCode's Slash Command system. Use the `/finalcode` command for quick access:
+
+| Command | Description |
+|---------|-------------|
+| `/finalcode` | Run FinalCode in Inspect Mode (default) |
+| `/finalcode inspect` | Run FinalCode in Inspect Mode |
+| `/finalcode repair` | Run FinalCode in Repair Mode |
+| `/finalcode refactor` | Run FinalCode in Refactor Mode |
+| `/finalcode certify` | Run FinalCode in Certify Mode |
+
+The slash command is a lightweight entry point that delegates to the FinalCode Skill. No auditing logic is duplicated — the command simply invokes the skill with the appropriate mode.
 
 ## Installation
 
@@ -103,12 +117,22 @@ FinalCode performs a completely new inspection and issues an authoritative certi
 
 ```
 FinalCode/
-├── finalcode.skill              # Packaged skill artifact
-├── SKILL.md                     # Complete skill specification
+├── .opencode/                     # OpenCode configuration
+│   ├── commands/
+│   │   └── finalcode.md           # Slash command entry point
+│   └── skills/
+│       └── finalcode/
+│           ├── SKILL.md           # Skill specification (installed copy)
+│           └── references/
+│               ├── examples.md
+│               ├── gates.md
+│               └── security-gate.md
+├── SKILL.md                     # Complete skill specification (source)
 ├── references/
 │   ├── examples.md              # Worked example reports
 │   ├── gates.md                 # Detailed Quality Gate checklists
 │   └── security-gate.md         # Security Gate 2.0 checklist
+├── finalcode.skill              # Packaged skill artifact
 ├── README.md                    # This file
 ├── LICENSE                      # MIT License
 ├── CHANGELOG.md                 # Version history
