@@ -24,10 +24,13 @@ This information will help us triage your report more quickly.
 
 ## Supported Versions
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.3.x   | :white_check_mark: |
-| < 1.3   | :x:                |
+| Version | Supported |
+| ------- | --------- |
+| 1.6.x   | Yes       |
+| 1.5.x   | Yes       |
+| 1.4.x   | Yes       |
+| 1.3.x   | Yes       |
+| < 1.3   | No        |
 
 ## Security Considerations
 

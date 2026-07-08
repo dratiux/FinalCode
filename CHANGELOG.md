@@ -5,6 +5,46 @@ All notable changes to FinalCode will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.1] - 2026-07-08
+
+### Documentation and Compatibility Update
+
+Improves documentation quality, compatibility transparency, and framework support. No operational logic, quality gates, report generation, slash commands, or runtime behavior changes.
+
+### Added
+
+- **Version Compatibility** — new section in README with version, stability, OpenCode version requirements, breaking changes, and migration status
+- **Compatibility Matrix** — new section in README with support levels for 18 platforms and frameworks
+- **Feature Matrix** — new section in README with status and description for all 16 features
+- **SUPPORTED.md** — dedicated support policy file with recommended environments, support scope, and version history
+- **Table of Contents** — new navigation section in README with links to all major sections
+
+### Changed
+
+- README.md version updated to 1.6.1
+- README.md navigation updated with new sections
+- README.md Source Layout updated to include SUPPORTED.md
+- README.md Support section updated to reference SUPPORTED.md
+- README.md Requirements section updated to reference Compatibility Matrix
+
+### Documentation Style
+
+- All documentation uses Title Case for headings
+- No emojis or decorative symbols in any documentation file
+- Tables used instead of lists where appropriate
+- Consistent phrasing across README.md, CHANGELOG.md, SUPPORT.md, SECURITY.md, CONTRIBUTING.md, SUPPORTED.md
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification logic unchanged
+- Slash Commands unchanged
+- Report format unchanged
+- Runtime behavior unchanged
+- Backward compatible with v1.6.0
+
 ## [1.6.0] - 2026-07-08
 
 ### Engineering Intelligence, Historical Analytics & Runtime Behavior Analysis

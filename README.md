@@ -1,12 +1,37 @@
 # FinalCode
 
-**OpenCode Edition v1.6.0**
+**OpenCode Edition v1.6.1**
 
 > The official OpenCode production certification and engineering intelligence platform.
 
 FinalCode certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates. It produces a standardized **FinalCode Certification Report** with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY. It also generates persistent engineering documentation, commit messages, pull request descriptions, root cause analysis, historical trend tracking, and repository health scoring.
 
 ---
+
+## Table of Contents
+
+- [Philosophy](#philosophy)
+- [Features](#features)
+- [Version Compatibility](#version-compatibility)
+- [Compatibility Matrix](#compatibility-matrix)
+- [Feature Matrix](#feature-matrix)
+- [Operational Modes](#operational-modes)
+- [Slash Commands](#slash-commands)
+- [Source Layout](#source-layout)
+- [Installation](#installation)
+- [Engineering Documentation](#engineering-documentation)
+- [Usage](#usage)
+- [Requirements](#requirements)
+- [Quality Gates](#quality-gates)
+- [Certification Verdict](#certification-verdict)
+- [Examples](#examples)
+- [Support Policy](#support-policy)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [Security](#security)
+- [Support](#support)
+- [License](#license)
+- [Credits](#credits)
 
 ## Philosophy
 
@@ -45,6 +70,77 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - **Pull Request Assistance** — GitHub-ready PR description generation
 - **Change Budget** and regression protection rules
 - **Full repository coverage** analysis with transparency metrics
+
+## Version Compatibility
+
+| Item | Value |
+|------|-------|
+| Current Version | 1.6.1 |
+| Stability | Stable |
+| Minimum OpenCode Version | Not Yet Defined |
+| Recommended OpenCode Version | Latest Stable |
+| Tested OpenCode Version | Not Yet Defined |
+| Breaking Changes | None |
+| Migration Required | No |
+
+## Compatibility Matrix
+
+| Platform / Framework | Support Level | Notes |
+|----------------------|---------------|-------|
+| OpenCode | Fully Supported | Primary target |
+| React | Fully Supported | Production ready |
+| Next.js | Fully Supported | App Router and Pages Router |
+| Electron | Fully Supported | Desktop applications |
+| Vite | Fully Supported | Default build system |
+| TypeScript | Fully Supported | Recommended |
+| JavaScript | Fully Supported | Supported |
+| Node.js | Fully Supported | LTS recommended |
+| Hono | Fully Supported | Tested |
+| Express | Supported | Standard projects |
+| Cloudflare Workers | Supported | Tested |
+| Vue | Experimental | Limited testing |
+| Nuxt | Experimental | Limited testing |
+| Svelte | Experimental | Limited testing |
+| Astro | Experimental | Limited testing |
+| Laravel | Not Tested | Unknown compatibility |
+| Django | Not Tested | Unknown compatibility |
+| ASP.NET | Not Tested | Unknown compatibility |
+| Spring | Not Tested | Unknown compatibility |
+
+Support Levels:
+
+- **Fully Supported** — Tested and verified in production workflows
+- **Supported** — Works with standard project structures
+- **Experimental** — Limited testing, may require adjustments
+- **Not Tested** — No official validation performed
+
+## Feature Matrix
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Inspect Mode | Available | Repository inspection and audit |
+| Repair Mode | Available | Applies verified fixes in priority order |
+| Refactor Mode | Available | Improves maintainability without behavior change |
+| Certify Mode | Available | Release certification and sign-off |
+| Security Gate 2.0 | Available | 14-category security analysis |
+| Testing Gate | Available | Test evaluation and coverage analysis |
+| Engineering Metrics | Available | Repository complexity and quality metrics |
+| Health Score | Available | Weighted repository quality score (0-100) |
+| Trend Analysis | Available | Historical quality tracking over time |
+| Baseline Analysis | Available | First inspection comparison |
+| Root Cause Intelligence | Available | Root cause classification and prevention |
+| Repair Quality Assessment | Available | Repair effectiveness evaluation |
+| Executive Engineering Summary | Available | 30-second management summary |
+| Commit Assistance | Available | Conventional Commits message generation |
+| Pull Request Assistance | Available | GitHub PR description generation |
+| Engineering Documentation | Available | Automatic report generation |
+
+Feature Status Values:
+
+- **Available** — Stable and ready for use
+- **Experimental** — In development, may change
+- **Planned** — Scheduled for future release
+- **Deprecated** — Will be removed in a future version
 
 ## Operational Modes
 
@@ -112,6 +208,7 @@ FinalCode/
 ├── CODE_OF_CONDUCT.md
 ├── SECURITY.md
 ├── SUPPORT.md
+├── SUPPORTED.md
 └── .github/
 ```
 
@@ -227,6 +324,8 @@ FinalCode performs a completely new inspection, issues an authoritative certific
 - An AI model capable of processing the skill specification
 - Access to the repository you want to audit
 
+For detailed compatibility information, see the [Compatibility Matrix](#compatibility-matrix) and [Version Compatibility](#version-compatibility) sections.
+
 ## Quality Gates
 
 FinalCode evaluates repositories across 13 gates:
@@ -264,6 +363,10 @@ See [source/references/examples.md](source/references/examples.md) for three com
 2. **Repository With Issues** — Inspect Mode → NOT READY (Exit Code 2)
 3. **Missing Repository** — NO PROJECT FOUND (Exit Code 3)
 
+## Support Policy
+
+FinalCode officially guarantees only OpenCode-based workflows. Support for other frameworks depends on project structure and available tooling. See [SUPPORTED.md](SUPPORTED.md) for the complete support policy and compatibility details.
+
 ## Roadmap
 
 - [ ] Enhanced AI model support and prompt optimization
@@ -289,6 +392,7 @@ To report security vulnerabilities, please see [SECURITY.md](SECURITY.md).
 - [GitHub Discussions](../../discussions) — Ask questions
 - [Issues](../../issues) — Report bugs
 - [SUPPORT.md](SUPPORT.md) — Get help
+- [SUPPORTED.md](SUPPORTED.md) — Support policy and compatibility
 
 ## License
 

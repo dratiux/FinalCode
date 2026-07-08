@@ -7,10 +7,11 @@ If you need help using FinalCode, here are the available resources:
 ### Documentation
 
 - [README](README.md) - Project overview, installation, and usage
-- [SKILL.md](SKILL.md) - Complete skill specification
-- [Examples](references/examples.md) - Worked example reports
-- [Quality Gates](references/gates.md) - Detailed gate checklists
-- [Security Gate](references/security-gate.md) - Security checklist
+- [SKILL.md](source/SKILL.md) - Complete skill specification
+- [Examples](source/references/examples.md) - Worked example reports
+- [Quality Gates](source/references/gates.md) - Detailed gate checklists
+- [Security Gate](source/references/security-gate.md) - Security checklist
+- [SUPPORTED.md](SUPPORTED.md) - Support policy and compatibility
 
 ### Community Support
 

@@ -34,12 +34,25 @@ Enhancement suggestions are welcome. Please include:
 
 ```
 FinalCode/
-├── SKILL.md                    # Main skill specification
-├── finalcode.skill             # Packaged skill artifact
-└── references/
-    ├── examples.md             # Worked example reports
-    ├── gates.md                # Detailed Quality Gate checklists
-    └── security-gate.md        # Security Gate 2.0 checklist
+├── source/                       # Skill specification (single source of truth)
+│   ├── SKILL.md                  # Main skill specification
+│   └── references/
+│       ├── examples.md           # Worked example reports
+│       ├── gates.md              # Detailed Quality Gate checklists
+│       └── security-gate.md      # Security Gate 2.0 checklist
+├── .opencode/                    # OpenCode configuration
+│   ├── commands/
+│   │   └── finalcode.md          # Slash command entry point
+│   └── skills/
+│       └── finalcode/            # Generated (never edit manually)
+├── scripts/
+│   ├── install.sh                # Installation script (bash)
+│   └── install.ps1               # Installation script (PowerShell)
+├── finalcode.skill               # Packaged skill artifact
+├── README.md
+├── CHANGELOG.md
+├── SUPPORTED.md
+└── .github/
 ```
 
 ### Documentation Standards
@@ -54,7 +67,7 @@ FinalCode/
 Always use:
 - **FinalCode** (not "Final Gate")
 - **OpenCode Edition** (for this version)
-- **Inspect**, **Repair**, **Certify** (for the three modes)
+- **Inspect**, **Repair**, **Refactor**, **Certify** (for the four modes)
 
 ### Commit Messages
 
