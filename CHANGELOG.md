@@ -2,6 +2,48 @@
 
 All notable changes to FinalCode will be documented in this file.
 
+## [1.8.0] - 2026-07-08
+
+### Configurable Engineering Platform
+
+Transforms FinalCode from a fixed production certifier into a configurable engineering platform usable by any software project. Fully backward compatible: the 13 Quality Gates, Security Gate 2.0, all four operational modes, the v1.7.0 Engineering Intelligence features, and the documentation system are preserved unchanged. New capabilities only change which rules apply, how results are scoped, and what formats are emitted.
+
+### Added
+
+- **Engineering Policy Engine** — hardcoded certification rules become configurable policy (required health score, mandatory tests/CI/Security Gate, `any` allowance, max complexity, documentation/accessibility requirements); default production policy preserves v1.7.0 behavior
+- **Project Configuration** — optional `finalcode.config.json` / `.finalcode/config.json` (profile, enabled/disabled/required gates, severity overrides, targets, testing/CI/documentation requirements, refactor preferences, ignore paths, policy levers)
+- **Project Profiles** — 11 built-in profiles (Production, Enterprise, Open Source, Library, CLI, Browser Extension, Desktop, Web Application, API, Mobile, MVP) that auto-adjust certification requirements
+- **Baseline System** — `.finalcode/baseline.json` records known issues; reports show Baseline / New / Resolved / Regression / Severity Changes findings
+- **Ignore System** — `.finalcodeignore` (`.gitignore` syntax) excludes paths; ignored files appear in Repository Coverage
+- **Incremental Inspection** — Full / Incremental / Dependency Based scoping when Git is available
+- **Pull Request Analysis** — branch-vs-target comparison (Files Changed, New/Resolved Findings, Regression Summary, Risk Level, Estimated Review Time) in Inspect and Certify Modes
+- **Machine-Readable Reports** — `report.json` (every finding: id, severity, category, confidence, gate, status, files, recommendation) and SARIF 2.1.0 `report.sarif` (GitHub Code Scanning compatible) alongside Markdown
+- **Plugin Architecture** — `plugins/` extend FinalCode with framework-specific gates, checks, recommendations, and repair hints (React, Next.js, Vue, Angular, Electron, Node.js, Cloudflare Workers, Supabase, Express, Fastify); additive only, never modify core behavior
+- **Universal Compatibility** — automatic framework detection; never fails on unknown frameworks; audits with generic rules
+- **Performance Improvements** — reuse repository metadata, dependency analysis, and architecture maps; avoid duplicate inspections during Repair Mode
+- **Repository Portability** — works across language, framework, monorepo/polyrepo, OS, package manager, deployment platform
+- **Engineering Policy Summary** — every report states Profile, Enabled/Disabled Rules, Configuration Source, Policy Version, Health Score Target
+- **New reference docs** — `source/references/configuration.md` and `source/references/plugins.md`
+
+### Changed
+
+- `source/SKILL.md` "Configurable Engineering Platform (v1.8.0)" section documents all new capabilities
+- All four mode pipelines updated: configuration/policy loading (step 0), profile selection, baseline analysis, ignore application, inspection-type determination, plugin activation, PR analysis, and machine-readable report emission
+- Report template extended: AUDIT METADATA (Profile, Inspection Type, Configuration Source), REPOSITORY METADATA (Active Plugins), ENGINEERING POLICY, BASELINE ANALYSIS, PULL REQUEST ANALYSIS, and a machine-readable note
+- Documentation Standards metadata extended with Profile, Inspection Type, Configuration Source
+- Engineering Documentation System directory and artifact tables updated: `config.json`, `baseline.json`, `plugins/`, and `.json`/`.sarif` reports
+- `references/gates.md` updated with a Configurable Gates note (enabled/disabled/required, profiles, plugins)
+- Version updated to 1.8.0
+
+### Not Modified
+
+- 13 Quality Gates unchanged (only scoping/blocking made configurable)
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- v1.7.0 Engineering Intelligence features preserved
+- Finding IDs unchanged
+- Backward compatible with v1.7.x
+
 ## [1.7.0] - 2026-07-08
 
 ### Engineering Intelligence

@@ -2,7 +2,7 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
-**OpenCode Edition v1.7.0**
+**OpenCode Edition v1.8.0**
 
 > Production certification and engineering intelligence for OpenCode projects.
 
@@ -31,6 +31,7 @@ FinalCode is not affiliated with, endorsed by, sponsored by, or maintained by th
 - [Source Layout](#source-layout)
 - [Installation](#installation)
 - [Engineering Documentation](#engineering-documentation)
+- [Configuration](#configuration)
 - [Usage](#usage)
 - [Requirements](#requirements)
 - [Quality Gates](#quality-gates)
@@ -91,12 +92,25 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - **Engineering Roadmap** — remaining work grouped into Immediate / Short Term / Medium Term / Long Term
 - **Release Readiness Predictor** — current certification, probability of READY TO SHIP, remaining work, and estimated completion effort
 - **Human Override Awareness** — accept/defer recommendations recorded in `.finalcode/OVERRIDES.md`; acknowledged items are not re-litigated unless project conditions change
+- **Engineering Policy Engine** — hardcoded certification rules become configurable policy (required health score, tests, `any` allowance, max complexity, mandatory CI/Security Gate, docs, accessibility)
+- **Project Configuration** — optional `finalcode.config.json` / `.finalcode/config.json` defines profile, enabled/disabled/required gates, severity overrides, targets, and ignore paths; defaults to production policy when absent
+- **Project Profiles** — built-in profiles (Production, Enterprise, Open Source, Library, CLI, Browser Extension, Desktop, Web Application, API, Mobile, MVP) auto-adjust certification requirements
+- **Baseline System** — `.finalcode/baseline.json` records known issues; reports show New / Resolved / Regression / Severity Changes
+- **Ignore System** — `.finalcodeignore` excludes files/folders; ignored paths appear in Repository Coverage
+- **Incremental Inspection** — Full / Incremental / Dependency Based scoping when Git is available
+- **Pull Request Analysis** — compares branch vs target: Files Changed, New/Resolved Findings, Regression Summary, Risk Level, Estimated Review Time (Inspect & Certify)
+- **Machine-Readable Reports** — `report.json` and SARIF 2.1.0 (`report.sarif`) alongside Markdown, GitHub Code Scanning compatible
+- **Plugin Architecture** — `plugins/` extend FinalCode with framework-specific gates, checks, and repair logic (React, Next.js, Vue, Angular, Electron, Node.js, Cloudflare Workers, Supabase, Express, Fastify) without modifying core behavior
+- **Universal Compatibility** — automatic framework detection; never fails on unknown frameworks; audits with generic rules
+- **Performance Improvements** — reuses metadata, dependency analysis, and architecture maps; avoids duplicate Repair Mode inspections
+- **Repository Portability** — works across language, framework, monorepo/polyrepo, OS, package manager, and deployment platform
+- **Engineering Policy Summary** — every report states Profile, Enabled/Disabled Rules, Configuration Source, and Policy Version
 
 ## Version Compatibility
 
 | Item | Value |
 |------|-------|
-| Current Version | 1.7.0 |
+| Current Version | 1.8.0 |
 | Stability | Stable |
 | Minimum OpenCode Version | Not Yet Defined |
 | Recommended OpenCode Version | Latest Stable |
@@ -165,6 +179,19 @@ Support Levels:
 | Engineering Roadmap | Available | Prioritized Immediate / Short / Medium / Long Term work |
 | Release Readiness Predictor | Available | Certification, ship probability, remaining effort |
 | Human Override Awareness | Available | Accept/defer tracking in OVERRIDES.md |
+| Engineering Policy Engine | Available | Configurable certification rules |
+| Project Configuration | Available | finalcode.config.json / .finalcode/config.json |
+| Project Profiles | Available | 11 built-in profiles auto-adjust requirements |
+| Baseline System | Available | Known-issue tracking via baseline.json |
+| Ignore System | Available | .finalcodeignore path exclusion |
+| Incremental Inspection | Available | Full / Incremental / Dependency Based |
+| Pull Request Analysis | Available | Branch vs target diff analysis |
+| Machine-Readable Reports | Available | report.json + SARIF 2.1.0 |
+| Plugin Architecture | Available | Framework-specific gates and checks |
+| Universal Compatibility | Available | Auto framework detection, never fails on unknown |
+| Performance Improvements | Available | Reused analysis, no duplicate inspections |
+| Repository Portability | Available | Any language, framework, mono/polyrepo, OS |
+| Engineering Policy Summary | Available | Profile and policy visibility in reports |
 
 Feature Status Values:
 
@@ -214,7 +241,9 @@ FinalCode/
 │   └── references/
 │       ├── examples.md              # Worked example reports
 │       ├── gates.md                 # Quality Gate checklists
-│       └── security-gate.md         # Security Gate 2.0 checklist
+│       ├── security-gate.md         # Security Gate 2.0 checklist
+│       ├── configuration.md         # Config, profiles, baseline, ignore, incremental, PR, machine-readable
+│       └── plugins.md               # Plugin architecture and examples
 ├── .opencode/                       # OpenCode configuration
 │   ├── commands/
 │   │   └── finalcode.md             # Slash command entry point
@@ -292,6 +321,20 @@ FinalCode automatically generates persistent engineering documentation inside `.
 | `BASELINE.md` | First-execution baseline | Generated once, never overwritten |
 
 Reports in `.finalcode/reports/` are immutable — new executions create new timestamped files, never overwrite existing ones.
+
+## Configuration
+
+FinalCode v1.8.0 is configurable without editing the skill. Place a `finalcode.config.json` at the repository root (or `.finalcode/config.json`). If neither exists, FinalCode uses its default production policy. See [source/references/configuration.md](source/references/configuration.md) for the full schema and examples.
+
+Key capabilities:
+
+- **Profiles** — set `"profile": "mvp"` (or `production`, `enterprise`, `open-source`, `library`, `cli`, `browser-extension`, `desktop`, `web-application`, `api`, `mobile`) to auto-adjust certification requirements.
+- **Gate selection** — `enabledGates`, `disabledGates`, `requiredGates` scope which gates run and block.
+- **Policy levers** — `policy.allowAny`, `policy.maxComplexity`, `policy.requireSecurityGate`, `healthScoreTarget`, `testing`, `ci`, `documentation`.
+- **Baseline** — initialize `.finalcode/baseline.json` to track known issues across runs (New / Resolved / Regression / Severity Changes).
+- **Ignore** — add a `.finalcodeignore` (`.gitignore` syntax) to exclude paths; ignored files appear in Repository Coverage.
+- **Plugins** — drop framework plugins into `plugins/` or `.finalcode/plugins/`; they activate automatically when their framework is detected. See [source/references/plugins.md](source/references/plugins.md).
+- **Machine-readable output** — every run also writes `report.json` and SARIF `report.sarif` to `.finalcode/reports/`.
 
 ### Repository Health Score
 

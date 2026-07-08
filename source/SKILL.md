@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 1.7.0 — OpenCode Edition
+Version: 1.8.0 — OpenCode Edition
 
 ## Identity
 
@@ -612,6 +612,81 @@ This prevents alert fatigue and keeps each report focused on what is genuinely n
 
 ---
 
+## Configurable Engineering Platform (v1.8.0)
+
+FinalCode v1.8.0 transforms the audit from a fixed production certifier into a configurable engineering platform usable by any software project. Everything added here is **additive**: the 13 Quality Gates, Security Gate 2.0, all four operational modes, the v1.7.0 Engineering Intelligence features, and the documentation system are preserved exactly. The new capabilities only change *which* rules apply, *how* results are scoped, and *what formats* are emitted.
+
+Detailed schemas, examples, and edge cases live in `references/configuration.md` and `references/plugins.md`. Read those when you need the exact JSON shape or a plugin manifest.
+
+### Engineering Policy Engine
+
+Hardcoded certification rules become configurable through policy. The existing Release Blocking Policy, Health Score thresholds, and gate requirements are the **default production policy**; projects may override them via configuration (below) without editing the skill.
+
+Configurable policy levers include: required Health Score, mandatory automated tests, whether `any` is allowed, maximum complexity, mandatory CI, mandatory Security Gate, documentation requirements, and accessibility requirements. Every report states which policy was used (see Engineering Policy Summary).
+
+When a required policy lever is violated, the behavior matches the equivalent hardcoded rule it replaces — so the default policy is behavior-identical to v1.7.0.
+
+### Project Configuration
+
+FinalCode reads an optional configuration file, in order: `finalcode.config.json` at the repo root, then `.finalcode/config.json`. If neither exists, FinalCode uses the **default production policy** and reports that no config was found.
+
+Configuration may define: project profile, enabled gates, disabled gates, required gates, severity overrides, health score target, testing requirements, CI requirements, documentation requirements, refactor preferences, and ignore paths. Disabling a gate that is also in `requiredGates` (or the Security Gate when mandated) is rejected: the gate is re-enabled, the override ignored, and the rejection is recorded in the report. See `references/configuration.md` for the full schema.
+
+### Project Profiles
+
+Built-in profiles auto-adjust certification requirements. Supported profiles: Production, Enterprise, Open Source, Library, CLI, Browser Extension, Desktop, Web Application, API, Mobile, MVP. Each profile sets sensible defaults (e.g. MVP relaxes the Health Score target and allows `any` with review; Enterprise mandates CI, documentation, and accessibility). The selected profile appears in every report's **Engineering Policy** section and in Repository Metadata. A profile/stack mismatch is noted but never causes a failure on its own.
+
+### Baseline System
+
+Beyond the v1.6.0 health `BASELINE.md`, FinalCode supports a **known-issues baseline** at `.finalcode/baseline.json`. Known accepted issues are recorded as baseline findings; each run then reports Baseline Findings, New Findings, Resolved Findings, Regression Findings, and Severity Changes. This is separate from and additive to the health baseline and `TREND.md`. If no baseline is configured, the report states "No baseline configured." See `references/configuration.md` for the schema.
+
+### Ignore System
+
+FinalCode honors a `.finalcodeignore` file (`.gitignore`-style syntax) at the repository root. Matched paths are excluded from inspection and MUST appear in **Repository Coverage** under "Files Ignored" with the reason "matched .finalcodeignore". Config `ignorePaths` are merged with `.finalcodeignore`. FinalCode never silently ignores files outside this mechanism.
+
+### Incremental Inspection
+
+When Git is available, FinalCode may inspect less than the whole repository:
+- **Full** — entire repository (no Git, first run, or explicitly requested)
+- **Incremental** — only files changed since the comparison base
+- **Dependency Based** — changed files plus their affected dependency graph
+
+The chosen **Inspection Type** is printed in the report. If an Incremental or Dependency Based run discovers issues outside the changed set, it escalates to a Full run and notes the escalation.
+
+### Pull Request Analysis
+
+When Git is available and a target branch is determinable (default `main`/`master`, overridable), FinalCode compares the current branch against the target and produces a PR analysis available in **Inspect Mode** and **Certify Mode**. It reports Files Changed, New Findings, Resolved Findings, Regression Summary, Risk Level, and Estimated Review Time. It reuses the diff machinery and only escalates to a Full inspection if issues force it.
+
+### Machine-Readable Reports
+
+Every run optionally emits, alongside the Markdown report:
+- `report.json` — every finding with `id`, `severity`, `category`, `confidence`, `gate`, `status`, `files`, `recommendation`, plus metadata, policy, health score, and certification.
+- `report.sarif` — SARIF 2.1.0 compatible with GitHub Code Scanning; each finding maps to a `result` with `ruleId` = FinalCode ID and `level` derived from severity.
+
+Both are written to `.finalcode/reports/` with the same timestamp prefix. If generation fails, the Markdown report remains authoritative and the failure is recorded in the Reliability Statement.
+
+### Plugin Architecture
+
+FinalCode supports an extension system in `plugins/`. Each plugin (with a `plugin.json` manifest) may contribute additional Quality Gates, framework-specific checks, recommendations, and repair hints. Plugins activate automatically when their framework is detected. Plugins are **additive only**: they may never disable a core gate, downgrade a Critical/Security finding, or alter certification logic; any such attempt is ignored and recorded as a policy violation. Built-in guidance exists for React, Next.js, Vue, Angular, Electron, Node.js, Cloudflare Workers, Supabase, Express, and Fastify. See `references/plugins.md`.
+
+### Universal Compatibility
+
+FinalCode removes assumptions that projects use specific technologies. Framework detection is automatic. If an unsupported or unknown technology is detected, FinalCode continues auditing with generic engineering rules and never fails solely because of an unknown framework. The audit scope adapts (e.g. UI gates are not applicable to a CLI project) but the verdict logic stays consistent.
+
+### Performance Improvements
+
+FinalCode reduces unnecessary work: it reuses repository metadata when unchanged, reuses dependency analysis when still valid, reuses architecture maps when available, and avoids duplicate inspections during Repair Mode (the Automatic Verification Pipeline re-runs only affected gates rather than restarting every gate from scratch when the change set is small). These are optimizations only — they must not change findings, severities, or certification outcomes.
+
+### Repository Portability
+
+FinalCode functions correctly regardless of language, framework, repository size, monorepo, polyrepo, operating system, package manager, or deployment platform. Detection and scoping adapt; the core audit and certification logic are technology-agnostic.
+
+### Engineering Policy Summary (report section)
+
+Every report includes an **Engineering Policy** section listing: Profile, Enabled Rules, Disabled Rules (with reasons), Configuration Source, and Policy Version. This makes every certification reproducible and auditable.
+
+---
+
 ## Documentation Standards
 
 Every generated report must include the following metadata:
@@ -624,6 +699,9 @@ Every generated report must include the following metadata:
 | Commit Hash | Short commit hash at time of execution |
 | FinalCode Version | Version of FinalCode used |
 | Mode | Inspect / Repair / Refactor / Certify |
+| Profile | Selected project profile (v1.8.0) |
+| Inspection Type | Full / Incremental / Dependency Based (v1.8.0) |
+| Configuration Source | Config file used or "default production policy" (v1.8.0) |
 | Execution Duration | Wall-clock time (if measurable) |
 | Files Scanned | Total files inspected |
 | Files Modified | Files changed during execution |
@@ -641,30 +719,34 @@ FinalCode runs in exactly one of four modes per invocation. If the user doesn't 
 **Purpose:** perform a comprehensive repository inspection without modifying any files.
 
 **Execution Pipeline:**
-1. Repository Discovery (Phase 0)
-2. Project Understanding (Phase 1)
-3. Execute every Quality Gate
-4. Security Review
-5. UI Consistency Review
-6. Repository Coverage Analysis
-7. Calculate Engineering Metrics
-8. Calculate Repository Health Score
-9. Generate Findings (with Root Cause Intelligence)
+0. Configuration & Policy Loading — load `finalcode.config.json` / `.finalcode/config.json` (or default production policy), select profile, load `.finalcode/baseline.json` if present, apply `.finalcodeignore` and config `ignorePaths`, detect framework and activate matching plugins, and determine Inspection Type (Full / Incremental / Dependency Based when Git is available)
+1. Inspect Mode audit (with Engineering Metrics, Health Score)
+2. Repository Discovery (Phase 0)
+3. Project Understanding (Phase 1)
+4. Execute every enabled Quality Gate (respect `enabledGates` / `disabledGates` / `requiredGates` / active plugin gates)
+5. Security Review
+6. UI Consistency Review
+7. Repository Coverage Analysis (include ignored paths and inspection type)
+8. Calculate Engineering Metrics
+9. Calculate Repository Health Score (apply policy health score target)
 9a. Apply Smart Finding Classification to high-frequency findings (collapse Safe instances)
 9b. Attach Decision Analysis to every non-automatable finding
 9c. Attach Deployment Intelligence to infrastructure findings
 10. Generate Repository Statistics
 11. Generate Security Summary
+11a. If Git and a target branch are available, generate Pull Request Analysis (Files Changed, New/Resolved Findings, Regression Summary, Risk Level, Estimated Review Time)
 12. Generate Overall Confidence
 12a. Generate Repository Evolution (compare against prior executions)
-12b. Generate Executive Decision Summary
-12c. Generate Engineering Roadmap
-12d. Generate Release Readiness Predictor
-12e. Apply Human Override Awareness (suppress acknowledged; re-raise only on condition change)
-13. Produce the FinalCode Certification Report (including all new intelligence sections)
-14. Append snapshot to `.finalcode/TREND.md`
-15. Compare against `.finalcode/BASELINE.md` (if exists)
-16. Optionally generate `.finalcode/reports/<timestamp>-inspect.md`
+12b. Generate Baseline Analysis (New / Resolved / Regression / Severity Changes vs `.finalcode/baseline.json`, if configured)
+12c. Generate Executive Decision Summary
+12d. Generate Engineering Roadmap
+12e. Generate Release Readiness Predictor
+12f. Apply Human Override Awareness (suppress acknowledged; re-raise only on condition change)
+13. Produce the FinalCode Certification Report (including Engineering Policy, Baseline Analysis, PR Analysis, and all intelligence sections)
+14. Emit machine-readable reports: `.finalcode/reports/<timestamp>-inspect.json` and `.finalcode/reports/<timestamp>-inspect.sarif`
+15. Append snapshot to `.finalcode/TREND.md`
+16. Compare against `.finalcode/BASELINE.md` (if exists)
+17. Optionally generate `.finalcode/reports/<timestamp>-inspect.md`
 
 **Rules:** read-only; never modify source code; never suggest cosmetic refactoring as a defect; never alter project files.
 
@@ -675,6 +757,7 @@ FinalCode runs in exactly one of four modes per invocation. If the user doesn't 
 **Purpose:** repair every verified issue using the smallest safe modification possible.
 
 **Execution Pipeline:**
+0. Configuration & Policy Loading — load config / default production policy, select profile, load baseline if present, apply ignore rules, detect framework and activate plugins, determine Inspection Type
 1. Inspect Mode audit (with Engineering Metrics, Health Score)
 2. Generate a FinalCode Repair Plan (execution plan)
 2a. Attach Decision Analysis to every finding that cannot be safely automated
@@ -682,15 +765,16 @@ FinalCode runs in exactly one of four modes per invocation. If the user doesn't 
 4. After every completed repair, run the Automatic Verification Pipeline:
    4a. Apply the fix (smallest safe change)
    4b. Verify build / lint / tests (record pass/fail; "Not Configured" if unavailable — never claim success)
-   4c. Run a lightweight re-inspection of affected gates (minimum: touched gates + Security + Type Safety)
+   4c. Run a lightweight re-inspection of affected gates only (reuse prior gate results for unaffected gates — Performance Improvement)
    4d. On failure, roll back or substitute the next smallest safe fix and record the failure in the report
 5. Continue until: every mandatory Quality Gate passes, OR an Intelligent Repair Stop condition is met (all remaining findings require human decisions, are forbidden by Change Budget / Regression Protection, or are breaking/subjective), OR additional modifications would introduce unacceptable risk
 6. Verification (final state)
-7. Re-Inspect (with Engineering Metrics, Health Score, Repository Evolution, Executive Decision Summary, Engineering Roadmap, Release Readiness Predictor)
+7. Re-Inspect (with Engineering Metrics, Health Score, Repository Evolution, Baseline Analysis, Executive Decision Summary, Engineering Roadmap, Release Readiness Predictor)
 8. Calculate Repair Quality Assessment
 8a. If an Intelligent Repair Stop occurred, emit the stop notice explaining why no further automatic repair is possible
 9. Generate Documentation
 10. Generate `.finalcode/reports/<timestamp>-repair.md`
+10a. Emit machine-readable reports: `.finalcode/reports/<timestamp>-repair.json` and `.finalcode/reports/<timestamp>-repair.sarif`
 11. Update `.finalcode/CHANGE_REPORT.md` (with Root Cause Classification per finding)
 12. Update `.finalcode/FINALCODE_SUMMARY.md`
 13. Append snapshot to `.finalcode/TREND.md`
@@ -708,6 +792,7 @@ Ends with a FinalCode Certification Report that includes a "Fixes Applied" secti
 **Purpose:** improve maintainability without changing observable behavior.
 
 **Execution Pipeline:**
+0. Configuration & Policy Loading — load config / default production policy, select profile, load baseline if present, apply ignore rules, detect framework and activate plugins, determine Inspection Type
 1. Inspect Mode audit (with Engineering Metrics, Health Score)
 2. Generate a FinalCode Refactoring Plan
 2a. Attach Decision Analysis to refactors that are not clearly automatable (e.g. require product/architecture choice)
@@ -715,9 +800,10 @@ Ends with a FinalCode Certification Report that includes a "Fixes Applied" secti
 4. Refactor only when objective engineering value exceeds regression risk
 5. Verify behavioral equivalence after every change
 6. Verification
-7. Re-Inspect (with Engineering Metrics, Health Score, Repository Evolution, Executive Decision Summary, Engineering Roadmap, Release Readiness Predictor)
+7. Re-Inspect (with Engineering Metrics, Health Score, Repository Evolution, Baseline Analysis, Executive Decision Summary, Engineering Roadmap, Release Readiness Predictor)
 8. Generate Documentation
 9. Generate `.finalcode/reports/<timestamp>-refactor.md`
+9a. Emit machine-readable reports: `.finalcode/reports/<timestamp>-refactor.json` and `.finalcode/reports/<timestamp>-refactor.sarif`
 10. Update `.finalcode/REFACTOR_REPORT.md`
 11. Update `.finalcode/FINALCODE_SUMMARY.md`
 12. Append snapshot to `.finalcode/TREND.md`
@@ -748,16 +834,20 @@ Ends with a FinalCode Refactoring Plan and a FinalCode Certification Report that
 **Purpose:** produce the FinalCode production certification for the current repository.
 
 **Execution Pipeline:**
+0. Configuration & Policy Loading — load config / default production policy, select profile, load baseline if present, apply ignore rules, detect framework and activate plugins, determine Inspection Type
 1. Always perform a completely new repository inspection — never rely on previous reports
-2. Execute every Quality Gate
+2. Execute every enabled Quality Gate (respect config and active plugin gates)
 3. Execute the complete Security Review
-4. Execute Repository Coverage Analysis
+4. Execute Repository Coverage Analysis (include ignored paths and inspection type)
+4a. If Git and a target branch are available, generate Pull Request Analysis
 5. Calculate Engineering Metrics
-6. Calculate Repository Health Score
+6. Calculate Repository Health Score (apply policy health score target)
 6a. Apply Smart Finding Classification (collapse Safe instances), attach Decision Analysis and Deployment Intelligence
+6b. Generate Baseline Analysis (New / Resolved / Regression / Severity Changes vs `.finalcode/baseline.json`, if configured)
 7. Verify certification eligibility
-8. Generate the FinalCode Certification Report including Repository Evolution, Executive Decision Summary, Engineering Roadmap, and Release Readiness Predictor
+8. Generate the FinalCode Certification Report including Engineering Policy, Baseline Analysis, PR Analysis, Repository Evolution, Executive Decision Summary, Engineering Roadmap, and Release Readiness Predictor
 9. Generate `.finalcode/reports/<timestamp>-certify.md`
+9a. Emit machine-readable reports: `.finalcode/reports/<timestamp>-certify.json` and `.finalcode/reports/<timestamp>-certify.sarif`
 10. Append to `.finalcode/CERTIFICATION_HISTORY.md`
 11. Append snapshot to `.finalcode/TREND.md`
 12. Compare against `.finalcode/BASELINE.md` (if exists)
@@ -910,10 +1000,16 @@ FinalCode maintains a persistent engineering documentation system inside the `.f
 
 ```
 .finalcode/
+├── config.json                 # Optional project configuration (user-provided or generated)
+├── baseline.json               # Known-issues baseline (user-initialized)
 ├── reports/                    # Timestamped execution reports (immutable)
 │   ├── 2026-07-08-repair.md
+│   ├── 2026-07-08-repair.json
+│   ├── 2026-07-08-repair.sarif
 │   ├── 2026-07-08-refactor.md
 │   ├── 2026-07-08-certify.md
+│   ├── 2026-07-08-certify.json
+│   ├── 2026-07-08-certify.sarif
 │   └── 2026-07-08-inspect.md
 ├── CHANGE_REPORT.md            # Official engineering change log (mutable)
 ├── REFACTOR_REPORT.md          # Refactoring history (mutable)
@@ -921,8 +1017,13 @@ FinalCode maintains a persistent engineering documentation system inside the `.f
 ├── CERTIFICATION_HISTORY.md    # Certification log (append-only)
 ├── OVERRIDES.md                # Accepted/deferred recommendation record (mutable)
 ├── TREND.md                    # Historical trend analysis (append-only)
-└── BASELINE.md                 # First repository analysis (generated once)
+├── BASELINE.md                 # First repository analysis (health snapshot, generated once)
+└── plugins/                    # Project-local FinalCode plugins (optional)
 ```
+
+Note the distinction: `BASELINE.md` (v1.6.0) stores the first-run **health snapshot**; `baseline.json` (v1.8.0) stores **known-issue findings** for regression tracking. Both may coexist.
+
+`.finalcodeignore` lives at the repository root (not inside `.finalcode/`) and follows `.gitignore` syntax.
 
 ### Runtime Artifact Creation
 
@@ -966,6 +1067,10 @@ FinalCode maintains a persistent engineering documentation system inside the `.f
 | `.finalcode/OVERRIDES.md` | When a recommendation is accepted/deferred | Yes (mutable) |
 | `.finalcode/TREND.md` | After every execution | Yes (append-only) |
 | `.finalcode/BASELINE.md` | First execution only | No (generated once) |
+| `.finalcode/baseline.json` | When the user initializes a known-issues baseline | Yes (mutable) |
+| `.finalcode/config.json` | When the user provides project configuration | Yes (mutable) |
+| `.finalcode/reports/<timestamp>-<mode>.json` | After every execution | No |
+| `.finalcode/reports/<timestamp>-<mode>.sarif` | After every execution | No |
 
 ---
 
@@ -1204,23 +1309,27 @@ FINALCODE CERTIFICATION REPORT
 
 AUDIT METADATA
 --------------------------------------------------
-Specification Version:  1.7.0 (OpenCode Edition)
+Specification Version:  1.8.0 (OpenCode Edition)
 Audit Engine Version:    <internal version>
 Report Version:          <increments per re-run>
 Repository Version:      <tag or branch name>
 Git Commit:              <short hash, if available>
 Audit Date:              <ISO date>
 Mode:                    Inspect | Repair | Refactor | Certify
+Profile:                 <selected project profile, e.g. production | mvp | library>
+Inspection Type:         Full | Incremental | Dependency Based
+Configuration Source:    finalcode.config.json | .finalcode/config.json | default production policy
 
 --------------------------------------------------
 REPOSITORY METADATA
 --------------------------------------------------
 Project Root:       <path>
-Framework:           <framework + version>
+Framework:           <framework + version, or "auto-detected: <framework>">
 Language(s):        <languages>
 Build System:        <build system>
 Package Manager:     <package manager>
 Entry Points:        <entry points>
+Active Plugins:      <list of activated plugins, or "none">
 
 --------------------------------------------------
 REPOSITORY COVERAGE
@@ -1253,7 +1362,17 @@ UI Consistency       PASS / PASS WITH WARNINGS / FAIL
 Documentation        PASS / PASS WITH WARNINGS / FAIL
 GitHub Readiness     PASS / PASS WITH WARNINGS / FAIL
 
---------------------------------------------------
+-------------------------------------------------
+ENGINEERING POLICY
+-------------------------------------------------
+Profile:                 <selected profile>
+Enabled Rules:           <gates + policy levers active this run, incl. active plugin gates>
+Disabled Rules:          <gates/policy levers skipped + reason, or "none">
+Configuration Source:    <finalcode.config.json | .finalcode/config.json | default production policy>
+Policy Version:          <e.g. policy-1>
+Health Score Target:     <target applied this run>
+
+-------------------------------------------------
 FINDINGS
 --------------------------------------------------
 (grouped by Quality Gate, using the Finding Format above —
@@ -1416,7 +1535,17 @@ Remaining Findings:        <count vs prior open count>
 Overall Engineering Improvement:  Improving | Stable | Regressing
 (If first execution: "No prior execution — baseline established this run")
 
---------------------------------------------------
+-------------------------------------------------
+BASELINE ANALYSIS (when .finalcode/baseline.json is configured)
+-------------------------------------------------
+Baseline Findings:        <known issues carried over from baseline>
+New Findings:             <issues not present in baseline>
+Resolved Findings:        <baseline issues no longer present>
+Regression Findings:      <baseline issues that worsened in severity>
+Severity Changes:         <findings whose severity moved vs baseline>
+(If no baseline configured: "No baseline configured")
+
+-------------------------------------------------
 DECISION ANALYSIS — HUMAN DECISIONS REQUIRED
 -------------------------------------------------
 (one entry per non-automatable finding; full block in FINDINGS)
@@ -1459,6 +1588,18 @@ Deferred Recommendations:   <FC-IDs tracked but not re-litigated, or none>
 Re-Raised (condition changed):  <FC-IDs previously acknowledged now warranting attention, with reason, or none>
 
 -------------------------------------------------
+PULL REQUEST ANALYSIS (Inspect/Certify Mode, when Git + target branch available)
+-------------------------------------------------
+Target Branch:           <branch compared against, e.g. main>
+Files Changed:           <count + list>
+New Findings:            <findings introduced on this branch>
+Resolved Findings:       <findings fixed vs target>
+Regression Summary:      <findings that worsened vs target>
+Risk Level:              Low | Medium | High
+Estimated Review Time:   <e.g. ≈ 25 min>
+(If not available: "No Git / target branch information — PR analysis skipped")
+
+-------------------------------------------------
 TREND SNAPSHOT
 --------------------------------------------------
 <appended to .finalcode/TREND.md — not duplicated in report>
@@ -1478,6 +1619,11 @@ runtime failures, or production incidents.
 Overall Confidence:   XX%
 Certification Status: READY TO SHIP | READY WITH WARNINGS | NOT READY | NO PROJECT FOUND
 Exit Code:            0 | 1 | 2 | 3
+==================================================
+
+Machine-Readable Reports: this run also emitted
+  .finalcode/reports/<timestamp>-<mode>.json   (every finding: id, severity, category, confidence, gate, status, files, recommendation)
+  .finalcode/reports/<timestamp>-<mode>.sarif  (SARIF 2.1.0, GitHub Code Scanning compatible)
 ==================================================
 ```
 

@@ -2,6 +2,16 @@
 
 Full criteria for each of the 13 Quality Gates. The SKILL.md table is a condensed summary; consult this file when you need the exhaustive checklist for a gate.
 
+## Configurable Gates (v1.8.0)
+
+The 13 gates are the fixed core, but which ones run and whether they block certification is configurable:
+
+- **Enabled / Disabled:** a project configuration (`finalcode.config.json` or `.finalcode/config.json`) may set `enabledGates`, `disabledGates`, and `requiredGates`. Disabling a gate in `requiredGates` (or the Security Gate when mandated by the profile/policy) is rejected — the gate runs and the override is recorded in the report.
+- **Profiles:** built-in profiles (production, enterprise, open source, library, cli, browser-extension, desktop, web-application, api, mobile, mvp) adjust which gates are emphasized or non-applicable. A CLI project, for example, treats UI Consistency and Accessibility as non-applicable rather than failing.
+- **Plugins:** framework plugins may append additional named gates (e.g. `react-best-practices`). These run after the 13 core gates and use the same Finding Format; they never disable a core gate or alter the verdict.
+
+The gate criteria below are unchanged. Configuration only selects scope and blocking behavior.
+
 ## 1. Architecture Gate
 - Architecture consistency
 - Separation of concerns
