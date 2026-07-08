@@ -58,3 +58,8 @@ pnpm-lock.yaml
 
 # FinalCode runtime artifacts (created automatically on first execution)
 .finalcode/
+
+# Local agent/environment artifacts (not part of FinalCode)
+.agents/
+skills-lock.json
+
