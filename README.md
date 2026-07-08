@@ -1,15 +1,24 @@
 # FinalCode
 
-**OpenCode Edition v1.6.1**
+**OpenCode Edition v1.6.2**
 
-> The official OpenCode production certification and engineering intelligence platform.
+> Production certification and engineering intelligence for OpenCode projects.
 
 FinalCode certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates. It produces a standardized **FinalCode Certification Report** with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY. It also generates persistent engineering documentation, commit messages, pull request descriptions, root cause analysis, historical trend tracking, and repository health scoring.
 
 ---
 
+## Project Status
+
+FinalCode is an independent open-source project created and maintained by Dratiux.
+
+It is designed specifically for OpenCode projects.
+
+FinalCode is not affiliated with, endorsed by, sponsored by, or maintained by the OpenCode project or its contributors.
+
 ## Table of Contents
 
+- [Project Status](#project-status)
 - [Philosophy](#philosophy)
 - [Features](#features)
 - [Version Compatibility](#version-compatibility)
@@ -75,7 +84,7 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 
 | Item | Value |
 |------|-------|
-| Current Version | 1.6.1 |
+| Current Version | 1.6.2 |
 | Stability | Stable |
 | Minimum OpenCode Version | Not Yet Defined |
 | Recommended OpenCode Version | Latest Stable |
@@ -365,7 +374,7 @@ See [source/references/examples.md](source/references/examples.md) for three com
 
 ## Support Policy
 
-FinalCode officially guarantees only OpenCode-based workflows. Support for other frameworks depends on project structure and available tooling. See [SUPPORTED.md](SUPPORTED.md) for the complete support policy and compatibility details.
+FinalCode guarantees support only for OpenCode-based workflows. Support for other frameworks depends on project structure and available tooling. See [SUPPORTED.md](SUPPORTED.md) for the complete support policy and compatibility details.
 
 ## Roadmap
 

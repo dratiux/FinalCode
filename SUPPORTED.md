@@ -1,10 +1,10 @@
 # Supported Platforms
 
-This document defines the official support policy for FinalCode.
+This document defines the support policy for FinalCode.
 
 ## Recommended Environments
 
-The following stack is officially recommended and tested:
+The following stack is recommended and tested:
 
 | Framework | Support Level | Status | Notes |
 |-----------|---------------|--------|-------|
@@ -53,7 +53,7 @@ Platforms with limited validation. May require adjustments:
 
 ## Not Yet Tested
 
-Platforms without official validation:
+Platforms without validation:
 
 | Framework | Support Level | Status | Notes |
 |-----------|---------------|--------|-------|
@@ -64,7 +64,7 @@ Platforms without official validation:
 
 ## Support Scope
 
-FinalCode officially guarantees only OpenCode-based workflows.
+FinalCode guarantees support only for OpenCode-based workflows.
 
 Support for other frameworks depends on:
 
@@ -78,6 +78,7 @@ OpenCode remains the primary development and testing platform. All quality gates
 
 | Version | Stability | Notes |
 |---------|-----------|-------|
+| 1.6.2 | Stable | Documentation correction, project ownership clarified |
 | 1.6.1 | Stable | Documentation and compatibility update |
 | 1.6.0 | Stable | Engineering intelligence and analytics |
 | 1.5.0 | Stable | Engineering documentation and release assistant |
