@@ -1,6 +1,6 @@
 # FinalCode — Security Gate 2.0 (Full Checklist)
 
-This is the exhaustive checklist for the Security Gate (Gate 8). The Phase 2 table in SKILL.md gives the condensed summary; use this file for the full audit.
+This is the exhaustive checklist for the Security Gate (Gate 9). The Phase 2 table in SKILL.md gives the condensed summary; use this file for the full audit.
 
 Every discovered vulnerability must report: **Severity**, **CVE Category** (if applicable), **Affected Files**, **Attack Vector**, **Potential Impact**, **Recommended Mitigation**, **Verification Method** — in addition to the standard Finding Format fields (Classification will always be "Security Vulnerability").
 
@@ -18,6 +18,13 @@ Every discovered vulnerability must report: **Severity**, **CVE Category** (if a
 - Privilege escalation
 - IDOR (Insecure Direct Object Reference)
 - Route protection
+
+## Session Management
+- Session token security
+- Session timeout configuration
+- Concurrent session handling
+- Session data storage security
+- CSRF protection for session transitions
 
 ## Input Validation
 - SQL Injection
@@ -43,13 +50,6 @@ Every discovered vulnerability must report: **Severity**, **CVE Category** (if a
 - Supply-chain risks
 - Version security
 
-## Storage Security
-- LocalStorage
-- SessionStorage
-- Cookies
-- Sensitive data persistence
-- Encryption usage
-
 ## API Security
 - Authentication
 - Authorization
@@ -71,7 +71,7 @@ Every discovered vulnerability must report: **Severity**, **CVE Category** (if a
 - Logging of sensitive information
 - Secure defaults
 
-## Cloud & Deployment
+## Deployment Security
 - Production configuration
 - HTTPS enforcement
 - Debug mode left enabled
@@ -79,14 +79,56 @@ Every discovered vulnerability must report: **Severity**, **CVE Category** (if a
 - Security headers
 - Hosting-platform configuration (e.g. Cloudflare/Vercel settings, when applicable)
 
+## Cloud Configuration
+- IAM roles and permissions
+- Storage bucket policies
+- Database access controls
+- Network security groups
+- Encryption at rest and in transit
+
+## Rate Limiting
+- API rate limiting configuration
+- Brute force protection
+- DDoS mitigation measures
+- Throttling policies
+
+## Security Headers
+- Content-Security-Policy
+- X-Frame-Options
+- X-Content-Type-Options
+- Strict-Transport-Security
+- X-XSS-Protection
+- Referrer-Policy
+- Permissions-Policy
+
+## Environment Configuration
+- Environment variable validation
+- Secret rotation policies
+- Debug mode in production
+- Logging level configuration
+- Feature flags security
+
+---
+
+## Security Evidence Rules
+
+Never report a category as **clean** unless objective evidence exists to support that conclusion.
+
+Differentiate between **Verified** and **Assumed** security status:
+
+- If dependency scanners were not executed, state: "Dependency vulnerability scan not executed. Static repository inspection found no obvious vulnerable patterns."
+- If runtime security testing was not performed, state it explicitly.
+- Never claim a clean security posture without evidence.
+
 ---
 
 ## Security Summary Ratings
 
-Every report's Security Summary rates each of the nine categories below as **clean** or **N findings**, then assigns an overall Security Rating:
+Every report's Security Summary rates each of the fourteen categories below as **clean** or **N findings**, then assigns an overall Security Rating:
 
 - Authentication
 - Authorization
+- Session Management
 - Input Validation
 - Secrets
 - Dependencies
@@ -94,7 +136,11 @@ Every report's Security Summary rates each of the nine categories below as **cle
 - Frontend Security
 - Backend Security
 - Deployment Security
+- Cloud Configuration
+- Rate Limiting
+- Security Headers
+- Environment Configuration
 
 **Overall Security Rating scale:** `A+` `A` `B` `C` `D` `F`
 
-Base the rating on the severity and count of confirmed Security Vulnerabilities found across all nine categories — e.g. any unresolved Critical vulnerability caps the rating at `D` or `F`; a clean sweep with no findings earns `A+`. Never assign the rating arbitrarily; it should be traceable to the findings listed in the Security Summary and the FINDINGS section.
+Base the rating on the severity and count of confirmed Security Vulnerabilities found across all fourteen categories — e.g. any unresolved Critical vulnerability caps the rating at `D` or `F`; a clean sweep with no findings earns `A+`. Never assign the rating arbitrarily; it should be traceable to the findings listed in the Security Summary and the FINDINGS section.

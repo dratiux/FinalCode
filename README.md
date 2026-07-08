@@ -1,10 +1,10 @@
 # FinalCode
 
-**OpenCode Edition v1.3**
+**OpenCode Edition v1.4**
 
 > The official OpenCode production certification and repository auditing system.
 
-FinalCode certifies whether a project is genuinely ready for production via a senior-engineering audit across 12 quality gates. It produces a standardized **FinalCode Certification Report** with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
+FinalCode certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates. It produces a standardized **FinalCode Certification Report** with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
 
 ---
 
@@ -18,13 +18,18 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - Prefer the smallest safe modification
 - Deterministic: same repo state = same findings
 - Confidence below 90% is classified as "Needs Verification"
+- Every severity level must include engineering justification
 
 ## Features
 
-- **12 Quality Gates** covering architecture, code quality, dead code, dependencies, type safety, error handling, performance, security, accessibility, UI consistency, documentation, and GitHub readiness
-- **Security Gate 2.0** with 9 categories and ~40 check items
+- **13 Quality Gates** covering architecture, code quality, dead code, dependencies, type safety, error handling, testing, performance, security, accessibility, UI consistency, documentation, and GitHub readiness
+- **Security Gate 2.0** with 14 categories and ~60 check items
+- **Four Operational Modes** — Inspect, Repair, Refactor, Certify
+- **Testing Gate** — evaluates unit tests, integration tests, E2E tests, coverage, critical path coverage, missing tests, flaky tests, test configuration, and test documentation
 - **Standardized Certification Report** with exit codes (0, 1, 2, 3)
-- **Evidence-Based Findings** with classification, severity, confidence, and verification methods
+- **Evidence-Based Findings** with classification, severity, status, and verification methods
+- **Confidence Breakdown** — per-category confidence scores instead of single overall score
+- **Reliability Statement** — explicit statement of what was verified and what was not performed
 - **Change Budget** and regression protection rules
 - **Full repository coverage** analysis with transparency metrics
 
@@ -34,12 +39,14 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 |------|-------------|----------------|
 | **Inspect** | Full audit without modifying files. Produces the complete Certification Report. | No |
 | **Repair** | Starts with a full Inspect audit, then generates and applies fixes in priority order. Only runs with explicit user approval. | Yes |
+| **Refactor** | Improves maintainability without changing observable behavior. Generates a Refactoring Plan. Only runs with explicit user approval. | Yes |
 | **Certify** | Strictest mode. Always performs a completely new inspection. Last checkpoint before release. | No |
 
 ### Mode Commands
 
 - `Run FinalCode` — activates Inspect Mode
 - `Run FinalCode in Repair Mode` — activates Repair Mode
+- `Run FinalCode in Refactor Mode` — activates Refactor Mode
 - `Run FinalCode in Certify Mode` — activates Certify Mode
 
 ## Installation
@@ -66,7 +73,7 @@ Ask OpenCode to audit your repository:
 
 > Run FinalCode on this repository
 
-FinalCode will scan the entire codebase, run all 12 quality gates, and produce a comprehensive report.
+FinalCode will scan the entire codebase, run all 13 quality gates, and produce a comprehensive report.
 
 ### Repair Mode
 
@@ -75,6 +82,14 @@ Request automatic fixes:
 > Run FinalCode in Repair Mode
 
 FinalCode will audit the repository, generate a repair plan, and apply fixes in priority order (Critical Security → Critical Defects → High → Medium → Low). **Only runs with your explicit approval.**
+
+### Refactor Mode
+
+Request maintainability improvements:
+
+> Run FinalCode in Refactor Mode
+
+FinalCode will audit the repository, generate a refactoring plan, and apply maintainability improvements that preserve observable behavior. **Only runs with your explicit approval.**
 
 ### Certify Mode
 
@@ -115,7 +130,7 @@ FinalCode/
 
 ## Quality Gates
 
-FinalCode evaluates repositories across 12 gates:
+FinalCode evaluates repositories across 13 gates:
 
 | # | Gate | What It Checks |
 |---|------|----------------|
@@ -125,12 +140,13 @@ FinalCode evaluates repositories across 12 gates:
 | 4 | Dependencies | Unused packages, version conflicts, deprecated packages |
 | 5 | Type Safety | Unsafe `any`, ignored errors, `ts-ignore`, nullable risks |
 | 6 | Error Handling | Unhandled promises, silent failures, retry strategy |
-| 7 | Performance | Bundle size, lazy loading, rendering efficiency, caching |
-| 8 | Security | Full Security Gate 2.0 checklist (9 categories) |
-| 9 | Accessibility | Semantic HTML, ARIA, keyboard navigation, focus management |
-| 10 | UI Consistency | Spacing, typography, color, interaction states, responsive behavior |
-| 11 | Documentation | README, installation, configuration, architecture docs |
-| 12 | GitHub Readiness | Repository cleanliness, naming consistency, release readiness |
+| 7 | Testing | Unit tests, integration tests, E2E tests, coverage, critical path coverage, missing tests, flaky tests |
+| 8 | Performance | Bundle size, lazy loading, rendering efficiency, caching |
+| 9 | Security | Full Security Gate 2.0 checklist (14 categories) |
+| 10 | Accessibility | Semantic HTML, ARIA, keyboard navigation, focus management |
+| 11 | UI Consistency | Spacing, typography, color, interaction states, responsive behavior |
+| 12 | Documentation | README, installation, configuration, architecture docs |
+| 13 | GitHub Readiness | Repository cleanliness, naming consistency, release readiness |
 
 ## Certification Verdict
 
@@ -152,7 +168,6 @@ See [references/examples.md](references/examples.md) for three complete worked e
 ## Roadmap
 
 - [ ] Enhanced AI model support and prompt optimization
-- [ ] Additional Quality Gate categories
 - [ ] Integration with CI/CD pipelines
 - [ ] Custom gate configuration
 - [ ] Team collaboration features

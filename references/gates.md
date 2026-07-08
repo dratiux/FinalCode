@@ -1,6 +1,6 @@
 # FinalCode — Detailed Quality Gate Checklists
 
-Full criteria for each of the 12 Quality Gates. The SKILL.md table is a condensed summary; consult this file when you need the exhaustive checklist for a gate.
+Full criteria for each of the 13 Quality Gates. The SKILL.md table is a condensed summary; consult this file when you need the exhaustive checklist for a gate.
 
 ## 1. Architecture Gate
 - Architecture consistency
@@ -59,7 +59,20 @@ Only report findings with high confidence.
 - Retry strategy
 - Failure recovery
 
-## 7. Performance Gate
+## 7. Testing Gate
+- Unit tests
+- Integration tests
+- End-to-end tests
+- Coverage
+- Critical path coverage
+- Missing tests
+- Flaky tests
+- Test configuration
+- Test documentation
+
+Possible status: PASS, PASS WITH WARNINGS, FAIL. Testing Gate participates in certification.
+
+## 8. Performance Gate
 - Bundle size
 - Lazy loading
 - Rendering efficiency
@@ -71,11 +84,11 @@ Only report findings with high confidence.
 
 Only recommend optimizations with measurable benefit.
 
-## 8. Security Gate
+## 9. Security Gate
 
-**See `references/security-gate.md` for the full Security Gate 2.0 checklist** (authentication, authorization, input validation, secrets management, dependency security, storage security, API security, frontend security, backend security, cloud & deployment). This replaces the earlier condensed security checklist — always audit against the full v2.0 list.
+**See `references/security-gate.md` for the full Security Gate 2.0 checklist** (authentication, authorization, session management, input validation, secrets management, dependency security, API security, frontend security, backend security, deployment security, cloud configuration, rate limiting, security headers, environment configuration). This replaces the earlier condensed security checklist — always audit against the full v2.0 list.
 
-## 9. Accessibility Gate
+## 10. Accessibility Gate
 - Semantic HTML
 - ARIA
 - Keyboard navigation
@@ -84,7 +97,7 @@ Only recommend optimizations with measurable benefit.
 - Contrast
 - Screen reader compatibility
 
-## 10. UI Consistency Gate
+## 11. UI Consistency Gate
 Inspect the UI as a product designer and frontend engineer would.
 
 - Spacing consistency
@@ -109,7 +122,7 @@ Inspect the UI as a product designer and frontend engineer would.
 
 Never report subjective design opinions. Only report objective usability or consistency problems.
 
-## 11. Documentation Gate
+## 12. Documentation Gate
 - README
 - Installation
 - Configuration
@@ -118,7 +131,7 @@ Never report subjective design opinions. Only report objective usability or cons
 - Environment documentation
 - Architecture documentation
 
-## 12. GitHub Readiness Gate
+## 13. GitHub Readiness Gate
 Review the repository as if approving a production Pull Request.
 
 - Repository cleanliness
