@@ -5,6 +5,47 @@ All notable changes to FinalCode will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-07-08
+
+### Stable Release — Engineering Documentation & Release Assistant
+
+Transforms FinalCode from an auditing skill into a complete engineering documentation and release assistant. Introduces persistent engineering documentation, automatic report generation, commit assistance, and pull request assistance.
+
+### Added
+
+- **Engineering Documentation System** — persistent `.finalcode/` directory for reports and engineering documents
+- **Automatic Documentation Generation** — mandatory after every successful execution that modifies the repository
+- **CHANGE_REPORT.md** — official engineering change log with stable finding IDs (FC-SEC-001, FC-CODE-003, etc.)
+- **REFACTOR_REPORT.md** — refactoring history with behavioral change declarations
+- **FINALCODE_SUMMARY.md** — executive engineering summary (regenerated after every execution)
+- **CERTIFICATION_HISTORY.md** — append-only certification log
+- **Timestamped Reports** — immutable execution reports in `.finalcode/reports/`
+- **Finding IDs** — stable unique identifiers (FC-<CATEGORY>-<NUMBER>) that never renumber
+- **Commit Assistance** — Conventional Commits message generation
+- **Pull Request Assistance** — GitHub-ready PR description generation
+- **Reliability Statement** — new categories: Verified, Performed, Skipped, Not Verifiable, Unknown
+- **Documentation Standards** — mandatory metadata in every generated report
+
+### Changed
+
+- Execution pipelines updated with documentation generation stages
+- Inspect Mode: optionally generates timestamped report
+- Repair Mode: generates report, updates CHANGE_REPORT and SUMMARY, optional commit/PR
+- Refactor Mode: generates report, updates REFACTOR_REPORT and SUMMARY, optional commit/PR
+- Certify Mode: generates report, appends to CERTIFICATION_HISTORY
+- Version updated to 1.5.0 Stable
+- Reliability Statement expanded with 5 status categories
+- Identity updated to include "Engineering Documentation Assistant"
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification logic unchanged
+- Slash Commands unchanged
+- Backward compatible with v1.4.x
+
 ## [1.4.2] - 2026-07-08
 
 ### Single Source of Truth (SSOT) Update

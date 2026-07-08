@@ -31,6 +31,13 @@ if (-not (Test-Path $refsDir)) {
 # Create target directories
 New-Item -ItemType Directory -Path "$TargetDir\references" -Force | Out-Null
 
+# Create .finalcode directory if missing
+$FinalcodeDir = Join-Path $RepoRoot ".finalcode"
+if (-not (Test-Path $FinalcodeDir)) {
+    New-Item -ItemType Directory -Path "$FinalcodeDir\reports" -Force | Out-Null
+    Write-Host "Created: .finalcode/reports/"
+}
+
 # Copy SKILL.md
 Copy-Item $skillFile "$TargetDir\SKILL.md" -Force
 Write-Host "Installed: SKILL.md"

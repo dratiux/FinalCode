@@ -1,16 +1,16 @@
 # FinalCode
 
-**OpenCode Edition v1.4.2**
+**OpenCode Edition v1.5.0 Stable**
 
-> The official OpenCode production certification and repository auditing system.
+> The official OpenCode production certification and engineering documentation system.
 
-FinalCode certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates. It produces a standardized **FinalCode Certification Report** with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
+FinalCode certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates. It produces a standardized **FinalCode Certification Report** with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY. It also generates persistent engineering documentation, commit messages, and pull request descriptions.
 
 ---
 
 ## Philosophy
 
-FinalCode is not a code reviewer, linter, or formatter. It is a **Production Certification System**.
+FinalCode is not a code reviewer, linter, or formatter. It is a **Production Certification System and Engineering Documentation Assistant**.
 
 - Every finding must have objective technical evidence
 - Every recommendation must have a concrete justification
@@ -19,6 +19,7 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - Deterministic: same repo state = same findings
 - Confidence below 90% is classified as "Needs Verification"
 - Every severity level must include engineering justification
+- Every execution generates persistent engineering documentation
 
 ## Features
 
@@ -27,20 +28,23 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - **Four Operational Modes** — Inspect, Repair, Refactor, Certify
 - **Testing Gate** — evaluates unit tests, integration tests, E2E tests, coverage, critical path coverage, missing tests, flaky tests, test configuration, and test documentation
 - **Standardized Certification Report** with exit codes (0, 1, 2, 3)
-- **Evidence-Based Findings** with classification, severity, status, and verification methods
+- **Evidence-Based Findings** with stable IDs, classification, severity, status, and verification methods
 - **Confidence Breakdown** — per-category confidence scores instead of single overall score
 - **Reliability Statement** — explicit statement of what was verified and what was not performed
+- **Engineering Documentation System** — persistent reports and engineering documents
+- **Commit Assistance** — Conventional Commits message generation
+- **Pull Request Assistance** — GitHub-ready PR description generation
 - **Change Budget** and regression protection rules
 - **Full repository coverage** analysis with transparency metrics
 
 ## Operational Modes
 
-| Mode | Description | Modifies Files |
-|------|-------------|----------------|
-| **Inspect** | Full audit without modifying files. Produces the complete Certification Report. | No |
-| **Repair** | Starts with a full Inspect audit, then generates and applies fixes in priority order. Only runs with explicit user approval. | Yes |
-| **Refactor** | Improves maintainability without changing observable behavior. Generates a Refactoring Plan. Only runs with explicit user approval. | Yes |
-| **Certify** | Strictest mode. Always performs a completely new inspection. Last checkpoint before release. | No |
+| Mode | Description | Modifies Files | Generates Documentation |
+|------|-------------|----------------|------------------------|
+| **Inspect** | Full audit without modifying files. Produces the complete Certification Report. | No | Optional report |
+| **Repair** | Starts with a full Inspect audit, then generates and applies fixes in priority order. Only runs with explicit user approval. | Yes | Report + CHANGE_REPORT + SUMMARY + optional commit/PR |
+| **Refactor** | Improves maintainability without changing observable behavior. Generates a Refactoring Plan. Only runs with explicit user approval. | Yes | Report + REFACTOR_REPORT + SUMMARY + optional commit/PR |
+| **Certify** | Strictest mode. Always performs a completely new inspection. Last checkpoint before release. | No | Report + CERTIFICATION_HISTORY |
 
 ### Mode Commands
 
@@ -80,8 +84,12 @@ FinalCode/
 │   │   └── finalcode.md             # Slash command entry point
 │   └── skills/
 │       └── finalcode/               ← GENERATED (never edit manually)
-│           ├── SKILL.md
-│           └── references/
+├── .finalcode/                      ← GENERATED (engineering documentation)
+│   ├── reports/                     # Timestamped execution reports
+│   ├── CHANGE_REPORT.md             # Engineering change log
+│   ├── REFACTOR_REPORT.md           # Refactoring history
+│   ├── FINALCODE_SUMMARY.md         # Executive summary
+│   └── CERTIFICATION_HISTORY.md     # Certification log
 ├── scripts/
 │   ├── install.sh                   # Installation script (bash)
 │   └── install.ps1                  # Installation script (PowerShell)
@@ -108,7 +116,7 @@ cd FinalCode
 bash scripts/install.sh
 ```
 
-This copies `source/SKILL.md` and `source/references/` into `.opencode/skills/finalcode/` where OpenCode can discover them.
+This copies `source/SKILL.md` and `source/references/` into `.opencode/skills/finalcode/` where OpenCode can discover them, and creates `.finalcode/` if missing.
 
 ### PowerShell
 
@@ -130,6 +138,20 @@ bash scripts/install.sh
 
 The installed copies in `.opencode/skills/finalcode/` are generated artifacts — they are git-ignored and must never be edited directly.
 
+## Engineering Documentation
+
+FinalCode automatically generates persistent engineering documentation inside `.finalcode/`:
+
+| Document | Purpose | When Updated |
+|----------|---------|--------------|
+| `reports/<timestamp>-<mode>.md` | Immutable execution reports | After every execution |
+| `CHANGE_REPORT.md` | Official engineering change log | When findings are resolved |
+| `REFACTOR_REPORT.md` | Refactoring history | When refactors are applied |
+| `FINALCODE_SUMMARY.md` | Executive engineering summary | After every execution |
+| `CERTIFICATION_HISTORY.md` | Certification log | After every Certify execution |
+
+Reports in `.finalcode/reports/` are immutable — new executions create new timestamped files, never overwrite existing ones.
+
 ## Usage
 
 ### Inspect Mode (Default)
@@ -146,7 +168,7 @@ Request automatic fixes:
 
 > Run FinalCode in Repair Mode
 
-FinalCode will audit the repository, generate a repair plan, and apply fixes in priority order (Critical Security → Critical Defects → High → Medium → Low). **Only runs with your explicit approval.**
+FinalCode will audit the repository, generate a repair plan, and apply fixes in priority order (Critical Security → Critical Defects → High → Medium → Low). After completion, it generates engineering documentation and optionally suggests a commit message. **Only runs with your explicit approval.**
 
 ### Refactor Mode
 
@@ -154,7 +176,7 @@ Request maintainability improvements:
 
 > Run FinalCode in Refactor Mode
 
-FinalCode will audit the repository, generate a refactoring plan, and apply maintainability improvements that preserve observable behavior. **Only runs with your explicit approval.**
+FinalCode will audit the repository, generate a refactoring plan, and apply maintainability improvements that preserve observable behavior. After completion, it generates engineering documentation and optionally suggests a commit message. **Only runs with your explicit approval.**
 
 ### Certify Mode
 
@@ -162,7 +184,7 @@ Request final release certification:
 
 > Run FinalCode in Certify Mode
 
-FinalCode performs a completely new inspection and issues an authoritative certification verdict.
+FinalCode performs a completely new inspection, issues an authoritative certification verdict, and appends to the certification history.
 
 ## Requirements
 
@@ -241,4 +263,4 @@ FinalCode is built on the principles of evidence-based engineering, deterministi
 
 ---
 
-**FinalCode** — Production certification you can trust.
+**FinalCode** — Production certification and engineering documentation you can trust.
