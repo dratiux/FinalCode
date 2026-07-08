@@ -5,6 +5,54 @@ All notable changes to FinalCode will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2026-07-08
+
+### Engineering Intelligence, Historical Analytics & Runtime Behavior Analysis
+
+Transforms FinalCode from an auditing and documentation system into a comprehensive engineering intelligence platform. Introduces repository health scoring, root cause intelligence, historical trend analysis, baseline comparison, runtime behavior analysis, engineering metrics, and executive engineering summaries.
+
+### Added
+
+- **Root Cause Intelligence** — every finding now includes root cause analysis and a Root Cause Classification (Human Error, Architecture, Dependency, Configuration, Framework, External Library, Build System, Security Misconfiguration, Technical Debt, Legacy Code)
+- **Preventive Recommendations** — every finding includes a preventive recommendation to avoid recurrence
+- **Repository Health Score** — weighted composite score (0–100) across 10 categories with Excellent/Good/Fair/Poor classification
+- **Engineering Metrics** — cyclomatic complexity, function/file length, duplicate code, type coverage, documentation coverage, lint status, test coverage
+- **Historical Trend Analysis** — append-only `.finalcode/TREND.md` tracks metrics over time (Health Score, Confidence, Security, Critical, High findings)
+- **Baseline Analysis** — `.finalcode/BASELINE.md` generated once on first execution, never overwritten; every subsequent execution compares against baseline
+- **Runtime Behavior Analysis** — Inspect Mode now analyzes execution patterns, error handling in production code, logging practices, configuration drift, and environment dependencies
+- **Repository Health Score in Report** — new Health Score section in FinalCode Certification Report with category breakdown
+- **Executive Engineering Summary** — redesigned FINALCODE_SUMMARY.md with Strengths, Weaknesses, Most Critical Risk, Recommended Next Action, Estimated Effort, Risk Assessment, and Release Recommendation
+- **Engineering Metrics in Report** — new Engineering Metrics section in FinalCode Certification Report
+- **Trend Snapshot in Report** — report includes trend snapshot (appended to TREND.md, not duplicated)
+- **Baseline Comparison in Report** — report includes baseline comparison (if BASELINE.md exists)
+- **Install Script Cleanup** — install scripts no longer create `.finalcode/` (runtime artifact only)
+- **`.gitignore` Updated** — entire `.finalcode/` directory ignored (runtime artifact)
+
+### Changed
+
+- Finding Format updated: every finding now includes Root Cause, Root Cause Classification, and Preventive Recommendation
+- Inspect Mode pipeline updated: calculates Engineering Metrics, Health Score, appends to TREND.md, compares against BASELINE.md
+- Repair Mode pipeline updated: calculates Repair Quality Assessment, root cause intelligence, appends to TREND.md, compares against BASELINE.md
+- Refactor Mode pipeline updated: calculates Engineering Metrics, Health Score, appends to TREND.md, compares against BASELINE.md
+- Certify Mode pipeline updated: calculates Engineering Metrics, Health Score, appends to TREND.md, compares against BASELINE.md
+- Report Template updated: new sections for Engineering Metrics, Repository Health Score, Executive Summary, Trend Snapshot, Baseline Comparison
+- Engineering Documentation System updated: new files TREND.md and BASELINE.md in directory structure
+- Documentation Standards updated: reports must include Engineering Metrics, Health Score, Trend Snapshot, Baseline Comparison
+- Version updated to 1.6.0
+- Identity updated to include "Engineering Intelligence Platform"
+- Core Principles updated with Root Cause Intelligence and Historical Analytics
+- Non-Goals updated with repository health baseline, trend tracking, root cause intelligence
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification logic unchanged
+- Slash Commands unchanged
+- Finding IDs unchanged
+- Backward compatible with v1.5.x
+
 ## [1.5.0] - 2026-07-08
 
 ### Stable Release — Engineering Documentation & Release Assistant

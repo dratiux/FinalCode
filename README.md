@@ -1,25 +1,27 @@
 # FinalCode
 
-**OpenCode Edition v1.5.0 Stable**
+**OpenCode Edition v1.6.0**
 
-> The official OpenCode production certification and engineering documentation system.
+> The official OpenCode production certification and engineering intelligence platform.
 
-FinalCode certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates. It produces a standardized **FinalCode Certification Report** with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY. It also generates persistent engineering documentation, commit messages, and pull request descriptions.
+FinalCode certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates. It produces a standardized **FinalCode Certification Report** with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY. It also generates persistent engineering documentation, commit messages, pull request descriptions, root cause analysis, historical trend tracking, and repository health scoring.
 
 ---
 
 ## Philosophy
 
-FinalCode is not a code reviewer, linter, or formatter. It is a **Production Certification System and Engineering Documentation Assistant**.
+FinalCode is not a code reviewer, linter, or formatter. It is a **Production Certification System and Engineering Intelligence Platform**.
 
 - Every finding must have objective technical evidence
 - Every recommendation must have a concrete justification
+- Every finding must include root cause analysis and preventive recommendations
 - Never invent issues, never ignore verified issues
 - Prefer the smallest safe modification
 - Deterministic: same repo state = same findings
 - Confidence below 90% is classified as "Needs Verification"
 - Every severity level must include engineering justification
 - Every execution generates persistent engineering documentation
+- Historical trend analysis and baseline comparison for continuous improvement
 
 ## Features
 
@@ -27,11 +29,18 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - **Security Gate 2.0** with 14 categories and ~60 check items
 - **Four Operational Modes** — Inspect, Repair, Refactor, Certify
 - **Testing Gate** — evaluates unit tests, integration tests, E2E tests, coverage, critical path coverage, missing tests, flaky tests, test configuration, and test documentation
+- **Root Cause Intelligence** — every finding includes root cause analysis and classification
+- **Repository Health Score** — weighted composite score (0–100) across 10 categories
+- **Engineering Metrics** — cyclomatic complexity, function/file length, duplicate code, type coverage, documentation coverage, lint status, test coverage
+- **Historical Trend Analysis** — append-only trend tracking over time
+- **Baseline Analysis** — first-execution baseline, never overwritten, compared against every run
+- **Runtime Behavior Analysis** — execution patterns, error handling, logging practices, configuration drift
 - **Standardized Certification Report** with exit codes (0, 1, 2, 3)
 - **Evidence-Based Findings** with stable IDs, classification, severity, status, and verification methods
 - **Confidence Breakdown** — per-category confidence scores instead of single overall score
 - **Reliability Statement** — explicit statement of what was verified and what was not performed
 - **Engineering Documentation System** — persistent reports and engineering documents
+- **Executive Engineering Summary** — 30-second engineering manager view with strengths, weaknesses, risks, and recommendations
 - **Commit Assistance** — Conventional Commits message generation
 - **Pull Request Assistance** — GitHub-ready PR description generation
 - **Change Budget** and regression protection rules
@@ -89,7 +98,9 @@ FinalCode/
 │   ├── CHANGE_REPORT.md             # Engineering change log
 │   ├── REFACTOR_REPORT.md           # Refactoring history
 │   ├── FINALCODE_SUMMARY.md         # Executive summary
-│   └── CERTIFICATION_HISTORY.md     # Certification log
+│   ├── CERTIFICATION_HISTORY.md     # Certification log
+│   ├── TREND.md                     # Historical trend analysis
+│   └── BASELINE.md                  # First-execution baseline
 ├── scripts/
 │   ├── install.sh                   # Installation script (bash)
 │   └── install.ps1                  # Installation script (PowerShell)
@@ -116,7 +127,7 @@ cd FinalCode
 bash scripts/install.sh
 ```
 
-This copies `source/SKILL.md` and `source/references/` into `.opencode/skills/finalcode/` where OpenCode can discover them, and creates `.finalcode/` if missing.
+This copies `source/SKILL.md` and `source/references/` into `.opencode/skills/finalcode/` where OpenCode can discover them.
 
 ### PowerShell
 
@@ -149,8 +160,32 @@ FinalCode automatically generates persistent engineering documentation inside `.
 | `REFACTOR_REPORT.md` | Refactoring history | When refactors are applied |
 | `FINALCODE_SUMMARY.md` | Executive engineering summary | After every execution |
 | `CERTIFICATION_HISTORY.md` | Certification log | After every Certify execution |
+| `TREND.md` | Historical trend analysis | After every execution (append-only) |
+| `BASELINE.md` | First-execution baseline | Generated once, never overwritten |
 
 Reports in `.finalcode/reports/` are immutable — new executions create new timestamped files, never overwrite existing ones.
+
+### Repository Health Score
+
+FinalCode calculates a **Repository Health Score** (0–100) across 10 categories:
+
+| Category | Weight |
+|----------|--------|
+| Security | 20% |
+| Architecture | 15% |
+| Maintainability | 15% |
+| Performance | 10% |
+| Documentation | 10% |
+| Accessibility | 10% |
+| Testing | 10% |
+| Type Safety | 5% |
+| GitHub Readiness | 5% |
+
+Classifications: 90–100 Excellent, 75–89 Good, 50–74 Fair, 0–49 Poor.
+
+### Historical Trend Analysis
+
+Every execution appends a snapshot to `.finalcode/TREND.md` tracking Health Score, Confidence, Security findings, Critical findings, and High findings over time. A **baseline** is established on first execution (`.finalcode/BASELINE.md`) and every subsequent execution compares against it.
 
 ## Usage
 
@@ -237,6 +272,8 @@ See [source/references/examples.md](source/references/examples.md) for three com
 - [ ] Team collaboration features
 - [ ] Performance benchmarking suite
 - [ ] Multilingual documentation
+- [ ] Repository health dashboards
+- [ ] Cross-repository trend comparison
 
 ## Contributing
 
@@ -263,4 +300,4 @@ FinalCode is built on the principles of evidence-based engineering, deterministi
 
 ---
 
-**FinalCode** — Production certification and engineering documentation you can trust.
+**FinalCode** — Production certification and engineering intelligence you can trust.

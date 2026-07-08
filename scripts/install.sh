@@ -29,13 +29,6 @@ fi
 # Create target directories
 mkdir -p "$TARGET_DIR/references"
 
-# Create .finalcode directory if missing
-FINALCODE_DIR="$REPO_ROOT/.finalcode"
-if [ ! -d "$FINALCODE_DIR" ]; then
-  mkdir -p "$FINALCODE_DIR/references"
-  echo "Created: .finalcode/reports/"
-fi
-
 # Copy SKILL.md
 cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/SKILL.md"
 echo "Installed: SKILL.md"
