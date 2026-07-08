@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 1.6.2 — OpenCode Edition
+Version: 1.7.0 — OpenCode Edition
 
 ## Identity
 
@@ -41,7 +41,9 @@ If the repository does not follow OpenCode conventions, report the inconsistenci
 
 All reports, certifications, metadata, statistics, and output headers must use the FinalCode branding. Never refer to the system as "Final Gate" — always identify it as **FinalCode**.
 
-The canonical report template banner (see the FinalCode Certification Report format below) is always **"FINALCODE CERTIFICATION REPORT"**, kept fixed across modes so the output stays standardized. When describing what's about to run or labeling a sub-section conversationally, use the branded phrase that fits the context:
+The canonical report template banner (see the FinalCode Certification Report format below) is always **"FINALCODE CERTIFICATION REPORT"**, kept fixed across modes so the output stays standardized.   v1.7.0 adds engineering intelligence on top of the existing audit: structured decision analysis for any finding requiring a human choice, repository evolution comparison against prior executions, smart finding classification (Safe / Needs Review / Unsafe) for high-frequency findings, deployment intelligence for infrastructure findings, an automatic verification pipeline in Repair Mode, intelligent repair stop, an executive decision summary, a prioritized engineering roadmap, a release readiness predictor, and human override awareness. Trigger on "decision analysis", "repository evolution", "engineering roadmap", "release readiness", "should I ship this", or "accept/defer this recommendation" in addition to the audit commands above.
+
+  When describing what's about to run or labeling a sub-section conversationally, use the branded phrase that fits the context:
 
 - **FinalCode Repository Inspection** — Inspect Mode
 - **FinalCode Repair Plan** — the Repair Mode execution plan
@@ -465,6 +467,151 @@ Only generate BASELINE.md once. Never overwrite it.
 
 ---
 
+## Engineering Intelligence (v1.7.0)
+
+FinalCode v1.7.0 extends the audit with engineering intelligence that turns raw findings into decisions, trends, and prioritized plans. These capabilities layer on top of the existing 13 Quality Gates, Security Gate 2.0, operational modes, and the certification workflow — they do not change gate criteria or verdict logic. The goal is to reduce reader effort: instead of a flat list of findings, the report explains what a human must decide, how the repository is evolving, and what to do next.
+
+### Decision Intelligence
+
+Some findings cannot be safely automated — they require a human choice. These include business-logic changes, breaking API changes, subjective architecture trade-offs, security posture decisions, and any fix whose regression risk exceeds its benefit.
+
+Replace the generic "Requires Human Decision" message with a structured **Decision Analysis** attached to every such finding. The analysis must contain:
+
+| Field | Meaning |
+|---|---|
+| Why a Human Decision Is Required | The specific reason automation is unsafe or out of scope (e.g. ambiguous business rule, breaking change, missing product context) |
+| Available Options | Each realistic path forward, named concretely |
+| Pros and Cons | For each option, the benefit and the cost/risk |
+| Estimated Engineering Effort | Small / Medium / Large per option |
+| Risk Level | Low / Medium / High per option |
+| Certification Impact | How each option affects the verdict (e.g. "unblocks READY TO SHIP", "keeps NOT READY", "downgrades to READY WITH WARNINGS") |
+| Final Recommendation | The single option FinalCode recommends, with rationale |
+
+A finding carrying a Decision Analysis must still follow the standard Finding Format (ID, Classification, Severity, Evidence, Root Cause, etc.). The Decision Analysis is an additional block, not a replacement.
+
+### Repository Evolution
+
+Every execution is part of a longer story. Compare the current execution against previous FinalCode executions recorded in `.finalcode/TREND.md`, `CHANGE_REPORT.md`, and `FINALCODE_SUMMARY.md`.
+
+For each comparison, track:
+
+| Metric | Description |
+|---|---|
+| Health Score Progression | Current Health Score vs. prior snapshots (delta and trend) |
+| Findings Fixed | Count of findings that existed previously and are now resolved |
+| New Findings Introduced | Count of findings not present in prior executions |
+| Remaining Findings | Count of still-open findings vs. prior open count |
+| Overall Engineering Improvement | Net qualitative assessment (Improving / Stable / Regressing) with the primary driver |
+
+Include a **Repository Evolution** section in every report. If no prior execution exists (first run), state "No prior execution — baseline established this run" rather than omitting the section.
+
+### Smart Finding Classification
+
+Findings that occur many times across a repository — for example, repeated unsafe `any` casts, duplicated patterns, or widespread missing error handling — produce noisy, repetitive reports when every instance is expanded.
+
+For any finding category with more than a small number of occurrences, classify each instance into exactly one of:
+
+| Class | Meaning | Expanded in report? |
+|---|---|---|
+| Safe | Occurs in a context with no realistic failure path (e.g. `any` on a fully trusted internal type) | No — summarized as a count |
+| Needs Review | Plausible risk but context-dependent; a human should glance at it | Yes — listed compactly |
+| Unsafe | Realistic failure, security, or correctness path | Yes — full Finding Format |
+
+Rule: only **Unsafe** and **Needs Review** instances are expanded in the report. **Safe** instances are collapsed into a single line such as:
+
+```
+Type Safety: 42 safe `any` usages collapsed (e.g. FC-TYPE-001 ×42 safe occurrences)
+```
+
+This keeps the report focused on what actually requires attention while preserving an auditable count of the total.
+
+### Deployment Intelligence
+
+Infrastructure-related findings — rate limiters, storage, caching, databases, cloud services, queues, and similar — must include a **Deployment Intelligence** block. This makes environment constraints explicit rather than implied.
+
+The block must state:
+
+| Field | Meaning |
+|---|---|
+| Suitable Environments | Where the current implementation is appropriate (e.g. single-region, low-traffic, dev) |
+| Unsupported Environments | Where it will fail or violate requirements (e.g. multi-region, high-throughput, serverless cold-start constraints) |
+| Production Risks | Concrete failure modes under real load or scale |
+| Recommended Alternatives | Specific, named alternatives appropriate to the constraint |
+
+Only attach Deployment Intelligence to findings whose remediation genuinely depends on the deployment target. Do not attach it to generic code-quality issues.
+
+### Automatic Verification Pipeline (Repair Mode)
+
+Repair Mode must be self-validating. After applying fixes, the pipeline automatically:
+
+1. **Apply fixes** — in the established priority order, smallest safe change per fix.
+2. **Verify build / lint / tests** — run the project's configured build, lint, and test commands; record pass/fail. If a command is not configured, state "Not Configured" — never claim success.
+3. **Lightweight re-inspection** — re-run the affected Quality Gates (minimum: every gate touched by a fix, plus Security and Type Safety) to confirm the fix held and no regression was introduced.
+4. **Produce an updated certification report** — the final Repair Mode output already includes the repaired-state Certification Report, so the user does not need to manually run Inspect afterward.
+
+If verification fails (build/lint/test break or a gate regresses), the fix is rolled back to its pre-fix state or replaced with the next smallest safe alternative, and the failure is recorded in the report rather than silently marked resolved.
+
+### Intelligent Repair Stop
+
+Repair Mode stops automatically when no remaining findings can be safely automated. Specifically, stop and report when every open finding is one of:
+
+- A finding with an attached **Decision Analysis** (human decision required),
+- A finding the Change Budget or Regression Protection rules forbid automating,
+- A finding whose only remediation is breaking or subjective.
+
+When this condition is met, emit an **Intelligent Repair Stop** notice that explains: why no further automatic repairs are possible, which findings remain and why each is non-automatable, and what the human must do to proceed. Do not loop, do not fabricate automatable fixes, and do not expand scope to force progress.
+
+### Executive Decision Summary
+
+Add an **Executive Decision Summary** section to every report. It is the single place a manager or lead can read to decide what happens next. It must contain:
+
+| Field | Meaning |
+|---|---|
+| Automatic Fixes Completed | Count and brief list of what Repair Mode resolved (Inspect/Refactor/Certify list 0) |
+| Human Decisions Required | Count of findings carrying a Decision Analysis |
+| Blocking Decisions | Subset of human decisions that currently block READY TO SHIP |
+| Recommended Next Action | The highest-value step to move the repository forward |
+| Estimated Engineering Effort Remaining | Small / Medium / Large to reach READY TO SHIP |
+
+### Engineering Roadmap
+
+After every execution, generate a prioritized **Engineering Roadmap** grouping remaining work into time horizons. Each item references its FinalCode ID and horizon:
+
+| Horizon | Meaning |
+|---|---|
+| Immediate | Blocks certification or causes active risk; do before any release |
+| Short Term | Should be done this cycle; meaningful quality/risk improvement |
+| Medium Term | Planned improvement; not release-blocking |
+| Long Term | Strategic / hardening; scheduled opportunistically |
+
+Order items within a horizon by severity and engineering impact. The roadmap is derived from the current findings plus any open items in Decision Analyses — never from speculative issues.
+
+### Release Readiness Predictor
+
+Add a **Release Readiness Predictor** to every report. It gives a forward-looking estimate so the user can plan, not just react. It must state:
+
+| Field | Meaning |
+|---|---|
+| Current Certification | The verdict from this execution (READY TO SHIP / READY WITH WARNINGS / NOT READY) |
+| Probability of READY TO SHIP | An explicit estimate (e.g. "High / ~85%") derived from remaining blocking findings, Health Score trajectory, and trend |
+| Remaining Engineering Work | Count and horizon breakdown of work needed to reach READY TO SHIP |
+| Estimated Completion Effort | Small / Medium / Large to close the gap, with a one-line rationale |
+
+The probability must be justified from evidence in the report — never an arbitrary number. If certification is already READY TO SHIP, state probability 100% and remaining work "none".
+
+### Human Override Awareness
+
+Developers may explicitly **accept** or **defer** a FinalCode recommendation. Honor these decisions:
+
+- When a recommendation is accepted, record it as resolved-intent in `.finalcode/OVERRIDES.md` with the FinalCode ID, the decision (accept/defer), the reason given, and the date.
+- When a recommendation is deferred, keep it tracked but do not re-litigate it every run.
+- Do not repeat an acknowledged recommendation in subsequent reports unless **project conditions changed** (e.g. the affected code was modified, a new dependency introduced, or a gate previously passing now fails). When re-raising, state explicitly that it was previously acknowledged and why it now warrants attention again.
+- Accepted recommendations count toward resolved findings for trend purposes but must not be silently marked "fixed" if no code change occurred — distinguish "accepted" from "fixed".
+
+This prevents alert fatigue and keeps each report focused on what is genuinely new or unresolved.
+
+---
+
 ## Documentation Standards
 
 Every generated report must include the following metadata:
@@ -503,10 +650,18 @@ FinalCode runs in exactly one of four modes per invocation. If the user doesn't 
 7. Calculate Engineering Metrics
 8. Calculate Repository Health Score
 9. Generate Findings (with Root Cause Intelligence)
+9a. Apply Smart Finding Classification to high-frequency findings (collapse Safe instances)
+9b. Attach Decision Analysis to every non-automatable finding
+9c. Attach Deployment Intelligence to infrastructure findings
 10. Generate Repository Statistics
 11. Generate Security Summary
 12. Generate Overall Confidence
-13. Produce the FinalCode Certification Report
+12a. Generate Repository Evolution (compare against prior executions)
+12b. Generate Executive Decision Summary
+12c. Generate Engineering Roadmap
+12d. Generate Release Readiness Predictor
+12e. Apply Human Override Awareness (suppress acknowledged; re-raise only on condition change)
+13. Produce the FinalCode Certification Report (including all new intelligence sections)
 14. Append snapshot to `.finalcode/TREND.md`
 15. Compare against `.finalcode/BASELINE.md` (if exists)
 16. Optionally generate `.finalcode/reports/<timestamp>-inspect.md`
@@ -522,12 +677,18 @@ FinalCode runs in exactly one of four modes per invocation. If the user doesn't 
 **Execution Pipeline:**
 1. Inspect Mode audit (with Engineering Metrics, Health Score)
 2. Generate a FinalCode Repair Plan (execution plan)
+2a. Attach Decision Analysis to every finding that cannot be safely automated
 3. Repair findings in priority order: Critical Security → Critical Defects → High Security → High Defects → Type Safety → Dead Code → Accessibility → Performance → UI Consistency → Documentation → GitHub Readiness
-4. After every completed repair: verify the fix, perform regression analysis, re-run every Quality Gate, update Repository Statistics, update Security Summary, update Overall Confidence
-5. Continue until: every mandatory Quality Gate passes, OR remaining findings require human decisions, OR additional modifications would introduce unacceptable risk
-6. Verification
-7. Re-Inspect (with Engineering Metrics, Health Score)
+4. After every completed repair, run the Automatic Verification Pipeline:
+   4a. Apply the fix (smallest safe change)
+   4b. Verify build / lint / tests (record pass/fail; "Not Configured" if unavailable — never claim success)
+   4c. Run a lightweight re-inspection of affected gates (minimum: touched gates + Security + Type Safety)
+   4d. On failure, roll back or substitute the next smallest safe fix and record the failure in the report
+5. Continue until: every mandatory Quality Gate passes, OR an Intelligent Repair Stop condition is met (all remaining findings require human decisions, are forbidden by Change Budget / Regression Protection, or are breaking/subjective), OR additional modifications would introduce unacceptable risk
+6. Verification (final state)
+7. Re-Inspect (with Engineering Metrics, Health Score, Repository Evolution, Executive Decision Summary, Engineering Roadmap, Release Readiness Predictor)
 8. Calculate Repair Quality Assessment
+8a. If an Intelligent Repair Stop occurred, emit the stop notice explaining why no further automatic repair is possible
 9. Generate Documentation
 10. Generate `.finalcode/reports/<timestamp>-repair.md`
 11. Update `.finalcode/CHANGE_REPORT.md` (with Root Cause Classification per finding)
@@ -549,11 +710,12 @@ Ends with a FinalCode Certification Report that includes a "Fixes Applied" secti
 **Execution Pipeline:**
 1. Inspect Mode audit (with Engineering Metrics, Health Score)
 2. Generate a FinalCode Refactoring Plan
+2a. Attach Decision Analysis to refactors that are not clearly automatable (e.g. require product/architecture choice)
 3. Evaluate maintainability improvement opportunities: architecture, folder structure, component structure, function complexity, cyclomatic complexity, code duplication, naming, hook extraction, utility extraction, shared components, import organization, dependency cleanup, state management, technical debt
 4. Refactor only when objective engineering value exceeds regression risk
 5. Verify behavioral equivalence after every change
 6. Verification
-7. Re-Inspect (with Engineering Metrics, Health Score)
+7. Re-Inspect (with Engineering Metrics, Health Score, Repository Evolution, Executive Decision Summary, Engineering Roadmap, Release Readiness Predictor)
 8. Generate Documentation
 9. Generate `.finalcode/reports/<timestamp>-refactor.md`
 10. Update `.finalcode/REFACTOR_REPORT.md`
@@ -592,8 +754,9 @@ Ends with a FinalCode Refactoring Plan and a FinalCode Certification Report that
 4. Execute Repository Coverage Analysis
 5. Calculate Engineering Metrics
 6. Calculate Repository Health Score
+6a. Apply Smart Finding Classification (collapse Safe instances), attach Decision Analysis and Deployment Intelligence
 7. Verify certification eligibility
-8. Generate the FinalCode Certification Report
+8. Generate the FinalCode Certification Report including Repository Evolution, Executive Decision Summary, Engineering Roadmap, and Release Readiness Predictor
 9. Generate `.finalcode/reports/<timestamp>-certify.md`
 10. Append to `.finalcode/CERTIFICATION_HISTORY.md`
 11. Append snapshot to `.finalcode/TREND.md`
@@ -756,6 +919,7 @@ FinalCode maintains a persistent engineering documentation system inside the `.f
 ├── REFACTOR_REPORT.md          # Refactoring history (mutable)
 ├── FINALCODE_SUMMARY.md        # Executive engineering summary (regenerated)
 ├── CERTIFICATION_HISTORY.md    # Certification log (append-only)
+├── OVERRIDES.md                # Accepted/deferred recommendation record (mutable)
 ├── TREND.md                    # Historical trend analysis (append-only)
 └── BASELINE.md                 # First repository analysis (generated once)
 ```
@@ -799,6 +963,7 @@ FinalCode maintains a persistent engineering documentation system inside the `.f
 | `.finalcode/REFACTOR_REPORT.md` | After refactors are applied | Yes |
 | `.finalcode/FINALCODE_SUMMARY.md` | After every execution | Yes (regenerated) |
 | `.finalcode/CERTIFICATION_HISTORY.md` | After every Certify execution | Yes (append-only) |
+| `.finalcode/OVERRIDES.md` | When a recommendation is accepted/deferred | Yes (mutable) |
 | `.finalcode/TREND.md` | After every execution | Yes (append-only) |
 | `.finalcode/BASELINE.md` | First execution only | No (generated once) |
 
@@ -892,6 +1057,9 @@ Always regenerated. This is the **Executive Engineering Summary** — designed t
 | Tests | Test results |
 | **Risk Assessment** | Overall risk analysis |
 | **Release Recommendation** | Go / No-Go with reasoning |
+| Release Readiness Predictor | Current certification, probability of READY TO SHIP, remaining work, estimated effort |
+| Engineering Roadmap | Immediate / Short Term / Medium Term / Long Term remaining items |
+| Repository Evolution | Health progression, findings fixed / introduced / remaining vs prior runs |
 | Certification Recommendation | READY TO SHIP / READY WITH WARNINGS / NOT READY |
 | Overall Risk | Risk assessment |
 | Overall Confidence | Confidence percentage |
@@ -1013,6 +1181,9 @@ Each individual finding (Inspect Mode, Repair Mode, and Refactor Mode) must incl
 - Impact
 - Recommended Fix
 - Verification Method
+- Decision Analysis (required when the finding is non-automatable — see Decision Intelligence under Engineering Intelligence)
+- Smart Finding Classification (required when the finding has many occurrences — Safe / Needs Review / Unsafe; collapse Safe instances)
+- Deployment Intelligence (required for infrastructure-related findings — see Deployment Intelligence under Engineering Intelligence)
 
 Security Vulnerabilities additionally include: CVE Category (if applicable), Attack Vector.
 
@@ -1033,7 +1204,7 @@ FINALCODE CERTIFICATION REPORT
 
 AUDIT METADATA
 --------------------------------------------------
-Specification Version:  1.6.2 (OpenCode Edition)
+Specification Version:  1.7.0 (OpenCode Edition)
 Audit Engine Version:    <internal version>
 Report Version:          <increments per re-run>
 Repository Version:      <tag or branch name>
@@ -1111,8 +1282,9 @@ Overall Security Rating: A+ | A | B | C | D | F
 --------------------------------------------------
 FIXES APPLIED (Repair Mode only — see FinalCode Repair Plan)
 --------------------------------------------------
-(what changed, why, verification method and result, and the
- regression check performed, per fix)
+(what changed, why, and the Automatic Verification Pipeline result per fix:
+ build / lint / test status, lightweight re-inspection result, regression check;
+ fixes that failed verification are rolled back or substituted and recorded here)
 
 --------------------------------------------------
 REFACTORS APPLIED (Refactor Mode only — see FinalCode Refactoring Plan)
@@ -1120,7 +1292,13 @@ REFACTORS APPLIED (Refactor Mode only — see FinalCode Refactoring Plan)
 (files refactored, reason, risk level, verification result,
  maintainability improvement, technical debt reduction)
 
---------------------------------------------------
+-------------------------------------------------
+INTELLIGENT REPAIR STOP (Repair Mode only — emitted when no further automatic repair is possible)
+-------------------------------------------------
+(why no further automatic repairs are possible; each remaining finding listed with the
+ reason it is non-automatable; what the human must do to proceed)
+
+-------------------------------------------------
 AUDIT STATISTICS
 --------------------------------------------------
 Files Reviewed:        <count>
@@ -1229,6 +1407,58 @@ Risk Assessment:              <analysis>
 Release Recommendation:       Go | No-Go
 
 --------------------------------------------------
+REPOSITORY EVOLUTION
+-------------------------------------------------
+Health Score Progression:  <current> (Δ vs prior, trend)
+Findings Fixed:            <count vs prior runs>
+New Findings Introduced:   <count>
+Remaining Findings:        <count vs prior open count>
+Overall Engineering Improvement:  Improving | Stable | Regressing
+(If first execution: "No prior execution — baseline established this run")
+
+--------------------------------------------------
+DECISION ANALYSIS — HUMAN DECISIONS REQUIRED
+-------------------------------------------------
+(one entry per non-automatable finding; full block in FINDINGS)
+<FC-ID>: <one-line summary of decision and recommendation>
+
+-------------------------------------------------
+ENGINEERING ROADMAP
+-------------------------------------------------
+Immediate:
+  - <FC-ID> <short description>
+Short Term:
+  - <FC-ID> <short description>
+Medium Term:
+  - <FC-ID> <short description>
+Long Term:
+  - <FC-ID> <short description>
+
+-------------------------------------------------
+RELEASE READINESS PREDICTOR
+-------------------------------------------------
+Current Certification:     READY TO SHIP | READY WITH WARNINGS | NOT READY
+Probability of READY TO SHIP:  <High/Medium/Low + %>  (justified from report evidence)
+Remaining Engineering Work:    <count + horizon breakdown>
+Estimated Completion Effort:   Small | Medium | Large  (<one-line rationale>)
+
+-------------------------------------------------
+EXECUTIVE DECISION SUMMARY
+-------------------------------------------------
+Automatic Fixes Completed:  <count + list, or 0>
+Human Decisions Required:   <count>
+Blocking Decisions:         <subset that blocks READY TO SHIP, or none>
+Recommended Next Action:    <highest-value step>
+Estimated Engineering Effort Remaining:  Small | Medium | Large
+
+-------------------------------------------------
+HUMAN OVERRIDE AWARENESS
+-------------------------------------------------
+Accepted Recommendations:   <FC-IDs recorded in OVERRIDES.md, or none>
+Deferred Recommendations:   <FC-IDs tracked but not re-litigated, or none>
+Re-Raised (condition changed):  <FC-IDs previously acknowledged now warranting attention, with reason, or none>
+
+-------------------------------------------------
 TREND SNAPSHOT
 --------------------------------------------------
 <appended to .finalcode/TREND.md — not duplicated in report>

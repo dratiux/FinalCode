@@ -78,6 +78,7 @@ OpenCode remains the primary development and testing platform. All quality gates
 
 | Version | Stability | Notes |
 |---------|-----------|-------|
+| 1.7.0 | Stable | Engineering intelligence: decision analysis, repository evolution, smart classification, deployment intelligence, automatic verification pipeline, intelligent repair stop, executive decision summary, engineering roadmap, release readiness predictor, human override awareness |
 | 1.6.2 | Stable | Documentation correction, project ownership clarified |
 | 1.6.1 | Stable | Documentation and compatibility update |
 | 1.6.0 | Stable | Engineering intelligence and analytics |

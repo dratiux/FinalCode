@@ -2,9 +2,7 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
-<h1 align="center">FinalCode</h1>
-
-**OpenCode Edition v1.6.2**
+**OpenCode Edition v1.7.0**
 
 > Production certification and engineering intelligence for OpenCode projects.
 
@@ -83,12 +81,22 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - **Pull Request Assistance** — GitHub-ready PR description generation
 - **Change Budget** and regression protection rules
 - **Full repository coverage** analysis with transparency metrics
+- **Decision Intelligence** — structured decision analysis for every non-automatable finding (options, pros/cons, effort, risk, certification impact, recommendation)
+- **Repository Evolution** — compares each execution against prior runs: health progression, findings fixed/introduced/remaining, overall improvement
+- **Smart Finding Classification** — high-frequency findings grouped into Safe / Needs Review / Unsafe; only Unsafe and Needs Review are expanded
+- **Deployment Intelligence** — infrastructure findings explain suitable/unsupported environments, production risks, and recommended alternatives
+- **Automatic Verification Pipeline** — Repair Mode applies, verifies build/lint/tests, re-inspects, and produces an updated certification report automatically
+- **Intelligent Repair Stop** — Repair Mode halts automatically when all remaining findings require human decisions, with a clear explanation
+- **Executive Decision Summary** — automatic fixes, human decisions, blocking decisions, next action, and effort remaining in one place
+- **Engineering Roadmap** — remaining work grouped into Immediate / Short Term / Medium Term / Long Term
+- **Release Readiness Predictor** — current certification, probability of READY TO SHIP, remaining work, and estimated completion effort
+- **Human Override Awareness** — accept/defer recommendations recorded in `.finalcode/OVERRIDES.md`; acknowledged items are not re-litigated unless project conditions change
 
 ## Version Compatibility
 
 | Item | Value |
 |------|-------|
-| Current Version | 1.6.2 |
+| Current Version | 1.7.0 |
 | Stability | Stable |
 | Minimum OpenCode Version | Not Yet Defined |
 | Recommended OpenCode Version | Latest Stable |
@@ -147,6 +155,16 @@ Support Levels:
 | Commit Assistance | Available | Conventional Commits message generation |
 | Pull Request Assistance | Available | GitHub PR description generation |
 | Engineering Documentation | Available | Automatic report generation |
+| Decision Intelligence | Available | Structured decision analysis for non-automatable findings |
+| Repository Evolution | Available | Comparison against prior executions |
+| Smart Finding Classification | Available | Safe / Needs Review / Unsafe grouping for high-frequency findings |
+| Deployment Intelligence | Available | Environment suitability and production risk for infrastructure findings |
+| Automatic Verification Pipeline | Available | Repair Mode auto-verifies and re-certifies |
+| Intelligent Repair Stop | Available | Automatic halt when only human decisions remain |
+| Executive Decision Summary | Available | Fixes, decisions, blockers, next action in one view |
+| Engineering Roadmap | Available | Prioritized Immediate / Short / Medium / Long Term work |
+| Release Readiness Predictor | Available | Certification, ship probability, remaining effort |
+| Human Override Awareness | Available | Accept/defer tracking in OVERRIDES.md |
 
 Feature Status Values:
 
@@ -381,6 +399,10 @@ See [source/references/examples.md](source/references/examples.md) for three com
 FinalCode guarantees support only for OpenCode-based workflows. Support for other frameworks depends on project structure and available tooling. See [SUPPORTED.md](SUPPORTED.md) for the complete support policy and compatibility details.
 
 ## Roadmap
+
+FinalCode v1.7.0 delivered the complete engineering intelligence suite (decision analysis, repository evolution, smart finding classification, deployment intelligence, automatic verification pipeline, intelligent repair stop, executive decision summary, engineering roadmap, release readiness predictor, and human override awareness).
+
+Planned forward work:
 
 - [ ] Enhanced AI model support and prompt optimization
 - [ ] Integration with CI/CD pipelines

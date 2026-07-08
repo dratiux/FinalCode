@@ -2,6 +2,49 @@
 
 All notable changes to FinalCode will be documented in this file.
 
+## [1.7.0] - 2026-07-08
+
+### Engineering Intelligence
+
+Extends FinalCode's audit with decision-making, trend, and planning intelligence. Focuses on interpreting findings rather than adding new quality gates. The 13 Quality Gates, Security Gate 2.0, all four operational modes, the certification workflow, and the Single Source of Truth architecture are preserved unchanged.
+
+### Added
+
+- **Decision Intelligence** — every non-automatable finding now carries a structured Decision Analysis (why a human decision is required, available options, pros/cons, estimated effort, risk level, certification impact, final recommendation), replacing the generic "Requires Human Decision" message
+- **Repository Evolution** — every report includes a Repository Evolution section comparing the current execution against prior runs: Health Score progression, findings fixed, new findings introduced, remaining findings, and overall engineering improvement
+- **Smart Finding Classification** — high-frequency findings (e.g. repeated `any` casts) are classified Safe / Needs Review / Unsafe; only Unsafe and Needs Review instances are expanded, Safe instances are collapsed into a single counted line
+- **Deployment Intelligence** — infrastructure findings (rate limiters, storage, caching, databases, cloud services) explain suitable environments, unsupported environments, production risks, and recommended alternatives
+- **Automatic Verification Pipeline** — Repair Mode automatically applies fixes, verifies build/lint/tests, runs a lightweight re-inspection, and produces an updated certification report, so the user does not need to manually run Inspect afterward
+- **Intelligent Repair Stop** — Repair Mode detects when all remaining findings require human decisions and stops automatically with an explanation of why no further automatic repair is possible
+- **Executive Decision Summary** — report section summarizing automatic fixes completed, human decisions required, blocking decisions, recommended next action, and estimated engineering effort remaining
+- **Engineering Roadmap** — generated after every execution, grouping remaining work into Immediate / Short Term / Medium Term / Long Term
+- **Release Readiness Predictor** — estimates current certification, probability of READY TO SHIP, remaining engineering work, and estimated completion effort
+- **Human Override Awareness** — developers can explicitly accept or defer recommendations; decisions are recorded in `.finalcode/OVERRIDES.md`, acknowledged items are not re-litigated unless project conditions change, and accepted vs fixed is tracked distinctly
+- **`.finalcode/OVERRIDES.md`** — new persistent document recording accepted/deferred recommendation decisions
+
+### Changed
+
+- Engineering Intelligence (v1.7.0) section added to `source/SKILL.md` documenting all ten capabilities
+- Inspect Mode pipeline updated: applies Smart Finding Classification, attaches Decision Analysis and Deployment Intelligence, and generates Repository Evolution, Executive Decision Summary, Engineering Roadmap, and Release Readiness Predictor
+- Repair Mode pipeline updated: Automatic Verification Pipeline, Decision Analysis on non-automatable findings, Intelligent Repair Stop notice, and intelligence sections in the re-inspection
+- Refactor Mode pipeline updated: Decision Analysis on non-automatable refactors and intelligence sections in the re-inspection
+- Certify Mode pipeline updated: Smart Finding Classification, Decision Analysis, Deployment Intelligence, and intelligence sections in the certification report
+- Finding Format updated: every finding may include Decision Analysis, Smart Finding Classification, and Deployment Intelligence blocks
+- FINALCODE_SUMMARY.md required sections extended with Release Readiness Predictor, Engineering Roadmap, and Repository Evolution
+- FinalCode Certification Report template extended with Repository Evolution, Decision Analysis, Engineering Roadmap, Release Readiness Predictor, Executive Decision Summary, Human Override Awareness, and (Repair Mode) Intelligent Repair Stop sections
+- Engineering Documentation System directory structure and artifact table updated to include OVERRIDES.md
+- Report template Specification Version bumped to 1.7.0
+- Version updated to 1.7.0
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification logic and verdict rules unchanged
+- Finding IDs unchanged
+- Backward compatible with v1.6.x
+
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
