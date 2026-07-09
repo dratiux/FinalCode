@@ -1,64 +1,105 @@
-# Support
+# Support and Troubleshooting
 
-## Getting Help
+## Resources
 
-If you need help using FinalCode, here are the available resources:
+- [README](README.md) -- Installation and usage
+- [SUPPORTED.md](SUPPORTED.md) -- Platform compatibility and support policy
+- [source/SKILL.md](source/SKILL.md) -- Complete skill specification
+- [source/references/examples.md](source/references/examples.md) -- Worked example reports
+- [source/references/gates.md](source/references/gates.md) -- Quality gate checklists
+- [source/references/security-gate.md](source/references/security-gate.md) -- Security gate checklist
 
-### Documentation
+## Contact
 
-- [README](README.md) - Project overview, installation, and usage
-- [SKILL.md](source/SKILL.md) - Complete skill specification
-- [Examples](source/references/examples.md) - Worked example reports
-- [Quality Gates](source/references/gates.md) - Detailed gate checklists
-- [Security Gate](source/references/security-gate.md) - Security checklist
-- [SUPPORTED.md](SUPPORTED.md) - Support policy and compatibility
+- [GitHub Issues](https://github.com/dratiux/FinalCode/issues) -- Bug reports, feature requests
+- [GitHub Discussions](https://github.com/dratiux/FinalCode/discussions) -- Questions, ideas
+- dratiux@gmail.com
 
-### Community Support
+## Installation Issues
 
-- [GitHub Discussions](../../discussions) - Ask questions, share ideas, discuss FinalCode
-- [GitHub Issues](../../issues) - Report bugs, request features
+### Install script fails
 
-### What to Include When Asking for Help
+Ensure you have bash (Linux/macOS) or PowerShell (Windows) available. The script copies files from `source/` to `.opencode/skills/finalcode/`. Verify the source directory exists and contains the expected files.
 
-When opening a discussion or issue, please include:
+### Skill not appearing in OpenCode
 
-- What you were trying to do
-- What happened instead
-- The exact command or prompt you used
-- The output you received (if any)
-- Your OpenCode version
+1. Verify `.opencode/skills/finalcode/SKILL.md` exists after running the install script
+2. Restart OpenCode after installation
+3. Check that the `.opencode/` directory is in your project root
 
-## Troubleshooting
+### Permission denied on install script
 
-### FinalCode doesn't activate
+On Linux/macOS, make the script executable:
 
-FinalCode activates when your request implies a repository audit. Try phrases like:
+```bash
+chmod +x scripts/install.sh
+```
+
+## Skill Activation Issues
+
+### FinalCode does not activate
+
+FinalCode activates when your request implies a repository audit. Try:
 
 - "Run FinalCode on this repository"
 - "Audit this codebase"
 - "Is this production ready?"
 - "Run a security review"
 
-### The report seems incomplete
+### Wrong mode activates
 
-Ensure you have:
-1. Opened the correct directory as your workspace
-2. A valid project structure (not just a single file)
-3. Clear filesystem access for the AI to scan files
+Be explicit about the mode:
 
-### Certification results seem wrong
+```
+Run FinalCode in Inspect Mode
+Run FinalCode in Repair Mode
+Run FinalCode in Certify Mode
+```
 
-Remember that:
-- Results depend on the AI model's interpretation
-- Some findings may need manual verification
-- The "Needs Verification" classification exists for uncertain findings
-- You can run multiple times for consistency checks
+Or use slash commands:
+
+```
+/finalcode inspect
+/finalcode repair
+/finalcode certify
+```
+
+## Report Interpretation
+
+### Report seems incomplete
+
+1. Verify you opened the correct directory as your workspace
+2. Ensure the project has a valid structure (not just a single file)
+3. Check that the AI has filesystem access to scan files
+
+### Certification results seem unexpected
+
+- Results depend on the AI model's interpretation of the repository
+- Some findings require manual verification -- the "Needs Verification" classification exists for uncertain findings
+- Run multiple times for consistency checks
+- Review the Confidence Model section of the report for evidence quality
+
+### Health Score seems too low
+
+The Health Score is a weighted composite across 10 categories. Check the Health Score Explanation section for the breakdown. Address the largest deductions first for the most improvement.
+
+## Bug Reporting Checklist
+
+When reporting a bug:
+
+1. **OpenCode version** -- run `opencode --version`
+2. **FinalCode version** -- check the report header or README
+3. **Steps to reproduce** -- exact command or prompt used
+4. **Expected behavior** -- what you expected to happen
+5. **Actual behavior** -- what happened instead
+6. **Project structure** -- language, framework, approximate file count
+7. **Report output** -- paste the relevant sections (Dashboard, Certification, Findings)
 
 ## Feature Requests
 
-Have an idea for improving FinalCode? Open a [feature request](../../issues/new?template=feature_request.md) with:
+Include in your request:
 
-- A clear description of the feature
-- The problem it would solve
+- Description of the proposed feature
+- Problem it solves
 - Example use cases
-- Any alternatives you considered
+- Alternatives you considered

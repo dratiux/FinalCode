@@ -1,63 +1,83 @@
 # Security Policy
 
-## Reporting a Vulnerability
+## Responsible Disclosure
 
-If you discover a security vulnerability within FinalCode, please report it responsibly.
+Report security vulnerabilities through [GitHub Security Advisories](../../security/advisories/new). Do not report vulnerabilities through public issues.
 
-**Please do NOT report security vulnerabilities through public GitHub issues.**
+You should receive a response within 48 hours. If you do not, follow up to confirm receipt.
 
-Instead, please report them via [GitHub Security Advisories](../../security/advisories/new).
+### What to Include
 
-You should receive a response within 48 hours. If for some reason you do not, please follow up to ensure we received your original message.
-
-Please include the following information in your report:
-
-- Type of vulnerability (e.g., information disclosure, etc.)
-- Full paths of source file(s) related to the vulnerability
-- The location of the affected source code (tag/branch/commit or direct URL)
-- Any special configuration required to reproduce the issue
-- Step-by-step instructions to reproduce the issue
-- Proof-of-concept or exploit code (if possible)
-- Impact of the issue, including how an attacker might exploit it
-
-This information will help us triage your report more quickly.
+- Type of vulnerability (e.g., information disclosure, path traversal)
+- Full paths of affected source files
+- Location of the affected code (tag, branch, commit, or URL)
+- Configuration required to reproduce
+- Step-by-step reproduction instructions
+- Proof-of-concept code (if possible)
+- Impact and potential exploitation vectors
 
 ## Supported Versions
 
 | Version | Supported |
-| ------- | --------- |
-| 1.6.x   | Yes       |
-| 1.5.x   | Yes       |
-| 1.4.x   | Yes       |
-| 1.3.x   | Yes       |
-| < 1.3   | No        |
+|---------|-----------|
+| 2.1.x | Yes |
+| 2.0.x | Yes |
+| 1.9.x | Yes |
+| 1.8.x | Yes |
+| < 1.8 | No |
 
-## Security Considerations
+Security patches are applied to the current major version and the previous two minor versions.
+
+## Scope
 
 FinalCode is a skill definition for OpenCode. It instructs AI assistants how to audit repositories. As such:
 
-- **No code execution**: FinalCode does not execute code itself
-- **No network access**: FinalCode does not make network requests
-- **No data collection**: FinalCode does not collect or transmit user data
-- **AI-dependent**: The actual behavior depends on the AI model processing the skill
+- **No code execution.** FinalCode does not execute code itself.
+- **No network access.** FinalCode does not make network requests.
+- **No data collection.** FinalCode does not collect or transmit user data.
+- **AI-dependent.** Actual behavior depends on the AI model processing the skill.
 
-Users should be aware that:
+### In Scope
 
-- AI models may interpret instructions differently
-- Audit results are recommendations, not guarantees
-- Users should verify critical findings independently
-- The skill does not modify files in Inspect or Certify modes
+- Vulnerabilities in the skill definition itself
+- Path traversal or file inclusion issues in the install scripts
+- Injection vectors through configuration files
+- Incorrect access control in generated artifacts
+
+### Out of Scope
+
+- Vulnerabilities in OpenCode itself
+- Vulnerabilities in the AI model processing the skill
+- Issues that require modifying the AI model to exploit
+- Social engineering attacks
+- Issues requiring physical access to the target system
+
+## Severity Handling
+
+| Severity | Response Time | Action |
+|----------|---------------|--------|
+| Critical | 24 hours | Patch and release immediately |
+| High | 72 hours | Patch in next minor release |
+| Medium | 1 week | Patch in next scheduled release |
+| Low | 2 weeks | Patch when convenient |
+
+## Response Expectations
+
+1. Acknowledge receipt within 48 hours
+2. Provide an initial assessment within 72 hours
+3. Work with reporter to validate the vulnerability
+4. Develop and test a fix
+5. Release the fix with a security advisory
+6. Credit the reporter (unless anonymity is requested)
 
 ## Best Practices
 
-When using FinalCode:
-
-- Always review the certification report before acting on findings
+- Review the certification report before acting on findings
 - Verify critical security findings independently
-- Use Inspect Mode first to understand the scope of issues
+- Use Inspect Mode before Repair Mode
 - Back up your repository before running Repair Mode
-- Understand that AI-generated fixes should be reviewed before merging
+- Review AI-generated fixes before merging
 
 ## Attribution
 
-This security policy is adapted from the [GitHub Security Advisory](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/creating-a-security-advisory) guidelines.
+This security policy follows [GitHub Security Advisory](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/creating-a-security-advisory) guidelines.
