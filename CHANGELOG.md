@@ -2,6 +2,89 @@
 
 All notable changes to FinalCode will be documented in this file.
 
+## [1.9.0] - 2026-07-09
+
+### Modular Engineering Architecture
+
+Transforms FinalCode from a monolithic specification into a modular engineering platform. Every engineering decision is now explainable, every decision rule exists in one place, and the repository is easier to maintain while producing identical certification results. No behavior, Quality Gates, Security Gate 2.0, operational modes, or certification logic is modified.
+
+### Added
+
+- **Modular Engineering Architecture** — SKILL.md becomes the orchestration layer; 7 new dedicated reference documents handle specific responsibilities: decision-engine.md, report-engine.md, release-engine.md, confidence-model.md, finding-classification.md, health-score.md, explainability.md
+- **Explainability Engine** — every finding explains itself with Observed Evidence, Applicable Rule, Reasoning, Engineering Impact, Severity Justification, Classification Justification, Release Impact Justification, Alternative Decisions Considered, Human Assumptions, and Confidence Factors
+- **Decision Pipeline** — formalized internal decision flow: Evidence Collection → Rule Matching → Risk Analysis → Classification → Severity Calibration → Release Impact Assessment → Report Generation
+- **Single Source of Decision Rules** — all decision rules exist in one place; report generation, Health Score, Grade, Certification, Priority Matrix, and Release Blockers consume the same decision model
+- **Traceable Certification** — every certification decision shows exactly which gates passed, which blockers exist, and which findings contributed
+- **Explainable Health Score** — Health Score is reproducible with documented category weights, deduction rules, maximum contribution, penalty rules, and final calculation; every deduction references the findings that caused it
+- **Report Engine** — unified Report Engine with 37 documented section responsibilities, consistent ordering, consistent wording, and deterministic output
+- **Engineering Knowledge Base** — reusable engineering guidance for each finding category (Architecture, Security, Accessibility, Performance, Testing, Documentation, GitHub)
+- **Consistency Validation Engine** — automatic verification before report production: Health Score agrees with Grade, Grade agrees with Certification, Severity agrees with Classification, Release Blockers agree with Certification, Priority agrees with Risk, Confidence agrees with Available Evidence
+- **New reference documents** — `references/decision-engine.md`, `references/report-engine.md`, `references/release-engine.md`, `references/confidence-model.md`, `references/finding-classification.md`, `references/health-score.md`, `references/explainability.md`
+
+### Changed
+
+- `source/SKILL.md` refactored as orchestration layer with pointers to reference documents
+- `source/SKILL.md` "Modular Engineering Architecture (v1.9.0)" section documents the modular structure and principles
+- Finding Format extended with Explainability Block
+- Documentation Standards metadata extended with Explainability
+- Report template Specification Version bumped to 1.9.0
+- Version updated to 1.9.0
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- v1.7.0 Engineering Intelligence preserved
+- v1.8.0 Configurable Engineering Platform preserved
+- v1.8.1 Report Quality & Decision Support preserved
+- v1.8.2 Decision Engine & Report Precision preserved
+- Finding IDs unchanged
+- Report format unchanged (external behavior identical)
+- Exit codes unchanged
+- Backward compatible with v1.8.2
+
+## [1.8.2] - 2026-07-09
+
+### Decision Engine & Report Precision
+
+Improves the decision engine, report quality, and engineering accuracy without adding new Quality Gates, removing existing behavior, or changing Security Gate 2.0, the operational modes, or configuration compatibility. The goal is more trustworthy engineering decisions, fewer false positives, clearer reasoning, and a strict separation between engineering recommendations and release blockers.
+
+### Added
+
+- **Release Blocker Engine** — rule-based classification replacing static blocking behavior; every finding classified as Release Blocker, Conditional Blocker, Engineering Recommendation, or Informational; deployment-aware blocking with explicit condition documentation
+- **Warning Analyzer** — per-category lint/diagnostics breakdown with counts, top 5 categories, estimated cleanup effort, and expected engineering impact
+- **Health Score Explanation** — weighted breakdown with major contributors, largest deductions, and how to gain the next 5 points
+- **Grade Justification** — every letter grade (A+ … F) explains why with specific strengths and weaknesses
+- **Finding Impact Analysis** — Engineering Cost (Low/Medium/High), Estimated Fix Time, and Risk if Ignored for every finding
+- **Improvement Delta** — compares current inspection with prior: Resolved / New / Regressed / Unchanged findings with net change and overall direction
+- **Certification Confidence Model** — five-metric model (Static Analysis / Testing / Runtime / Documentation / Deployment Confidence) plus Overall Reliability (evidence completeness, explicitly not a probability)
+- **Engineering Priority Matrix** — maps every finding to Priority (P0–P3), Business Impact, Engineering Effort, Risk, and Recommended Sprint
+- **Release Decision Summary** — clear release decision with exact reason, what remains, and estimated work remaining
+- **Report Consistency** — internal consistency enforcement: severity vs verdict, health vs grade, checklist vs gates, dashboard vs content; inconsistencies corrected before report emission
+- Updated `references/examples.md` with all new report sections and examples
+
+### Changed
+
+- `source/SKILL.md` "Decision Engine & Report Precision (v1.8.2)" section documents all new capabilities
+- Certification Report template rebuilt: Grade Justification in Dashboard, Warning Analysis, Release Blocker Summary, Health Score Explanation, Certification Confidence Model, Improvement Delta, Engineering Priority Matrix, Release Decision Summary
+- Finding Format extended: Release Blocker Classification, Engineering Cost, Risk if Ignored
+- Report Navigation updated with new sections in correct order
+- Inspect, Repair, Refactor, and Certify pipelines updated to generate new report sections
+- Documentation Standards metadata extended with Certification Confidence Model
+- FINALCODE_SUMMARY.md required sections extended with Improvement Delta, Warning Breakdown, Certification Confidence Model, Engineering Priority Matrix, Release Decision Summary
+- Version updated to 1.8.2
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- v1.7.0 Engineering Intelligence and v1.8.0 platform features preserved
+- v1.8.1 report quality features preserved
+- Finding IDs unchanged
+- Backward compatible with v1.8.1
+
 ## [1.8.1] - 2026-07-08
 
 ### Report Quality & Decision Support

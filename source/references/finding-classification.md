@@ -1,0 +1,179 @@
+# FinalCode Finding Classification
+
+This document defines how findings are classified, identified, and formatted. It serves as the single source of truth for all finding-related rules.
+
+## Finding Status
+
+Every finding must use exactly one status:
+
+| Status | Meaning |
+|---|---|
+| Confirmed | Verified through execution, build, type-check, lint, runtime inspection, or objective repository evidence |
+| Needs Verification | Evidence exists but FinalCode could not fully verify |
+| Not Verified | Insufficient evidence |
+
+## Finding Classification
+
+Every finding must be classified into exactly one category:
+
+| Classification | Meaning | Affects certification? |
+|---|---|---|
+| Confirmed Defect | Objective engineering issue supported by evidence | Yes |
+| Security Vulnerability | Verified security weakness or insecure implementation | Yes |
+| Engineering Recommendation | Improvement that increases maintainability or scalability (includes OpenCode convention deviations) | No |
+| Architectural Suggestion | Alternative architectural approach | No |
+| Style Recommendation | Cosmetic or stylistic suggestion | No |
+
+**Rule:** Only **Confirmed Defect** and **Security Vulnerability** may fail a mandatory Quality Gate or block certification.
+
+## Finding IDs
+
+Every finding must have a stable, unique identifier. IDs follow the format `FC-<CATEGORY>-<NUMBER>`:
+
+| Category | Prefix | Example |
+|---|---|---|
+| Security | SEC | FC-SEC-001 |
+| Code Quality | CODE | FC-CODE-003 |
+| Performance | PERF | FC-PERF-002 |
+| Architecture | ARCH | FC-ARCH-001 |
+| Refactor | REF | FC-REF-004 |
+| Type Safety | TYPE | FC-TYPE-001 |
+| Dead Code | DEAD | FC-DEAD-001 |
+| Error Handling | ERR | FC-ERR-001 |
+| Testing | TEST | FC-TEST-001 |
+| Accessibility | A11Y | FC-A11Y-001 |
+| UI Consistency | UI | FC-UI-001 |
+| Documentation | DOC | FC-DOC-001 |
+| Dependencies | DEP | FC-DEP-001 |
+| GitHub Readiness | GH | FC-GH-001 |
+
+**Rules:**
+- IDs must remain stable across re-runs
+- Never renumber previous IDs
+- When a finding is fixed, its ID is recorded in `CHANGE_REPORT.md` with resolution details
+- New findings in the same category get the next sequential number
+
+## Severity Calibration
+
+Severity must reflect actual engineering impact. Never assume Engineering Recommendations are Low.
+
+| Severity | Meaning |
+|---|---|
+| Critical | Immediate security risk, data loss, or complete functionality failure |
+| High | Significant defect or security weakness requiring prompt attention |
+| Medium | Moderate impact on maintainability, correctness, or security |
+| Low | Minor issue with limited impact |
+| Informational | Noteworthy observation that does not constitute a defect |
+
+**Rule:** Every severity must include justification explaining why that level was chosen based on actual engineering impact.
+
+## Smart Finding Classification (Occurrence Classifier)
+
+For findings that occur many times across a repository, classify each instance:
+
+| Class | Meaning | Expanded in report? |
+|---|---|---|
+| Safe | Occurs in a context with no realistic failure path | No — summarized as a count |
+| Needs Review | Plausible risk but context-dependent; a human should glance at it | Yes — listed compactly |
+| Unsafe | Realistic failure, security, or correctness path | Yes — full Finding Format |
+
+**Rule:** Only **Unsafe** and **Needs Review** instances are expanded in the report. **Safe** instances are collapsed into a single line:
+
+```
+Type Safety: 42 safe `any` usages collapsed (e.g. FC-TYPE-001 ×42 safe occurrences)
+```
+
+## Engineering Category
+
+Every finding receives an engineering-oriented category:
+
+| Category | Meaning |
+|---|---|
+| Quick Win | Low effort, high impact — do first |
+| Safe Refactor | Low risk improvement |
+| Architecture Decision | Requires architectural choice |
+| Infrastructure Decision | Requires infrastructure choice |
+| Human Decision Required | Cannot be automated |
+| Breaking Change | Changes public API or behavior |
+| Technical Debt | Accumulated shortcuts |
+| Maintainability | Improves code maintainability |
+| Documentation | Improves documentation |
+| Developer Experience | Improves developer workflow |
+
+## Finding Impact Analysis
+
+Every finding must contain an Impact Analysis:
+
+| Field | Values |
+|---|---|
+| Engineering Cost | Low / Medium / High |
+| Estimated Fix Time | 5 minutes / 30 minutes / 2 hours / Half day / Multiple days |
+| Risk if Ignored | Developer productivity / Security / Performance / Maintainability / Release / None |
+
+**Rule:** When a finding is a Release Blocker or Conditional Blocker, "Release" must appear in the Risk if Ignored field.
+
+## Release Blocker Classification
+
+Every finding is classified by release impact:
+
+| Classification | Meaning | Blocks Release? |
+|---|---|---|
+| Release Blocker | Must be resolved before any production deployment | Always |
+| Conditional Blocker | Blocks only under specific deployment conditions | Only when condition applies |
+| Engineering Recommendation | Improves quality but never blocks release | Never |
+| Informational | Observation, not a defect | Never |
+
+See `release-engine.md` for the full Release Blocker Engine logic.
+
+## Finding Format
+
+Each individual finding must include:
+
+- **FinalCode ID** (per Finding IDs)
+- **Classification** (per Finding Classification)
+- **Severity** (per Severity Calibration)
+- **Status** (per Finding Status)
+- **Category**
+- **Release Blocker Classification** (per Release Blocker Engine)
+- **Engineering Category** (per Smart Finding Classification)
+- **Estimated Effort** (5 minutes / 30 minutes / 2 hours / Half day / Multiple days)
+- **Engineering Cost** (Low / Medium / High)
+- **Risk if Ignored** (Developer productivity / Security / Performance / Maintainability / Release / None)
+- **Confidence**
+- **Evidence**
+- **Affected Files**
+- **Root Cause** (never leave blank)
+- **Root Cause Classification**
+- **Preventive Recommendation** (never leave blank)
+- **Impact**
+- **Recommended Fix** (with Priority, Estimated Effort, Expected Impact, Prerequisites, Verification Method)
+- **Verification Method**
+- **Decision Analysis** (required when non-automatable)
+- **Smart Finding Classification** (required when high-frequency)
+- **Deployment Intelligence** (required for infrastructure findings)
+- **Explainability Block** (see `explainability.md`)
+
+**Security Vulnerabilities additionally include:** CVE Category (if applicable), Attack Vector.
+
+**UI Consistency Gate findings** use the UI Evidence Requirements format instead.
+
+## Root Cause Intelligence
+
+Every finding must include a Root Cause Classification and Preventive Recommendation.
+
+### Root Cause Classification (exactly one)
+
+| Classification | Meaning |
+|---|---|
+| Human Error | Mistake in implementation or logic |
+| Architecture | Structural design issue |
+| Dependency | Issue caused by third-party package |
+| Configuration | Incorrect or missing configuration |
+| Framework | Issue inherent to or caused by the framework |
+| External Library | Issue in an external library |
+| Build System | Build pipeline or tooling issue |
+| Security Misconfiguration | Insecure default or misconfigured setting |
+| Technical Debt | Accumulated shortcuts or deferred improvements |
+| Legacy Code | Outdated code that needs modernization |
+
+**Rule:** Preventive Recommendation must explain how to prevent recurrence. Never leave blank.

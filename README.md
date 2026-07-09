@@ -2,7 +2,7 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
-**OpenCode Edition v1.8.1**
+**OpenCode Edition v1.9.0**
 
 > Production certification and engineering intelligence for OpenCode projects.
 
@@ -118,12 +118,31 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - **Standardized Report Navigation** — fixed section order for fast reading
 - **Repository Quality Grade** — A+ … F derived from Health Score, with documented rules
 - **Better Recommendation Engine** — Priority, Estimated Effort, Expected Impact, Prerequisites, Verification Method
+- **Release Blocker Engine** — rule-based classification: Release Blocker / Conditional Blocker / Engineering Recommendation / Informational; deployment-aware blocking
+- **Warning Analyzer** — per-category lint/diagnostics breakdown, top 5 categories, estimated cleanup effort, expected engineering impact
+- **Health Score Explanation** — weighted breakdown, major contributors, largest deductions, how to gain the next 5 points
+- **Grade Justification** — every letter grade (A+ … F) explains why with specific strengths and weaknesses
+- **Finding Impact Analysis** — Engineering Cost, Estimated Fix Time, Risk if Ignored for every finding
+- **Improvement Delta** — Resolved / New / Regressed / Unchanged findings vs prior inspection
+- **Certification Confidence Model** — Static Analysis / Testing / Runtime / Documentation / Deployment Confidence + Overall Reliability (evidence completeness, not probability)
+- **Engineering Priority Matrix** — Priority, Business Impact, Engineering Effort, Risk, Recommended Sprint per finding
+- **Release Decision Summary** — clear decision, exact reason, what remains, estimated work remaining
+- **Report Consistency** — internal consistency enforcement: severity vs verdict, health vs grade, checklist vs gates, dashboard vs content
+- **Modular Engineering Architecture** — SKILL.md as orchestration layer with 7 dedicated reference documents for decision engine, report engine, release engine, confidence model, finding classification, health score, and explainability
+- **Explainability Engine** — every finding explains itself: Observed Evidence, Applicable Rule, Reasoning, Engineering Impact, Severity Justification, Classification Justification, Release Impact Justification, Alternative Decisions Considered, Human Assumptions, Confidence Factors
+- **Decision Pipeline** — formalized internal decision flow: Evidence Collection → Rule Matching → Risk Analysis → Classification → Severity Calibration → Release Impact Assessment → Report Generation
+- **Single Source of Decision Rules** — all decision rules exist in one place; report generation, Health Score, Grade, Certification, Priority Matrix, and Release Blockers consume the same decision model
+- **Traceable Certification** — every certification decision shows exactly which gates passed, which blockers exist, and which findings contributed
+- **Explainable Health Score** — Health Score is reproducible with documented category weights, deduction rules, maximum contribution, penalty rules, and final calculation; every deduction references the findings that caused it
+- **Report Engine** — unified Report Engine with 37 documented section responsibilities, consistent ordering, consistent wording, and deterministic output
+- **Engineering Knowledge Base** — reusable engineering guidance for each finding category (Architecture, Security, Accessibility, Performance, Testing, Documentation, GitHub)
+- **Consistency Validation Engine** — automatic verification before report production: Health Score agrees with Grade, Grade agrees with Certification, Severity agrees with Classification, Release Blockers agree with Certification
 
 ## Version Compatibility
 
 | Item | Value |
 |------|-------|
-| Current Version | 1.8.1 |
+| Current Version | 1.9.0 |
 | Stability | Stable |
 | Minimum OpenCode Version | Not Yet Defined |
 | Recommended OpenCode Version | Latest Stable |
@@ -218,6 +237,25 @@ Support Levels:
 | Standardized Report Navigation | Available | Fixed section order |
 | Repository Quality Grade | Available | A+ … F with documented rules |
 | Better Recommendation Engine | Available | Priority/effort/impact/prereqs/verification |
+| Release Blocker Engine | Available | Deployment-aware blocking classification |
+| Warning Analyzer | Available | Per-category lint/diagnostics breakdown |
+| Health Score Explanation | Available | Weighted breakdown, contributors, deductions, improvement path |
+| Grade Justification | Available | Letter grade with strengths and weaknesses |
+| Finding Impact Analysis | Available | Engineering cost, fix time, risk if ignored |
+| Improvement Delta | Available | Resolved/new/regressed/unchanged vs prior inspection |
+| Certification Confidence Model | Available | Static/Testing/Runtime/Documentation/Deployment Confidence + Overall Reliability |
+| Engineering Priority Matrix | Available | Priority, business impact, effort, risk, sprint per finding |
+| Release Decision Summary | Available | Decision, reason, what remains, estimated work |
+| Report Consistency | Available | Internal consistency enforcement across all sections |
+| Modular Engineering Architecture | Available | Orchestration layer with 7 dedicated reference documents |
+| Explainability Engine | Available | Every finding explains itself with full reasoning |
+| Decision Pipeline | Available | Formalized Evidence → Rule → Risk → Classification → Severity → Release → Report |
+| Single Source of Decision Rules | Available | All decision rules in one place, no duplication |
+| Traceable Certification | Available | Every certification decision shows its derivation |
+| Explainable Health Score | Available | Reproducible with documented weights, deductions, and calculation |
+| Report Engine | Available | 37 documented sections with consistent ordering and deterministic output |
+| Engineering Knowledge Base | Available | Reusable guidance for each finding category |
+| Consistency Validation Engine | Available | Automatic verification before report production |
 
 Feature Status Values:
 
@@ -263,13 +301,20 @@ FinalCode follows a **Single Source of Truth (SSOT)** architecture. There is exa
 ```
 FinalCode/
 ├── source/                          ← EDIT THIS (single source of truth)
-│   ├── SKILL.md                     # Skill specification
+│   ├── SKILL.md                     # Skill specification (orchestration layer)
 │   └── references/
 │       ├── examples.md              # Worked example reports
-│       ├── gates.md                 # Quality Gate checklists
-│       ├── security-gate.md         # Security Gate 2.0 checklist
-│       ├── configuration.md         # Config, profiles, baseline, ignore, incremental, PR, machine-readable
-│       └── plugins.md               # Plugin architecture and examples
+│       ├── decision-engine.md       # Decision Pipeline, Rule Matching, Risk Analysis
+│       ├── report-engine.md         # Report Section Registry, Formatting Rules
+│       ├── release-engine.md        # Release Blocker Engine, Conditional Blockers
+│       ├── confidence-model.md      # Confidence Model 2.0, Certification Confidence Model
+│       ├── finding-classification.md # Finding Status, Classification, IDs, Severity
+│       ├── health-score.md          # Health Score Formula, Weights, Grade Assignment
+│       ├── explainability.md        # Explainability Engine, Finding Self-Explanation
+│       ├── configuration.md         # Config, Profiles, Baseline, Ignore, Incremental, PR, Machine-readable
+│       ├── plugins.md               # Plugin Architecture and Examples
+│       ├── gates.md                 # Quality Gate Checklists
+│       └── security-gate.md         # Security Gate 2.0 Checklist
 ├── .opencode/                       # OpenCode configuration
 │   ├── commands/
 │   │   └── finalcode.md             # Slash command entry point

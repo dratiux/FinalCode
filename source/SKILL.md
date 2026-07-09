@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 1.8.1 — OpenCode Edition
+Version: 1.9.0 — OpenCode Edition
 
 ## Identity
 
@@ -815,18 +815,26 @@ Every report shows execution cost and scope:
 
 Reports follow a fixed order so readers always know where to look:
 
-1. Executive Dashboard
+1. Executive Dashboard (with Grade Justification)
 2. Repository Metadata
 3. Coverage
-4. Risk Matrix
-5. Quality Gates
-6. Findings
-7. Security Report
-8. Engineering Metrics
-9. Trend Analysis
-10. Certification Checklist
-11. Certification
-12. Appendix (machine-readable note, detailed tables)
+4. Warning Analysis
+5. Release Blocker Summary
+6. Risk Matrix
+7. Quality Gates
+8. Findings (with Release Blocker Classification, Engineering Cost, Risk if Ignored)
+9. Security Report
+10. Engineering Metrics
+11. Health Score Explanation
+12. Repository Quality Grade (with Justification)
+13. Certification Confidence Model
+14. Improvement Delta
+15. Trend Analysis
+16. Engineering Priority Matrix
+17. Release Decision Summary
+18. Certification Checklist
+19. Certification
+20. Appendix (machine-readable note, detailed tables)
 
 ### Repository Quality Grade
 
@@ -860,6 +868,420 @@ Recommendations (and findings' Recommended Fix) must include:
 
 ---
 
+## Decision Engine & Report Precision (v1.8.2)
+
+FinalCode v1.8.2 improves the decision engine, report quality, and engineering accuracy without adding new Quality Gates, removing existing behavior, or changing Security Gate 2.0, the operational modes, or configuration compatibility. Every change below is additive to the report and to all prior intelligence features. The goal is more trustworthy engineering decisions, fewer false positives, clearer reasoning, and a strict separation between engineering recommendations and release blockers.
+
+### Release Blocker Engine
+
+Replace the static blocking behavior with a rule-based **Release Blocker Engine**. Every finding is classified into exactly one of four release-impact categories:
+
+| Classification | Meaning | Blocks Release? |
+|---|---|---|
+| Release Blocker | Issue that must be resolved before any production deployment | Always |
+| Conditional Blocker | Issue that blocks release only under specific deployment conditions | Only when the blocking condition applies |
+| Engineering Recommendation | Improvement that increases quality but must never block release | Never |
+| Informational | Observation that does not constitute a defect or improvement | Never |
+
+A finding may only become a Release Blocker when **explicit blocking rules are satisfied**. The engine evaluates:
+
+1. **Finding severity** — Critical severity is a prerequisite for Release Blocker; High severity may become Conditional Blocker.
+2. **Deployment context** — the current deployment target (single instance, multi-instance, serverless, public API, etc.) determines whether a Conditional Blocker actually blocks.
+3. **Blocking condition documentation** — the report must state the exact condition under which a Conditional Blocker becomes a Release Blocker.
+
+**Example — Distributed Rate Limiter:**
+
+| Deployment Target | Classification |
+|---|---|
+| Single instance, development, preview, small production | Engineering Recommendation |
+| Multi-instance, horizontal scaling, distributed Cloudflare Workers, public API under heavy load | Conditional Blocker |
+
+**Never block a release unless the blocking condition is explicitly documented in the report.** If the condition cannot be determined (e.g. unknown deployment target), classify as Engineering Recommendation and note the ambiguity.
+
+The Release Blocker Engine replaces the static "Critical blocks, High blocks unless justified" rule for release decisions. The underlying severity system is unchanged — severity still reflects engineering impact. The Release Blocker Engine adds a deployment-aware layer on top that determines whether a given severity actually blocks a specific release.
+
+### Warning Analyzer
+
+Do not report only the total warning count. Generate a **Warning Breakdown** with per-category counts, the top five categories, estimated cleanup effort, and expected engineering impact.
+
+**Warning Breakdown Format:**
+
+```
+Warning Breakdown
+─────────────────────────────────────
+no-explicit-any ............ 412
+no-console .................  67
+unused variables ...........   5
+react-hooks ................   0
+deprecated APIs ............   3
+other ......................   8
+─────────────────────────────────────
+Total warnings:              495
+
+Top 5 Warning Categories:
+  1. no-explicit-any (412) — estimated 4 hours to review, high type-safety impact
+  2. no-console (67) — estimated 1 hour to clean, low impact
+  3. unused variables (5) — estimated 10 minutes, low impact
+  4. deprecated APIs (3) — estimated 30 minutes, medium security/maintenance impact
+  5. other (8) — estimated 20 minutes, variable impact
+
+Estimated Total Cleanup Effort:  ~6 hours
+Expected Engineering Impact:    Moderate — type safety and maintainability improve significantly;
+                                console cleanup is cosmetic; deprecated API removal reduces future risk.
+```
+
+The Warning Analyzer operates on lint output, compiler warnings, and framework-specific diagnostics. When lint or diagnostics are not configured, state "Warning analysis not available — lint/diagnostics not configured" and skip the breakdown.
+
+### Health Score Explanation
+
+Every Health Score must include its **calculation**, **major contributors**, **largest deductions**, and **how to gain the next 5 points**.
+
+**Health Score Explanation Format:**
+
+```
+REPOSITORY HEALTH SCORE
+─────────────────────────────────────
+Health Score: 90 / 100 (Excellent)
+
+Weighted Breakdown:
+  Category        Weight  Score  Contribution
+  Security        20%     96     19.2
+  Architecture    15%     88     13.2
+  Maintainability 15%     90     13.5
+  Performance     10%     85     08.5
+  Documentation   10%     92     09.2
+  Accessibility   10%     94     09.4
+  Testing         10%     82     08.2
+  Type Safety      5%     95     04.8
+  GitHub Ready     5%     90     04.5
+  Dead Code        0%*    88     00.0
+  Final Health Score 100%          90 / 100
+
+Major Contributors:
+  Security (19.2) — strong authentication and secrets management
+  Architecture (13.2) — clean separation of concerns, no circular dependencies
+  Maintainability (13.5) — well-structured modules, moderate duplication
+
+Largest Deductions:
+  Performance (-1.5) — bundle size slightly above target; lazy loading not fully applied
+  Testing (-1.8) — integration test coverage below 80% threshold
+
+How to Gain the Next 5 Points (target: 95):
+  1. Increase test coverage from 82% to 90% (+1.8 points)
+  2. Apply lazy loading to remaining route components (+0.8 points)
+  3. Reduce bundle size by 10% via tree-shaking (+0.5 points)
+  4. Add missing API documentation (+0.3 points)
+  Total potential gain: +3.4 points (to 93.4; remaining 1.6 requires architecture improvements)
+```
+
+The explanation is mandatory. Never present a bare Health Score number without the breakdown, contributors, deductions, and improvement path.
+
+### Grade Justification
+
+Whenever FinalCode assigns a letter grade (A+, A, A-, B+, B, B-, C, D, F), it must explain **why** that grade was assigned, referencing specific strengths and weaknesses.
+
+**Grade Justification Format:**
+
+```
+REPOSITORY QUALITY GRADE
+─────────────────────────────────────
+Engineering Grade: A-
+
+Reason:
+  Excellent architecture — clean separation of concerns, no circular dependencies,
+  consistent module boundaries.
+  Strong security — no Critical/High findings, secrets properly managed.
+  Testing coverage still below target — 82% vs 90% policy target.
+  Minor documentation inconsistencies — two API endpoints lack JSDoc.
+```
+
+The justification must reference at least one strength and, for grades below A+, at least one weakness. For A+ grades, justify why no weaknesses were found. The grade is never self-justifying — the reader must understand the reasoning.
+
+### Finding Impact Analysis
+
+Every finding must contain an **Impact Analysis** with three fields: Engineering Cost, Estimated Fix Time, and Risk if Ignored.
+
+**Finding Impact Analysis Format:**
+
+| Field | Values |
+|---|---|
+| Engineering Cost | Low / Medium / High |
+| Estimated Fix Time | 5 minutes / 30 minutes / 2 hours / Half day / Multiple days |
+| Risk if Ignored | Developer productivity / Security / Performance / Maintainability / Release / None |
+
+**Examples:**
+
+| Finding | Engineering Cost | Estimated Fix Time | Risk if Ignored |
+|---|---|---|---|
+| FC-SEC-001 (hardcoded secret) | Low | 30 minutes | Security |
+| FC-TYPE-003 (unsafe `any` in public API) | Medium | 2 hours | Maintainability, Release |
+| FC-TEST-001 (missing integration tests) | High | Multiple days | Release |
+| FC-DOC-002 (missing JSDoc) | Low | 5 minutes | Maintainability |
+
+The Risk if Ignored field must list every applicable risk category. When a finding is a Release Blocker or Conditional Blocker, "Release" must appear in the Risk if Ignored field. The Impact Analysis is required for every finding and appears alongside the existing Finding Format fields.
+
+### Improvement Delta
+
+Compare the current inspection with the **previous inspection** (from `.finalcode/TREND.md` or `.finalcode/baseline.json`) and generate an Improvement Delta section.
+
+**Improvement Delta Format:**
+
+```
+IMPROVEMENT DELTA
+─────────────────────────────────────
+Compared against: inspection 2026-07-08 (commit abc1234)
+
+Resolved:
+  FC-SEC-001  hardcoded API key removed
+  FC-DOC-003  changelog entry added
+
+New:
+  FC-PERF-004  missing lazy loading on dashboard route
+  FC-CODE-012  duplicated validation logic
+
+Regressed:
+  FC-TYPE-003  Medium → High (new public API boundary exposed)
+
+Unchanged:
+  FC-TEST-001  missing integration tests (unchanged since baseline)
+  FC-A11Y-002  missing ARIA labels (unchanged since baseline)
+
+Net Change: -1 finding (8 resolved, 9 remaining from prior; 2 new, 0 unchanged from last run)
+Overall Direction: Improving (Health Score +4 since baseline)
+```
+
+If no prior execution exists (first run), state "No prior execution — baseline established this run" and skip the delta. The delta section replaces the simpler "Repository Evolution" section when v1.8.2 is active; the underlying data is the same but the presentation is more actionable.
+
+### Certification Confidence Model
+
+Replace the single generic confidence percentage with a **five-metric Confidence Model** that separately measures confidence from each source of evidence. Then compute **Overall Reliability** as a weighted synthesis.
+
+**Certification Confidence Model Format:**
+
+```
+CERTIFICATION CONFIDENCE MODEL
+─────────────────────────────────────
+Static Analysis Confidence:    95%  (why: lint + type check passed; 3 warnings are informational)
+Testing Confidence:            82%  (why: unit tests pass; integration tests at 82% coverage; no E2E)
+Runtime Confidence:            70%  (why: no runtime harness; static analysis only)
+Documentation Confidence:      88%  (why: README complete; API docs 90%; architecture docs present)
+Deployment Confidence:         90%  (why: build passes; CI configured; deployment target known)
+
+Overall Reliability:           85%  (weighted: Static 25%, Testing 30%, Runtime 15%, Docs 15%, Deploy 15%)
+
+Overall Reliability is NOT a probability. It represents evidence completeness — how much of the
+repository's production readiness was actually verified versus assumed.
+```
+
+**Metric Definitions:**
+
+| Metric | What It Measures |
+|---|---|
+| Static Analysis Confidence | Confidence from lint, type-check, and static analysis tools |
+| Testing Confidence | Confidence from unit, integration, and E2E test results and coverage |
+| Runtime Confidence | Confidence from actual runtime execution, load testing, and production observation |
+| Documentation Confidence | Confidence from documentation completeness and accuracy |
+| Deployment Confidence | Confidence from build success, CI configuration, and deployment readiness |
+
+**Overall Reliability** weights: Static Analysis 25%, Testing 30%, Runtime 15%, Documentation 15%, Deployment 15%. The weights may be overridden by project profile (e.g. API profile weights Runtime higher).
+
+The report must clearly state that **Overall Reliability is NOT a probability** — it represents evidence completeness. Never present it as "85% chance of no bugs" or similar. The certification references Overall Reliability, not a single arbitrary confidence number.
+
+### Engineering Priority Matrix
+
+Generate an **Engineering Priority Matrix** that maps every finding to a priority level, business impact, engineering effort, risk, and recommended sprint.
+
+**Engineering Priority Matrix Format:**
+
+```
+ENGINEERING PRIORITY MATRIX
+─────────────────────────────────────
+Finding ID     Priority  Business Impact  Engineering Effort  Risk    Recommended Sprint
+FC-SEC-001     P0        High             30 minutes          High    Sprint 0 (blocker)
+FC-TYPE-003    P1        Medium           2 hours             Medium  Sprint 1
+FC-PERF-001    P1        High             Half day            Medium  Sprint 1
+FC-TEST-001    P2        Medium           Multiple days       Low     Sprint 2
+FC-DOC-002     P3        Low              5 minutes           None    Sprint 3 (optional)
+```
+
+**Priority Levels:**
+
+| Priority | Meaning | Sprint |
+|---|---|---|
+| P0 | Release Blocker or Conditional Blocker that currently blocks | Sprint 0 (immediate) |
+| P1 | High-impact issue that should be resolved this cycle | Sprint 1 |
+| P2 | Medium-impact issue planned for next cycle | Sprint 2 |
+| P3 | Low-impact improvement, schedule opportunistically | Sprint 3 or later |
+
+The matrix is derived from the Release Blocker Engine classification, Engineering Cost, Estimated Fix Time, and Risk if Ignored. It provides a single view of all remaining work ordered by business value and engineering cost.
+
+### Release Decision Summary
+
+At the end of every report, generate a **Release Decision Summary** that provides a clear, justified release decision.
+
+**Release Decision Summary Format:**
+
+```
+RELEASE DECISION SUMMARY
+─────────────────────────────────────
+Release Decision:  READY WITH WARNINGS
+
+Why:
+  All mandatory Quality Gates pass (13/13).
+  No Release Blockers found.
+  1 Conditional Blocker exists (FC-PERF-001) but does not apply to current deployment target
+  (single-instance development environment).
+  3 Engineering Recommendations remain (non-blocking).
+
+What Remains:
+  FC-PERF-001  — In-memory cache incoherence (Conditional Blocker; not applicable to single-instance)
+  FC-TEST-001  — Integration test coverage at 82% (Engineering Recommendation)
+  FC-DOC-002   — Missing API documentation (Engineering Recommendation)
+
+Estimated Work Remaining:
+  To reach READY TO SHIP (unconditional):  ~4 hours
+    - FC-PERF-001: 30 minutes (if multi-instance deployment planned)
+    - FC-TEST-001: 3 hours (increase coverage to 90%)
+    - FC-DOC-002: 30 minutes (add JSDoc to public API)
+  Current deployment target: READY TO SHIP is achievable without resolving Conditional Blockers.
+```
+
+The Release Decision Summary must state the decision (READY TO SHIP / READY WITH WARNINGS / NOT READY), the exact reason, what remains, and the estimated work. It must never contradict the Risk Matrix, Health Score, Grade, or Certification — see Report Consistency below.
+
+### Report Consistency
+
+Every report must be internally consistent. The following rules are enforced:
+
+1. **Severity vs Verdict Consistency** — a report must never state "High Severity" for a finding while simultaneously stating "READY TO SHIP" unless the High finding is explicitly justified as non-blocking (recorded in the Release Blocker Engine as Engineering Recommendation with documented justification).
+
+2. **Health Score vs Grade Consistency** — the Grade must exactly match the Health Score per the documented grade rules. Never report Health Score 64 and Grade A.
+
+3. **Health Score vs Certification Consistency** — if the Health Score is below the policy target, the certification must not be READY TO SHIP unless the policy explicitly allows it.
+
+4. **Overall Reliability vs Certification Consistency** — the Certification section must reference the Overall Reliability from the Certification Confidence Model, not a different number.
+
+5. **Release Decision vs Findings Consistency** — the Release Decision Summary must list every Release Blocker and Conditional Blocker from the findings. If a Release Blocker exists, the decision must be NOT READY.
+
+6. **Risk Matrix vs Findings Consistency** — the Risk Matrix counts must match the actual findings. The Blocking Issues count must equal the number of Release Blockers plus applicable Conditional Blockers.
+
+7. **Checklist vs Gate Summary Consistency** — the Certification Checklist row statuses must match the Quality Gate Summary. If Testing FAIL in the gate summary, Tests must be FAIL in the checklist.
+
+8. **Dashboard vs Report Content Consistency** — every field in the Executive Dashboard must be derivable from the report content. Never state "Testing Status: Pass" in the Dashboard while the Testing gate shows FAIL.
+
+When a consistency violation is detected during report generation, correct the inconsistency before emitting the report. If correction is not possible (e.g. conflicting evidence), flag the inconsistency explicitly in the report with a "Consistency Warning" note explaining the conflict and the resolution applied.
+
+---
+
+## Modular Engineering Architecture (v1.9.0)
+
+FinalCode v1.9.0 transforms the skill from a monolithic specification into a modular engineering platform. Every engineering decision is now explainable, every decision rule exists in one place, and the repository is easier to maintain while producing identical certification results. This change is purely architectural — no behavior, Quality Gates, Security Gate 2.0, operational modes, or certification logic is modified.
+
+### Architecture Overview
+
+SKILL.md becomes the **orchestration layer** — it defines what to do and when, but delegates the detailed rules to dedicated reference documents:
+
+```
+source/
+├── SKILL.md                          ← Orchestration layer (this file)
+└── references/
+    ├── decision-engine.md            ← Decision Pipeline, Rule Matching, Risk Analysis
+    ├── report-engine.md              ← Report Section Registry, Formatting Rules
+    ├── release-engine.md             ← Release Blocker Engine, Conditional Blockers
+    ├── confidence-model.md           ← Confidence Model 2.0, Certification Confidence Model
+    ├── finding-classification.md     ← Finding Status, Classification, IDs, Severity
+    ├── health-score.md               ← Health Score Formula, Weights, Grade Assignment
+    ├── explainability.md             ← Explainability Engine, Finding Self-Explanation
+    ├── configuration.md              ← Config, Profiles, Baseline, Ignore (v1.8.0)
+    ├── plugins.md                    ← Plugin Architecture (v1.8.0)
+    ├── gates.md                      ← Quality Gate Checklists
+    ├── security-gate.md              ← Security Gate 2.0 Checklist
+    └── examples.md                   ← Worked Report Examples
+```
+
+### Principles
+
+1. **Single Source of Decision Rules** — every decision rule exists in exactly one reference document. Report generation, Health Score, Grade, Certification, Priority Matrix, and Release Blockers all consume the same decision model.
+
+2. **Explainable Decisions** — every finding explains itself (see `explainability.md`). Every certification decision is traceable back to evidence, rules, and reasoning.
+
+3. **Traceable Certification** — every certification decision shows exactly which gates passed, which blockers exist, and which findings contributed.
+
+4. **Modular Responsibility** — each reference document has one responsibility only. No duplicated rules across documents.
+
+5. **Backward Compatible** — the report format, finding format, exit codes, and all external behavior are unchanged.
+
+### Reference Document Summary
+
+| Document | Responsibility |
+|---|---|
+| `decision-engine.md` | Decision Pipeline: Evidence → Rule → Risk → Classification → Severity → Release Impact → Report |
+| `report-engine.md` | Report Section Registry: 37 sections with documented responsibilities and ordering |
+| `release-engine.md` | Release Blocker Engine: classification, deployment context, blocking conditions, release decision |
+| `confidence-model.md` | Confidence Model 2.0 and Certification Confidence Model: metrics, weights, calculation |
+| `finding-classification.md` | Finding Status, Classification, IDs, Severity, Smart Finding Classification, Engineering Category, Impact Analysis, Root Cause |
+| `health-score.md` | Health Score Formula: weights, deduction rules, grade assignment, explanation requirements |
+| `explainability.md` | Explainability Engine: finding self-explanation, audit trail, consistency validation |
+
+### When to Read Reference Documents
+
+- **Audit execution** — read `decision-engine.md` for the decision pipeline, `finding-classification.md` for finding format
+- **Report generation** — read `report-engine.md` for section registry and ordering
+- **Release decision** — read `release-engine.md` for blocking logic
+- **Confidence calculation** — read `confidence-model.md` for metrics and weights
+- **Health Score** — read `health-score.md` for formula and grade rules
+- **Finding explanation** — read `explainability.md` for self-explanation format
+
+### Decision Pipeline (Summary)
+
+Every finding passes through:
+
+```
+Evidence Collection → Rule Matching → Risk Analysis → Classification →
+Severity Calibration → Release Impact Assessment → Report Generation
+```
+
+See `decision-engine.md` for the complete pipeline with rules and examples.
+
+### Traceable Certification (Summary)
+
+Every certification decision shows its derivation:
+
+```
+READY WITH WARNINGS
+
+Generated from:
+  13/13 Gates Passed
+  0 Release Blockers
+  2 Conditional Blockers
+  9 Engineering Recommendations
+  31 Informational Findings
+```
+
+See `release-engine.md` for the complete traceability format.
+
+### Explainable Findings (Summary)
+
+Every finding includes an Explainability Block:
+
+```
+EXPLAINABILITY
+-------------------------------------------------
+Observed Evidence:     <what was observed>
+Applicable Rule:       <which rule was violated>
+Reasoning:             <how evidence leads to conclusion>
+Engineering Impact:    <actual impact>
+Severity Justification: <why this severity>
+Classification Justification: <why this classification>
+Release Impact Justification: <why this blocks/doesn't block>
+Alternative Decisions Considered: <other options>
+Human Assumptions:     <what was assumed>
+Confidence Factors:    <what affects confidence>
+```
+
+See `explainability.md` for the complete format and examples.
+
+---
+
 ## Documentation Standards
 
 Every generated report must include the following metadata:
@@ -880,6 +1302,8 @@ Every generated report must include the following metadata:
 | Files Modified | Files changed during execution |
 | Coverage | Repository coverage percentage |
 | Confidence Model 2.0 | Analysis/Evidence/Verification/Runtime/Repository Coverage + Overall Reliability |
+| Certification Confidence Model | Static Analysis/Testing/Runtime/Documentation/Deployment Confidence + Overall Reliability (v1.8.2) |
+| Explainability | Every finding includes Explainability Block with Observed Evidence, Applicable Rule, Reasoning, Engineering Impact, and justification for severity, classification, and release impact (v1.9.0) |
 
 ---
 
@@ -905,17 +1329,24 @@ FinalCode runs in exactly one of four modes per invocation. If the user doesn't 
 9a. Apply Smart Finding Classification to high-frequency findings (collapse Safe instances)
 9b. Attach Decision Analysis to every non-automatable finding
 9c. Attach Deployment Intelligence to infrastructure findings
+9d. Classify findings by Release Blocker Engine (Release Blocker / Conditional Blocker / Engineering Recommendation / Informational)
+9e. Attach Finding Impact Analysis (Engineering Cost, Estimated Fix Time, Risk if Ignored) to every finding
 10. Generate Repository Statistics
 11. Generate Security Summary
-11a. If Git and a target branch are available, generate Pull Request Analysis (Files Changed, New/Resolved Findings, Regression Summary, Risk Level, Estimated Review Time)
+11a. Generate Warning Breakdown (per-category lint/diagnostics counts, top 5, cleanup effort, engineering impact)
+11b. If Git and a target branch are available, generate Pull Request Analysis (Files Changed, New/Resolved Findings, Regression Summary, Risk Level, Estimated Review Time)
 12. Generate Confidence Model 2.0 (Analysis/Evidence/Verification/Runtime/Repository Coverage + Overall Reliability)
-12a. Generate Repository Evolution (compare against prior executions)
-12b. Generate Baseline Analysis (New / Resolved / Regression / Severity Changes vs `.finalcode/baseline.json`, if configured)
-12c. Generate Executive Decision Summary
-12d. Generate Engineering Roadmap
-12e. Generate Release Readiness Predictor
-12f. Apply Human Override Awareness (suppress acknowledged; re-raise only on condition change)
-13. Produce the FinalCode Certification Report (including the Executive Dashboard, Engineering Policy, Risk Matrix, Confidence Model 2.0, Health Score formula, Repository Quality Grade, Runtime Capability Disclosure, Execution Metrics, Baseline Analysis, PR Analysis, all intelligence sections, and the Certification Checklist)
+12a. Generate Certification Confidence Model (Static Analysis/Testing/Runtime/Documentation/Deployment Confidence + Overall Reliability)
+12b. Generate Repository Evolution (compare against prior executions)
+12c. Generate Improvement Delta (Resolved / New / Regressed / Unchanged findings vs prior inspection)
+12d. Generate Baseline Analysis (New / Resolved / Regression / Severity Changes vs `.finalcode/baseline.json`, if configured)
+12e. Generate Executive Decision Summary
+12f. Generate Engineering Roadmap
+12g. Generate Engineering Priority Matrix (Priority, Business Impact, Engineering Effort, Risk, Recommended Sprint)
+12h. Generate Release Decision Summary (decision, reason, what remains, estimated work)
+12i. Validate Report Consistency (severity vs verdict, health vs grade, checklist vs gates, dashboard vs content)
+12j. Apply Human Override Awareness (suppress acknowledged; re-raise only on condition change)
+13. Produce the FinalCode Certification Report (including the Executive Dashboard with Grade Justification, Engineering Policy, Warning Analysis, Release Blocker Summary, Risk Matrix, Health Score Explanation, Certification Confidence Model, Improvement Delta, Engineering Priority Matrix, Release Decision Summary, Confidence Model 2.0, Repository Quality Grade with Justification, Runtime Capability Disclosure, Execution Metrics, Baseline Analysis, PR Analysis, all intelligence sections, and the Certification Checklist)
 14. Emit machine-readable reports: `.finalcode/reports/<timestamp>-inspect.json` and `.finalcode/reports/<timestamp>-inspect.sarif`
 15. Append snapshot to `.finalcode/TREND.md`
 16. Compare against `.finalcode/BASELINE.md` (if exists)
@@ -942,7 +1373,7 @@ FinalCode runs in exactly one of four modes per invocation. If the user doesn't 
    4d. On failure, roll back or substitute the next smallest safe fix and record the failure in the report
 5. Continue until: every mandatory Quality Gate passes, OR an Intelligent Repair Stop condition is met (all remaining findings require human decisions, are forbidden by Change Budget / Regression Protection, or are breaking/subjective), OR additional modifications would introduce unacceptable risk
 6. Verification (final state)
-7. Re-Inspect (with Engineering Metrics, Health Score, Repository Evolution, Baseline Analysis, Executive Decision Summary, Engineering Roadmap, Release Readiness Predictor)
+7. Re-Inspect (with Engineering Metrics, Health Score, Repository Evolution, Improvement Delta, Baseline Analysis, Executive Decision Summary, Engineering Roadmap, Engineering Priority Matrix, Release Decision Summary)
 8. Calculate Repair Quality Assessment
 8a. If an Intelligent Repair Stop occurred, emit the stop notice explaining why no further automatic repair is possible
 9. Generate Documentation
@@ -973,7 +1404,7 @@ Ends with a FinalCode Certification Report that includes a "Fixes Applied" secti
 4. Refactor only when objective engineering value exceeds regression risk
 5. Verify behavioral equivalence after every change
 6. Verification
-7. Re-Inspect (with Engineering Metrics, Health Score, Repository Evolution, Baseline Analysis, Executive Decision Summary, Engineering Roadmap, Release Readiness Predictor)
+7. Re-Inspect (with Engineering Metrics, Health Score, Repository Evolution, Improvement Delta, Baseline Analysis, Executive Decision Summary, Engineering Roadmap, Engineering Priority Matrix, Release Decision Summary)
 8. Generate Documentation
 9. Generate `.finalcode/reports/<timestamp>-refactor.md`
 9a. Emit machine-readable reports: `.finalcode/reports/<timestamp>-refactor.json` and `.finalcode/reports/<timestamp>-refactor.sarif`
@@ -1016,9 +1447,17 @@ Ends with a FinalCode Refactoring Plan and a FinalCode Certification Report that
 5. Calculate Engineering Metrics
 6. Calculate Repository Health Score (apply policy health score target)
 6a. Apply Smart Finding Classification (collapse Safe instances), attach Decision Analysis and Deployment Intelligence
-6b. Generate Baseline Analysis (New / Resolved / Regression / Severity Changes vs `.finalcode/baseline.json`, if configured)
+6b. Classify findings by Release Blocker Engine (Release Blocker / Conditional Blocker / Engineering Recommendation / Informational)
+6c. Attach Finding Impact Analysis (Engineering Cost, Estimated Fix Time, Risk if Ignored) to every finding
+6d. Generate Warning Breakdown (per-category lint/diagnostics counts, top 5, cleanup effort, engineering impact)
+6e. Generate Certification Confidence Model (Static Analysis/Testing/Runtime/Documentation/Deployment Confidence + Overall Reliability)
+6f. Generate Improvement Delta (Resolved / New / Regressed / Unchanged findings vs prior inspection)
+6g. Generate Engineering Priority Matrix (Priority, Business Impact, Engineering Effort, Risk, Recommended Sprint)
+6h. Generate Release Decision Summary (decision, reason, what remains, estimated work)
+6i. Validate Report Consistency (severity vs verdict, health vs grade, checklist vs gates, dashboard vs content)
+6j. Generate Baseline Analysis (New / Resolved / Regression / Severity Changes vs `.finalcode/baseline.json`, if configured)
 7. Verify certification eligibility
-8. Generate the FinalCode Certification Report including the Executive Dashboard, Engineering Policy, Risk Matrix, Confidence Model 2.0, Health Score formula, Repository Quality Grade, Runtime Capability Disclosure, Execution Metrics, Baseline Analysis, PR Analysis, Repository Evolution, Executive Decision Summary, Engineering Roadmap, Release Readiness Predictor, and the Certification Checklist
+8. Generate the FinalCode Certification Report including the Executive Dashboard with Grade Justification, Engineering Policy, Warning Analysis, Release Blocker Summary, Risk Matrix, Health Score Explanation, Certification Confidence Model, Improvement Delta, Engineering Priority Matrix, Release Decision Summary, Confidence Model 2.0, Repository Quality Grade with Justification, Runtime Capability Disclosure, Execution Metrics, Baseline Analysis, PR Analysis, Repository Evolution, Executive Decision Summary, Engineering Roadmap, Human Override Awareness, and the Certification Checklist
 9. Generate `.finalcode/reports/<timestamp>-certify.md`
 9a. Emit machine-readable reports: `.finalcode/reports/<timestamp>-certify.json` and `.finalcode/reports/<timestamp>-certify.sarif`
 10. Append to `.finalcode/CERTIFICATION_HISTORY.md`
@@ -1339,10 +1778,15 @@ Always regenerated. This is the **Executive Engineering Summary** — designed t
 | **Release Recommendation** | Go / No-Go with reasoning |
 | Release Readiness Predictor | Current certification, probability of READY TO SHIP, remaining work, estimated effort |
 | Engineering Roadmap | Immediate / Short Term / Medium Term / Long Term remaining items |
+| Engineering Priority Matrix | Priority, Business Impact, Engineering Effort, Risk, Recommended Sprint per finding |
+| Release Decision Summary | Decision, reason, what remains, estimated work |
 | Repository Evolution | Health progression, findings fixed / introduced / remaining vs prior runs |
+| Improvement Delta | Resolved / New / Regressed / Unchanged findings vs prior inspection |
+| Warning Breakdown | Per-category lint/diagnostics counts, top 5, cleanup effort, engineering impact |
+| Certification Confidence Model | Static Analysis/Testing/Runtime/Documentation/Deployment Confidence + Overall Reliability |
 | Certification Recommendation | READY TO SHIP / READY WITH WARNINGS / NOT READY |
 | Overall Risk | Risk assessment |
-| Overall Reliability | Confidence Model 2.0 percentage |
+| Overall Reliability | Certification Confidence Model Overall Reliability percentage |
 
 ---
 
@@ -1452,8 +1896,11 @@ Each individual finding (Inspect Mode, Repair Mode, and Refactor Mode) must incl
 - Severity (per Severity Calibration)
 - Status (per Finding Status)
 - Category
+- Release Blocker Classification (per Release Blocker Engine — Release Blocker / Conditional Blocker / Engineering Recommendation / Informational)
 - Engineering Category (per Smart Finding Classification v1.8.1 — Quick Win / Safe Refactor / Architecture Decision / Infrastructure Decision / Human Decision Required / Breaking Change / Technical Debt / Maintainability / Documentation / Developer Experience)
 - Estimated Effort (per Engineering Effort Estimation — 5 minutes / 30 minutes / 2 hours / Half day / Multiple days)
+- Engineering Cost (per Finding Impact Analysis — Low / Medium / High)
+- Risk if Ignored (per Finding Impact Analysis — Developer productivity / Security / Performance / Maintainability / Release / None)
 - Confidence
 - Evidence
 - Affected Files
@@ -1466,6 +1913,7 @@ Each individual finding (Inspect Mode, Repair Mode, and Refactor Mode) must incl
 - Decision Analysis (required when the finding is non-automatable — see Decision Intelligence under Engineering Intelligence)
 - Smart Finding Classification (occurrence classifier, required when the finding has many occurrences — Safe / Needs Review / Unsafe; collapse Safe instances)
 - Deployment Intelligence (required for infrastructure-related findings — see Deployment Intelligence under Engineering Intelligence)
+- Explainability Block (see `references/explainability.md` — Observed Evidence, Applicable Rule, Reasoning, Engineering Impact, Severity Justification, Classification Justification, Release Impact Justification, Alternative Decisions Considered, Human Assumptions, Confidence Factors)
 
 Security Vulnerabilities additionally include: CVE Category (if applicable), Attack Vector.
 
@@ -1490,6 +1938,7 @@ Overall Status:         READY TO SHIP | READY WITH WARNINGS | NOT READY
 Overall Risk:            Low | Medium | High
 Health Score:            XX / 100 (Class)
 Engineering Grade:       A+ | A | A- | B+ | B | B- | C | D | F
+Grade Justification:     <why this grade was assigned — strengths and weaknesses>
 Production Readiness:    XX%  (Health Score vs policy target)
 Security Rating:         A+ | A | B | C | D | F
 Maintainability Rating:  A+ | A | B | C | D | F
@@ -1499,7 +1948,7 @@ Estimated Remaining Effort:  Small | Medium | Large
 --------------------------------------------------
 AUDIT METADATA
 --------------------------------------------------
-Specification Version:  1.8.1 (OpenCode Edition)
+Specification Version:  1.9.0 (OpenCode Edition)
 Audit Engine Version:    <internal version>
 Report Version:          <increments per re-run>
 Repository Version:      <tag or branch name>
@@ -1579,7 +2028,43 @@ FINDINGS
 --------------------------------------------------
 (grouped by Quality Gate, using the Finding Format above —
  UI Consistency findings use the UI Evidence Requirements format instead;
- empty/"No findings" if a gate is clean)
+ empty/"No findings" if a gate is clean;
+ every finding includes Release Blocker Classification, Engineering Cost, and Risk if Ignored)
+
+--------------------------------------------------
+WARNING ANALYSIS
+--------------------------------------------------
+Warning Breakdown:
+  <per-category counts from lint/diagnostics — e.g.:
+   no-explicit-any ............ 412
+   no-console .................  67
+   unused variables ...........   5
+   deprecated APIs ............   3
+   other ......................   8
+   Total warnings:              495>
+
+Top 5 Warning Categories:
+  1. <category> (<count>) — estimated <effort>, <impact description>
+  2. ...
+  3. ...
+  4. ...
+  5. ...
+
+Estimated Total Cleanup Effort:  <time>
+Expected Engineering Impact:    <description>
+(or "Warning analysis not available — lint/diagnostics not configured")
+
+--------------------------------------------------
+RELEASE BLOCKER SUMMARY
+--------------------------------------------------
+Release Blockers:           <count — issues that must be resolved before any release>
+Conditional Blockers:       <count — issues that block only under specific conditions>
+Engineering Recommendations: <count — non-blocking improvements>
+Informational:              <count — observations>
+
+Blocking Conditions:
+  <FC-ID> — blocks when: <explicit condition, e.g. "multi-instance deployment">
+  (or "No blocking conditions active for current deployment target")
 
 --------------------------------------------------
 FINALCODE SECURITY REPORT
@@ -1643,6 +2128,20 @@ Repository Coverage:      XX%  (why: from Repository Coverage %)
 Overall Reliability:      XX%  (weighted synthesis of the above — certification confidence basis)
 
 (Each metric states its reason; never present a bare percentage without the why.)
+
+-------------------------------------------------
+CERTIFICATION CONFIDENCE MODEL
+-------------------------------------------------
+Static Analysis Confidence:    XX%  (why: lint + type check results)
+Testing Confidence:            XX%  (why: unit/integration/E2E test results and coverage)
+Runtime Confidence:            XX%  (why: runtime execution, load testing, production observation)
+Documentation Confidence:      XX%  (why: documentation completeness and accuracy)
+Deployment Confidence:         XX%  (why: build success, CI configuration, deployment readiness)
+
+Overall Reliability:           XX%  (weighted: Static 25%, Testing 30%, Runtime 15%, Docs 15%, Deploy 15%)
+
+Overall Reliability is NOT a probability. It represents evidence completeness — how much of the
+repository's production readiness was actually verified versus assumed.
 
 --------------------------------------------------
 RUNTIME CAPABILITY DISCLOSURE
@@ -1765,6 +2264,31 @@ Overall Engineering Improvement:  Improving | Stable | Regressing
 (If first execution: "No prior execution — baseline established this run")
 
 -------------------------------------------------
+IMPROVEMENT DELTA
+-------------------------------------------------
+Compared against: inspection <date> (commit <hash>)
+
+Resolved:
+  <FC-ID>  <one-line description>
+  ...
+
+New:
+  <FC-ID>  <one-line description>
+  ...
+
+Regressed:
+  <FC-ID>  <severity change, e.g. "Medium → High"> <one-line reason>
+  ...
+
+Unchanged:
+  <FC-ID>  <one-line description> (unchanged since <date>)
+  ...
+
+Net Change: <delta> findings (<N> resolved, <M> remaining from prior; <X> new, <Y> unchanged)
+Overall Direction: Improving | Stable | Regressing (Health Score Δ since baseline)
+(If first execution: "No prior execution — baseline established this run")
+
+-------------------------------------------------
 BASELINE ANALYSIS (when .finalcode/baseline.json is configured)
 -------------------------------------------------
 Baseline Findings:        <known issues carried over from baseline>
@@ -1808,6 +2332,16 @@ Human Decisions Required:   <count>
 Blocking Decisions:         <subset that blocks READY TO SHIP, or none>
 Recommended Next Action:    <highest-value step>
 Estimated Engineering Effort Remaining:  Small | Medium | Large
+
+-------------------------------------------------
+ENGINEERING PRIORITY MATRIX
+-------------------------------------------------
+Finding ID     Priority  Business Impact  Engineering Effort  Risk    Recommended Sprint
+<FC-ID>        <P0-P3>   <Low/Med/High>   <effort>            <risk>  <Sprint N>
+...
+
+(P0 = Release Blocker / Conditional Blocker blocking now; P1 = high-impact this cycle;
+ P2 = medium-impact next cycle; P3 = low-impact opportunistic)
 
 -------------------------------------------------
 HUMAN OVERRIDE AWARENESS
@@ -1871,6 +2405,24 @@ CI/CD:                PASS | WARNING | Not Configured
 GitHub Ready:         PASS | FAIL
 
 (A failing mandatory row blocks certification per the Release Blocking Policy.)
+
+-------------------------------------------------
+RELEASE DECISION SUMMARY
+-------------------------------------------------
+Release Decision:  READY TO SHIP | READY WITH WARNINGS | NOT READY
+
+Why:
+  <exact reason — which gates pass/fail, which blockers exist, which conditions apply>
+
+What Remains:
+  <FC-ID>  <one-line description> (<classification> — <blocking status>)
+  ...
+
+Estimated Work Remaining:
+  To reach READY TO SHIP (unconditional):  <time estimate>
+    - <FC-ID>: <effort> (<what needs to be done>)
+    ...
+  Current deployment target: <whether READY TO SHIP is achievable without resolving Conditional Blockers>
 
 -------------------------------------------------
 CERTIFICATION
