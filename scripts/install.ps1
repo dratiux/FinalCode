@@ -17,6 +17,8 @@ Write-Host ""
 # Validate source exists
 $skillFile = Join-Path $SourceDir "SKILL.md"
 $refsDir = Join-Path $SourceDir "references"
+$coreDir = Join-Path $SourceDir "core"
+$pluginsDir = Join-Path $SourceDir "plugins"
 
 if (-not (Test-Path $skillFile)) {
     Write-Error "Error: source/SKILL.md not found."
@@ -30,6 +32,8 @@ if (-not (Test-Path $refsDir)) {
 
 # Create target directories
 New-Item -ItemType Directory -Path "$TargetDir\references" -Force | Out-Null
+New-Item -ItemType Directory -Path "$TargetDir\core" -Force | Out-Null
+New-Item -ItemType Directory -Path "$TargetDir\plugins" -Force | Out-Null
 
 # Copy SKILL.md
 Copy-Item $skillFile "$TargetDir\SKILL.md" -Force
@@ -39,6 +43,22 @@ Write-Host "Installed: SKILL.md"
 Get-ChildItem "$refsDir\*" -File | ForEach-Object {
     Copy-Item $_.FullName "$TargetDir\references\$($_.Name)" -Force
     Write-Host "Installed: references/$($_.Name)"
+}
+
+# Copy core
+if (Test-Path $coreDir) {
+    Get-ChildItem "$coreDir\*" -File | ForEach-Object {
+        Copy-Item $_.FullName "$TargetDir\core\$($_.Name)" -Force
+        Write-Host "Installed: core/$($_.Name)"
+    }
+}
+
+# Copy plugins
+if (Test-Path $pluginsDir) {
+    Get-ChildItem "$pluginsDir\*" -File | ForEach-Object {
+        Copy-Item $_.FullName "$TargetDir\plugins\$($_.Name)" -Force
+        Write-Host "Installed: plugins/$($_.Name)"
+    }
 }
 
 Write-Host ""

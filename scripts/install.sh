@@ -28,6 +28,8 @@ fi
 
 # Create target directories
 mkdir -p "$TARGET_DIR/references"
+mkdir -p "$TARGET_DIR/core"
+mkdir -p "$TARGET_DIR/plugins"
 
 # Copy SKILL.md
 cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/SKILL.md"
@@ -39,6 +41,24 @@ for file in "$SOURCE_DIR/references"/*; do
   cp "$file" "$TARGET_DIR/references/$(basename "$file")"
   echo "Installed: references/$(basename "$file")"
 done
+
+# Copy core
+if [ -d "$SOURCE_DIR/core" ]; then
+  for file in "$SOURCE_DIR/core"/*; do
+    [ -f "$file" ] || continue
+    cp "$file" "$TARGET_DIR/core/$(basename "$file")"
+    echo "Installed: core/$(basename "$file")"
+  done
+fi
+
+# Copy plugins
+if [ -d "$SOURCE_DIR/plugins" ]; then
+  for file in "$SOURCE_DIR/plugins"/*; do
+    [ -f "$file" ] || continue
+    cp "$file" "$TARGET_DIR/plugins/$(basename "$file")"
+    echo "Installed: plugins/$(basename "$file")"
+  done
+fi
 
 echo ""
 echo "Done. FinalCode skill installed to .opencode/skills/finalcode/"

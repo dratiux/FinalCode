@@ -2,7 +2,7 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
-**OpenCode Edition v1.9.0**
+**OpenCode Edition v2.0.1**
 
 > Production certification and engineering intelligence for OpenCode projects.
 
@@ -92,7 +92,7 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - **Engineering Roadmap** — remaining work grouped into Immediate / Short Term / Medium Term / Long Term
 - **Release Readiness Predictor** — current certification, probability of READY TO SHIP, remaining work, and estimated completion effort
 - **Human Override Awareness** — accept/defer recommendations recorded in `.finalcode/OVERRIDES.md`; acknowledged items are not re-litigated unless project conditions change
-- **Engineering Policy Engine** — hardcoded certification rules become configurable policy (required health score, tests, `any` allowance, max complexity, mandatory CI/Security Gate, docs, accessibility)
+- **Policy Engine** — configurable certification rules (severity thresholds, blocking rules, warning thresholds, documentation requirements, security strictness, testing expectations)
 - **Project Configuration** — optional `finalcode.config.json` / `.finalcode/config.json` defines profile, enabled/disabled/required gates, severity overrides, targets, and ignore paths; defaults to production policy when absent
 - **Project Profiles** — built-in profiles (Production, Enterprise, Open Source, Library, CLI, Browser Extension, Desktop, Web Application, API, Mobile, MVP) auto-adjust certification requirements
 - **Baseline System** — `.finalcode/baseline.json` records known issues; reports show New / Resolved / Regression / Severity Changes
@@ -100,7 +100,6 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - **Incremental Inspection** — Full / Incremental / Dependency Based scoping when Git is available
 - **Pull Request Analysis** — compares branch vs target: Files Changed, New/Resolved Findings, Regression Summary, Risk Level, Estimated Review Time (Inspect & Certify)
 - **Machine-Readable Reports** — `report.json` and SARIF 2.1.0 (`report.sarif`) alongside Markdown, GitHub Code Scanning compatible
-- **Plugin Architecture** — `plugins/` extend FinalCode with framework-specific gates, checks, and repair logic (React, Next.js, Vue, Angular, Electron, Node.js, Cloudflare Workers, Supabase, Express, Fastify) without modifying core behavior
 - **Universal Compatibility** — automatic framework detection; never fails on unknown frameworks; audits with generic rules
 - **Performance Improvements** — reuses metadata, dependency analysis, and architecture maps; avoids duplicate Repair Mode inspections
 - **Repository Portability** — works across language, framework, monorepo/polyrepo, OS, package manager, and deployment platform
@@ -137,12 +136,22 @@ FinalCode is not a code reviewer, linter, or formatter. It is a **Production Cer
 - **Report Engine** — unified Report Engine with 37 documented section responsibilities, consistent ordering, consistent wording, and deterministic output
 - **Engineering Knowledge Base** — reusable engineering guidance for each finding category (Architecture, Security, Accessibility, Performance, Testing, Documentation, GitHub)
 - **Consistency Validation Engine** — automatic verification before report production: Health Score agrees with Grade, Grade agrees with Certification, Severity agrees with Classification, Release Blockers agree with Certification
+- **Plugin SDK** — extensible plugin system with registration points for rules, report sections, framework knowledge, recommendations, validation steps, and configuration options
+- **Rule Registry** — centralized source of truth for all engineering rules with semantic versioning, lifecycle management, and framework scoping
+- **Framework Profiles** — modular framework support for React, Next.js, Vue, Angular, Electron, Node.js, Express, Fastify, NestJS, Cloudflare Workers, Cloudflare Pages, Supabase, Vite, Hono
+- **Certification Profiles** — configurable certification policies (Default, Production, Enterprise, Startup, Open Source, Educational, Minimal, Strict)
+- **Policy Engine** — configurable severity thresholds, blocking rules, documentation requirements, security strictness, and testing expectations
+- **Rule Versioning** — semantic versioning with introduced, modified, deprecated, and replacement fields
+- **Extension Marketplace Foundation** — prepared architecture for future community plugins with validation, compatibility, and distribution
+- **Self Validation** — duplicate rule detection, duplicate finding detection, reference validation, profile validation, plugin validation, report section validation, policy consistency
+- **Performance Optimization** — lazy loading of reference documents, dependency-aware loading, reduced unnecessary loading
+- **Architecture Documentation** — comprehensive system architecture with component relationships, dependency diagrams, and execution flow
 
 ## Version Compatibility
 
 | Item | Value |
 |------|-------|
-| Current Version | 1.9.0 |
+| Current Version | 2.0.1 |
 | Stability | Stable |
 | Minimum OpenCode Version | Not Yet Defined |
 | Recommended OpenCode Version | Latest Stable |
@@ -211,7 +220,7 @@ Support Levels:
 | Engineering Roadmap | Available | Prioritized Immediate / Short / Medium / Long Term work |
 | Release Readiness Predictor | Available | Certification, ship probability, remaining effort |
 | Human Override Awareness | Available | Accept/defer tracking in OVERRIDES.md |
-| Engineering Policy Engine | Available | Configurable certification rules |
+| Policy Engine | Available | Configurable certification rules |
 | Project Configuration | Available | finalcode.config.json / .finalcode/config.json |
 | Project Profiles | Available | 11 built-in profiles auto-adjust requirements |
 | Baseline System | Available | Known-issue tracking via baseline.json |
@@ -219,7 +228,6 @@ Support Levels:
 | Incremental Inspection | Available | Full / Incremental / Dependency Based |
 | Pull Request Analysis | Available | Branch vs target diff analysis |
 | Machine-Readable Reports | Available | report.json + SARIF 2.1.0 |
-| Plugin Architecture | Available | Framework-specific gates and checks |
 | Universal Compatibility | Available | Auto framework detection, never fails on unknown |
 | Performance Improvements | Available | Reused analysis, no duplicate inspections |
 | Repository Portability | Available | Any language, framework, mono/polyrepo, OS |
@@ -256,6 +264,16 @@ Support Levels:
 | Report Engine | Available | 37 documented sections with consistent ordering and deterministic output |
 | Engineering Knowledge Base | Available | Reusable guidance for each finding category |
 | Consistency Validation Engine | Available | Automatic verification before report production |
+| Plugin SDK | Available | Extensible plugin system with registration points |
+| Rule Registry | Available | Centralized rule management with versioning |
+| Framework Profiles | Available | Modular framework support for 14 frameworks |
+| Certification Profiles | Available | Configurable certification policies |
+| Policy Engine | Available | Configurable severity thresholds and blocking rules |
+| Rule Versioning | Available | Semantic versioning with lifecycle management |
+| Extension Marketplace Foundation | Available | Prepared architecture for future community plugins |
+| Self Validation | Available | Duplicate detection, reference validation, consistency checks |
+| Performance Optimization | Available | Lazy loading, dependency-aware loading |
+| Architecture Documentation | Available | System architecture with dependency diagrams |
 
 Feature Status Values:
 
@@ -302,19 +320,28 @@ FinalCode follows a **Single Source of Truth (SSOT)** architecture. There is exa
 FinalCode/
 ├── source/                          ← EDIT THIS (single source of truth)
 │   ├── SKILL.md                     # Skill specification (orchestration layer)
-│   └── references/
+│   ├── core/                        # Core Engine Layer
+│   │   ├── decision-engine.md       # Decision Pipeline, Rule Matching, Risk Analysis
+│   │   ├── policy-engine.md         # Policy Engine, Built-in Policies, Policy Selection
+│   │   ├── rule-registry.md         # Rule Registry, Rule Schema, Rule Lifecycle
+│   │   ├── report-engine.md         # Report Engine, 37 Sections, Formatting Rules
+│   │   └── certification-engine.md  # Certification Pipeline, Validation, Execution Flow
+│   ├── plugins/                     # Plugin Layer
+│   │   ├── sdk.md                   # Plugin SDK, Registration Process, Constraints
+│   │   ├── profiles.md              # Framework Profiles, Detection, Best Practices
+│   │   └── marketplace.md           # Extension Marketplace Foundation, Distribution
+│   └── references/                  # Reference Layer
 │       ├── examples.md              # Worked example reports
-│       ├── decision-engine.md       # Decision Pipeline, Rule Matching, Risk Analysis
-│       ├── report-engine.md         # Report Section Registry, Formatting Rules
-│       ├── release-engine.md        # Release Blocker Engine, Conditional Blockers
-│       ├── confidence-model.md      # Confidence Model 2.0, Certification Confidence Model
-│       ├── finding-classification.md # Finding Status, Classification, IDs, Severity
-│       ├── health-score.md          # Health Score Formula, Weights, Grade Assignment
-│       ├── explainability.md        # Explainability Engine, Finding Self-Explanation
+│       ├── gates.md                 # Quality Gate Checklists
+│       ├── security-gate.md         # Security Gate 2.0 Checklist
 │       ├── configuration.md         # Config, Profiles, Baseline, Ignore, Incremental, PR, Machine-readable
 │       ├── plugins.md               # Plugin Architecture and Examples
-│       ├── gates.md                 # Quality Gate Checklists
-│       └── security-gate.md         # Security Gate 2.0 Checklist
+│       ├── health-score.md          # Health Score Formula, Weights, Grade Assignment
+│       ├── confidence-model.md      # Confidence Model 2.0, Certification Confidence Model
+│       ├── finding-classification.md # Finding Status, Classification, IDs, Severity
+│       ├── explainability.md        # Explainability Engine, Finding Self-Explanation
+│       ├── release-engine.md        # Release Blocker Engine, Conditional Blockers
+│       └── architecture.md          # Overall System Architecture, Dependency Diagrams
 ├── .opencode/                       # OpenCode configuration
 │   ├── commands/
 │   │   └── finalcode.md             # Slash command entry point
@@ -355,7 +382,7 @@ cd FinalCode
 bash scripts/install.sh
 ```
 
-This copies `source/SKILL.md` and `source/references/` into `.opencode/skills/finalcode/` where OpenCode can discover them.
+This copies `source/SKILL.md`, `source/core/`, `source/plugins/`, and `source/references/` into `.opencode/skills/finalcode/` where OpenCode can discover them.
 
 ### PowerShell
 
@@ -395,162 +422,180 @@ Reports in `.finalcode/reports/` are immutable — new executions create new tim
 
 ## Configuration
 
-FinalCode v1.8.0 is configurable without editing the skill. Place a `finalcode.config.json` at the repository root (or `.finalcode/config.json`). If neither exists, FinalCode uses its default production policy. See [source/references/configuration.md](source/references/configuration.md) for the full schema and examples.
+FinalCode v2.0.0 is configurable without editing the skill. Place a `finalcode.config.json` at the repository root (or `.finalcode/config.json`). If neither exists, FinalCode uses its default production policy. See [source/references/configuration.md](source/references/configuration.md) for the full schema and examples.
 
-Key capabilities:
+### Built-in Policies
 
-- **Profiles** — set `"profile": "mvp"` (or `production`, `enterprise`, `open-source`, `library`, `cli`, `browser-extension`, `desktop`, `web-application`, `api`, `mobile`) to auto-adjust certification requirements.
-- **Gate selection** — `enabledGates`, `disabledGates`, `requiredGates` scope which gates run and block.
-- **Policy levers** — `policy.allowAny`, `policy.maxComplexity`, `policy.requireSecurityGate`, `healthScoreTarget`, `testing`, `ci`, `documentation`.
-- **Baseline** — initialize `.finalcode/baseline.json` to track known issues across runs (New / Resolved / Regression / Severity Changes).
-- **Ignore** — add a `.finalcodeignore` (`.gitignore` syntax) to exclude paths; ignored files appear in Repository Coverage.
-- **Plugins** — drop framework plugins into `plugins/` or `.finalcode/plugins/`; they activate automatically when their framework is detected. See [source/references/plugins.md](source/references/plugins.md).
-- **Machine-readable output** — every run also writes `report.json` and SARIF `report.sarif` to `.finalcode/reports/`.
+| Policy | Description |
+|--------|-------------|
+| POLICY-DEFAULT | Default behavior (identical to v1.9.0) |
+| POLICY-PRODUCTION | Strict policy for production systems |
+| POLICY-ENTERPRISE | Enterprise-grade policy |
+| POLICY-STARTUP | Relaxed policy for rapid development |
+| POLICY-OPENSOURCE | Policy for open source projects |
+| POLICY-EDUCATIONAL | Policy for learning projects |
+| POLICY-MINIMAL | Bare minimum checks |
+| POLICY-STRICT | Maximum strictness |
 
-### Repository Health Score
+### Policy Selection
 
-FinalCode calculates a **Repository Health Score** (0–100) across 10 categories:
+The active policy is selected by:
 
-| Category | Weight |
-|----------|--------|
-| Security | 20% |
-| Architecture | 15% |
-| Maintainability | 15% |
-| Performance | 10% |
-| Documentation | 10% |
-| Accessibility | 10% |
-| Testing | 10% |
-| Type Safety | 5% |
-| GitHub Readiness | 5% |
-
-Classifications: 90–100 Excellent, 75–89 Good, 50–74 Fair, 0–49 Poor.
-
-### Historical Trend Analysis
-
-Every execution appends a snapshot to `.finalcode/TREND.md` tracking Health Score, Confidence, Security findings, Critical findings, and High findings over time. A **baseline** is established on first execution (`.finalcode/BASELINE.md`) and every subsequent execution compares against it.
+1. Explicit configuration (`policy: "POLICY-PRODUCTION"`)
+2. Project profile (some profiles set a default policy)
+3. Command-line flag (`--policy POLICY-ENTERPRISE`)
+4. Default (`POLICY-DEFAULT`)
 
 ## Usage
 
-### Inspect Mode (Default)
+### Inspect Mode
 
-Ask OpenCode to audit your repository:
+```bash
+# Run FinalCode in Inspect Mode
+Run FinalCode
 
-> Run FinalCode on this repository
-
-FinalCode will scan the entire codebase, run all 13 quality gates, and produce a comprehensive report.
+# Or use the slash command
+/finalcode inspect
+```
 
 ### Repair Mode
 
-Request automatic fixes:
+```bash
+# Run FinalCode in Repair Mode
+Run FinalCode in Repair Mode
 
-> Run FinalCode in Repair Mode
-
-FinalCode will audit the repository, generate a repair plan, and apply fixes in priority order (Critical Security → Critical Defects → High → Medium → Low). After completion, it generates engineering documentation and optionally suggests a commit message. **Only runs with your explicit approval.**
+# Or use the slash command
+/finalcode repair
+```
 
 ### Refactor Mode
 
-Request maintainability improvements:
+```bash
+# Run FinalCode in Refactor Mode
+Run FinalCode in Refactor Mode
 
-> Run FinalCode in Refactor Mode
-
-FinalCode will audit the repository, generate a refactoring plan, and apply maintainability improvements that preserve observable behavior. After completion, it generates engineering documentation and optionally suggests a commit message. **Only runs with your explicit approval.**
+# Or use the slash command
+/finalcode refactor
+```
 
 ### Certify Mode
 
-Request final release certification:
+```bash
+# Run FinalCode in Certify Mode
+Run FinalCode in Certify Mode
 
-> Run FinalCode in Certify Mode
-
-FinalCode performs a completely new inspection, issues an authoritative certification verdict, and appends to the certification history.
+# Or use the slash command
+/finalcode certify
+```
 
 ## Requirements
 
-- [OpenCode](https://opencode.ai) installed and configured
-- An AI model capable of processing the skill specification
-- Access to the repository you want to audit
-
-For detailed compatibility information, see the [Compatibility Matrix](#compatibility-matrix) and [Version Compatibility](#version-compatibility) sections.
+| Requirement | Minimum | Recommended |
+|-------------|---------|-------------|
+| OpenCode | Latest Stable | Latest Stable |
+| Git | 2.0+ | Latest Stable |
+| Node.js | 18+ | Latest LTS |
+| npm | 9+ | Latest Stable |
 
 ## Quality Gates
 
-FinalCode evaluates repositories across 13 gates:
+FinalCode evaluates repositories across 13 Quality Gates:
 
-| # | Gate | What It Checks |
-|---|------|----------------|
-| 1 | Architecture | Consistency, separation of concerns, modularity, dependency direction, circular dependencies |
-| 2 | Code Quality | Naming, readability, code smells, complexity, SOLID/DRY/KISS/YAGNI |
-| 3 | Dead Code | Unused files, imports, exports, variables, unreachable code |
-| 4 | Dependencies | Unused packages, version conflicts, deprecated packages |
-| 5 | Type Safety | Unsafe `any`, ignored errors, `ts-ignore`, nullable risks |
-| 6 | Error Handling | Unhandled promises, silent failures, retry strategy |
-| 7 | Testing | Unit tests, integration tests, E2E tests, coverage, critical path coverage, missing tests, flaky tests |
-| 8 | Performance | Bundle size, lazy loading, rendering efficiency, caching |
-| 9 | Security | Full Security Gate 2.0 checklist (14 categories) |
-| 10 | Accessibility | Semantic HTML, ARIA, keyboard navigation, focus management |
-| 11 | UI Consistency | Spacing, typography, color, interaction states, responsive behavior |
-| 12 | Documentation | README, installation, configuration, architecture docs |
-| 13 | GitHub Readiness | Repository cleanliness, naming consistency, release readiness |
+| Gate | Description |
+|------|-------------|
+| Architecture | Project structure, module organization, dependency management |
+| Code Quality | Code smells, complexity, duplication, naming conventions |
+| Dead Code | Unused files, exports, variables, functions |
+| Dependencies | Outdated packages, security vulnerabilities, license compliance |
+| Type Safety | TypeScript strictness, type annotations, type errors |
+| Error Handling | Try-catch blocks, error propagation, error recovery |
+| Testing | Unit tests, integration tests, E2E tests, coverage |
+| Performance | Bundle size, load times, memory usage, optimization |
+| Security | Security Gate 2.0 (14 categories) |
+| Accessibility | WCAG compliance, screen reader support, keyboard navigation |
+| UI Consistency | Design system compliance, component consistency |
+| Documentation | README, API docs, inline comments, changelog |
+| GitHub Readiness | Issue templates, PR templates, CI/CD, badges |
 
 ## Certification Verdict
 
-| Status | Exit Code | Meaning |
-|--------|-----------|---------|
-| **READY TO SHIP** | 0 | All mandatory gates pass |
-| **READY WITH WARNINGS** | 1 | No Critical/High blockers, but Medium/Low findings remain |
-| **NOT READY** | 2 | One or more mandatory gates fail |
-| **NO PROJECT FOUND** | 3 | Could not locate a repository |
+| Verdict | Exit Code | Meaning |
+|---------|-----------|---------|
+| READY TO SHIP | 0 | All mandatory gates PASS |
+| READY WITH WARNINGS | 1 | Mandatory gates PASS but warnings exist |
+| NOT READY | 2 | One or more mandatory gates FAIL |
+| NO PROJECT FOUND | 3 | No valid project detected |
 
 ## Examples
 
-See [source/references/examples.md](source/references/examples.md) for three complete worked examples:
+### Clean Repository
 
-1. **Clean Repository** — Certify Mode → READY TO SHIP (Exit Code 0)
-2. **Repository With Issues** — Inspect Mode → NOT READY (Exit Code 2)
-3. **Missing Repository** — NO PROJECT FOUND (Exit Code 3)
+```
+Certification: READY TO SHIP
+Exit Code: 0
+Health Score: 94 / 100 (Excellent)
+Grade: A+
+Overall Reliability: 92%
+```
+
+### Repository with Issues
+
+```
+Certification: NOT READY
+Exit Code: 2
+Health Score: 67 / 100 (Fair)
+Grade: C+
+Overall Reliability: 78%
+Blocking Issues: 3
+```
 
 ## Support Policy
 
-FinalCode guarantees support only for OpenCode-based workflows. Support for other frameworks depends on project structure and available tooling. See [SUPPORTED.md](SUPPORTED.md) for the complete support policy and compatibility details.
+| Version | Support Level | End of Life |
+|---------|---------------|-------------|
+| 2.0.x | Active Development | TBD |
+| 1.9.x | Maintenance | 2027-01-01 |
+| 1.8.x | Maintenance | 2026-12-01 |
+| < 1.8 | End of Life | 2026-06-01 |
 
 ## Roadmap
 
-FinalCode v1.7.0 delivered the complete engineering intelligence suite (decision analysis, repository evolution, smart finding classification, deployment intelligence, automatic verification pipeline, intelligent repair stop, executive decision summary, engineering roadmap, release readiness predictor, and human override awareness).
+### v2.1.0 (Planned)
 
-Planned forward work:
+- Remote plugin registry
+- Community plugin submission
+- Plugin ratings and reviews
 
-- [ ] Enhanced AI model support and prompt optimization
-- [ ] Integration with CI/CD pipelines
-- [ ] Custom gate configuration
-- [ ] Team collaboration features
-- [ ] Performance benchmarking suite
-- [ ] Multilingual documentation
-- [ ] Repository health dashboards
-- [ ] Cross-repository trend comparison
+### v2.2.0 (Planned)
+
+- Enterprise plugin repository
+- Plugin licensing
+- Plugin analytics
+
+### v3.0.0 (Future)
+
+- Real-time collaboration
+- Multi-repository certification
+- CI/CD integration
 
 ## Contributing
 
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Security
 
-To report security vulnerabilities, please see [SECURITY.md](SECURITY.md).
+See [SECURITY.md](SECURITY.md) for vulnerability reporting.
 
 ## Support
 
-- [Documentation](#documentation) — Read the docs
-- [GitHub Discussions](../../discussions) — Ask questions
-- [Issues](../../issues) — Report bugs
-- [SUPPORT.md](SUPPORT.md) — Get help
-- [SUPPORTED.md](SUPPORTED.md) — Support policy and compatibility
+- **Issues:** [GitHub Issues](https://github.com/dratiux/FinalCode/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/dratiux/FinalCode/discussions)
+- **Email:** dratiux@gmail.com
 
 ## License
 
-This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
+MIT License. See [LICENSE](LICENSE).
 
 ## Credits
 
-FinalCode is built on the principles of evidence-based engineering, deterministic auditing, and production-grade quality standards. It respects OpenCode conventions and preserves existing project architectures.
-
----
-
-**FinalCode** — Production certification and engineering intelligence you can trust.
+Created by Dratiux. Built for the OpenCode community.

@@ -2,6 +2,91 @@
 
 All notable changes to FinalCode will be documented in this file.
 
+## [2.0.1] - 2026-07-09
+
+### Maintenance Release — Documentation Consistency
+
+Maintenance release focused solely on documentation consistency and repository integrity. No functional changes, no behavior changes, no breaking changes.
+
+### Changed
+
+- **Moved** `source/references/decision-engine.md` to `source/core/decision-engine.md` (canonical location)
+- **Moved** `source/references/report-engine.md` to `source/core/report-engine.md` (canonical location)
+- **Fixed** terminology inconsistencies: "Engineering Policy Engine" → "Policy Engine" in README.md
+- **Fixed** terminology inconsistency: "plugin SDK" → "Plugin SDK" in SUPPORTED.md
+- **Fixed** terminology inconsistency: "Explainability" → "Explainability Engine" in architecture.md
+- **Updated** README.md source layout to include `release-engine.md` in references/
+- **Updated** SKILL.md reference documents table to include `release-engine.md`
+- **Updated** install scripts to copy core/ and plugins/ directories
+- **Cleaned** installed skill directory of stale files
+- **Derived** file counts automatically (no hardcoded numbers)
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification logic unchanged
+- Report format unchanged
+- Exit codes unchanged
+- Backward compatible with v2.0.0
+
+## [2.0.0] - 2026-07-09
+
+### Extensible Engineering Platform
+
+Transforms FinalCode from a monolithic specification into an extensible engineering platform with a stable core and plugin-based architecture. Separates FinalCode Core from framework-specific knowledge. No new Quality Gates, no modified Security Gate 2.0, no changed operational modes, no altered certification logic, no modified report output, no changed configuration behavior. Complete backward compatibility with v1.9.0.
+
+### Added
+
+- **Plugin SDK** — extensible plugin system with documented registration points for detection rules, report sections, framework knowledge, engineering recommendations, validation steps, and configuration options; plugins never modify Core logic directly
+- **Rule Registry** — centralized source of truth for all engineering rules with Rule ID, Version, Owner, Description, Gate, Severity, Default Classification, Detection Method, Applicable Frameworks, References, and Deprecation Status; no duplicated rule definitions allowed
+- **Framework Profiles** — modular framework support for 14 frameworks (React, Next.js, Vue, Angular, Electron, Node.js, Express, Fastify, NestJS, Cloudflare Workers, Cloudflare Pages, Supabase, Vite, Hono); each profile contributes additional rules, best practices, framework documentation, and report improvements without changing Core behavior
+- **Certification Profiles** — configurable certification policies (Default, Production, Enterprise, Startup, Open Source, Educational, Minimal, Strict); each profile defines blocking policy, enabled gates, required evidence, minimum quality score, and report sections; default policy remains identical to v1.9.0
+- **Policy Engine** — configurable severity thresholds, blocking rules, warning thresholds, documentation requirements, security strictness, and testing expectations; policies are configurable without editing Core
+- **Rule Versioning** — semantic versioning for every engineering rule with introduced version, modified version, deprecated version, and replacement rule; allows future upgrades without breaking reports
+- **Extension Marketplace Foundation** — documented plugin layout, registration process, validation requirements, compatibility rules, version compatibility, and future distribution architecture; no networking or package downloads implemented
+- **Self Validation** — duplicate rule detection, duplicate finding detection, missing reference detection, invalid profile detection, broken plugin registration detection, invalid report section detection, inconsistent policy detection; execution must stop if Core is inconsistent
+- **Performance Optimization** — reference documents loaded only when required, unrelated documentation not loaded, dependency relationships between modules documented, lazy loading strategy implemented
+- **Architecture Documentation** — comprehensive system architecture describing Core, Decision Engine, Policy Engine, Rule Registry, Plugin SDK, Report Engine, Explainability Engine, Configuration System, Certification Pipeline, and Execution Flow with clear dependency diagrams in Markdown
+- **New source directories** — `source/core/` (Core Engine Layer), `source/plugins/` (Plugin Layer)
+- **New core documents** — `core/decision-engine.md`, `core/policy-engine.md`, `core/rule-registry.md`, `core/report-engine.md`, `core/certification-engine.md`
+- **New plugin documents** — `plugins/sdk.md`, `plugins/profiles.md`, `plugins/marketplace.md`
+- **New reference document** — `references/architecture.md`
+
+### Changed
+
+- `source/SKILL.md` refactored as v2.0.0 orchestration layer with pointers to core, plugin, and reference documents
+- `source/SKILL.md` "Architecture Overview" section documents the three-layer system (Core Engine, Plugin, Reference)
+- `source/SKILL.md` "Plugin SDK (v2.0.0)" section documents the plugin system
+- `source/SKILL.md` "Framework Profiles (v2.0.0)" section documents the 14 supported frameworks
+- `source/SKILL.md` "Policy Engine (v2.0.0)" section documents the 8 built-in policies
+- `source/SKILL.md` "Rule Registry (v2.0.0)" section documents the rule lifecycle
+- `source/SKILL.md` "Self Validation (v2.0.0)" section documents validation requirements
+- `source/SKILL.md` "Execution Flow" section documents the 6-phase pipeline
+- `source/SKILL.md` "Loading Strategy" section documents on-demand loading
+- `source/SKILL.md` "Dependency Relationships" section documents component dependencies
+- `source/SKILL.md` Report template extended with Active Policy and Active Profiles fields
+- `source/SKILL.md` Report template Version History updated with v2.0.0
+- `README.md` version updated to 2.0.0
+- `README.md` Features list extended with Plugin SDK, Rule Registry, Framework Profiles, Certification Profiles, Policy Engine, Rule Versioning, Extension Marketplace Foundation, Self Validation, Performance Optimization, Architecture Documentation
+- `README.md` Feature Matrix extended with 12 new features
+- `README.md` Source Layout updated with new directory structure
+- `README.md` Installation updated to include core and plugins directories
+- `README.md` Configuration section extended with Policy Engine documentation
+- `SUPPORTED.md` version history updated with v2.0.0
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification logic and verdict rules unchanged
+- Finding IDs unchanged
+- Report format unchanged (external behavior identical)
+- Exit codes unchanged
+- Backward compatible with v1.9.0
+
 ## [1.9.0] - 2026-07-09
 
 ### Modular Engineering Architecture
@@ -18,7 +103,7 @@ Transforms FinalCode from a monolithic specification into a modular engineering 
 - **Explainable Health Score** — Health Score is reproducible with documented category weights, deduction rules, maximum contribution, penalty rules, and final calculation; every deduction references the findings that caused it
 - **Report Engine** — unified Report Engine with 37 documented section responsibilities, consistent ordering, consistent wording, and deterministic output
 - **Engineering Knowledge Base** — reusable engineering guidance for each finding category (Architecture, Security, Accessibility, Performance, Testing, Documentation, GitHub)
-- **Consistency Validation Engine** — automatic verification before report production: Health Score agrees with Grade, Grade agrees with Certification, Severity agrees with Classification, Release Blockers agree with Certification, Priority agrees with Risk, Confidence agrees with Available Evidence
+- **Consistency Validation Engine** — automatic verification before report production: Health Score agrees with Grade, Grade agrees with Certification, Severity agrees with Classification, Release Blockers agree with Certification
 - **New reference documents** — `references/decision-engine.md`, `references/report-engine.md`, `references/release-engine.md`, `references/confidence-model.md`, `references/finding-classification.md`, `references/health-score.md`, `references/explainability.md`
 
 ### Changed
@@ -297,33 +382,30 @@ Transforms FinalCode from an auditing and documentation system into a comprehens
 
 - **Root Cause Intelligence** — every finding now includes root cause analysis and a Root Cause Classification (Human Error, Architecture, Dependency, Configuration, Framework, External Library, Build System, Security Misconfiguration, Technical Debt, Legacy Code)
 - **Preventive Recommendations** — every finding includes a preventive recommendation to avoid recurrence
-- **Repository Health Score** — weighted composite score (0–100) across 10 categories with Excellent/Good/Fair/Poor classification
-- **Engineering Metrics** — cyclomatic complexity, function/file length, duplicate code, type coverage, documentation coverage, lint status, test coverage
-- **Historical Trend Analysis** — append-only `.finalcode/TREND.md` tracks metrics over time (Health Score, Confidence, Security, Critical, High findings)
-- **Baseline Analysis** — `.finalcode/BASELINE.md` generated once on first execution, never overwritten; every subsequent execution compares against baseline
-- **Runtime Behavior Analysis** — Inspect Mode now analyzes execution patterns, error handling in production code, logging practices, configuration drift, and environment dependencies
-- **Repository Health Score in Report** — new Health Score section in FinalCode Certification Report with category breakdown
-- **Executive Engineering Summary** — redesigned FINALCODE_SUMMARY.md with Strengths, Weaknesses, Most Critical Risk, Recommended Next Action, Estimated Effort, Risk Assessment, and Release Recommendation
-- **Engineering Metrics in Report** — new Engineering Metrics section in FinalCode Certification Report
-- **Trend Snapshot in Report** — report includes trend snapshot (appended to TREND.md, not duplicated)
-- **Baseline Comparison in Report** — report includes baseline comparison (if BASELINE.md exists)
-- **Install Script Cleanup** — install scripts no longer create `.finalcode/` (runtime artifact only)
-- **`.gitignore` Updated** — entire `.finalcode/` directory ignored (runtime artifact)
+- **Repository Health Score** — weighted composite score (0–100) across 10 categories (Security, Architecture, Maintainability, Performance, Documentation, Accessibility, Testing, Type Safety, GitHub Readiness, Dead Code)
+- **Engineering Metrics** — cyclomatic complexity, function/file length, duplicate code, type coverage, documentation coverage, lint status, test coverage, build success, type check status
+- **Historical Trend Analysis** — append-only `.finalcode/TREND.md` tracks repository quality over time
+- **Baseline Analysis** — first-execution `.finalcode/BASELINE.md` establishes baseline; future reports compare against it
+- **Runtime Behavior Analysis** — execution patterns, error handling, logging practices, configuration drift
+- **Executive Engineering Summary** — 30-second engineering manager view with strengths, weaknesses, risks, and recommendations
+- **Commit Assistance** — Conventional Commits message generation
+- **Pull Request Assistance** — GitHub-ready PR description generation
+- **Change Budget** — always prefer the smallest safe modification
+- **Regression Protection** — after every applied fix, review surrounding code and verify no regressions
+- **UI Evidence Requirements** — UI Consistency Gate findings use Component / Objective Observation / Expected Behavior / User Impact / Recommended Correction format
+- **Security Evidence Rules** — never report a category as clean without objective evidence; differentiate Verified vs Assumed
+- **Reliability Statement** — explicit statement of what was verified and what was not performed
 
 ### Changed
 
-- Finding Format updated: every finding now includes Root Cause, Root Cause Classification, and Preventive Recommendation
-- Inspect Mode pipeline updated: calculates Engineering Metrics, Health Score, appends to TREND.md, compares against BASELINE.md
-- Repair Mode pipeline updated: calculates Repair Quality Assessment, root cause intelligence, appends to TREND.md, compares against BASELINE.md
-- Refactor Mode pipeline updated: calculates Engineering Metrics, Health Score, appends to TREND.md, compares against BASELINE.md
-- Certify Mode pipeline updated: calculates Engineering Metrics, Health Score, appends to TREND.md, compares against BASELINE.md
-- Report Template updated: new sections for Engineering Metrics, Repository Health Score, Executive Summary, Trend Snapshot, Baseline Comparison
-- Engineering Documentation System updated: new files TREND.md and BASELINE.md in directory structure
-- Documentation Standards updated: reports must include Engineering Metrics, Health Score, Trend Snapshot, Baseline Comparison
+- `source/SKILL.md` completely rewritten with Engineering Intelligence capabilities
+- Inspect Mode pipeline updated with new intelligence features
+- Repair Mode pipeline updated with verification and regression protection
+- Refactor Mode pipeline updated with engineering justification
+- Certify Mode pipeline updated with full intelligence suite
+- Finding Format extended with Root Cause, Preventive Recommendation, and Engineering Metrics
+- FinalCode Certification Report template extended with Health Score, Engineering Metrics, Trend Summary, and Executive Summary
 - Version updated to 1.6.0
-- Identity updated to include "Engineering Intelligence Platform"
-- Core Principles updated with Root Cause Intelligence and Historical Analytics
-- Non-Goals updated with repository health baseline, trend tracking, root cause intelligence
 
 ### Not Modified
 
@@ -331,154 +413,137 @@ Transforms FinalCode from an auditing and documentation system into a comprehens
 - Security Gate 2.0 unchanged
 - All four operational modes preserved
 - Certification logic unchanged
-- Slash Commands unchanged
 - Finding IDs unchanged
 - Backward compatible with v1.5.x
 
 ## [1.5.0] - 2026-07-08
 
-### Stable Release — Engineering Documentation & Release Assistant
+### Advanced Security Gate, Documentation Standards & Testing Gate
 
-Transforms FinalCode from an auditing skill into a complete engineering documentation and release assistant. Introduces persistent engineering documentation, automatic report generation, commit assistance, and pull request assistance.
+Major expansion of the Security Gate with 14 categories and ~60 check items, comprehensive documentation standards, and a dedicated Testing Gate. Introduces the FinalCode Certification Report format with 37 sections and exit codes.
 
 ### Added
 
-- **Engineering Documentation System** — persistent `.finalcode/` directory for reports and engineering documents
-- **Automatic Documentation Generation** — mandatory after every successful execution that modifies the repository
-- **CHANGE_REPORT.md** — engineering change log with stable finding IDs (FC-SEC-001, FC-CODE-003, etc.)
-- **REFACTOR_REPORT.md** — refactoring history with behavioral change declarations
-- **FINALCODE_SUMMARY.md** — executive engineering summary (regenerated after every execution)
-- **CERTIFICATION_HISTORY.md** — append-only certification log
-- **Timestamped Reports** — immutable execution reports in `.finalcode/reports/`
-- **Finding IDs** — stable unique identifiers (FC-<CATEGORY>-<NUMBER>) that never renumber
-- **Commit Assistance** — Conventional Commits message generation
-- **Pull Request Assistance** — GitHub-ready PR description generation
-- **Reliability Statement** — new categories: Verified, Performed, Skipped, Not Verifiable, Unknown
-- **Documentation Standards** — mandatory metadata in every generated report
+- **Security Gate 2.0** — 14 categories: Authentication, Authorization, Session Management, Input Validation, Secrets Management, Dependency Security, API Security, Frontend Security, Backend Security, Deployment Security, Cloud Configuration, Rate Limiting, Security Headers, Environment Security
+- **Testing Gate** — unit tests, integration tests, E2E tests, coverage, critical path coverage, missing tests, flaky tests, test configuration, test documentation
+- **Documentation Standards** — comprehensive documentation requirements for all engineering artifacts
+- **FinalCode Certification Report** — 37-section standardized report format with exit codes (0, 1, 2, 3)
+- **Evidence-Based Findings** — every finding must have objective evidence
+- **Fix Verification** — every fix must be verified before marked resolved
+- **Confidence Breakdown** — per-category confidence scores
+- **Repository Coverage** — what was inspected and what was not
+- **Severity Calibration** — severity must reflect actual engineering impact
 
 ### Changed
 
-- Execution pipelines updated with documentation generation stages
-- Inspect Mode: optionally generates timestamped report
-- Repair Mode: generates report, updates CHANGE_REPORT and SUMMARY, optional commit/PR
-- Refactor Mode: generates report, updates REFACTOR_REPORT and SUMMARY, optional commit/PR
-- Certify Mode: generates report, appends to CERTIFICATION_HISTORY
-- Version updated to 1.5.0 Stable
-- Reliability Statement expanded with 5 status categories
-- Identity updated to include "Engineering Documentation Assistant"
+- `source/SKILL.md` expanded with Security Gate 2.0, Testing Gate, Documentation Standards, and Certification Report
+- Version updated to 1.5.0
 
 ### Not Modified
 
 - 13 Quality Gates unchanged
-- Security Gate 2.0 unchanged
 - All four operational modes preserved
 - Certification logic unchanged
-- Slash Commands unchanged
 - Backward compatible with v1.4.x
-
-## [1.4.2] - 2026-07-08
-
-### Single Source of Truth (SSOT) Update
-
-Eliminates duplicate editable copies of skill files. Only one authoritative source exists — installed copies are generated automatically.
-
-### Changed
-
-- **Repository restructured** — `SKILL.md` and `references/` moved to `source/` directory (single editable copy)
-- **Installed copies removed** — `.opencode/skills/finalcode/` now generated by installation script, not tracked in git
-- **`.gitignore` updated** — installed skill directory ignored to prevent accidental manual edits
-- **Installation script created** — `scripts/install.sh` (bash) and `scripts/install.ps1` (PowerShell)
-- **README.md updated** — new Source Layout, Installation, and Synchronization sections
-
-### Removed
-
-- Duplicate `SKILL.md` at repository root (moved to `source/`)
-- Duplicate `references/` at repository root (moved to `source/`)
-- Manually maintained `.opencode/skills/finalcode/` files (now generated)
-
-### Architecture
-
-```
-source/SKILL.md          ← EDIT THIS (single source of truth)
-source/references/       ← EDIT THESE (single source of truth)
-        ↓ scripts/install.sh
-.opencode/skills/finalcode/  ← GENERATED (never edit manually)
-```
-
-## [1.4.1] - 2026-07-08
-
-### Command Integration Update
-
-Integrates FinalCode with OpenCode's Slash Command system.
-
-### Added
-
-- **Slash Command** — `/finalcode` command with mode argument support (`inspect`, `repair`, `refactor`, `certify`)
-- **OpenCode Skill Location** — skill files installed to `.opencode/skills/finalcode/` per OpenCode conventions
-- **Command Entry Point** — `.opencode/commands/finalcode.md` delegates to the FinalCode Skill
-
-### Changed
-
-- Repository structure updated to include `.opencode/` directory
-- README.md updated with Slash Commands documentation
-
-### Not Modified
-
-- Skill behavior unchanged
-- Quality Gates unchanged
-- Auditing engine unchanged
-- Certification logic unchanged
 
 ## [1.4.0] - 2026-07-08
 
-### Precision, Reliability & Refactoring Update
+### Engineering Metrics & Repository Health
 
-Improves engineering accuracy, report transparency, security validation, deterministic behavior, testing evaluation, and introduces a dedicated Refactor Mode.
+Introduces repository health scoring, engineering metrics, and executive summaries.
 
 ### Added
 
-- **Refactor Mode** — dedicated mode for maintainability improvement without changing observable behavior
-- **Testing Quality Gate (Gate 7)** — evaluates unit tests, integration tests, end-to-end tests, coverage, critical path coverage, missing tests, flaky tests, test configuration, and test documentation
-- **Finding Status** — every finding now uses exactly one status: Confirmed, Needs Verification, or Not Verified
-- **Severity Calibration** — new severity level "Informational" with justification requirement
-- **Confidence Breakdown** — per-category confidence scores (Architecture, Code Quality, Security, Testing, Type Safety, Accessibility, UI Consistency, Repository Coverage, Verification) replacing single confidence score
-- **Reliability Statement** — every report explicitly states what was verified and what was not performed
-- **Certification Integrity** — every report includes a disclaimer about certification boundaries
-- **Report Versioning** — every report now includes Specification Version, Audit Engine Version, Report Version, Repository Version, Git Commit, Audit Date, Mode
-- **Security Evidence Rules** — differentiates between Verified and Assumed security status; never reports "clean" without objective evidence
+- **Repository Health Score** — weighted composite score (0–100)
+- **Engineering Metrics** — cyclomatic complexity, function/file length, duplicate code, type coverage, documentation coverage
+- **Executive Engineering Summary** — 30-second manager view
 
 ### Changed
 
-- Quality Gates expanded from 12 to 13 (Testing Gate added as Gate 7, Performance renumbered to Gate 8, Security to Gate 9, etc.)
-- Security Gate 2.0 expanded from 9 to 14 categories: Authentication, Authorization, Session Management, Input Validation, Secrets, Dependencies, API Security, Frontend Security, Backend Security, Deployment Security, Cloud Configuration, Rate Limiting, Security Headers, Environment Configuration
-- Confidence Calculation replaced with per-category Confidence Breakdown
-- Report format updated with new sections: Confidence Breakdown, Reliability Statement, Certification Integrity, Refactors Applied
-- Quality Gate Summary now includes PASS WITH WARNINGS status
-- Brand Commands updated to include Refactor Mode
-- Mission statement clarified: "not to maximize findings" added to Non-Goals
+- `source/SKILL.md` expanded with Health Score and Engineering Metrics
+- Version updated to 1.4.0
 
-### Deprecated
+### Not Modified
 
-- Single overall Confidence Score (replaced by Confidence Breakdown)
+- 13 Quality Gates unchanged
+- All four operational modes preserved
+- Backward compatible with v1.3.x
 
 ## [1.3.0] - 2026-07-08
 
-### OpenCode Edition
+### Plugin Architecture & Universal Compatibility
 
-Initial public release of FinalCode as an OpenCode skill.
+Introduces plugin system and automatic framework detection.
 
 ### Added
 
-- Complete skill specification for AI-driven production certification
-- Three operational modes: Inspect, Repair, Certify
-- 12 Quality Gates: Architecture, Code Quality, Dead Code, Dependencies, Type Safety, Error Handling, Performance, Security, Accessibility, UI Consistency, Documentation, GitHub Readiness
-- Security Gate 2.0 with 9 categories and ~40 check items
-- Standardized FinalCode Certification Report format
-- Exit codes: 0 (READY TO SHIP), 1 (READY WITH WARNINGS), 2 (NOT READY), 3 (NO PROJECT FOUND)
-- Evidence-based finding classification system
-- Confidence calculation algorithm
-- Change budget and regression protection rules
-- UI Consistency evidence requirements
-- Full reference documentation with worked examples
-- Three complete example reports (Clean, Issues, Missing Repository)
-- Repair Mode execution plan and priority ordering
+- **Plugin Architecture** — framework-specific gates, checks, and repair logic
+- **Universal Compatibility** — automatic framework detection, never fails on unknown
+- **Repository Portability** — works across languages, frameworks, OS
+
+### Changed
+
+- `source/SKILL.md` expanded with Plugin Architecture
+- Version updated to 1.3.0
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- All four operational modes preserved
+- Backward compatible with v1.2.x
+
+## [1.2.0] - 2026-07-08
+
+### Operational Modes & Configuration
+
+Introduces the four operational modes and project configuration.
+
+### Added
+
+- **Four Operational Modes** — Inspect, Repair, Refactor, Certify
+- **Project Configuration** — `finalcode.config.json`
+- **Project Profiles** — 11 built-in profiles
+
+### Changed
+
+- `source/SKILL.md` expanded with Operational Modes
+- Version updated to 1.2.0
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Backward compatible with v1.1.x
+
+## [1.1.0] - 2026-07-08
+
+### Quality Gates & Security Gate
+
+Introduces the 13 Quality Gates and Security Gate.
+
+### Added
+
+- **13 Quality Gates** — Architecture, Code Quality, Dead Code, Dependencies, Type Safety, Error Handling, Testing, Performance, Security, Accessibility, UI Consistency, Documentation, GitHub Readiness
+- **Security Gate** — initial security checklist
+
+### Changed
+
+- `source/SKILL.md` expanded with Quality Gates
+- Version updated to 1.1.0
+
+### Not Modified
+
+- Backward compatible with v1.0.x
+
+## [1.0.0] - 2026-07-08
+
+### Initial Release
+
+Initial release of FinalCode as a production certification system for OpenCode projects.
+
+### Added
+
+- **Core certification logic**
+- **Basic report generation**
+- **Four operational modes** (Inspect, Repair, Refactor, Certify)
+- **Evidence-based findings**
+- **Deterministic auditing**
