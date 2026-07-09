@@ -2,7 +2,7 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
-**OpenCode Edition v2.1.0**
+**OpenCode Edition v2.4.1**
 
 FinalCode is a production certification system for OpenCode projects. It runs a senior-engineering audit across 13 quality gates and produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
 
@@ -50,7 +50,11 @@ Or use the slash command:
 
 ## Installation
 
-### From Source
+### Recommended: Install Scripts
+
+The install scripts are the official installation method. They copy files from `source/` to `.opencode/skills/finalcode/` where OpenCode discovers them.
+
+**Linux/macOS:**
 
 ```bash
 git clone https://github.com/dratiux/FinalCode.git
@@ -58,9 +62,11 @@ cd FinalCode
 bash scripts/install.sh
 ```
 
-On Windows (PowerShell):
+**Windows (PowerShell):**
 
 ```powershell
+git clone https://github.com/dratiux/FinalCode.git
+cd FinalCode
 pwsh scripts/install.ps1
 ```
 
@@ -70,9 +76,78 @@ The install script copies `source/SKILL.md`, `source/core/`, `source/plugins/`, 
 
 After pulling changes, re-run the installation script to sync the installed skill.
 
-### As a Skill File
+### Building Release Package
 
-Download `finalcode.skill` and install it through OpenCode's skill management interface.
+Generate a distributable `.skill` package from source:
+
+**Linux/macOS:**
+
+```bash
+bash scripts/package.sh
+```
+
+**Windows (PowerShell):**
+
+```powershell
+pwsh scripts/package.ps1
+```
+
+**Windows PowerShell (legacy):**
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/package.ps1
+```
+
+The packaging script:
+
+1. Validates repository structure and required files
+2. Verifies version consistency across SKILL.md, README.md, CHANGELOG.md, SUPPORTED.md
+3. Copies source files preserving directory structure
+4. Generates `dist/finalcode.skill` (ZIP archive)
+5. Generates `dist/manifest.json` with package metadata
+6. Generates `dist/PACKAGE_REPORT.md` with validation results
+7. Generates `dist/SHA256SUMS` for integrity verification
+8. Validates the generated package before completion
+
+**Output:**
+
+| File | Purpose |
+|------|---------|
+| `dist/finalcode.skill` | Distributable skill package |
+| `dist/manifest.json` | Package metadata and file inventory |
+| `dist/PACKAGE_REPORT.md` | Verification report |
+| `dist/SHA256SUMS` | SHA256 integrity hashes |
+
+### Verifying a Package
+
+Verify an existing `.skill` package without rebuilding:
+
+**Linux/macOS:**
+
+```bash
+bash scripts/verify.sh dist/finalcode.skill
+```
+
+**Windows (PowerShell):**
+
+```powershell
+pwsh scripts/verify.ps1 dist/finalcode.skill
+```
+
+The verification script checks archive integrity, directory structure, required files, duplicates, empty files, and SHA256 checksums.
+
+### Distribution Policy
+
+| Method | Status | Notes |
+|--------|--------|-------|
+| GitHub Releases | Recommended | Attach `finalcode.skill` to releases |
+| Repository Clone | Recommended | Clone + install scripts |
+| Install Scripts | Recommended | Primary installation method |
+| .skill Package | Experimental | OpenCode does not officially support `.skill` import |
+
+**Note:** OpenCode discovers skills through directory-based installation (`.opencode/skills/finalcode/SKILL.md`). The `.skill` package is provided for distribution convenience. Use install scripts for reliable installation.
+
+**Note:** The `dist/` directory is generated and excluded from git. Never edit files in `dist/` manually — re-run the packaging script to regenerate.
 
 ## Workflow
 

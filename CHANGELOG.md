@@ -4,6 +4,167 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.1] - 2026-07-10
+
+### Highlights
+
+Release packaging validation and distribution improvements. Strengthened package validation, added standalone verification scripts, and clarified distribution policy. Complete backward compatibility with v2.4.0.
+
+### Added
+
+- **Standalone Package Verification** — `scripts/verify.ps1` and `scripts/verify.sh` validate existing `.skill` packages without rebuilding
+- **Extended Package Manifest** — `manifest.json` now includes package name, format version, generator version, branch, minimum OpenCode version, compatible versions, structure version
+- **Improved Package Validation** — rejection of duplicate files, empty files, missing required references before package generation
+- **Release Checklist** — automated verification of all packaging requirements
+- **Distribution Policy Documentation** — clear classification of recommended vs experimental installation methods
+
+### Changed
+
+- `scripts/package.ps1` updated with v2.4.1 validation improvements
+- `scripts/package.sh` updated with v2.4.1 validation improvements
+- `README.md` updated with installation clarifications, verification instructions, distribution policy
+- `dist/PACKAGE_REPORT.md` format extended with validation summary, statistics, matrix, compatibility, distribution notes
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Explainability Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Install Scripts unchanged
+- Backward compatible with v2.4.0
+
+## [2.4.0] - 2026-07-10
+
+### Highlights
+
+Release Packaging System. Deterministic, reproducible release packages generated from the Single Source of Truth. Complete backward compatibility with all previous versions.
+
+### Added
+
+- **Release Packaging System** — deterministic packaging pipeline generating reproducible `.skill` packages from source
+- **Package Validation** — multi-stage validation ensuring package integrity before completion
+- **Version Consistency Check** — verifies version alignment across SKILL.md, README.md, CHANGELOG.md, SUPPORTED.md before packaging
+- **Release Manifest** — `dist/manifest.json` with version, timestamp, commit, file inventory
+- **Package Verification Report** — `dist/PACKAGE_REPORT.md` with validation results and file details
+- **SHA256 Integrity Checksums** — `dist/SHA256SUMS` for package and manifest verification
+- **Cross-platform Packaging Scripts** — `scripts/package.ps1` (PowerShell) and `scripts/package.sh` (bash)
+
+### Changed
+
+- `README.md` updated with release packaging documentation
+- `.gitignore` updated to exclude `dist/` (generated artifacts)
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Explainability Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Install Scripts unchanged
+- Backward compatible with v2.3.0
+
+## [2.3.0] - 2026-07-10
+
+### Highlights
+
+Architecture intelligence. Evaluates engineering structure, maintainability, dependency design, and long-term scalability. Complete backward compatibility with all previous versions.
+
+### Added
+
+- **Architecture Map** — textual description of system layers, major modules, entry points, shared components, external integrations, data flow, dependency flow
+- **Module Health** — independent health assessment for every major module with health score, responsibilities, dependencies, complexity, risk, recommendations
+- **Responsibility Analysis** — detection of God Objects, God Components, God Services, Utility Overload, Mixed Responsibilities, Feature Leakage, Cross Layer Coupling
+- **Dependency Intelligence** — analysis of circular dependencies, dependency direction, layer violations, tight coupling, fan-in, fan-out, concentration
+- **Scalability Assessment** — evaluation of maintainability, extensibility, modularity, testability, replaceability, deployment flexibility with justified scores
+- **Technical Debt Classification** — categorization into Structural, Architectural, Testing, Documentation, Performance, Security, Configuration, Maintainability with cleanup effort estimates
+- **Architecture Risk Matrix** — risk, impact, likelihood, engineering cost, recommended priority
+- **Design Pattern Recognition** — verified patterns with evidence (Repository, Service, Factory, Strategy, Adapter, Observer, DI, CQRS, MVC, MVVM)
+- **Anti-Pattern Detection** — verified anti-patterns with evidence (God Class, Blob, Spaghetti Code, Feature Envy, Circular Dependency, Duplicate Logic, Primitive Obsession, Shotgun Surgery, Large Switch, Magic Numbers, Long Method)
+- **Maintainability Forecast** — current maintainability, primary risks, expected growth impact, recommended refactors
+- **Refactor Opportunity Map** — grouped refactors by area with estimated benefit, cost, priority
+- **Architecture Summary** — executive summary of strongest/weakest areas, highest risks, largest debt, highest ROI improvements
+
+### Changed
+
+- `source/SKILL.md` updated with v2.3.0 Architecture Intelligence features
+- `source/SKILL.md` Report Template extended with Architecture Overview, Module Health, Responsibility Analysis, Dependency Analysis, Scalability Assessment, Technical Debt Summary, Architecture Risk Matrix, Design Patterns, Anti-Patterns, Maintainability Forecast, Refactor Opportunity Map, Architecture Summary
+- `source/references/architecture.md` updated with Architecture Intelligence analysis methods
+- `source/core/report-engine.md` updated with 12 new Architecture Intelligence sections
+- `source/references/examples.md` updated with architecture examples
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Explainability Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Install Scripts unchanged
+- Backward compatible with v2.2.0
+
+## [2.2.0] - 2026-07-10
+
+### Highlights
+
+Evidence-driven engineering auditing. Every conclusion backed by explicit evidence and transparent reasoning. Complete backward compatibility with all previous versions.
+
+### Added
+
+- **Evidence Chain** — every finding includes Detection Method, Observed Evidence, Engineering Reasoning, Engineering Impact, Recommendation, Verification Method
+- **Evidence Quality Classification** — Direct Evidence, Strong Evidence, Indirect Evidence, Weak Evidence, Assumption, Not Verified; affects confidence but not severity
+- **Detection Source** — Static Analysis, Repository Structure, Configuration Analysis, Dependency Analysis, Build Output, ESLint, TypeScript, Security Inspection, Runtime Observation, Documentation Review, Manual Engineering Reasoning
+- **Finding Lifecycle** — Detected, Verified, Fixed, Reopened, Deprecated, Ignored, Accepted Risk; historical reports consulted when available
+- **Recommendation Classification** — Bug Fix, Refactor, Architecture, Performance, Security, Documentation, Developer Experience, Infrastructure, Testing, Technical Debt; independent of Severity and Priority
+- **Confidence Justification** — every confidence score must include an explanation; no bare percentages
+- **Evidence Summary** — new report section summarizing audit evidence quality
+- **Engineering Assumptions** — explicit documentation of all inferences with reason, confidence, and verification requirements
+- **Analysis Trace** — execution trace showing exactly what was analyzed and what was skipped
+- **Report Completeness Score** — new metric measuring audit completeness (separate from Health Score, Overall Reliability, and Certification)
+- **Explain Successful Gates** — Quality Gate Summary now explains why each gate passed with evidence
+
+### Changed
+
+- `source/SKILL.md` updated with v2.2.0 Evidence & Analysis Engine features
+- `source/SKILL.md` Finding Format extended with Evidence Chain, Evidence Quality Classification, Detection Source, Finding Lifecycle, Recommendation Classification, Confidence Justification
+- `source/SKILL.md` Report Template extended with Evidence Summary, Engineering Assumptions, Analysis Trace, Report Completeness
+- `source/SKILL.md` Quality Gate Summary updated to explain successful gates
+- `source/references/explainability.md` updated with Evidence Chain format
+- `source/references/finding-classification.md` updated with Finding Lifecycle and Recommendation Classification
+- `source/references/confidence-model.md` updated with Confidence Justification requirements
+- `source/core/report-engine.md` updated with new sections and v2.2.0 finding fields
+- `source/references/examples.md` updated with v2.2.0 evidence chain examples
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Install Scripts unchanged
+- Backward compatible with v2.1.0
+
 ## [2.1.0] - 2026-07-10
 
 ### Highlights

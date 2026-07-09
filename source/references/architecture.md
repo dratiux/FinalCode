@@ -1,6 +1,6 @@
 # FinalCode Architecture
 
-This document describes the FinalCode v2.0.0 architecture. It provides a comprehensive overview of the system, its components, and their relationships.
+This document describes the FinalCode v2.3.0 architecture. It provides a comprehensive overview of the system, its components, and their relationships.
 
 ## System Overview
 
@@ -486,3 +486,241 @@ Reference documents are loaded on demand. Unrelated documentation is not loaded.
 - v1.8.2: Added Decision Engine & Report Precision
 - v1.9.0: Added Modular Engineering Architecture
 - v2.0.0: Extensible Engineering Platform with Plugin Architecture
+- v2.2.0: Evidence & Analysis Engine
+- v2.3.0: Architecture Intelligence
+
+---
+
+# Architecture Intelligence (v2.3.0)
+
+This section defines how FinalCode evaluates engineering structure, maintainability, dependency design, and long-term scalability.
+
+## Architecture Map
+
+Generate a textual architecture map describing:
+
+- **System Layers** — Presentation, Business Logic, Data Access, Infrastructure
+- **Major Modules** — Significant functional areas with responsibilities
+- **Entry Points** — Application entry points (main, routes, handlers)
+- **Shared Components** — Utilities, libraries, or services used across modules
+- **External Integrations** — APIs, databases, message queues, third-party services
+- **Data Flow** — How data moves through the system
+- **Dependency Flow** — How components depend on each other
+
+**Format:**
+```
+ARCHITECTURE OVERVIEW
+-------------------------------------------------
+System Layers:
+  Presentation Layer: React components, pages, layouts
+  Business Logic Layer: Services, hooks, utilities
+  Data Access Layer: API clients, database queries
+  Infrastructure Layer: Configuration, deployment, CI/CD
+
+Major Modules:
+  Authentication: User login, registration, session management
+  Payment: Stripe integration, billing, invoices
+  Notifications: Email, push, in-app messaging
+
+Entry Points:
+  src/index.tsx — Application entry
+  src/app/api/ — API routes
+  src/workers/ — Background jobs
+
+Shared Components:
+  src/utils/ — Common utilities
+  src/hooks/ — Shared React hooks
+  src/types/ — TypeScript type definitions
+
+External Integrations:
+  Stripe API — Payment processing
+  SendGrid — Email delivery
+  PostgreSQL — Primary database
+  Redis — Caching and sessions
+
+Data Flow:
+  User → React → API Routes → Services → Database → Response
+
+Dependency Flow:
+  Presentation → Business Logic → Data Access → Infrastructure
+```
+
+## Module Health
+
+Evaluate every major module independently:
+
+**Format per module:**
+```
+<ModuleName>
+
+Health: XX / 100
+Responsibilities: <what this module does>
+Dependencies: <what this module depends on>
+Complexity: Low | Medium | High
+Risk: Low | Medium | High
+Recommendations: <specific improvements>
+```
+
+**Health Score Calculation:**
+- Responsibility clarity: 25%
+- Dependency quality: 25%
+- Complexity management: 25%
+- Test coverage: 25%
+
+## Responsibility Analysis
+
+Detect responsibility problems:
+
+| Problem | Meaning |
+|---------|---------|
+| God Object | Class with too many responsibilities |
+| God Component | Component that does too much |
+| God Service | Service with excessive scope |
+| Utility Overload | Utility file that should be split |
+| Mixed Responsibilities | Module mixing unrelated concerns |
+| Feature Leakage | Feature implemented in wrong layer |
+| Cross Layer Coupling | Inappropriate cross-layer dependencies |
+
+**Each finding must explain why it violates maintainability.**
+
+## Dependency Intelligence
+
+Analyze dependency quality:
+
+| Metric | Meaning |
+|--------|---------|
+| Circular Dependencies | A depends on B depends on A |
+| Dependency Direction | Top-down, bottom-up, or mixed |
+| Layer Violations | Dependencies crossing layer boundaries |
+| Tight Coupling | Components that cannot be changed independently |
+| High Fan-in | Components with many dependents |
+| High Fan-out | Components with many dependencies |
+| Dependency Concentration | Uneven dependency distribution |
+
+**Overall Dependency Health:** Summarize as High / Medium / Low with justification.
+
+## Scalability Assessment
+
+Estimate architectural scalability:
+
+| Factor | Meaning |
+|--------|---------|
+| Maintainability | How easy is it to modify the system? |
+| Extensibility | How easy is it to add new features? |
+| Modularity | How well-separated are components? |
+| Testability | How easy is it to test the system? |
+| Replaceability | How easy is it to replace components? |
+| Deployment Flexibility | How easy is it to deploy? |
+
+**Each score must include justification.**
+
+## Technical Debt Classification
+
+Classify technical debt:
+
+| Category | Examples |
+|----------|----------|
+| Structural | Poor file organization, tangled imports |
+| Architectural | Wrong patterns, missing abstractions |
+| Testing | Missing tests, flaky tests, low coverage |
+| Documentation | Missing docs, outdated docs |
+| Performance | Unoptimized queries, memory leaks |
+| Security | Outdated deps, missing validation |
+| Configuration | Hardcoded values, missing env vars |
+| Maintainability | Complex code, deep nesting |
+
+**Include:**
+- Accumulated Debt (estimate)
+- Estimated Cleanup Effort
+- Engineering Risk (Low / Medium / High)
+
+## Architecture Risk Matrix
+
+Produce a dedicated matrix:
+
+| Risk | Impact | Likelihood | Engineering Cost | Recommended Priority |
+|------|--------|------------|------------------|---------------------|
+| <risk> | <impact> | <likelihood> | <cost> | P0 / P1 / P2 / P3 |
+
+## Design Pattern Recognition
+
+Recognize common patterns when present:
+
+- Repository Pattern
+- Service Pattern
+- Factory Pattern
+- Strategy Pattern
+- Adapter Pattern
+- Observer Pattern
+- Dependency Injection
+- CQRS
+- MVC
+- MVVM
+
+**Rules:**
+- Never assume a pattern exists
+- Only report verified patterns with evidence
+- Include specific files/classes as evidence
+
+## Anti-Pattern Detection
+
+Detect common anti-patterns:
+
+- God Class
+- Blob
+- Spaghetti Code
+- Feature Envy
+- Circular Dependency
+- Duplicate Logic
+- Primitive Obsession
+- Shotgun Surgery
+- Large Switch
+- Magic Numbers
+- Long Method
+
+**Each finding must include evidence (specific files/classes).**
+
+## Maintainability Forecast
+
+Estimate future maintainability:
+
+**Format:**
+```
+Current Maintainability: High | Medium | Low
+
+Primary Risks:
+  <list of risks to future maintainability>
+
+Expected Growth Impact:
+  <how maintainability will change as codebase grows>
+
+Recommended Refactors:
+  <prioritized list of refactors>
+```
+
+## Refactor Opportunity Map
+
+Group refactors by area:
+
+**Format:**
+```
+<AreaName>
+
+Refactors:
+  - <refactor description>
+  - <refactor description>
+
+Estimated Benefit: <what will improve>
+Estimated Cost: <effort required>
+Priority: P0 | P1 | P2 | P3
+```
+
+## Architecture Summary
+
+Executive summary covering:
+
+- **Strongest Architectural Decisions** — What was done well
+- **Weakest Architectural Areas** — What needs improvement
+- **Highest Engineering Risks** — What could cause problems
+- **Largest Technical Debt** — What accumulated shortcuts exist
+- **Highest ROI Improvements** — What will provide the most value

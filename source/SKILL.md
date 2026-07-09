@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 2.0.1 — OpenCode Edition
+Version: 2.4.1 — OpenCode Edition
 
 ## Identity
 
@@ -98,6 +98,14 @@ The following phrases strongly indicate FinalCode: "Run FinalCode", "Inspect thi
 - **Modular Architecture:** Core logic is separated from framework-specific knowledge. Framework support is provided by plugins, not by modifying Core.
 - **Single Source of Truth:** every engineering rule exists in one place. When a rule changes, it changes in one place only.
 - **Plugin Isolation:** plugins are isolated from each other. Plugin failures do not affect Core execution.
+- **Evidence-Driven Auditing:** every conclusion must be backed by explicit evidence and transparent reasoning. Every finding must follow the Evidence Chain: Detection Method, Observed Evidence, Engineering Reasoning, Engineering Impact, Recommendation, Verification Method.
+- **Evidence Quality Transparency:** every finding must classify the quality of its evidence (Direct, Strong, Indirect, Weak, Assumption, Not Verified). Evidence quality affects confidence but does not automatically change severity.
+- **Detection Source Disclosure:** every finding must indicate where the evidence originated (Static Analysis, Repository Structure, Configuration Analysis, Dependency Analysis, Build Output, ESLint, TypeScript, Security Inspection, Runtime Observation, Documentation Review, Manual Engineering Reasoning).
+- **Finding Lifecycle Tracking:** every finding must track its lifecycle state (Detected, Verified, Fixed, Reopened, Deprecated, Ignored, Accepted Risk). Historical reports must be consulted when available.
+- **Unknown Detection Transparency:** conditions that cannot be verified must be reported explicitly as "Unable To Verify" with the reason, impact on scores, and recommended manual action. Missing evidence must never silently become a passing result.
+- **Architecture Intelligence:** every system must be evaluated not only for code correctness but for architectural sustainability. Every module must be assessed independently for health, responsibility boundaries, dependency quality, and scalability.
+- **Pattern Verification:** design patterns and anti-patterns must be reported only when verified through evidence. Never assume a pattern exists without concrete examples from the repository.
+- **Debt Transparency:** technical debt must be classified by category, estimated by cleanup effort, and assessed by engineering risk. Debt must never be hidden or understated.
 
 ---
 
@@ -1156,6 +1164,139 @@ Each individual finding (Inspect Mode, Repair Mode, and Refactor Mode) must incl
 - Deployment Intelligence (required for infrastructure-related findings — see Deployment Intelligence under Engineering Intelligence)
 - Explainability Block (see `references/explainability.md` — Observed Evidence, Applicable Rule, Reasoning, Engineering Impact, Severity Justification, Classification Justification, Release Impact Justification, Alternative Decisions Considered, Human Assumptions, Confidence Factors)
 
+### Evidence Chain (v2.2.0)
+
+Every finding must include a complete evidence chain that documents how the conclusion was reached:
+
+| Element | Question It Answers |
+|---|---|
+| Detection Method | How was this finding detected? |
+| Observed Evidence | What concrete evidence was found in the repository? |
+| Engineering Reasoning | How did FinalCode reason from evidence to conclusion? |
+| Engineering Impact | What is the actual engineering impact? |
+| Recommendation | What should be done about it? |
+| Verification Method | How can this finding be verified independently? |
+
+**Format:**
+```
+EVIDENCE CHAIN
+-------------------------------------------------
+Detection Method:
+  Static Analysis — ESLint rule no-console detected console.log usage.
+
+Observed Evidence:
+  src/utils/logger.ts:15 — console.log("Debug: user login");
+  src/utils/logger.ts:23 — console.log("Debug: API response", data);
+  src/utils/logger.ts:31 — console.log("Debug: database query", query);
+
+Engineering Reasoning:
+  Console.log statements in production code expose internal state to
+  anyone with browser DevTools or server log access. The project has
+  a proper logger (winston) configured in src/config/logger.ts but
+  these files use console.log instead. This is a security and
+  maintainability concern because:
+  1. Debug output may contain sensitive data (API responses, queries)
+  2. Console.log is not configurable for production log levels
+  3. Performance impact in high-traffic scenarios
+
+Engineering Impact:
+  Low-to-medium security risk. Debug output may expose sensitive
+  data in production. Maintainability impact is low.
+
+Recommendation:
+  Replace console.log with the configured winston logger at
+  appropriate log levels (debug for development, warn/error for
+  production).
+
+Verification Method:
+  1. Search codebase for remaining console.log statements
+  2. Verify winston logger is configured and available
+  3. Check that replacement uses appropriate log levels
+```
+
+### Evidence Quality Classification (v2.2.0)
+
+Every finding must classify the quality of its evidence:
+
+| Classification | Meaning | Example |
+|---|---|---|
+| Direct Evidence |亲眼所见或工具直接输出 | ESLint output, type-check errors, build failures |
+| Strong Evidence | 多个独立来源确认 | File exists + configuration references it + import uses it |
+| Indirect Evidence | 推断但有合理依据 | Pattern suggests issue but not directly observed |
+| Weak Evidence | 单一来源或间接推断 | Single data point, no independent confirmation |
+| Assumption | 推断而非验证 | Assumed deployment target based on configuration |
+| Not Verified | 无法验证 | Database unavailable, external service unreachable |
+
+**Rule:** Evidence quality affects confidence but does not automatically change severity. A finding with "Assumption" evidence can still be Critical if the risk is real.
+
+### Detection Source (v2.2.0)
+
+Every finding must indicate where the evidence originated:
+
+| Source | Meaning |
+|---|---|
+| Static Analysis | Lint, type-check, or static analysis tool output |
+| Repository Structure | File/directory organization and naming |
+| Configuration Analysis | package.json, tsconfig.json, .env, etc. |
+| Dependency Analysis | npm audit, dependency graph, version checks |
+| Build Output | Build success/failure, bundle analysis |
+| ESLint | ESLint rule violations |
+| TypeScript | TypeScript compiler errors/warnings |
+| Security Inspection | Manual or automated security review |
+| Runtime Observation | Actual execution behavior |
+| Documentation Review | README, API docs, inline comments |
+| Manual Engineering Reasoning | Human analysis and judgment |
+
+Multiple sources may be listed when applicable.
+
+### Finding Lifecycle (v2.2.0)
+
+Every finding must track its lifecycle state:
+
+| State | Meaning |
+|---|---|
+| Detected | Newly identified in this inspection |
+| Verified | Confirmed through independent verification |
+| Fixed | Resolution applied and verified |
+| Reopened | Previously fixed but issue has returned |
+| Deprecated | Finding no longer applicable (e.g., code removed) |
+| Ignored | Explicitly acknowledged and accepted |
+| Accepted Risk | Risk acknowledged but no action planned |
+
+**Rule:** When historical reports are available, FutureCode must recognize previously reported findings and update their lifecycle state accordingly.
+
+### Recommendation Classification (v2.2.0)
+
+Recommendations must be categorized independently of Severity and Priority:
+
+| Category | Meaning |
+|---|---|
+| Bug Fix | Corrects incorrect behavior |
+| Refactor | Improves code structure without behavior change |
+| Architecture | Requires architectural decision |
+| Performance | Improves performance characteristics |
+| Security | Addresses security concern |
+| Documentation | Improves documentation |
+| Developer Experience | Improves developer workflow |
+| Infrastructure | Requires infrastructure change |
+| Testing | Improves test coverage or quality |
+| Technical Debt | Addresses accumulated shortcuts |
+
+### Confidence Justification (v2.2.0)
+
+Every confidence score must always include an explanation. Never present a bare percentage.
+
+**Format:**
+```
+Architecture Confidence: 93%
+
+Reason:
+  Repository structure completely analyzed.
+  No circular dependencies detected.
+  Dependency graph verified.
+  Configuration files available.
+```
+
 Security Vulnerabilities additionally include: CVE Category (if applicable), Attack Vector.
 
 Certify Mode reports findings at summary level only: Severity, Category, Affected Files, Status.
@@ -1243,18 +1384,46 @@ Non-Blocking Issues:  21  (Low/Informational or non-blocking recommendations)
 QUALITY GATE SUMMARY
 -------------------------------------------------
 Architecture:         PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed — key evidence that supports the PASS>
+  Evidence: <what was verified — specific files, patterns, or checks>
 Code Quality:         PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
 Dead Code:            PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
 Dependencies:         PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
 Type Safety:          PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
 Error Handling:       PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
 Testing:              PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
 Performance:          PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
 Security:             PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
 Accessibility:        PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
 UI Consistency:       PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
 Documentation:        PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
 GitHub Readiness:     PASS | FAIL | WARNING | SKIP
+  Reason: <why this gate passed>
+  Evidence: <what was verified>
+
+(A failing mandatory row blocks certification per the Release Blocking Policy.)
 
 -------------------------------------------------
 ENGINEERING POLICY
@@ -1316,6 +1485,92 @@ Issues Found:         <count>
 Issues Fixed:         <count> (Repair Mode only)
 Issues Remaining:     <count>
 Tool Calls:           <count>
+
+-------------------------------------------------
+EVIDENCE SUMMARY (v2.2.0)
+-------------------------------------------------
+This section summarizes audit evidence quality, not repository quality.
+
+Evidence Breakdown:
+  Direct Evidence:        <count> findings
+  Strong Evidence:        <count> findings
+  Indirect Evidence:      <count> findings
+  Weak Evidence:          <count> findings
+  Assumptions:            <count> findings
+  Needs Verification:     <count> findings
+
+Verified Resources:
+  Files Verified:         <count>
+  Configurations Verified: <count>
+  Commands Verified:      <count>
+  Outputs Verified:       <count>
+
+Unavailable Evidence:
+  <list of resources that could not be verified and why>
+
+-------------------------------------------------
+ENGINEERING ASSUMPTIONS (v2.2.0)
+-------------------------------------------------
+This section documents all inferences made during the audit.
+
+| Assumption | Reason | Confidence | Verification Required |
+|------------|--------|------------|----------------------|
+| <inference> | <basis for inference> | High/Medium/Low | <what would verify it> |
+
+Rule: Assumptions must never be presented as verified facts.
+
+-------------------------------------------------
+ANALYSIS TRACE (v2.2.0)
+-------------------------------------------------
+This section shows exactly what was analyzed during the audit.
+
+Repository Discovery:      Completed | Skipped
+  Reason: <why skipped if applicable>
+
+Configuration Analysis:    Completed | Skipped
+  Reason: <why skipped if applicable>
+
+Architecture Analysis:     Completed | Skipped
+  Reason: <why skipped if applicable>
+
+Security Inspection:       Completed | Skipped
+  Reason: <why skipped if applicable>
+
+Testing Inspection:        Completed | Skipped
+  Reason: <why skipped if applicable>
+
+Performance Analysis:      Completed | Skipped
+  Reason: <why skipped if applicable>
+
+Documentation Review:      Completed | Skipped
+  Reason: <why skipped if applicable>
+
+Dependency Analysis:       Completed | Skipped
+  Reason: <why skipped if applicable>
+
+Build Verification:        Completed | Skipped
+  Reason: <why skipped if applicable>
+
+Rule: Every analysis step must report Completed or Skipped with reason.
+This provides audit reproducibility.
+
+-------------------------------------------------
+REPORT COMPLETENESS (v2.2.0)
+-------------------------------------------------
+This metric measures the completeness of the audit itself.
+
+Report Completeness:       XX%
+
+Verified Resources:        <count>
+Scanned Resources:         <count>
+Skipped Resources:         <count>
+Unavailable Resources:     <count>
+Estimated Coverage:        <XX%>
+
+Note: Report Completeness is separate from:
+  - Health Score (repository quality)
+  - Overall Reliability (evidence completeness)
+  - Certification (release readiness)
 
 -------------------------------------------------
 CONFIDENCE MODEL 2.0
@@ -1384,6 +1639,196 @@ Weighted Formula:
 
 Grade Justification:  <why this grade was assigned>
 How to Gain the Next 5 Points:  <specific actions>
+
+-------------------------------------------------
+ARCHITECTURE OVERVIEW (v2.3.0)
+-------------------------------------------------
+System Layers:
+  <list of identified layers with descriptions>
+
+Major Modules:
+  <list of major modules with responsibilities>
+
+Entry Points:
+  <list of application entry points>
+
+Shared Components:
+  <list of shared utilities, libraries, or services>
+
+External Integrations:
+  <list of external APIs, databases, or services>
+
+Data Flow:
+  <description of how data moves through the system>
+
+Dependency Flow:
+  <description of how components depend on each other>
+
+-------------------------------------------------
+MODULE HEALTH (v2.3.0)
+-------------------------------------------------
+For each significant module:
+
+<ModuleName>
+
+Health: XX / 100
+Responsibilities: <what this module does>
+Dependencies: <what this module depends on>
+Complexity: Low | Medium | High
+Risk: Low | Medium | High
+Recommendations: <specific improvements>
+
+-------------------------------------------------
+RESPONSIBILITY ANALYSIS (v2.3.0)
+-------------------------------------------------
+God Objects:
+  <list of classes/modules with too many responsibilities>
+
+God Components:
+  <list of components that do too much>
+
+God Services:
+  <list of services with excessive scope>
+
+Utility Overload:
+  <list of utility files that should be split>
+
+Mixed Responsibilities:
+  <list of modules mixing unrelated concerns>
+
+Feature Leakage:
+  <list of features implemented in wrong layers>
+
+Cross Layer Coupling:
+  <list of inappropriate cross-layer dependencies>
+
+-------------------------------------------------
+DEPENDENCY ANALYSIS (v2.3.0)
+-------------------------------------------------
+Circular Dependencies:
+  <list of circular dependency chains>
+
+Dependency Direction:
+  <description of dependency flow direction>
+
+Layer Violations:
+  <list of dependencies that cross layer boundaries>
+
+Tight Coupling:
+  <list of tightly coupled components>
+
+High Fan-in:
+  <list of components with many dependents>
+
+High Fan-out:
+  <list of components with many dependencies>
+
+Dependency Concentration:
+  <analysis of dependency distribution>
+
+Overall Dependency Health:
+  <summary assessment>
+
+-------------------------------------------------
+SCALABILITY ASSESSMENT (v2.3.0)
+-------------------------------------------------
+Maintainability:    XX / 100  (<justification>)
+Extensibility:      XX / 100  (<justification>)
+Modularity:         XX / 100  (<justification>)
+Testability:        XX / 100  (<justification>)
+Replaceability:     XX / 100  (<justification>)
+Deployment Flexibility: XX / 100  (<justification>)
+
+-------------------------------------------------
+TECHNICAL DEBT SUMMARY (v2.3.0)
+-------------------------------------------------
+Structural Debt:        <description>
+Architectural Debt:     <description>
+Testing Debt:           <description>
+Documentation Debt:     <description>
+Performance Debt:       <description>
+Security Debt:          <description>
+Configuration Debt:     <description>
+Maintainability Debt:   <description>
+
+Accumulated Debt:       <estimate>
+Estimated Cleanup Effort: <estimate>
+Engineering Risk:       Low | Medium | High
+
+-------------------------------------------------
+ARCHITECTURE RISK MATRIX (v2.3.0)
+-------------------------------------------------
+| Risk | Impact | Likelihood | Engineering Cost | Recommended Priority |
+|------|--------|------------|------------------|---------------------|
+| <risk> | <impact> | <likelihood> | <cost> | <priority> |
+
+-------------------------------------------------
+DESIGN PATTERNS (v2.3.0)
+-------------------------------------------------
+Recognized Patterns:
+  <list of verified design patterns with evidence>
+
+  Pattern: <name>
+  Evidence: <specific files/classes>
+  Benefit: <what this pattern provides>
+
+-------------------------------------------------
+ANTI-PATTERNS (v2.3.0)
+-------------------------------------------------
+Detected Anti-Patterns:
+  <list of verified anti-patterns with evidence>
+
+  Anti-Pattern: <name>
+  Evidence: <specific files/classes>
+  Impact: <engineering impact>
+  Recommendation: <how to fix>
+
+-------------------------------------------------
+MAINTAINABILITY FORECAST (v2.3.0)
+-------------------------------------------------
+Current Maintainability:  High | Medium | Low
+
+Primary Risks:
+  <list of risks to future maintainability>
+
+Expected Growth Impact:
+  <how maintainability will change as codebase grows>
+
+Recommended Refactors:
+  <prioritized list of refactors>
+
+-------------------------------------------------
+REFACTOR OPPORTUNITY MAP (v2.3.0)
+-------------------------------------------------
+For each refactoring area:
+
+<AreaName>
+
+Refactors:
+  - <refactor description>
+  - <refactor description>
+
+Estimated Benefit: <what will improve>
+Estimated Cost: <effort required>
+Priority: P0 | P1 | P2 | P3
+
+-------------------------------------------------
+ARCHITECTURE SUMMARY (v2.3.0)
+-------------------------------------------------
+Strongest Architectural Decisions:
+  <list of best architectural choices>
+
+Weakest Architectural Areas:
+  <list of areas needing improvement>
+
+Highest Engineering Risks:
+  <list of highest risks>
+
+Largest Technical Debt:
+  <list of biggest debt items>
+
+Highest ROI Improvements:
+  <list of improvements with best return on investment>
 
 -------------------------------------------------
 REPOSITORY QUALITY GRADE
@@ -1774,6 +2219,8 @@ Generate a `PULL_REQUEST.md` that is GitHub-ready.
 
 | Version | Date | Changes |
 |---|---|---|
+| 2.3.0 | 2026-07-10 | Architecture Intelligence with Architecture Map, Module Health, Responsibility Analysis, Dependency Intelligence, Scalability Assessment, Technical Debt Classification, Architecture Risk Matrix, Design Pattern Recognition, Anti-Pattern Detection, Maintainability Forecast, Refactor Opportunity Map, Architecture Summary |
+| 2.2.0 | 2026-07-10 | Evidence & Analysis Engine with Evidence Chain, Evidence Quality Classification, Detection Source, Finding Lifecycle, Recommendation Classification, Confidence Justification, Evidence Summary, Engineering Assumptions, Analysis Trace, Report Completeness, Explain Successful Gates, Unknown Detection |
 | 2.0.1 | 2026-07-09 | Maintenance Release: Documentation Consistency, Terminology Fixes, SSOT Validation, Architecture Validation |
 | 2.0.0 | 2026-07-09 | Extensible Engineering Platform with Plugin Architecture, Rule Registry, Policy Engine, Framework Profiles, Self Validation, Performance Optimization, Architecture Documentation |
 | 1.9.0 | 2026-07-08 | Modular Engineering Architecture with 7 new reference documents |

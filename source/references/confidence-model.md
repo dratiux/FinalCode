@@ -27,7 +27,7 @@ Metric = (verified items / total items) × 100%
 
 ### Explanation Requirements
 
-Each metric must state **why** it has that value:
+Each metric must state **why** it has that value. Never present a bare percentage without the reason.
 
 | Metric | Why it has that value |
 |---|---|
@@ -37,6 +37,22 @@ Each metric must state **why** it has that value:
 | Runtime Coverage | Runtime exec available? DB/production reachable? |
 | Repository Coverage | From Repository Coverage % |
 | Overall Reliability | Weighted synthesis of the above |
+
+**Confidence Justification Format (v2.2.0):**
+
+Every confidence score must always include an explanation:
+
+```
+Analysis Confidence: 93%
+
+Reason:
+  Repository structure completely analyzed.
+  No circular dependencies detected.
+  Dependency graph verified.
+  Configuration files available.
+```
+
+**Rule:** Never present a confidence score without the reason. The reason must explain what evidence supports the score and what evidence is missing.
 
 ### Overall Reliability
 

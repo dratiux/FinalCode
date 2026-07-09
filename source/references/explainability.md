@@ -29,6 +29,56 @@ Every finding must include an Explainability Block that answers:
 | Human Assumptions | What assumptions did FinalCode make? |
 | Confidence Factors | What factors affect confidence in this finding? |
 
+### Evidence Chain (v2.2.0)
+
+Every finding must include a complete evidence chain that documents how the conclusion was reached:
+
+| Element | Question It Answers |
+|---|---|
+| Detection Method | How was this finding detected? |
+| Observed Evidence | What concrete evidence was found in the repository? |
+| Engineering Reasoning | How did FinalCode reason from evidence to conclusion? |
+| Engineering Impact | What is the actual engineering impact? |
+| Recommendation | What should be done about it? |
+| Verification Method | How can this finding be verified independently? |
+
+**Format:**
+```
+EVIDENCE CHAIN
+-------------------------------------------------
+Detection Method:
+  Static Analysis — ESLint rule no-console detected console.log usage.
+
+Observed Evidence:
+  src/utils/logger.ts:15 — console.log("Debug: user login");
+  src/utils/logger.ts:23 — console.log("Debug: API response", data);
+  src/utils/logger.ts:31 — console.log("Debug: database query", query);
+
+Engineering Reasoning:
+  Console.log statements in production code expose internal state to
+  anyone with browser DevTools or server log access. The project has
+  a proper logger (winston) configured in src/config/logger.ts but
+  these files use console.log instead. This is a security and
+  maintainability concern because:
+  1. Debug output may contain sensitive data (API responses, queries)
+  2. Console.log is not configurable for production log levels
+  3. Performance impact in high-traffic scenarios
+
+Engineering Impact:
+  Low-to-medium security risk. Debug output may expose sensitive
+  data in production. Maintainability impact is low.
+
+Recommendation:
+  Replace console.log with the configured winston logger at
+  appropriate log levels (debug for development, warn/error for
+  production).
+
+Verification Method:
+  1. Search codebase for remaining console.log statements
+  2. Verify winston logger is configured and available
+  3. Check that replacement uses appropriate log levels
+```
+
 ### Explainability Block Format
 
 ```
@@ -80,7 +130,7 @@ Alternative Decisions Considered:
      exploitable
 
 Human Assumptions:
-  - Assumed the key is a production key based on format
+  - Assumed the key is a production key based format
   - Assumed the repository is not private/internal
   - If this is a test key or the repository is fully internal,
     the severity may be reduced
@@ -230,7 +280,7 @@ Deductions caused by:
 
 The Explainability Engine consumes:
 
-- **Decision Engine** (see `decision-engine.md`) — pipeline stages and results
+- **Decision Engine** (see `../core/decision-engine.md`) — pipeline stages and results
 - **Finding Classification** (see `finding-classification.md`) — classification rules
 - **Release Engine** (see `release-engine.md`) — release impact assessment
 - **Health Score** (see `health-score.md`) — calculation details

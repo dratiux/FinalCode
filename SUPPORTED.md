@@ -72,6 +72,10 @@ Each policy defines blocking rules, enabled gates, required evidence, minimum qu
 
 | Version | Date | Stability | Summary |
 |---------|------|-----------|---------|
+| 2.4.1 | 2026-07-10 | Stable | Release Packaging Validation |
+| 2.4.0 | 2026-07-10 | Stable | Release Packaging System |
+| 2.3.0 | 2026-07-10 | Stable | Architecture Intelligence |
+| 2.2.0 | 2026-07-10 | Stable | Evidence & Analysis Engine |
 | 2.1.0 | 2026-07-10 | Stable | Documentation rewrite |
 | 2.0.1 | 2026-07-09 | Stable | Documentation consistency |
 | 2.0.0 | 2026-07-09 | Stable | Plugin SDK, framework profiles, policy engine |

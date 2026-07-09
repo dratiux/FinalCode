@@ -12,6 +12,38 @@ Every finding must use exactly one status:
 | Needs Verification | Evidence exists but FinalCode could not fully verify |
 | Not Verified | Insufficient evidence |
 
+## Finding Lifecycle (v2.2.0)
+
+Every finding must track its lifecycle state:
+
+| State | Meaning |
+|---|---|
+| Detected | Newly identified in this inspection |
+| Verified | Confirmed through independent verification |
+| Fixed | Resolution applied and verified |
+| Reopened | Previously fixed but issue has returned |
+| Deprecated | Finding no longer applicable (e.g., code removed) |
+| Ignored | Explicitly acknowledged and accepted |
+| Accepted Risk | Risk acknowledged but no action planned |
+
+**Rules:**
+- Default state for new findings is "Detected"
+- When historical reports are available, FinalCode must recognize previously reported findings and update their lifecycle state accordingly
+- "Fixed" requires verification that the fix resolves the issue
+- "Reopened" is assigned when a previously fixed finding reappears
+- "Deprecated" is assigned when the finding's subject no longer exists
+- "Ignored" and "Accepted Risk" require explicit user action via OVERRIDES.md
+
+### Lifecycle Transitions
+
+```
+Detected → Verified → Fixed
+Detected → Verified → Reopened (if previously Fixed)
+Detected → Deprecated (if code removed)
+Detected → Ignored (if user accepts)
+Detected → Accepted Risk (if user acknowledges risk)
+```
+
 ## Finding Classification
 
 Every finding must be classified into exactly one category:
@@ -177,3 +209,25 @@ Every finding must include a Root Cause Classification and Preventive Recommenda
 | Legacy Code | Outdated code that needs modernization |
 
 **Rule:** Preventive Recommendation must explain how to prevent recurrence. Never leave blank.
+
+## Recommendation Classification (v2.2.0)
+
+Recommendations must be categorized independently of Severity and Priority:
+
+| Category | Meaning |
+|---|---|
+| Bug Fix | Corrects incorrect behavior |
+| Refactor | Improves code structure without behavior change |
+| Architecture | Requires architectural decision |
+| Performance | Improves performance characteristics |
+| Security | Addresses security concern |
+| Documentation | Improves documentation |
+| Developer Experience | Improves developer workflow |
+| Infrastructure | Requires infrastructure change |
+| Testing | Improves test coverage or quality |
+| Technical Debt | Addresses accumulated shortcuts |
+
+**Rules:**
+- Every finding must have exactly one Recommendation Classification
+- Recommendation Classification is independent of Severity and Priority
+- A Critical severity finding can have a "Documentation" recommendation if the documentation gap creates a security risk
