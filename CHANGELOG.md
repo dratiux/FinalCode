@@ -4,6 +4,41 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2026-07-10
+
+### Highlights
+
+Execution Architecture Refinement. Removed legacy distribution artifacts, strengthened reference-driven execution, improved instruction quality. Complete backward compatibility with all previous versions.
+
+### Removed
+
+- **Legacy .skill Distribution** — removed `finalcode.skill` from repository root
+- **Packaging Scripts** — removed `scripts/package.ps1`, `scripts/package.sh`
+- **Verification Scripts** — removed `scripts/verify.ps1`, `scripts/verify.sh`
+- **dist/ Directory** — removed generated packaging artifacts
+- **.skill References** — removed all references to `.skill` as installation method
+
+### Changed
+
+- `README.md` simplified installation section, removed packaging documentation
+- `.gitignore` cleaned up, removed dist/ exclusion
+- `source/SKILL.md` version bump to v2.5.0
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Explainability Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Install Scripts unchanged
+- Backward compatible with v2.4.1
+
 ## [2.4.1] - 2026-07-10
 
 ### Highlights
