@@ -2,7 +2,7 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
-**OpenCode Edition v2.5.0**
+**OpenCode Edition v2.6.0**
 
 FinalCode is a production certification system for OpenCode projects. It runs a senior-engineering audit across 13 quality gates and produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
 

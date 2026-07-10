@@ -72,6 +72,7 @@ Each policy defines blocking rules, enabled gates, required evidence, minimum qu
 
 | Version | Date | Stability | Summary |
 |---------|------|-----------|---------|
+| 2.6.0 | 2026-07-10 | Stable | Execution Optimization & Knowledge Consolidation |
 | 2.5.0 | 2026-07-10 | Stable | Execution Architecture Refinement |
 | 2.4.1 | 2026-07-10 | Stable | Release Packaging Validation |
 | 2.4.0 | 2026-07-10 | Stable | Release Packaging System |

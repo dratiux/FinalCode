@@ -4,6 +4,45 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2026-07-10
+
+### Highlights
+
+Execution Optimization & Knowledge Consolidation. Refactored SKILL.md from 2231 lines to a lean orchestration layer, replaced duplicated knowledge with reference routing, and reduced execution cost. Complete backward compatibility with all previous versions.
+
+### Added
+
+- **references/certification-rules.md** — comprehensive certification rules reference with Finding Status, Classification, IDs, Severity Calibration, Evidence-Based Findings, Fix Verification, Release Blocking Policy, Confidence Model 2.0, Repository Coverage, Reliability Statement, Certification Integrity, Change Budget, Regression Protection, UI Evidence Requirements, Security Gate 2.0, Security Evidence Rules, Root Cause Intelligence, Repair Quality Assessment, Engineering Metrics, Repository Health Score, Historical Trend Analysis, Baseline Analysis
+- **references/report-format.md** — complete report template with 55 sections, Exit Code Convention, Report Engine Section Registry
+
+### Changed
+
+- `source/SKILL.md` refactored from 2231 lines to ~1030 lines (~54% reduction)
+- Advanced Certification Rules section replaced with key requirements summary and routing to `references/certification-rules.md`
+- Engineering Intelligence section replaced with key capabilities summary
+- Report Quality & Decision Support section condensed with key requirements summary
+- Decision Engine section condensed with pipeline summary
+- Finding Format section replaced with required/conditional fields summary and routing to `references/explainability.md`
+- FinalCode Certification Report section replaced with section list and routing to `references/report-format.md`
+- Operational Modes section condensed with mode selection and execution rules
+- Reference Documents section updated with new reference files
+- Version bumped to 2.6.0
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Explainability Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Install Scripts unchanged
+- Backward compatible with v2.5.0
+
 ## [2.5.0] - 2026-07-10
 
 ### Highlights
