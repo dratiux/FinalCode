@@ -1,5 +1,17 @@
 # FinalCode — Plugin Architecture
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines the plugin architecture, discovery, validation, and activation |
+| Execution Stage | INITIALIZATION, PLUGIN |
+| Loaded By | Plugin SDK, Certification Engine |
+| Dependencies | Plugin SDK |
+| Outputs | Plugin discovery, validation, activation rules |
+| Consumers | Plugin developers, Certification Engine |
+| Applies To | Plugin extensions |
+
 FinalCode v1.8.0 introduces an extension system so teams can teach FinalCode about their specific frameworks without modifying the core skill. Plugins contribute additional checks and recommendations; they never change core FinalCode behavior, gates, or the certification engine.
 
 ---

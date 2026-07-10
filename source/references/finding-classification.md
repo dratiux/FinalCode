@@ -1,5 +1,81 @@
 # FinalCode Finding Classification
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines finding status, classification, IDs, severity, lifecycle, and format |
+| Execution Stage | DECISION |
+| Loaded By | Decision Engine, Report Engine |
+| Dependencies | None (standalone) |
+| Outputs | Finding format, classification rules, severity calibration, lifecycle states |
+| Consumers | Decision Engine, Report Engine, Explainability Engine |
+| Applies To | All audits |
+
+## Reference Contract
+
+### Inputs
+
+| Input | Type | Required | Source |
+|-------|------|----------|--------|
+| rawObservations | array | Yes | Evidence collection |
+| applicableRules | array | Yes | Rule Registry |
+| gateCriteria | object | Yes | Quality Gates |
+
+### Outputs
+
+| Output | Type | Description |
+|--------|------|-------------|
+| findingStatus | string | Confirmed / Needs Verification / Not Verified |
+| findingClassification | string | Confirmed Defect / Security Vulnerability / Engineering Recommendation / Architectural Suggestion / Style Recommendation |
+| findingId | string | Stable unique identifier (FC-<CATEGORY>-<NUMBER>) |
+| severity | string | Critical / High / Medium / Low / Informational |
+| lifecycleState | string | Detected / Verified / Fixed / Reopened / Deprecated / Ignored / Accepted Risk |
+
+### Preconditions
+
+- Raw observations must be collected from repository
+- Applicable rules must be loaded from Rule Registry
+- Gate criteria must be defined
+
+### Postconditions
+
+- Every finding has exactly one status
+- Every finding has exactly one classification
+- IDs remain stable across re-runs
+- Severity reflects actual engineering impact
+
+### Required Evidence
+
+| Evidence | Purpose |
+|----------|---------|
+| File paths and line numbers | Attach findings to specific locations |
+| Build output | Determine pass/fail status |
+| Type-check results | Determine type safety issues |
+| Lint results | Determine code quality issues |
+| Test results | Determine testing coverage |
+| Dependency analysis | Determine dependency issues |
+
+### Generated Decisions
+
+| Decision | Rule |
+|----------|------|
+| Finding status | Evidence verification level |
+| Finding classification | Rule matching result |
+| Severity | Risk analysis + engineering impact |
+| Release impact | Classification + severity + policy |
+| Priority | Severity + engineering cost |
+
+### Possible Outcomes
+
+| Outcome | Condition |
+|---------|-----------|
+| Confirmed Defect | Objective issue with strong evidence |
+| Security Vulnerability | Verified security weakness |
+| Engineering Recommendation | Improvement suggestion |
+| Architectural Suggestion | Alternative approach suggestion |
+| Style Recommendation | Cosmetic suggestion |
+
 This document defines how findings are classified, identified, and formatted. It serves as the single source of truth for all finding-related rules.
 
 ## Finding Status

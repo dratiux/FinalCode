@@ -2,7 +2,7 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
-**OpenCode Edition v2.6.0**
+**OpenCode Edition v2.7.0**
 
 FinalCode is a production certification system for OpenCode projects. It runs a senior-engineering audit across 13 quality gates and produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
 
@@ -22,7 +22,6 @@ FinalCode is an independent open-source project created and maintained by Dratiu
 - [Requirements](#requirements)
 - [Examples](#examples)
 - [Engineering Documentation](#engineering-documentation)
-- [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Security](#security)
 - [Support](#support)
@@ -240,26 +239,6 @@ FinalCode generates persistent documentation inside `.finalcode/`:
 | `BASELINE.md` | First-execution baseline |
 
 Reports are immutable. New executions create new timestamped files.
-
-## Roadmap
-
-### v2.1.0
-
-- Remote plugin registry
-- Community plugin submission
-- Plugin ratings and reviews
-
-### v2.2.0
-
-- Enterprise plugin repository
-- Plugin licensing
-- Plugin analytics
-
-### v3.0.0
-
-- Real-time collaboration
-- Multi-repository certification
-- CI/CD integration
 
 ## Contributing
 

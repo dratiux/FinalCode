@@ -1,5 +1,17 @@
 # FinalCode Architecture
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines the overall system architecture, component relationships, and execution flow |
+| Execution Stage | INITIALIZATION |
+| Loaded By | SKILL.md (orchestration layer) |
+| Dependencies | None (standalone) |
+| Outputs | System diagrams, component descriptions, dependency relationships |
+| Consumers | All components, plugin developers, contributors |
+| Applies To | All audits |
+
 This document describes the FinalCode v2.3.0 architecture. It provides a comprehensive overview of the system, its components, and their relationships.
 
 ## System Overview

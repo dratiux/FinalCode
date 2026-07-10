@@ -1,5 +1,17 @@
 # FinalCode Framework Profiles
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines framework-specific rules, best practices, and detection logic |
+| Execution Stage | DETECTION, ANALYSIS |
+| Loaded By | Certification Engine, Rule Registry |
+| Dependencies | Rule Registry |
+| Outputs | Framework detection, framework-specific rules, best practices |
+| Consumers | Decision Engine, Report Engine |
+| Applies To | Framework-specific audits |
+
 Framework profiles provide modular framework support. Each profile defines framework-specific rules, best practices, documentation, and report improvements. Profiles are loaded dynamically when a framework is detected.
 
 ## Profile Schema

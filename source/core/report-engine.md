@@ -1,5 +1,17 @@
 # FinalCode Report Engine
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines the standardized 55-section report format and generation rules |
+| Execution Stage | REPORT |
+| Loaded By | Certification Engine |
+| Dependencies | Decision Engine, Health Score Engine, Confidence Model |
+| Outputs | FinalCode Certification Report (Markdown, JSON, SARIF) |
+| Consumers | User, Certification Engine, CI/CD pipelines |
+| Applies To | All audits |
+
 The Report Engine is responsible for producing the standardized FinalCode Certification Report. It ensures consistent ordering, consistent wording, deterministic output, and no duplicated formatting logic.
 
 ## Report Section Responsibilities
@@ -182,3 +194,66 @@ Every section uses the same formatting primitives:
 ## Report Template
 
 The complete report template is defined in the SKILL.md file. The Report Engine implements this template exactly. No sections may be added, removed, or reordered without updating both the template and this document.
+
+## Architecture Explainability
+
+### Responsibilities
+
+- Generate the standardized 55-section report
+- Ensure consistent ordering and formatting
+- Produce deterministic output
+- Apply Explainability Engine to findings
+- Generate machine-readable reports (JSON, SARIF)
+
+### Non-Responsibilities
+
+- Classifying findings (Decision Engine)
+- Calculating Health Score (Health Score Engine)
+- Determining certification status (Certification Engine)
+- Loading policies (Policy Engine)
+- Storing rules (Rule Registry)
+
+### Owned Decisions
+
+- Report section ordering
+- Formatting consistency
+- Terminology consistency
+- Deterministic output
+
+### Consumed Decisions
+
+- Classified findings (from Decision Engine)
+- Health Score (from Health Score Engine)
+- Confidence metrics (from Confidence Model)
+- Certification status (from Certification Engine)
+
+### Produced Decisions
+
+- FinalCode Certification Report
+- Machine-readable reports
+
+## Repository Discoverability
+
+### Related Documents
+
+- `core/decision-engine.md` — provides classified findings
+- `core/certification-engine.md` — orchestrates report generation
+- `references/report-format.md` — defines report template
+- `references/health-score.md` — provides Health Score
+- `references/confidence-model.md` — provides confidence metrics
+- `references/explainability.md` — defines explainability requirements
+- `references/examples.md` — provides formatting examples
+
+### Used By
+
+- Certification Engine (for report generation)
+- User (for reading reports)
+- CI/CD pipelines (for machine-readable reports)
+
+### Depends On
+
+- Decision Engine (for classified findings)
+- Health Score Engine (for Health Score)
+- Confidence Model (for confidence metrics)
+- Explainability Engine (for explainability blocks)
+- Report Format (for template)

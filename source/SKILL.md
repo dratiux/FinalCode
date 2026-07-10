@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 2.6.0 — OpenCode Edition
+Version: 2.7.0 — OpenCode Edition
 
 ## Identity
 
@@ -1014,6 +1014,7 @@ Generate a `PULL_REQUEST.md` that is GitHub-ready.
 
 | Version | Date | Changes |
 |---|---|---|
+| 2.7.0 | 2026-07-10 | Executable Documentation & Extension Contracts — Execution Metadata, Reference Contracts, Execution Dependency Graph, Extension Contracts, Public Interface Classification, Execution Lifecycle, Documentation Consistency Audit, Architecture Explainability, Repository Discoverability, Validation Report |
 | 2.6.0 | 2026-07-10 | Execution Optimization & Knowledge Consolidation — Refactored SKILL.md from 2231 lines to lean orchestration layer, replaced duplicated knowledge with reference routing, created references/certification-rules.md and references/report-format.md |
 | 2.5.0 | 2026-07-10 | Execution Architecture Refinement — Removed legacy distribution artifacts (finalcode.skill, dist/, packaging/verification scripts), simplified installation |
 | 2.4.1 | 2026-07-10 | Release Packaging Validation & Distribution — Standalone verification scripts, extended manifest, distribution policy |

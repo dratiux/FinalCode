@@ -1,5 +1,17 @@
 # FinalCode — Security Gate 2.0 (Full Checklist)
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines the exhaustive security checklist for Gate 9 |
+| Execution Stage | ANALYSIS |
+| Loaded By | Decision Engine, Rule Registry |
+| Dependencies | None (standalone) |
+| Outputs | Security findings with CVE category, attack vector, impact, mitigation |
+| Consumers | Decision Engine, Report Engine |
+| Applies To | Security Gate (Gate 9) |
+
 This is the exhaustive checklist for the Security Gate (Gate 9). The Phase 2 table in SKILL.md gives the condensed summary; use this file for the full audit.
 
 Every discovered vulnerability must report: **Severity**, **CVE Category** (if applicable), **Affected Files**, **Attack Vector**, **Potential Impact**, **Recommended Mitigation**, **Verification Method** — in addition to the standard Finding Format fields (Classification will always be "Security Vulnerability").

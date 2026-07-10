@@ -1,5 +1,17 @@
 # FinalCode Policy Engine
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Controls evaluation behavior through configurable policies |
+| Execution Stage | INITIALIZATION, POLICY |
+| Loaded By | Certification Engine |
+| Dependencies | None (standalone) |
+| Outputs | Active policy, blocking rules, gate configuration, severity thresholds |
+| Consumers | Decision Engine, Report Engine, Certification Engine |
+| Applies To | All audits |
+
 The Policy Engine controls how FinalCode evaluates repositories. Policies define severity thresholds, blocking rules, warning thresholds, documentation requirements, security strictness, and testing expectations. Policies are configurable without editing Core logic.
 
 ## Policy Schema
@@ -343,3 +355,60 @@ The Policy Engine validates policies before execution:
 6. `blocking` actions are valid (`block`, `warn`, `report`)
 
 If validation fails, execution must stop with an error identifying the invalid policy.
+
+## Architecture Explainability
+
+### Responsibilities
+
+- Load and validate policies
+- Apply policy inheritance
+- Provide blocking rules
+- Provide gate configuration
+- Provide severity thresholds
+
+### Non-Responsibilities
+
+- Classifying findings (Decision Engine)
+- Generating the report (Report Engine)
+- Determining certification status (Certification Engine)
+- Storing rules (Rule Registry)
+- Calculating Health Score (Health Score Engine)
+
+### Owned Decisions
+
+- Policy selection
+- Policy inheritance merging
+- Policy validation
+- Blocking rule application
+
+### Consumed Decisions
+
+- Configuration (from Configuration System)
+- Profile selection (from Framework Profiles)
+
+### Produced Decisions
+
+- Active policy
+- Blocking rules
+- Gate configuration
+- Severity thresholds
+
+## Repository Discoverability
+
+### Related Documents
+
+- `core/certification-engine.md` — uses policy for certification
+- `core/decision-engine.md` — uses blocking rules for decisions
+- `references/configuration.md` — provides configuration schema
+- `plugins/profiles.md` — may set default policy
+
+### Used By
+
+- Certification Engine (for policy evaluation)
+- Decision Engine (for blocking rules)
+- Report Engine (for policy display)
+
+### Depends On
+
+- Configuration System (for policy selection)
+- Framework Profiles (for profile-based policy)

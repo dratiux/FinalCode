@@ -4,6 +4,47 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2026-07-10
+
+### Highlights
+
+Executable Documentation & Extension Contracts. Upgraded documentation from static documentation to executable engineering specifications. Every document now has Execution Metadata, Reference Contracts, and Repository Discoverability. Plugin SDK formalized with Extension Contracts. Complete backward compatibility with all previous versions.
+
+### Added
+
+- **Execution Metadata** — every document now has Purpose, Execution Stage, Loaded By, Dependencies, Outputs, Consumers, Applies To
+- **Reference Contracts** — reference documents now have Inputs, Outputs, Preconditions, Postconditions, Required Evidence, Generated Decisions, Possible Outcomes
+- **Execution Dependency Graph** — complete dependency model documenting who loads what, when, why
+- **Extension Contracts** — formalized plugin SDK with contract-driven approach
+- **Public Interface Classification** — Stable/Experimental/Internal/Deprecated classification for all interfaces
+- **Execution Lifecycle** — complete lifecycle of one audit from detection to report
+- **Documentation Consistency Audit** — canonical definitions, terminology consistency, no duplicates
+- **Architecture Explainability** — Responsibilities/Non-responsibilities for Core Engine documents
+- **Repository Discoverability** — Related Documents/Used By/Depends On for all documents
+- **Validation Report** — complete validation of all v2.7.0 changes
+
+### Changed
+
+- All core engine documents updated with Execution Metadata, Architecture Explainability, Repository Discoverability
+- All reference documents updated with Execution Metadata, Reference Contracts
+- All plugin documents updated with Execution Metadata, Extension Contracts
+- Version bumped to 2.7.0
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Explainability Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Install Scripts unchanged
+- Backward compatible with v2.6.0
+
 ## [2.6.0] - 2026-07-10
 
 ### Highlights

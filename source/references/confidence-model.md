@@ -1,5 +1,81 @@
 # FinalCode Confidence Model
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines the six-metric confidence model and certification confidence model |
+| Execution Stage | DECISION, REPORT |
+| Loaded By | Report Engine, Certification Engine |
+| Dependencies | None (standalone) |
+| Outputs | Analysis Confidence, Evidence Coverage, Verification Coverage, Runtime Coverage, Repository Coverage, Overall Reliability |
+| Consumers | Report Engine, Certification Engine |
+| Applies To | All audits |
+
+## Reference Contract
+
+### Inputs
+
+| Input | Type | Required | Source |
+|-------|------|----------|--------|
+| findings | array | Yes | Decision Engine |
+| evidenceQuality | array | Yes | Evidence analysis |
+| verificationResults | array | Yes | Verification pipeline |
+| coverageData | object | Yes | Coverage analysis |
+| runtimeObservations | array | No | Runtime execution |
+
+### Outputs
+
+| Output | Type | Description |
+|--------|------|-------------|
+| analysisConfidence | number | Confidence in analytical correctness (0-100%) |
+| evidenceCoverage | number | Share of findings backed by evidence (0-100%) |
+| verificationCoverage | number | Share of fixes/claims verified (0-100%) |
+| runtimeCoverage | number | Share of runtime behavior observed (0-100%) |
+| repositoryCoverage | number | Share of repo inspected (0-100%) |
+| overallReliability | number | Weighted synthesis (0-100%) |
+
+### Preconditions
+
+- Findings must be collected
+- Evidence must be classified
+- Verification must be attempted (or marked Not Verifiable)
+
+### Postconditions
+
+- Every metric includes a justification
+- Overall Reliability is a weighted synthesis
+- No metric is presented without explanation
+
+### Required Evidence
+
+| Evidence | Purpose |
+|----------|---------|
+| Finding count | Calculate coverage percentages |
+| Evidence classifications | Calculate evidence coverage |
+| Verification results | Calculate verification coverage |
+| Runtime test results | Calculate runtime coverage |
+| File/directory counts | Calculate repository coverage |
+
+### Generated Decisions
+
+| Decision | Rule |
+|----------|------|
+| Analysis Confidence | Evidence quality + tool accuracy + verification depth |
+| Evidence Coverage | Evidence-backed findings / total findings |
+| Verification Coverage | Verified claims / total claims |
+| Runtime Coverage | Runtime tests / total expected paths |
+| Repository Coverage | Inspected files / total files |
+| Overall Reliability | Weighted average of all metrics |
+
+### Possible Outcomes
+
+| Outcome | Condition |
+|---------|-----------|
+| High confidence (>80%) | Strong evidence, comprehensive verification |
+| Medium confidence (50-80%) | Mixed evidence, partial verification |
+| Low confidence (<50%) | Weak evidence, limited verification |
+
 The Confidence Model measures how much of the repository's production readiness was actually verified versus assumed. It provides multiple metrics to give a complete picture of audit confidence.
 
 ## Confidence Model 2.0

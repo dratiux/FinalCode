@@ -1,5 +1,17 @@
 # FinalCode Decision Engine
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines how findings are classified, severity-calibrated, and release-impact-assessed |
+| Execution Stage | DECISION |
+| Loaded By | Certification Engine |
+| Dependencies | Rule Registry, Policy Engine |
+| Outputs | Classified findings with severity, release impact, and priority |
+| Consumers | Report Engine, Health Score Engine, Certification Engine |
+| Applies To | All audits |
+
 The Decision Engine is the core reasoning system that transforms raw repository observations into actionable engineering decisions. Every finding passes through a formal pipeline that ensures consistency, traceability, and explainability.
 
 ## Decision Pipeline
@@ -172,3 +184,62 @@ Before emitting any finding, validate:
 5. No contradictory statements
 
 If validation fails, correct the inconsistency or flag it explicitly.
+
+## Architecture Explainability
+
+### Responsibilities
+
+- Transform raw observations into actionable findings
+- Classify findings into categories
+- Calibrate severity based on engineering impact
+- Determine release impact
+- Ensure decision traceability
+
+### Non-Responsibilities
+
+- Generating the report (Report Engine)
+- Determining certification status (Certification Engine)
+- Loading policies (Policy Engine)
+- Storing rules (Rule Registry)
+- Calculating Health Score (Health Score Engine)
+
+### Owned Decisions
+
+- Finding classification
+- Severity calibration
+- Release impact assessment
+- Priority assignment
+
+### Consumed Decisions
+
+- Rule matching (from Rule Registry)
+- Policy blocking rules (from Policy Engine)
+
+### Produced Decisions
+
+- Classified findings with severity and release impact
+
+## Repository Discoverability
+
+### Related Documents
+
+- `core/certification-engine.md` — orchestrates the Decision Engine
+- `core/rule-registry.md` — provides rules for decision making
+- `core/policy-engine.md` — provides blocking rules
+- `core/report-engine.md` — consumes decision outputs
+- `references/finding-classification.md` — defines finding format
+- `references/explainability.md` — defines explainability requirements
+- `references/release-engine.md` — defines release blocking logic
+
+### Used By
+
+- Certification Engine (for finding classification)
+- Report Engine (for report generation)
+- Health Score Engine (for score calculation)
+
+### Depends On
+
+- Rule Registry (for rules)
+- Policy Engine (for blocking rules)
+- Finding Classification (for format)
+- Explainability Engine (for explanation requirements)

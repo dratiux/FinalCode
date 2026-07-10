@@ -1,5 +1,17 @@
 # FinalCode Certification Engine
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Orchestrates the complete certification pipeline from initialization to final output |
+| Execution Stage | INITIALIZATION, VALIDATION, DETECTION, ANALYSIS, DECISION, POLICY, REPORT, CERTIFICATION |
+| Loaded By | SKILL.md (orchestration layer) |
+| Dependencies | Decision Engine, Policy Engine, Rule Registry, Report Engine, Plugin SDK |
+| Outputs | Certification status (READY TO SHIP / READY WITH WARNINGS / NOT READY), exit code, final report |
+| Consumers | User, CI/CD pipelines, OpenCode |
+| Applies To | All audits |
+
 The Certification Engine orchestrates the complete certification process. It coordinates the Policy Engine, Rule Registry, Decision Engine, and Report Engine to produce a deterministic, traceable certification result.
 
 ## Certification Pipeline
@@ -197,3 +209,70 @@ Before execution, the Certification Engine validates:
 7. No inconsistent policies
 
 If validation fails, execution stops with an error message identifying the issue.
+
+## Architecture Explainability
+
+### Responsibilities
+
+- Orchestrate the complete certification pipeline
+- Coordinate all engines
+- Determine certification status
+- Set exit code
+- Handle errors gracefully
+
+### Non-Responsibilities
+
+- Classifying findings (Decision Engine)
+- Generating the report (Report Engine)
+- Loading policies (Policy Engine)
+- Storing rules (Rule Registry)
+- Calculating Health Score (Health Score Engine)
+
+### Owned Decisions
+
+- Pipeline orchestration
+- Certification status determination
+- Exit code assignment
+- Error handling
+
+### Consumed Decisions
+
+- Classified findings (from Decision Engine)
+- Policy evaluation (from Policy Engine)
+- Report generation (from Report Engine)
+- Health Score (from Health Score Engine)
+
+### Produced Decisions
+
+- Certification status (READY TO SHIP / READY WITH WARNINGS / NOT READY)
+- Exit code (0-3)
+- Final report
+
+## Repository Discoverability
+
+### Related Documents
+
+- `core/decision-engine.md` — classifies findings
+- `core/report-engine.md` — generates report
+- `core/policy-engine.md` — provides policy
+- `core/rule-registry.md` — provides rules
+- `plugins/sdk.md` — loads plugins
+- `plugins/profiles.md` — loads framework profiles
+- `references/configuration.md` — provides configuration
+- `references/architecture.md` — provides system overview
+
+### Used By
+
+- SKILL.md (orchestration layer)
+- OpenCode (execution environment)
+- User (final output)
+
+### Depends On
+
+- Decision Engine (for finding classification)
+- Report Engine (for report generation)
+- Policy Engine (for policy)
+- Rule Registry (for rules)
+- Plugin SDK (for plugins)
+- Framework Profiles (for framework detection)
+- Configuration System (for configuration)

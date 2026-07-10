@@ -1,5 +1,82 @@
 # FinalCode Explainability Engine
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines how findings and decisions are explained and traced |
+| Execution Stage | DECISION, REPORT |
+| Loaded By | Report Engine, Decision Engine |
+| Dependencies | Finding Classification |
+| Outputs | Explainability blocks, evidence chains, decision traces |
+| Consumers | Report Engine, User |
+| Applies To | All audits |
+
+## Reference Contract
+
+### Inputs
+
+| Input | Type | Required | Source |
+|-------|------|----------|--------|
+| finding | object | Yes | Decision Engine |
+| evidenceChain | object | Yes | Evidence collection |
+| ruleMatch | object | Yes | Rule Registry |
+| riskAnalysis | object | Yes | Risk Analysis |
+| classification | object | Yes | Classification |
+
+### Outputs
+
+| Output | Type | Description |
+|--------|------|-------------|
+| explainabilityBlock | object | Complete explanation of the finding |
+| evidenceChain | object | Detection method, observed evidence, reasoning, impact, recommendation, verification |
+| decisionTrace | array | Step-by-step decision path |
+
+### Preconditions
+
+- Finding must be classified
+- Evidence must be collected
+- Rule must be matched
+- Risk analysis must be complete
+
+### Postconditions
+
+- Every finding has a complete explainability block
+- Every decision is traceable to evidence
+- Every assumption is documented
+- Alternative decisions are considered
+
+### Required Evidence
+
+| Evidence | Purpose |
+|----------|---------|
+| Observed evidence | What was found in the repository |
+| Applicable rule | Which rule was matched |
+| Engineering reasoning | How evidence led to conclusion |
+| Engineering impact | What the impact is |
+| Severity justification | Why this severity was chosen |
+| Classification justification | Why this classification was chosen |
+| Release impact justification | Why this blocks/doesn't block release |
+| Alternative decisions | What other options were considered |
+| Human assumptions | What assumptions were made |
+| Confidence factors | What affects confidence |
+
+### Generated Decisions
+
+| Decision | Rule |
+|----------|------|
+| Explainability block content | Required elements specification |
+| Evidence chain format | Standardized evidence presentation |
+| Decision trace completeness | All steps documented |
+
+### Possible Outcomes
+
+| Outcome | Condition |
+|---------|-----------|
+| Complete explanation | All required elements present |
+| Partial explanation | Some elements unavailable (documented) |
+| No explanation | Insufficient evidence (classified as Needs Verification) |
+
 The Explainability Engine ensures that every engineering decision produced by FinalCode is explainable and auditable. Every finding must explain itself, and every decision must be traceable.
 
 ## Purpose

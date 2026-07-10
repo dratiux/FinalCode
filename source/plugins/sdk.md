@@ -1,5 +1,17 @@
 # FinalCode Plugin SDK
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines the contract for extending FinalCode via plugins |
+| Execution Stage | INITIALIZATION, PLUGIN |
+| Loaded By | Certification Engine |
+| Dependencies | Rule Registry, Report Engine |
+| Outputs | Plugin manifest, registration points, lifecycle hooks |
+| Consumers | Plugin developers, Certification Engine |
+| Applies To | Plugin extensions |
+
 The Plugin SDK defines how plugins register with FinalCode. Plugins extend FinalCode without modifying Core logic. Every plugin must follow the registration process documented here.
 
 ## Plugin Manifest
@@ -281,6 +293,31 @@ Plugins declare compatibility:
 ```
 
 FinalCode refuses to activate plugins with incompatible version declarations.
+
+## Extension Contracts
+
+Every extension point must define a formal contract. See `references/extension-contract-schema.md` for the complete contract schema.
+
+### Contract Requirements
+
+Each extension contract must specify:
+- **Extension Name:** unique identifier
+- **Execution Stage:** when the extension is consulted
+- **Available Context:** what information is available
+- **Accessible Data:** what data can be read
+- **Allowed Operations:** what the extension can do
+- **Forbidden Operations:** what the extension cannot do
+- **Expected Outputs:** what the extension must produce
+- **Failure Handling:** what happens when the extension fails
+- **Version Compatibility:** which FinalCode versions are supported
+
+### Contract Enforcement
+
+FinalCode enforces contracts:
+- Contracts are validated before plugin activation
+- Contract violations result in plugin rejection
+- Contract errors are logged with specific details
+- Contract compatibility is checked across versions
 
 ## Plugin Testing
 

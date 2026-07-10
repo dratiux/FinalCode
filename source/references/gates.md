@@ -1,5 +1,17 @@
 # FinalCode — Detailed Quality Gate Checklists
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines the exhaustive checklist for each of the 13 Quality Gates |
+| Execution Stage | ANALYSIS |
+| Loaded By | Decision Engine, Rule Registry |
+| Dependencies | None (standalone) |
+| Outputs | Gate criteria, pass/fail conditions, blocking rules |
+| Consumers | Decision Engine, Report Engine, Certification Engine |
+| Applies To | All audits |
+
 Full criteria for each of the 13 Quality Gates. The SKILL.md table is a condensed summary; consult this file when you need the exhaustive checklist for a gate.
 
 ## Configurable Gates (v1.8.0)

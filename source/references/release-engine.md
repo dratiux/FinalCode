@@ -1,5 +1,75 @@
 # FinalCode Release Engine
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines release blocking logic and deployment context evaluation |
+| Execution Stage | DECISION, CERTIFICATION |
+| Loaded By | Decision Engine, Certification Engine |
+| Dependencies | Finding Classification |
+| Outputs | Release impact classification (Release Blocker / Conditional Blocker / Engineering Recommendation / Informational) |
+| Consumers | Decision Engine, Report Engine, Certification Engine |
+| Applies To | All audits |
+
+## Reference Contract
+
+### Inputs
+
+| Input | Type | Required | Source |
+|-------|------|----------|--------|
+| findings | array | Yes | Decision Engine |
+| deploymentContext | object | No | User configuration |
+| policy | object | Yes | Policy Engine |
+
+### Outputs
+
+| Output | Type | Description |
+|--------|------|-------------|
+| releaseClassification | string | Release Blocker / Conditional Blocker / Engineering Recommendation / Informational |
+| blockingCondition | string | Condition under which finding blocks release |
+| releaseDecision | string | READY TO SHIP / READY WITH WARNINGS / NOT READY |
+| exitCode | number | 0 / 1 / 2 / 3 |
+
+### Preconditions
+
+- Findings must be classified and severity-calibrated
+- Policy must be loaded
+- Deployment context may be provided (optional)
+
+### Postconditions
+
+- Every finding has exactly one release classification
+- Blocking conditions are explicitly documented
+- Release decision is justified
+
+### Required Evidence
+
+| Evidence | Purpose |
+|----------|---------|
+| Finding severity | Determine if finding can block |
+| Finding classification | Determine release impact |
+| Policy blocking rules | Determine blocking behavior |
+| Deployment context | Evaluate conditional blockers |
+
+### Generated Decisions
+
+| Decision | Rule |
+|----------|------|
+| Release classification | Severity + classification + policy |
+| Blocking condition | Conditional blocker rules |
+| Release decision | Aggregated blocking status |
+| Exit code | Release decision mapping |
+
+### Possible Outcomes
+
+| Outcome | Condition |
+|---------|-----------|
+| READY TO SHIP | No blocking findings, all gates pass |
+| READY WITH WARNINGS | No critical blockers, some warnings |
+| NOT READY | Critical findings blocking certification |
+| NO PROJECT FOUND | No valid project detected |
+
 The Release Engine determines whether a repository is ready for production deployment. It classifies findings by release impact, evaluates deployment context, and produces a justified release decision.
 
 ## Release Blocker Engine

@@ -1,5 +1,74 @@
 # FinalCode Health Score
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines the Health Score formula, weights, and grade assignment |
+| Execution Stage | DECISION, REPORT |
+| Loaded By | Report Engine, Certification Engine |
+| Dependencies | None (standalone) |
+| Outputs | Health Score (0-100), grade, category breakdown, deductions |
+| Consumers | Report Engine, Certification Engine |
+| Applies To | All audits |
+
+## Reference Contract
+
+### Inputs
+
+| Input | Type | Required | Source |
+|-------|------|----------|--------|
+| findings | array | Yes | Decision Engine |
+| gateResults | object | Yes | Quality Gate execution |
+| policy | object | Yes | Policy Engine |
+
+### Outputs
+
+| Output | Type | Description |
+|--------|------|-------------|
+| healthScore | number | Composite score 0-100 |
+| grade | string | Letter grade (A+ through F) |
+| categoryBreakdown | object | Per-category scores and contributions |
+| deductions | array | List of deductions with finding references |
+| recommendations | array | Actions to improve score |
+
+### Preconditions
+
+- Findings must be classified and severity-calibrated
+- Gate results must be determined
+- Policy must be loaded
+
+### Postconditions
+
+- Health Score is deterministic for same inputs
+- Every deduction references at least one finding
+- Grade assignment follows the defined thresholds
+
+### Required Evidence
+
+| Evidence | Purpose |
+|----------|---------|
+| Finding classifications | Determine which categories are affected |
+| Gate pass/fail status | Weight gate contributions |
+| Policy thresholds | Determine grade boundaries |
+
+### Generated Decisions
+
+| Decision | Rule |
+|----------|------|
+| Health Score value | Weighted sum of category scores |
+| Grade assignment | Threshold-based mapping |
+| Category contributions | Per-category weight × score |
+
+### Possible Outcomes
+
+| Outcome | Condition |
+|---------|-----------|
+| Score 90-100 (Excellent) | All gates pass, few findings |
+| Score 75-89 (Good) | Most gates pass, moderate findings |
+| Score 50-74 (Fair) | Some gates fail, significant findings |
+| Score 0-49 (Poor) | Multiple gates fail, critical findings |
+
 The Health Score is a composite score from 0 to 100 measuring overall repository quality. It is reproducible, explainable, and every deduction references the findings that caused it.
 
 ## Score Range

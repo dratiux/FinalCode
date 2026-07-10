@@ -1,5 +1,17 @@
 # FinalCode Rule Registry
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Centralized source of truth for all engineering rules |
+| Execution Stage | INITIALIZATION, ANALYSIS |
+| Loaded By | Certification Engine, Decision Engine |
+| Dependencies | None (standalone) |
+| Outputs | Active rules, rule lookup, rule validation |
+| Consumers | Decision Engine, Plugin SDK, Framework Profiles |
+| Applies To | All audits |
+
 The Rule Registry is the centralized source of truth for all engineering rules. Every rule must be registered here. No duplicated rule definitions are allowed.
 
 ## Rule Schema
@@ -136,3 +148,61 @@ The Rule Registry must be validated before execution:
 6. No circular references
 
 If validation fails, execution must stop with an error message identifying the invalid rule.
+
+## Architecture Explainability
+
+### Responsibilities
+
+- Store all engineering rules
+- Provide rule lookup
+- Validate rule schemas
+- Manage rule lifecycle (Active/Deprecated/Experimental)
+- Support framework-specific rules
+
+### Non-Responsibilities
+
+- Classifying findings (Decision Engine)
+- Generating the report (Report Engine)
+- Determining certification status (Certification Engine)
+- Loading policies (Policy Engine)
+- Calculating Health Score (Health Score Engine)
+
+### Owned Decisions
+
+- Rule storage
+- Rule lookup
+- Rule validation
+- Rule lifecycle management
+
+### Consumed Decisions
+
+- Framework detection (from Framework Profiles)
+- Plugin rules (from Plugin SDK)
+
+### Produced Decisions
+
+- Active rules
+- Rule lookup results
+- Rule validation results
+
+## Repository Discoverability
+
+### Related Documents
+
+- `core/decision-engine.md` — uses rules for decision making
+- `core/certification-engine.md` — loads rules during initialization
+- `plugins/sdk.md` — registers plugin rules
+- `plugins/profiles.md` — provides framework-specific rules
+- `references/gates.md` — defines gate criteria
+- `references/security-gate.md` — defines security rules
+
+### Used By
+
+- Decision Engine (for rule matching)
+- Certification Engine (for rule loading)
+- Plugin SDK (for plugin rule registration)
+- Framework Profiles (for framework rules)
+
+### Depends On
+
+- None (standalone)

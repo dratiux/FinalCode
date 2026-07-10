@@ -1,5 +1,17 @@
 # FinalCode Extension Marketplace Foundation
 
+## Execution Metadata
+
+| Field | Value |
+|-------|-------|
+| Purpose | Defines the architecture for plugin discovery, validation, and distribution |
+| Execution Stage | INITIALIZATION, PLUGIN |
+| Loaded By | Plugin SDK |
+| Dependencies | Plugin SDK |
+| Outputs | Plugin discovery, validation, distribution architecture |
+| Consumers | Plugin developers, future marketplace |
+| Applies To | Plugin extensions |
+
 The Extension Marketplace prepares FinalCode for future community extensions. This document defines the architecture for plugin discovery, validation, and distribution. No networking or package downloads are implemented — only the architecture is prepared.
 
 ## Marketplace Architecture
