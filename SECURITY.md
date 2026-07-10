@@ -30,7 +30,7 @@ Security patches are applied to the current major version and the previous two m
 
 ## Scope
 
-FinalCode is a skill definition for OpenCode. It instructs AI assistants how to audit repositories. As such:
+FinalCode is a skill definition for the Skills ecosystem. It instructs AI assistants how to audit repositories. As such:
 
 - **No code execution.** FinalCode does not execute code itself.
 - **No network access.** FinalCode does not make network requests.

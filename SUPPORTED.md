@@ -9,11 +9,10 @@
 | **Experimental** | Limited testing. May require adjustments. Issues are addressed on best-effort basis. |
 | **Not Tested** | No validation performed. Support depends on project structure. |
 
-## Platform Compatibility
+## Framework Compatibility
 
-| Platform | Support Level | Notes |
-|----------|---------------|-------|
-| OpenCode | Fully Supported | Primary target |
+| Framework | Support Level | Notes |
+|-----------|---------------|-------|
 | React | Fully Supported | Production ready |
 | Next.js | Fully Supported | App Router and Pages Router |
 | Electron | Fully Supported | Desktop applications |
@@ -40,10 +39,10 @@
 
 ## Compatibility Guarantees
 
-- OpenCode is the primary development and testing platform
-- Quality gates, security checks, and report generation are optimized for OpenCode
+- FinalCode follows the Skills ecosystem standard
+- Quality gates, security checks, and report generation work with any Skills-compatible agent
 - Framework support depends on project structure, tooling availability, and AI model access
-- Non-OpenCode environments may work but are not guaranteed
+- Refer to the [Skills documentation](https://skills.sh) for the latest supported environments
 
 ## Plugin Architecture
 
@@ -72,6 +71,7 @@ Each policy defines blocking rules, enabled gates, required evidence, minimum qu
 
 | Version | Date | Stability | Summary |
 |---------|------|-----------|---------|
+| 2.10.0 | 2026-07-10 | Stable | Cross-Agent Distribution & Documentation Refinement |
 | 2.8.0 | 2026-07-10 | Stable | Native skills.sh Distribution |
 | 2.7.0 | 2026-07-10 | Stable | Executable Documentation & Extension Contracts |
 | 2.6.0 | 2026-07-10 | Stable | Execution Optimization & Knowledge Consolidation |

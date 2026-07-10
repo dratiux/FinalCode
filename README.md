@@ -2,13 +2,13 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
-**OpenCode Edition v2.8.0**
+**v2.10.0**
 
-FinalCode is a production certification system for OpenCode projects. It runs a senior-engineering audit across 13 quality gates and produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
+FinalCode is a production certification system. It runs a senior-engineering audit across 13 quality gates and produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
 
 ## Project Status
 
-FinalCode is an independent open-source project created and maintained by Dratiux. It is not affiliated with, endorsed by, or maintained by the OpenCode project or its contributors.
+FinalCode is an independent open-source project created and maintained by Dratiux. It is distributed through the Skills ecosystem and compatible with Skills-compatible AI coding agents.
 
 ## Table of Contents
 
@@ -33,21 +33,13 @@ FinalCode is an independent open-source project created and maintained by Dratiu
 npx skills add dratiux/FinalCode
 ```
 
-Then restart OpenCode and run:
+Then restart your AI coding agent and run:
 
 ```
 Run FinalCode
 ```
 
-Or use the slash command:
-
-```
-/finalcode inspect
-```
-
 ## Installation
-
-### Via skills.sh (Recommended)
 
 Install FinalCode using the official skills.sh CLI:
 
@@ -55,26 +47,27 @@ Install FinalCode using the official skills.sh CLI:
 npx skills add dratiux/FinalCode
 ```
 
-This installs FinalCode to `.opencode/skills/finalcode/` where OpenCode discovers it automatically.
+skills.sh automatically detects your environment and installs FinalCode to the correct location. No manual configuration required.
 
 **Options:**
 
 | Flag | Description |
 |------|-------------|
-| `-g` | Install globally to `~/.config/opencode/skills/` |
+| `-g` | Install globally (available in all projects) |
 | `-y` | Skip confirmation prompts |
 | `--skill finalcode` | Install only the FinalCode skill |
+| `--list` | List available skills before installing |
 
 **Examples:**
 
 ```bash
-# Global installation (available in all projects)
+# Global installation
 npx skills add dratiux/FinalCode -g
 
 # Non-interactive installation
 npx skills add dratiux/FinalCode -y
 
-# List available skills before installing
+# List available skills
 npx skills add dratiux/FinalCode --list
 ```
 
@@ -102,15 +95,6 @@ Run FinalCode                          # Inspect mode
 Run FinalCode in Repair Mode           # Repair mode
 Run FinalCode in Refactor Mode         # Refactor mode
 Run FinalCode in Certify Mode          # Certify mode
-```
-
-### Slash Commands
-
-```
-/finalcode inspect
-/finalcode repair
-/finalcode refactor
-/finalcode certify
 ```
 
 ## Quality Gates
@@ -146,7 +130,7 @@ Detailed checklists: [skills/finalcode/references/gates.md](skills/finalcode/ref
 
 ## Architecture
 
-FinalCode uses a Single Source of Truth (SSOT) architecture. All editable files live in `skills/finalcode/`. skills.sh generates `.opencode/skills/finalcode/` from these sources.
+FinalCode uses a Single Source of Truth (SSOT) architecture. All editable files live in `skills/finalcode/`.
 
 ```
 skills/finalcode/
@@ -174,8 +158,6 @@ skills/finalcode/
     ├── release-engine.md        # Release blocker engine
     └── architecture.md          # System architecture
 ```
-
-**Rule:** Never edit files in `.opencode/skills/finalcode/`. Always edit `skills/finalcode/` files.
 
 ## Configuration
 
@@ -205,10 +187,10 @@ FinalCode can be configured without editing the skill. Place a `finalcode.config
 
 | Requirement | Minimum |
 |-------------|---------|
-| OpenCode | Latest Stable |
-| Git | 2.0+ |
 | Node.js | 18+ |
 | npm | 9+ |
+
+FinalCode works with any Skills-compatible AI coding agent. Refer to the [Skills documentation](https://skills.sh) for the latest supported environments.
 
 ## Examples
 
@@ -271,4 +253,4 @@ MIT License. See [LICENSE](LICENSE).
 
 ## Credits
 
-Created by Dratiux. Built for the OpenCode community.
+Created by Dratiux. Built for the Skills ecosystem.

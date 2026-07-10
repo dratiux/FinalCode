@@ -17,15 +17,15 @@
 
 ## Installation Issues
 
-### Skill not appearing in OpenCode
+### Skill not appearing after installation
 
-1. Verify `.opencode/skills/finalcode/SKILL.md` exists after running `npx skills add dratiux/FinalCode`
-2. Restart OpenCode after installation
-3. Check that the `.opencode/` directory is in your project root
+1. Restart your AI coding agent after installation
+2. Verify the installation completed without errors
+3. Check that your agent supports Skills (refer to [skills.sh](https://skills.sh) documentation)
 
-### skills.sh installation fails
+### Node.js not found
 
-Ensure you have Node.js 18+ installed. The skills.sh CLI requires Node.js to run:
+Ensure you have Node.js 18+ installed:
 
 ```bash
 node --version
@@ -54,14 +54,6 @@ Run FinalCode in Repair Mode
 Run FinalCode in Certify Mode
 ```
 
-Or use slash commands:
-
-```
-/finalcode inspect
-/finalcode repair
-/finalcode certify
-```
-
 ## Report Interpretation
 
 ### Report seems incomplete
@@ -85,7 +77,7 @@ The Health Score is a weighted composite across 10 categories. Check the Health 
 
 When reporting a bug:
 
-1. **OpenCode version** -- run `opencode --version`
+1. **AI agent version** -- which agent and version you are using
 2. **FinalCode version** -- check the report header or README
 3. **Steps to reproduce** -- exact command or prompt used
 4. **Expected behavior** -- what you expected to happen

@@ -12,7 +12,7 @@
 | Consumers | Report Engine, User, Contributors |
 | Applies To | All audits |
 
-Three worked examples covering the required test scenarios: a clean repository, a repository with multiple issues, and a missing repository. A fourth short excerpt shows the Repair Mode execution plan. Use these as the formatting template — same section order, same level of evidence detail, same exit code convention as SKILL.md. All examples reflect FinalCode v2.3.0 (OpenCode Edition): 13 Quality Gates, Security Gate 2.0 (14 categories), the v1.7.0 Engineering Intelligence, the v1.8.0 configurable platform, the v1.8.1 report-quality and decision-support features, the v1.8.2 decision engine and report precision features, the v1.9.0 modular engineering architecture with Explainability Engine, the v2.2.0 Evidence & Analysis Engine, and the v2.3.0 Architecture Intelligence with Architecture Map, Module Health, Responsibility Analysis, Dependency Intelligence, Scalability Assessment, Technical Debt Classification, Architecture Risk Matrix, Design Pattern Recognition, Anti-Pattern Detection, Maintainability Forecast, Refactor Opportunity Map, and Architecture Summary.
+Three worked examples covering the required test scenarios: a clean repository, a repository with multiple issues, and a missing repository. A fourth short excerpt shows the Repair Mode execution plan. Use these as the formatting template — same section order, same level of evidence detail, same exit code convention as SKILL.md. All examples reflect FinalCode v2.3.0: 13 Quality Gates, Security Gate 2.0 (14 categories), the v1.7.0 Engineering Intelligence, the v1.8.0 configurable platform, the v1.8.1 report-quality and decision-support features, the v1.8.2 decision engine and report precision features, the v1.9.0 modular engineering architecture with Explainability Engine, the v2.2.0 Evidence & Analysis Engine, and the v2.3.0 Architecture Intelligence with Architecture Map, Module Health, Responsibility Analysis, Dependency Intelligence, Scalability Assessment, Technical Debt Classification, Architecture Risk Matrix, Design Pattern Recognition, Anti-Pattern Detection, Maintainability Forecast, Refactor Opportunity Map, and Architecture Summary.
 
 ---
 
@@ -48,7 +48,7 @@ Estimated Remaining Effort:  None
 --------------------------------------------------
 AUDIT METADATA
 --------------------------------------------------
-Specification Version:  1.8.2 (OpenCode Edition)
+Specification Version:  1.8.2
 Mode:                    Certify
 Profile:                 production
 Inspection Type:         Full

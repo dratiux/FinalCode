@@ -27,7 +27,7 @@ Estimated Remaining Effort:  Small | Medium | Large
 --------------------------------------------------
 AUDIT METADATA
 --------------------------------------------------
-Specification Version:  2.6.0 (OpenCode Edition)
+Specification Version:  2.6.0
 Audit Engine Version:    <internal version>
 Report Version:          <increments per re-run>
 Repository Version:      <tag or branch name>

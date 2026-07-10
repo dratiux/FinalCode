@@ -4,6 +4,36 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.0] - 2026-07-10
+
+### Highlights
+
+Cross-Agent Distribution & Documentation Refinement. Repositioned FinalCode as a portable engineering skill for the Skills ecosystem. Removed OpenCode-only wording. Improved documentation clarity and professionalism.
+
+### Changed
+
+- `README.md` rewritten with cross-agent distribution focus, removed OpenCode-specific requirements
+- `CONTRIBUTING.md` updated with Skills ecosystem terminology
+- `SUPPORT.md` simplified, removed internal path references
+- `SUPPORTED.md` renamed "Platform Compatibility" to "Framework Compatibility", removed agent-specific compatibility table
+- `SECURITY.md` updated scope from "OpenCode" to "Skills ecosystem"
+- `skills/finalcode/SKILL.md` updated description and version
+- Version bumped to 2.10.0
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Explainability Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v2.8.0
+
 ## [2.8.0] - 2026-07-10
 
 ### Highlights
