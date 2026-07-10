@@ -8,9 +8,6 @@
 *.yml text
 *.yaml text
 
-# Skill files (binary)
-*.skill binary
-
 # Image files
 *.png binary
 *.jpg binary
@@ -25,5 +22,4 @@
 *.json eol=lf
 *.txt eol=lf
 
-# Denote files that are truly binary and should not be modified
-*.skill -diff
+

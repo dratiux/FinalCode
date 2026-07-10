@@ -12,7 +12,7 @@
 | Consumers | Certification Engine, Policy Engine, User |
 | Applies To | All audits |
 
-This file is the detailed reference for the v1.8.0 configurable engineering platform. The `source/SKILL.md` section "Configurable Engineering Platform (v1.8.0)" is the summary; this file holds the schemas, examples, and edge-case rules. FinalCode loads these features without changing any existing Quality Gate, Security Gate, operational mode, or Engineering Intelligence behavior — they only adjust *which* rules apply and *how* results are presented.
+This file is the detailed reference for the v1.8.0 configurable engineering platform. The `skills/finalcode/SKILL.md` section "Configurable Engineering Platform (v1.8.0)" is the summary; this file holds the schemas, examples, and edge-case rules. FinalCode loads these features without changing any existing Quality Gate, Security Gate, operational mode, or Engineering Intelligence behavior — they only adjust *which* rules apply and *how* results are presented.
 
 ---
 

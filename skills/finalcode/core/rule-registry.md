@@ -52,7 +52,7 @@ The `detection` object specifies how the rule is checked:
 
 ## Rule Registry Format
 
-The Rule Registry is a JSON file at `source/core/rule-registry.json`:
+The Rule Registry is a JSON file at `skills/finalcode/core/rule-registry.json`:
 
 ```json
 {

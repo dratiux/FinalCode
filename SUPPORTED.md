@@ -47,11 +47,11 @@
 
 ## Plugin Architecture
 
-FinalCode v2.0.0+ includes a Plugin SDK for extending framework support. Plugins can register detection rules, report sections, framework knowledge, recommendations, validation steps, and configuration options. Plugins never modify core logic. See [source/plugins/sdk.md](source/plugins/sdk.md).
+FinalCode v2.0.0+ includes a Plugin SDK for extending framework support. Plugins can register detection rules, report sections, framework knowledge, recommendations, validation steps, and configuration options. Plugins never modify core logic. See [skills/finalcode/plugins/sdk.md](skills/finalcode/plugins/sdk.md).
 
 ## Framework Profiles
 
-FinalCode includes profiles for 14 frameworks: React, Next.js, Vue, Angular, Electron, Node.js, Express, Fastify, NestJS, Cloudflare Workers, Cloudflare Pages, Supabase, Vite, Hono. Each profile contributes additional rules and best practices without changing core behavior. See [source/plugins/profiles.md](source/plugins/profiles.md).
+FinalCode includes profiles for 14 frameworks: React, Next.js, Vue, Angular, Electron, Node.js, Express, Fastify, NestJS, Cloudflare Workers, Cloudflare Pages, Supabase, Vite, Hono. Each profile contributes additional rules and best practices without changing core behavior. See [skills/finalcode/plugins/profiles.md](skills/finalcode/plugins/profiles.md).
 
 ## Certification Policies
 
@@ -66,12 +66,13 @@ FinalCode includes profiles for 14 frameworks: React, Next.js, Vue, Angular, Ele
 | POLICY-MINIMAL | Minimum checks |
 | POLICY-STRICT | Maximum strictness |
 
-Each policy defines blocking rules, enabled gates, required evidence, minimum quality score, and report sections. See [source/core/policy-engine.md](source/core/policy-engine.md).
+Each policy defines blocking rules, enabled gates, required evidence, minimum quality score, and report sections. See [skills/finalcode/core/policy-engine.md](skills/finalcode/core/policy-engine.md).
 
 ## Version History
 
 | Version | Date | Stability | Summary |
 |---------|------|-----------|---------|
+| 2.8.0 | 2026-07-10 | Stable | Native skills.sh Distribution |
 | 2.7.0 | 2026-07-10 | Stable | Executable Documentation & Extension Contracts |
 | 2.6.0 | 2026-07-10 | Stable | Execution Optimization & Knowledge Consolidation |
 | 2.5.0 | 2026-07-10 | Stable | Execution Architecture Refinement |

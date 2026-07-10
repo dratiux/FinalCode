@@ -82,7 +82,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Decision Engine
 
-**Location:** `source/core/decision-engine.md`
+**Location:** `skills/finalcode/core/decision-engine.md`
 
 **Responsibility:** Transforms repository observations into actionable engineering decisions.
 
@@ -101,7 +101,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Policy Engine
 
-**Location:** `source/core/policy-engine.md`
+**Location:** `skills/finalcode/core/policy-engine.md`
 
 **Responsibility:** Controls how FinalCode evaluates repositories.
 
@@ -119,7 +119,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Rule Registry
 
-**Location:** `source/core/rule-registry.md`
+**Location:** `skills/finalcode/core/rule-registry.md`
 
 **Responsibility:** Centralized source of truth for all engineering rules.
 
@@ -142,7 +142,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Report Engine
 
-**Location:** `source/core/report-engine.md`
+**Location:** `skills/finalcode/core/report-engine.md`
 
 **Responsibility:** Produces standardized FinalCode Certification Report.
 
@@ -154,7 +154,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Certification Engine
 
-**Location:** `source/core/certification-engine.md`
+**Location:** `skills/finalcode/core/certification-engine.md`
 
 **Responsibility:** Orchestrates the complete certification process.
 
@@ -174,7 +174,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Plugin SDK
 
-**Location:** `source/plugins/sdk.md`
+**Location:** `skills/finalcode/plugins/sdk.md`
 
 **Responsibility:** Defines how plugins register with FinalCode.
 
@@ -192,7 +192,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Framework Profiles
 
-**Location:** `source/plugins/profiles.md`
+**Location:** `skills/finalcode/plugins/profiles.md`
 
 **Responsibility:** Provides modular framework support.
 
@@ -216,7 +216,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Marketplace Foundation
 
-**Location:** `source/plugins/marketplace.md`
+**Location:** `skills/finalcode/plugins/marketplace.md`
 
 **Responsibility:** Prepares for future community extensions.
 
@@ -233,7 +233,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Quality Gates
 
-**Location:** `source/references/gates.md`
+**Location:** `skills/finalcode/references/gates.md`
 
 **Responsibility:** Defines checklists for 13 Quality Gates.
 
@@ -254,7 +254,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Security Gate 2.0
 
-**Location:** `source/references/security-gate.md`
+**Location:** `skills/finalcode/references/security-gate.md`
 
 **Responsibility:** Provides security checklist across 14 categories.
 
@@ -276,7 +276,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Examples
 
-**Location:** `source/references/examples.md`
+**Location:** `skills/finalcode/references/examples.md`
 
 **Responsibility:** Provides worked test case outputs.
 
@@ -287,7 +287,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Configuration Reference
 
-**Location:** `source/references/configuration.md`
+**Location:** `skills/finalcode/references/configuration.md`
 
 **Responsibility:** Provides detailed configuration reference.
 
@@ -302,7 +302,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Confidence Model
 
-**Location:** `source/references/confidence-model.md`
+**Location:** `skills/finalcode/references/confidence-model.md`
 
 **Responsibility:** Defines Confidence Model 2.0 and Certification Confidence Model.
 
@@ -316,7 +316,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Health Score
 
-**Location:** `source/references/health-score.md`
+**Location:** `skills/finalcode/references/health-score.md`
 
 **Responsibility:** Specifies Health Score formula and grade assignment.
 
@@ -326,7 +326,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Finding Classification
 
-**Location:** `source/references/finding-classification.md`
+**Location:** `skills/finalcode/references/finding-classification.md`
 
 **Responsibility:** Establishes finding-related rules.
 
@@ -344,7 +344,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Explainability Engine
 
-**Location:** `source/references/explainability.md`
+**Location:** `skills/finalcode/references/explainability.md`
 
 **Responsibility:** Defines Explainability Engine.
 
@@ -356,7 +356,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 #### Architecture
 
-**Location:** `source/references/architecture.md`
+**Location:** `skills/finalcode/references/architecture.md`
 
 **Responsibility:** Describes overall system architecture.
 

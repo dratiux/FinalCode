@@ -4,10 +4,10 @@
 
 - [README](README.md) -- Installation and usage
 - [SUPPORTED.md](SUPPORTED.md) -- Platform compatibility and support policy
-- [source/SKILL.md](source/SKILL.md) -- Complete skill specification
-- [source/references/examples.md](source/references/examples.md) -- Worked example reports
-- [source/references/gates.md](source/references/gates.md) -- Quality gate checklists
-- [source/references/security-gate.md](source/references/security-gate.md) -- Security gate checklist
+- [skills/finalcode/SKILL.md](skills/finalcode/SKILL.md) -- Complete skill specification
+- [skills/finalcode/references/examples.md](skills/finalcode/references/examples.md) -- Worked example reports
+- [skills/finalcode/references/gates.md](skills/finalcode/references/gates.md) -- Quality gate checklists
+- [skills/finalcode/references/security-gate.md](skills/finalcode/references/security-gate.md) -- Security gate checklist
 
 ## Contact
 
@@ -17,23 +17,21 @@
 
 ## Installation Issues
 
-### Install script fails
-
-Ensure you have bash (Linux/macOS) or PowerShell (Windows) available. The script copies files from `source/` to `.opencode/skills/finalcode/`. Verify the source directory exists and contains the expected files.
-
 ### Skill not appearing in OpenCode
 
-1. Verify `.opencode/skills/finalcode/SKILL.md` exists after running the install script
+1. Verify `.opencode/skills/finalcode/SKILL.md` exists after running `npx skills add dratiux/FinalCode`
 2. Restart OpenCode after installation
 3. Check that the `.opencode/` directory is in your project root
 
-### Permission denied on install script
+### skills.sh installation fails
 
-On Linux/macOS, make the script executable:
+Ensure you have Node.js 18+ installed. The skills.sh CLI requires Node.js to run:
 
 ```bash
-chmod +x scripts/install.sh
+node --version
 ```
+
+If Node.js is not installed, download it from [nodejs.org](https://nodejs.org/).
 
 ## Skill Activation Issues
 

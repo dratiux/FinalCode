@@ -4,6 +4,51 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2026-07-10
+
+### Highlights
+
+Native skills.sh Distribution. Migrated to skills.sh as the single official installation method. Removed repository-owned installation logic that duplicated skills.sh functionality. Simplified documentation and repository structure.
+
+### Added
+
+- **skills.sh Integration** — single official installation method via `npx skills add dratiux/FinalCode`
+- **skills/finalcode/ Directory** — skill source files moved from `source/` to `skills/finalcode/` for skills.sh discoverability
+
+### Removed
+
+- **Install Scripts** — removed `scripts/install.sh` and `scripts/install.ps1` (skills.sh handles installation)
+- **.skill Binary References** — removed obsolete `.skill` binary entries from `.gitattributes`
+- **Legacy Installation Documentation** — removed git clone + install script workflow from README
+
+### Changed
+
+- `README.md` rewritten with skills.sh installation, updated directory references
+- `CONTRIBUTING.md` updated with new file structure and removed install script references
+- `SUPPORT.md` updated with skills.sh troubleshooting and new resource paths
+- `SUPPORTED.md` updated with new file paths for plugin SDK, profiles, and policy engine
+- `.gitignore` updated with skills.sh comment and new edit location
+- `.gitattributes` cleaned up, removed .skill binary entries
+- `source/SKILL.md` moved to `skills/finalcode/SKILL.md`
+- `source/core/` moved to `skills/finalcode/core/`
+- `source/plugins/` moved to `skills/finalcode/plugins/`
+- `source/references/` moved to `skills/finalcode/references/`
+- Version bumped to 2.8.0
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Explainability Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged (source location changed from `source/` to `skills/finalcode/`)
+- Backward compatible with v2.7.0
+
 ## [2.7.0] - 2026-07-10
 
 ### Highlights

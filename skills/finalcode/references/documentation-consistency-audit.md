@@ -48,7 +48,7 @@ Verifies that every concept has exactly one canonical definition, every document
 **Canonical:** references/finding-classification.md
 
 **Duplicated In:**
-- source/SKILL.md (summary) — acceptable (routing to canonical)
+- skills/finalcode/SKILL.md (summary) — acceptable (routing to canonical)
 - references/certification-rules.md (summary) — acceptable (routing to canonical)
 
 **Resolution:** No action needed. Summaries route to canonical definition.
@@ -58,7 +58,7 @@ Verifies that every concept has exactly one canonical definition, every document
 **Canonical:** references/health-score.md
 
 **Duplicated In:**
-- source/SKILL.md (summary) — acceptable (routing to canonical)
+- skills/finalcode/SKILL.md (summary) — acceptable (routing to canonical)
 - references/certification-rules.md (summary) — acceptable (routing to canonical)
 
 **Resolution:** No action needed. Summaries route to canonical definition.
@@ -68,7 +68,7 @@ Verifies that every concept has exactly one canonical definition, every document
 **Canonical:** references/confidence-model.md
 
 **Duplicated In:**
-- source/SKILL.md (summary) — acceptable (routing to canonical)
+- skills/finalcode/SKILL.md (summary) — acceptable (routing to canonical)
 - references/certification-rules.md (summary) — acceptable (routing to canonical)
 
 **Resolution:** No action needed. Summaries route to canonical definition.
@@ -78,7 +78,7 @@ Verifies that every concept has exactly one canonical definition, every document
 **Canonical:** references/report-format.md
 
 **Duplicated In:**
-- source/SKILL.md (section list) — acceptable (routing to canonical)
+- skills/finalcode/SKILL.md (section list) — acceptable (routing to canonical)
 
 **Resolution:** No action needed. Section list routes to canonical template.
 

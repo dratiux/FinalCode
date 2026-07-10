@@ -2,7 +2,7 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
-**OpenCode Edition v2.7.0**
+**OpenCode Edition v2.8.0**
 
 FinalCode is a production certification system for OpenCode projects. It runs a senior-engineering audit across 13 quality gates and produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
 
@@ -30,12 +30,10 @@ FinalCode is an independent open-source project created and maintained by Dratiu
 ## Quick Start
 
 ```bash
-git clone https://github.com/dratiux/FinalCode.git
-cd FinalCode
-bash scripts/install.sh
+npx skills add dratiux/FinalCode
 ```
 
-Then run FinalCode from your OpenCode session:
+Then restart OpenCode and run:
 
 ```
 Run FinalCode
@@ -49,31 +47,42 @@ Or use the slash command:
 
 ## Installation
 
-### From Source (Recommended)
+### Via skills.sh (Recommended)
 
-Clone the repository and run the install script:
-
-**Linux/macOS:**
+Install FinalCode using the official skills.sh CLI:
 
 ```bash
-git clone https://github.com/dratiux/FinalCode.git
-cd FinalCode
-bash scripts/install.sh
+npx skills add dratiux/FinalCode
 ```
 
-**Windows (PowerShell):**
+This installs FinalCode to `.opencode/skills/finalcode/` where OpenCode discovers it automatically.
 
-```powershell
-git clone https://github.com/dratiux/FinalCode.git
-cd FinalCode
-pwsh scripts/install.ps1
+**Options:**
+
+| Flag | Description |
+|------|-------------|
+| `-g` | Install globally to `~/.config/opencode/skills/` |
+| `-y` | Skip confirmation prompts |
+| `--skill finalcode` | Install only the FinalCode skill |
+
+**Examples:**
+
+```bash
+# Global installation (available in all projects)
+npx skills add dratiux/FinalCode -g
+
+# Non-interactive installation
+npx skills add dratiux/FinalCode -y
+
+# List available skills before installing
+npx skills add dratiux/FinalCode --list
 ```
-
-The install script copies `source/SKILL.md`, `source/core/`, `source/plugins/`, and `source/references/` into `.opencode/skills/finalcode/` where OpenCode discovers them.
 
 ### Updating
 
-After pulling changes, re-run the installation script to sync the installed skill.
+```bash
+npx skills add dratiux/FinalCode --update
+```
 
 ## Workflow
 
@@ -124,7 +133,7 @@ FinalCode evaluates repositories across 13 quality gates:
 | Documentation | README, API docs, inline comments, changelog |
 | GitHub Readiness | Issue templates, PR templates, CI/CD, badges |
 
-Detailed checklists: [source/references/gates.md](source/references/gates.md) and [source/references/security-gate.md](source/references/security-gate.md).
+Detailed checklists: [skills/finalcode/references/gates.md](skills/finalcode/references/gates.md) and [skills/finalcode/references/security-gate.md](skills/finalcode/references/security-gate.md).
 
 ## Certification Verdict
 
@@ -137,10 +146,10 @@ Detailed checklists: [source/references/gates.md](source/references/gates.md) an
 
 ## Architecture
 
-FinalCode uses a Single Source of Truth (SSOT) architecture. All editable files live in `source/`. The install script generates `.opencode/skills/finalcode/` from these sources.
+FinalCode uses a Single Source of Truth (SSOT) architecture. All editable files live in `skills/finalcode/`. skills.sh generates `.opencode/skills/finalcode/` from these sources.
 
 ```
-source/
+skills/finalcode/
 ├── SKILL.md                     # Skill specification
 ├── core/                        # Core engine layer
 │   ├── decision-engine.md       # Decision pipeline and rule matching
@@ -166,11 +175,11 @@ source/
     └── architecture.md          # System architecture
 ```
 
-**Rule:** Never edit files in `.opencode/skills/finalcode/`. Always edit `source/` files.
+**Rule:** Never edit files in `.opencode/skills/finalcode/`. Always edit `skills/finalcode/` files.
 
 ## Configuration
 
-FinalCode can be configured without editing the skill. Place a `finalcode.config.json` at the repository root or `.finalcode/config.json`. See [source/references/configuration.md](source/references/configuration.md) for the schema.
+FinalCode can be configured without editing the skill. Place a `finalcode.config.json` at the repository root or `.finalcode/config.json`. See [skills/finalcode/references/configuration.md](skills/finalcode/references/configuration.md) for the schema.
 
 ### Built-in Policies
 
@@ -222,7 +231,7 @@ Grade: C+
 Blocking Issues: 3
 ```
 
-Full examples: [source/references/examples.md](source/references/examples.md).
+Full examples: [skills/finalcode/references/examples.md](skills/finalcode/references/examples.md).
 
 ## Engineering Documentation
 
