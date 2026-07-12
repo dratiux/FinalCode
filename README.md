@@ -4,6 +4,8 @@
 
 <p align="center">
   <a href="https://www.skills.sh/b/dratiux/FinalCode"><img src="https://www.skills.sh/b/dratiux/FinalCode" alt="Skills"></a>
+  <a href="https://github.com/dratiux/FinalCode/releases"><img src="https://img.shields.io/github/v/release/dratiux/FinalCode" alt="Release"></a>
+  <a href="https://github.com/dratiux/FinalCode/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT"></a>
 </p>
 
 **v2.10.0**
