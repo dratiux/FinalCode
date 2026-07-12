@@ -2,6 +2,10 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
+<p align="center">
+  <a href="https://www.skills.sh/b/dratiux/FinalCode"><img src="https://www.skills.sh/b/dratiux/FinalCode" alt="Skills"></a>
+</p>
+
 **v2.10.0**
 
 FinalCode is a production certification system. It runs a senior-engineering audit across 13 quality gates and produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
