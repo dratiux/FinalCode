@@ -75,6 +75,12 @@ Every report section has a documented responsibility. The Report Engine orchestr
 | 51 | Trend Summary | Health delta vs baseline | Trend analysis |
 | 52 | Certification Checklist | Build/Type/Lint/Test/Security/CI status | Gate execution |
 | 53 | Certification | Final verdict with Overall Reliability | Certification logic |
+| 54 | Repository Profile (v3.2.0) | Complete repository understanding | Repository Intelligence Engine |
+| 55 | Engineering Correlation Summary (v3.2.0) | Finding relationships and root causes | Correlation Engine |
+| 56 | Engineering Trade-offs (v3.2.0) | Trade-off analysis for recommendations | Trade-off Engine |
+| 57 | Repository Maturity Assessment (v3.2.0) | Maturity level and dimension scores | Maturity Model |
+| 58 | Engineering Execution Plan (v3.2.0) | Implementation roadmap by phase | Execution Planner |
+| 59 | Engineering Decision Summary (v3.2.0) | Decision traceability and reasoning | Decision Engine |
 
 ## Report Generation Rules
 

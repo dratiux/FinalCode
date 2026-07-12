@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 3.1.0
+Version: 3.2.0
 
 ## Identity
 
@@ -355,6 +355,172 @@ Framework-specific engineering intelligence is provided through the Knowledge Ba
 - **TypeScript:** Type safety, interfaces, generics, error handling
 - **Vue:** Composition API, reactivity, performance
 - **Svelte:** Reactivity, stores, performance
+
+## Engineering Decision Intelligence (v3.2.0)
+
+FinalCode v3.2.0 transforms from an advanced repository auditor into a complete engineering decision system. These capabilities improve how FinalCode understands repositories, correlates evidence, evaluates engineering trade-offs, and produces actionable engineering decisions.
+
+### Key Capabilities
+
+- **Repository Intelligence Engine:** Understands the repository before analysis begins
+- **Repository Profile:** Shared engineering context across all engines
+- **Cross-Finding Correlation Engine:** Identifies relationships between findings and detects root causes
+- **Engineering Trade-off Engine:** Evaluates trade-offs for each recommendation
+- **Repository Maturity Model:** Evaluates engineering maturity across 10 dimensions
+- **Engineering Execution Planner:** Produces implementation roadmap by phase
+- **Decision Engine 2.0:** Extended pipeline with correlation, trade-offs, and execution planning
+- **Report Improvements:** New sections for profile, correlation, trade-offs, maturity, and execution plan
+- **Explainability Expansion:** Enhanced decision explanation with context and alternatives
+
+### Repository Intelligence Engine
+
+The Repository Intelligence Engine executes before every analysis. Its responsibility is to understand the repository before any rule is evaluated.
+
+**Repository Profile includes:**
+- Repository Type (application, library, API, worker, monorepo)
+- Architecture Style (monolithic, modular, microservices, serverless)
+- Framework Stack
+- Runtime Environment
+- Languages
+- Package Manager
+- Build System
+- Workspace Structure
+- Monorepo Detection
+- Dependency Graph Summary
+- Test Strategy
+- CI/CD Platform
+- Deployment Targets
+- Documentation Coverage
+- Coding Style
+- Naming Conventions
+- Repository Complexity
+- Engineering Risk Indicators
+
+### Cross-Finding Correlation Engine
+
+Instead of treating findings independently, the Correlation Engine identifies relationships:
+
+- **Root Cause Analysis:** Identify underlying causes of multiple findings
+- **Duplicate Finding Detection:** Find findings that describe the same issue
+- **Finding Clusters:** Group related findings that share characteristics
+- **Cause → Effect Chains:** Map the chain from root cause to observed findings
+- **Engineering Themes:** Identify common themes across findings
+- **Dependency Relationships:** Identify dependencies between findings
+- **Recommendation Consolidation:** Merge similar recommendations
+
+### Engineering Trade-off Engine
+
+Every recommendation evaluates trade-offs:
+
+- **Engineering Cost:** Implementation effort required
+- **Implementation Complexity:** Technical difficulty
+- **Breaking Change Risk:** Risk of breaking existing functionality
+- **Operational Risk:** Risk to production operations
+- **Maintenance Cost:** Ongoing maintenance burden
+- **Expected Engineering Benefit:** Improvement in engineering quality
+- **Expected Health Improvement:** Improvement in health score
+- **Long-term Maintainability:** Impact on future development
+- **Engineering ROI:** Return on investment
+
+### Repository Maturity Model
+
+Evaluates engineering maturity across 10 dimensions:
+
+1. **Architecture Maturity:** Module organization, dependency management, layer boundaries
+2. **Security Maturity:** Secret management, input validation, security configuration
+3. **Testing Maturity:** Test framework, coverage, test types, automation
+4. **Documentation Maturity:** README, API docs, code docs, maintenance
+5. **Maintainability Maturity:** Code organization, complexity, technical debt
+6. **Developer Experience Maturity:** Tooling, build performance, error handling
+7. **CI/CD Maturity:** Build automation, test automation, deployment automation
+8. **Release Process Maturity:** Versioning, changelog, release automation
+9. **Dependency Management Maturity:** Lockfile, updates, security auditing
+10. **Configuration Management Maturity:** Environment handling, validation, documentation
+
+**Maturity Levels:**
+- Level 1: Initial — Ad-hoc processes, no standards
+- Level 2: Managed — Basic processes established
+- Level 3: Defined — Standardized processes across team
+- Level 4: Quantitatively Managed — Measured and controlled processes
+- Level 5: Optimizing — Continuous improvement
+
+### Engineering Execution Planner
+
+Instead of listing findings only, produce an implementation roadmap:
+
+**Phase 1: Release Blockers**
+- Must be resolved before any release
+- Estimated engineering effort
+- Dependencies
+- Expected risk reduction
+
+**Phase 2: Security**
+- Security-related improvements
+- Expected security improvement
+- Expected health score improvement
+
+**Phase 3: Architecture**
+- Architecture improvements
+- Expected maintainability improvement
+- Expected scalability improvement
+
+**Phase 4: Maintainability**
+- Code quality improvements
+- Expected developer experience improvement
+- Expected long-term maintainability improvement
+
+**Phase 5: Optimization**
+- Performance optimizations
+- Expected performance improvement
+- Expected user experience improvement
+
+### Decision Engine 2.0
+
+The Decision Engine pipeline is extended:
+
+```
+Repository Intelligence
+       ↓
+Repository Profile
+       ↓
+Evidence Collection
+       ↓
+Finding Correlation
+       ↓
+Engineering Trade-off Analysis
+       ↓
+Confidence Evaluation
+       ↓
+Business Impact
+       ↓
+Engineering Impact
+       ↓
+Certification Decision
+       ↓
+Execution Plan
+```
+
+### Report Improvements
+
+New report sections added:
+
+- **Repository Profile:** Complete repository understanding
+- **Engineering Correlation Summary:** Finding relationships and root causes
+- **Engineering Trade-offs:** Trade-off analysis for recommendations
+- **Repository Maturity Assessment:** Maturity level and dimension scores
+- **Engineering Execution Plan:** Implementation roadmap by phase
+- **Engineering Decision Summary:** Decision traceability and reasoning
+
+### Explainability Expansion
+
+Every major engineering decision explains:
+
+- **Why this decision was made**
+- **Which repository characteristics influenced it**
+- **Which findings contributed**
+- **Which assumptions were made**
+- **Which alternatives were considered**
+- **Why the selected recommendation was preferred**
 
 ### Decision Intelligence
 

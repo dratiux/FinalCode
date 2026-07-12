@@ -4,6 +4,52 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2026-07-12
+
+### Highlights
+
+Engineering Decision Intelligence. Transforms FinalCode from an advanced repository auditor into a complete engineering decision system. Improves how FinalCode understands repositories, correlates evidence, evaluates engineering trade-offs, and produces actionable engineering decisions.
+
+### Added
+
+- **Repository Intelligence Engine** — Understands the repository before analysis begins
+- **Repository Profile** — Shared engineering context across all engines
+- **Cross-Finding Correlation Engine** — Identifies relationships between findings and detects root causes
+- **Engineering Trade-off Engine** — Evaluates trade-offs for each recommendation
+- **Repository Maturity Model** — Evaluates engineering maturity across 10 dimensions
+- **Engineering Execution Planner** — Produces implementation roadmap by phase
+- **Decision Engine 2.0** — Extended pipeline with correlation, trade-offs, and execution planning
+- **Report Improvements** — New sections for profile, correlation, trade-offs, maturity, and execution plan
+- **Explainability Expansion** — Enhanced decision explanation with context and alternatives
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated with v3.2.0 features
+- `skills/finalcode/core/decision-engine.md` updated with v3.2.0 pipeline
+- `skills/finalcode/core/report-engine.md` updated with new sections
+- `skills/finalcode/references/explainability.md` updated with expansion
+- `README.md` updated to v3.2.0
+- Version bumped to 3.2.0
+
+### Added Files
+
+- `skills/finalcode/core/repository-intelligence.md` — Repository Intelligence Engine
+- `skills/finalcode/core/correlation-engine.md` — Cross-Finding Correlation Engine
+- `skills/finalcode/references/maturity-model.md` — Repository Maturity Model
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v3.1.0
+
 ## [3.1.0] - 2026-07-12
 
 ### Highlights

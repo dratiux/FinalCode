@@ -71,6 +71,7 @@ Each policy defines blocking rules, enabled gates, required evidence, minimum qu
 
 | Version | Date | Stability | Summary |
 |---------|------|-----------|---------|
+| 3.2.0 | 2026-07-12 | Stable | Engineering Decision Intelligence |
 | 3.1.0 | 2026-07-12 | Stable | Benchmark & Regression Validation Framework |
 | 3.0.0 | 2026-07-12 | Stable | Analysis Intelligence Engine |
 | 2.10.0 | 2026-07-10 | Stable | Cross-Agent Distribution & Documentation Refinement |

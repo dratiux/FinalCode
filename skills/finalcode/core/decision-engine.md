@@ -19,6 +19,10 @@ The Decision Engine is the core reasoning system that transforms raw repository 
 Every finding must pass through the following pipeline in order:
 
 ```
+Repository Intelligence (v3.2.0)
+       ↓
+Repository Profile (v3.2.0)
+       ↓
 Evidence Collection
        ↓
 Rule Matching
@@ -33,7 +37,21 @@ Classification
        ↓
 Severity Calibration
        ↓
+Finding Correlation (v3.2.0)
+       ↓
+Engineering Trade-off Analysis (v3.2.0)
+       ↓
 Release Impact Assessment
+       ↓
+Confidence Evaluation (v3.2.0)
+       ↓
+Business Impact (v3.2.0)
+       ↓
+Engineering Impact (v3.2.0)
+       ↓
+Certification Decision
+       ↓
+Execution Planning (v3.2.0)
        ↓
 Report Generation
 ```
@@ -184,6 +202,136 @@ Determine release impact using the Release Blocker Engine:
 | Informational | Never blocks release |
 
 **Rule:** Never block a release unless the blocking condition is explicitly documented.
+
+#### 10. Finding Correlation (v3.2.0)
+
+Correlate findings to identify relationships and root causes:
+
+- Identify root cause chains
+- Detect duplicate findings
+- Group findings into clusters
+- Identify engineering themes
+- Consolidate recommendations
+
+**Correlation Output:**
+- Root cause chains
+- Finding clusters
+- Engineering themes
+- Consolidated recommendations
+
+**Rule:** Correlation must occur before trade-off analysis to enable consolidated recommendations.
+
+#### 11. Engineering Trade-off Analysis (v3.2.0)
+
+Evaluate trade-offs for each recommendation:
+
+- Engineering cost
+- Implementation complexity
+- Breaking change risk
+- Operational risk
+- Maintenance cost
+- Expected engineering benefit
+- Expected health improvement
+- Long-term maintainability
+- Engineering ROI
+
+**Trade-off Evaluation:**
+- If multiple solutions exist, explain why one is preferred
+- Explain why alternatives were rejected
+- Document assumptions that influenced the decision
+- Avoid absolute recommendations when trade-offs exist
+
+**Rule:** Every recommendation must include trade-off analysis when multiple solutions exist.
+
+#### 12. Confidence Evaluation (v3.2.0)
+
+Evaluate confidence in each finding:
+
+- Evidence quality assessment
+- Context adjustment
+- False positive adjustment
+- Rule confidence level
+- Correlation confidence
+
+**Confidence Levels:**
+- High (80-100%): Strong evidence, deterministic check
+- Medium (50-79%): Moderate evidence, context-dependent
+- Low (30-49%): Weak evidence, needs verification
+- Very Low (<30%): Insufficient evidence, likely false positive
+
+**Rule:** Confidence must be justified with specific factors.
+
+#### 13. Business Impact (v3.2.0)
+
+Evaluate business impact of each finding:
+
+- Revenue impact
+- User impact
+- Compliance impact
+- Reputation impact
+- Cost impact
+
+**Impact Assessment:**
+- Direct impact (immediate effects)
+- Indirect impact (cascading effects)
+- Long-term impact (strategic effects)
+
+**Rule:** Business impact must be justified with specific reasoning.
+
+#### 14. Engineering Impact (v3.2.0)
+
+Evaluate engineering impact of each finding:
+
+- Development velocity impact
+- Code quality impact
+- Maintainability impact
+- Scalability impact
+- Security impact
+
+**Impact Assessment:**
+- Current impact (immediate effects)
+- Future impact (long-term effects)
+- Team impact (developer experience)
+
+**Rule:** Engineering impact must be justified with specific reasoning.
+
+#### 15. Certification Decision (v3.2.0)
+
+Make certification decision based on all previous stages:
+
+- Quality Gate results
+- Security Gate results
+- Release blockers
+- Conditional blockers
+- Maturity assessment
+- Trade-off analysis
+
+**Certification Logic:**
+- If any mandatory gate FAIL → NOT READY
+- If any release blocker → NOT READY
+- If conditional blockers exist → READY WITH WARNINGS
+- Otherwise → READY TO SHIP
+
+**Rule:** Certification decision must be traceable to all previous stages.
+
+#### 16. Execution Planning (v3.2.0)
+
+Generate implementation roadmap:
+
+- Phase 1: Release Blockers
+- Phase 2: Security
+- Phase 3: Architecture
+- Phase 4: Maintainability
+- Phase 5: Optimization
+
+**Each Phase Includes:**
+- Estimated engineering effort
+- Dependencies
+- Expected risk reduction
+- Expected health improvement
+- Expected confidence improvement
+
+**Rule:** Execution plan must be prioritized by impact and effort.
 
 #### 7. Report Generation
 

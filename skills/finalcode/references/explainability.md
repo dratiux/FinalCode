@@ -31,6 +31,10 @@
 | explainabilityBlock | object | Complete explanation of the finding |
 | evidenceChain | object | Detection method, observed evidence, reasoning, impact, recommendation, verification |
 | decisionTrace | array | Step-by-step decision path |
+| repositoryContext | object | Repository characteristics that influenced the decision |
+| findingContribution | array | How this finding contributes to the overall assessment |
+| alternativeAnalysis | array | Alternatives considered and why they were rejected |
+| assumptionDocumentation | array | All assumptions made during analysis |
 
 ### Preconditions
 
@@ -45,6 +49,10 @@
 - Every decision is traceable to evidence
 - Every assumption is documented
 - Alternative decisions are considered
+- Repository context is documented (v3.2.0)
+- Finding contribution is documented (v3.2.0)
+- Alternative analysis is documented (v3.2.0)
+- Assumption documentation is complete (v3.2.0)
 
 ### Required Evidence
 
@@ -60,6 +68,10 @@
 | Alternative decisions | What other options were considered |
 | Human assumptions | What assumptions were made |
 | Confidence factors | What affects confidence |
+| Repository context (v3.2.0) | What repository characteristics influenced the decision |
+| Finding contribution (v3.2.0) | How this finding contributes to the overall assessment |
+| Alternative analysis (v3.2.0) | What alternatives were considered and why they were rejected |
+| Assumption documentation (v3.2.0) | All assumptions made during analysis |
 
 ### Generated Decisions
 
@@ -68,6 +80,10 @@
 | Explainability block content | Required elements specification |
 | Evidence chain format | Standardized evidence presentation |
 | Decision trace completeness | All steps documented |
+| Repository context documentation (v3.2.0) | Repository characteristics that influenced decision |
+| Finding contribution documentation (v3.2.0) | How finding contributes to overall assessment |
+| Alternative analysis documentation (v3.2.0) | Alternatives considered and rejection reasons |
+| Assumption documentation (v3.2.0) | All assumptions documented |
 
 ### Possible Outcomes
 
@@ -76,16 +92,19 @@
 | Complete explanation | All required elements present |
 | Partial explanation | Some elements unavailable (documented) |
 | No explanation | Insufficient evidence (classified as Needs Verification) |
+| Context-influenced explanation (v3.2.0) | Repository context significantly influenced decision |
+| Trade-off explanation (v3.2.0) | Multiple alternatives considered with justification |
 
 The Explainability Engine ensures that every engineering decision produced by FinalCode is explainable and auditable. Every finding must explain itself, and every decision must be traceable.
 
 ## Purpose
 
-The Explainability Engine serves three goals:
+The Explainability Engine serves four goals:
 
 1. **Transparency** — readers understand why each decision was made
 2. **Auditability** — every decision can be traced back to evidence and rules
 3. **Trust** — clear reasoning builds confidence in the certification
+4. **Context Awareness (v3.2.0)** — decisions explain how repository context influenced them
 
 ## Finding Self-Explanation
 
@@ -108,6 +127,10 @@ Every finding must include an Explainability Block that answers:
 | Context Analysis (v3.0.0) | What framework and project context was considered? |
 | False Positive Analysis (v3.0.0) | What false positive patterns were checked? |
 | Alternative Explanations (v3.0.0) | What legitimate patterns resemble this finding? |
+| Repository Context (v3.2.0) | What repository characteristics influenced this decision? |
+| Finding Contribution (v3.2.0) | How does this finding contribute to the overall assessment? |
+| Alternative Analysis (v3.2.0) | What alternatives were considered and why were they rejected? |
+| Assumption Documentation (v3.2.0) | What assumptions were made during analysis? |
 
 ### Evidence Chain (v2.2.0)
 
@@ -124,6 +147,10 @@ Every finding must include a complete evidence chain that documents how the conc
 | Context Analysis (v3.0.0) | What framework and project context was considered? |
 | False Positive Analysis (v3.0.0) | What false positive patterns were checked? |
 | Alternative Explanations (v3.0.0) | What legitimate patterns resemble this finding? |
+| Repository Context (v3.2.0) | What repository characteristics influenced this decision? |
+| Finding Contribution (v3.2.0) | How does this finding contribute to the overall assessment? |
+| Alternative Analysis (v3.2.0) | What alternatives were considered and why were they rejected? |
+| Assumption Documentation (v3.2.0) | What assumptions were made during analysis? |
 
 **Format:**
 ```
