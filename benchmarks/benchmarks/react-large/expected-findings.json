@@ -1,0 +1,67 @@
+{
+  "benchmarkId": "react-large",
+  "version": "1.0.0",
+  "created": "2026-07-12",
+  "expectedFindings": [
+    {
+      "id": "FC-TYPE-001",
+      "classification": "Engineering Recommendation",
+      "severity": "Medium",
+      "category": "Type Safety"
+    },
+    {
+      "id": "FC-PERF-001",
+      "classification": "Engineering Recommendation",
+      "severity": "Medium",
+      "category": "Performance"
+    },
+    {
+      "id": "FC-TEST-001",
+      "classification": "Engineering Recommendation",
+      "severity": "Medium",
+      "category": "Testing"
+    },
+    {
+      "id": "FC-DOC-002",
+      "classification": "Engineering Recommendation",
+      "severity": "Low",
+      "category": "Documentation"
+    }
+  ],
+  "expectedQualityGates": {
+    "architecture": "PASS",
+    "codeQuality": "WARN",
+    "deadCode": "PASS",
+    "dependencies": "PASS",
+    "typeSafety": "WARN",
+    "errorHandling": "PASS",
+    "testing": "WARN",
+    "performance": "WARN",
+    "security": "PASS",
+    "accessibility": "PASS",
+    "uiConsistency": "PASS",
+    "documentation": "WARN",
+    "githubReadiness": "PASS"
+  },
+  "expectedCertification": {
+    "verdict": "READY WITH WARNINGS",
+    "healthScore": "74",
+    "grade": "B",
+    "releaseBlockers": 0,
+    "conditionalBlockers": 3,
+    "totalFindings": 18
+  },
+  "expectedSeverityDistribution": {
+    "critical": 0,
+    "high": 0,
+    "medium": 12,
+    "low": 6,
+    "informational": 0
+  },
+  "expectedPriorityDistribution": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 12,
+    "P3": 6
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "benchmarkId": "node-api",
+  "repositoryType": "API",
+  "framework": "node.js",
+  "language": "typescript",
+  "complexity": "moderate",
+  "repositorySize": "medium",
+  "purpose": "Validates Node.js API server with database integration",
+  "expectedVerdict": "READY TO SHIP",
+  "expectedRisks": ["security configuration", "error handling", "database queries"],
+  "difficulty": "moderate",
+  "files": {
+    "package.json": true,
+    "tsconfig.json": true,
+    "src/index.ts": true,
+    "src/routes/users.ts": true,
+    "src/routes/auth.ts": true,
+    "src/middleware/auth.ts": true,
+    "src/services/userService.ts": true,
+    "src/models/user.ts": true,
+    "src/config/database.ts": true,
+    "src/utils/errors.ts": true,
+    "tests/users.test.ts": true,
+    "README.md": true,
+    ".gitignore": true
+  }
+}

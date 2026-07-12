@@ -1,0 +1,22 @@
+{
+  "benchmarkId": "intentionally-broken",
+  "repositoryType": "application",
+  "framework": "react",
+  "language": "typescript",
+  "complexity": "moderate",
+  "repositorySize": "medium",
+  "purpose": "Validates FinalCode detects known issues and returns correct verdict",
+  "expectedVerdict": "NOT READY",
+  "expectedRisks": ["security vulnerabilities", "code quality issues", "testing gaps", "architecture problems"],
+  "difficulty": "moderate",
+  "files": {
+    "package.json": true,
+    "tsconfig.json": true,
+    "src/App.tsx": true,
+    "src/components/Broken.tsx": true,
+    "src/utils/insecure.ts": true,
+    "src/hooks/badHook.ts": true,
+    "README.md": true,
+    ".gitignore": true
+  }
+}

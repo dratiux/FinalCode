@@ -1,0 +1,32 @@
+{
+  "benchmarkId": "react-large",
+  "repositoryType": "application",
+  "framework": "react",
+  "language": "typescript",
+  "complexity": "complex",
+  "repositorySize": "large",
+  "purpose": "Validates large React application with multiple features and patterns",
+  "expectedVerdict": "READY WITH WARNINGS",
+  "expectedRisks": ["architecture complexity", "performance optimization", "code quality inconsistencies"],
+  "difficulty": "hard",
+  "files": {
+    "package.json": true,
+    "tsconfig.json": true,
+    "src/App.tsx": true,
+    "src/pages/Dashboard.tsx": true,
+    "src/pages/Settings.tsx": true,
+    "src/components/Layout.tsx": true,
+    "src/components/DataGrid.tsx": true,
+    "src/components/Chart.tsx": true,
+    "src/hooks/useAuth.ts": true,
+    "src/hooks/useApi.ts": true,
+    "src/services/api.ts": true,
+    "src/store/index.ts": true,
+    "src/types/index.ts": true,
+    "src/utils/helpers.ts": true,
+    "tests/Dashboard.test.tsx": true,
+    "tests/api.test.ts": true,
+    "README.md": true,
+    ".gitignore": true
+  }
+}

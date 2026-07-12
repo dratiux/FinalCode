@@ -1,0 +1,331 @@
+{
+  "version": "1.0.0",
+  "created": "2026-07-12",
+  "description": "Rule validation matrix for all engineering rules",
+  "rules": {
+    "RULE-SEC-001": {
+      "name": "No Hardcoded Secrets",
+      "version": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "gate": "Security",
+      "severity": "Critical",
+      "classification": "Security Vulnerability",
+      "positiveExamples": [
+        "Hardcoded API key in source code",
+        "Password string literal in configuration",
+        "Secret token in environment file"
+      ],
+      "negativeExamples": [
+        "Environment variable reference",
+        "Secret manager client",
+        "Encrypted secret storage"
+      ],
+      "falsePositiveExamples": [
+        "Test fixtures with dummy values",
+        "Example configurations",
+        "Documentation snippets"
+      ],
+      "falseNegativeRisks": [
+        "Credentials exposed in source code",
+        "Unauthorized access to APIs",
+        "Data breach potential"
+      ],
+      "expectedEvidence": [
+        "File path and line number",
+        "Secret pattern match",
+        "Context analysis"
+      ],
+      "expectedRecommendation": [
+        "Use environment variables",
+        "Use secret manager",
+        "Remove hardcoded secrets"
+      ],
+      "expectedCertificationImpact": "Release Blocker"
+    },
+    "RULE-SEC-002": {
+      "name": "No SQL Injection",
+      "version": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "gate": "Security",
+      "severity": "Critical",
+      "classification": "Security Vulnerability",
+      "positiveExamples": [
+        "String concatenation in SQL query",
+        "Template literal in SQL query",
+        "User input in SQL query"
+      ],
+      "negativeExamples": [
+        "Parameterized query",
+        "ORM usage",
+        "Query builder"
+      ],
+      "falsePositiveExamples": [
+        "ORM with parameterization",
+        "Query builder with escaping"
+      ],
+      "falseNegativeRisks": [
+        "SQL injection vulnerability",
+        "Data breach potential",
+        "Unauthorized data access"
+      ],
+      "expectedEvidence": [
+        "File path and line number",
+        "SQL query pattern",
+        "Input source"
+      ],
+      "expectedRecommendation": [
+        "Use parameterized queries",
+        "Use ORM",
+        "Sanitize user input"
+      ],
+      "expectedCertificationImpact": "Release Blocker"
+    },
+    "RULE-CODE-001": {
+      "name": "No Unused Variables",
+      "version": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "gate": "Code Quality",
+      "severity": "Low",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Variable declared but never used",
+        "Import not used",
+        "Function defined but never called"
+      ],
+      "negativeExamples": [
+        "Variable used in expression",
+        "Import used in code",
+        "Function called in code"
+      ],
+      "falsePositiveExamples": [
+        "TypeScript type-only imports",
+        "React component imports",
+        "Side-effect imports"
+      ],
+      "falseNegativeRisks": [
+        "Code bloat",
+        "Reduced readability",
+        "Potential confusion"
+      ],
+      "expectedEvidence": [
+        "File path and line number",
+        "Unused variable name",
+        "Lint output"
+      ],
+      "expectedRecommendation": [
+        "Remove unused variable",
+        "Clean up imports"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-TYPE-001": {
+      "name": "No Any Types",
+      "version": "1.0.0",
+      "firstIntroduced": "2.0.0",
+      "lastModified": "2.0.0",
+      "stability": "stable",
+      "gate": "Type Safety",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Explicit `any` type annotation",
+        "Implicit `any` from missing type",
+        "Type assertion bypassing type checking"
+      ],
+      "negativeExamples": [
+        "Proper type annotation",
+        "Type inference",
+        "Type guard"
+      ],
+      "falsePositiveExamples": [
+        "Third-party library integration",
+        "Migration in progress",
+        "Dynamic data from API"
+      ],
+      "falseNegativeRisks": [
+        "Reduced type safety",
+        "Runtime errors",
+        "Harder debugging"
+      ],
+      "expectedEvidence": [
+        "File path and line number",
+        "Any type usage",
+        "Context analysis"
+      ],
+      "expectedRecommendation": [
+        "Replace `any` with proper type",
+        "Use type guard",
+        "Use unknown type"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-PERF-001": {
+      "name": "Large List Virtualization",
+      "version": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "gate": "Performance",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Large list without virtualization",
+        "Rendering 1000+ items",
+        "Scrollable list without optimization"
+      ],
+      "negativeExamples": [
+        "Virtualized list",
+        "Windowing library",
+        "Paginated list"
+      ],
+      "falsePositiveExamples": [
+        "Small lists (< 100 items)",
+        "Static content",
+        "Read-only displays"
+      ],
+      "falseNegativeRisks": [
+        "Performance degradation",
+        "Memory issues",
+        "Slow rendering"
+      ],
+      "expectedEvidence": [
+        "File path and line number",
+        "List component",
+        "Item count"
+      ],
+      "expectedRecommendation": [
+        "Add virtualization",
+        "Use windowing library",
+        "Implement pagination"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-TEST-001": {
+      "name": "Core Logic Tests",
+      "version": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "gate": "Testing",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Service without tests",
+        "Hook without tests",
+        "Core logic without tests"
+      ],
+      "negativeExamples": [
+        "Service with tests",
+        "Hook with tests",
+        "Core logic with tests"
+      ],
+      "falsePositiveExamples": [
+        "Simple utility functions",
+        "Type definitions",
+        "Configuration files"
+      ],
+      "falseNegativeRisks": [
+        "Regression risk",
+        "Harder debugging",
+        "Reduced confidence"
+      ],
+      "expectedEvidence": [
+        "File path",
+        "Missing test file",
+        "Test coverage report"
+      ],
+      "expectedRecommendation": [
+        "Add unit tests",
+        "Increase test coverage"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-DOC-001": {
+      "name": "Public API Documentation",
+      "version": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "gate": "Documentation",
+      "severity": "Low",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Public function without JSDoc",
+        "Component without documentation",
+        "Export without description"
+      ],
+      "negativeExamples": [
+        "Public function with JSDoc",
+        "Component with documentation",
+        "Export with description"
+      ],
+      "falsePositiveExamples": [
+        "Internal functions",
+        "Private methods",
+        "Test files"
+      ],
+      "falseNegativeRisks": [
+        "Reduced developer experience",
+        "Harder onboarding",
+        "API confusion"
+      ],
+      "expectedEvidence": [
+        "File path",
+        "Missing JSDoc",
+        "Public API"
+      ],
+      "expectedRecommendation": [
+        "Add JSDoc comments",
+        "Document public APIs"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-A11Y-001": {
+      "name": "Interactive Element Accessibility",
+      "version": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "gate": "Accessibility",
+      "severity": "Low",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Button without aria-label",
+        "Link without accessible name",
+        "Input without label"
+      ],
+      "negativeExamples": [
+        "Button with aria-label",
+        "Link with text content",
+        "Input with label"
+      ],
+      "falsePositiveExamples": [
+        "Decorative elements",
+        "Hidden elements",
+        "aria-hidden elements"
+      ],
+      "falseNegativeRisks": [
+        "Screen reader issues",
+        "Accessibility violations",
+        "Legal compliance risk"
+      ],
+      "expectedEvidence": [
+        "File path and line number",
+        "Missing accessibility attribute",
+        "Element type"
+      ],
+      "expectedRecommendation": [
+        "Add aria-label",
+        "Add accessible name",
+        "Add label"
+      ],
+      "expectedCertificationImpact": "None"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "benchmarkId": "typescript-library",
+  "repositoryType": "library",
+  "framework": "none",
+  "language": "typescript",
+  "complexity": "moderate",
+  "repositorySize": "medium",
+  "purpose": "Validates TypeScript library with public API",
+  "expectedVerdict": "READY TO SHIP",
+  "expectedRisks": ["API design", "type safety", "documentation"],
+  "difficulty": "moderate",
+  "files": {
+    "package.json": true,
+    "tsconfig.json": true,
+    "src/index.ts": true,
+    "src/core/parser.ts": true,
+    "src/core/validator.ts": true,
+    "src/utils/helpers.ts": true,
+    "src/types/index.ts": true,
+    "tests/parser.test.ts": true,
+    "tests/validator.test.ts": true,
+    "README.md": true,
+    "LICENSE": true,
+    ".gitignore": true
+  }
+}

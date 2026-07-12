@@ -1,0 +1,27 @@
+{
+  "benchmarkId": "express-api",
+  "repositoryType": "API",
+  "framework": "express",
+  "language": "typescript",
+  "complexity": "moderate",
+  "repositorySize": "medium",
+  "purpose": "Validates Express.js API with middleware patterns",
+  "expectedVerdict": "READY TO SHIP",
+  "expectedRisks": ["middleware security", "error handling", "input validation"],
+  "difficulty": "moderate",
+  "files": {
+    "package.json": true,
+    "tsconfig.json": true,
+    "src/app.ts": true,
+    "src/server.ts": true,
+    "src/routes/index.ts": true,
+    "src/routes/users.ts": true,
+    "src/middleware/validate.ts": true,
+    "src/middleware/errorHandler.ts": true,
+    "src/services/userService.ts": true,
+    "src/types/index.ts": true,
+    "tests/routes.test.ts": true,
+    "README.md": true,
+    ".gitignore": true
+  }
+}

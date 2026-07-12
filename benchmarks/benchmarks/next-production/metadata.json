@@ -1,0 +1,28 @@
+{
+  "benchmarkId": "next-production",
+  "repositoryType": "application",
+  "framework": "next.js",
+  "language": "typescript",
+  "complexity": "complex",
+  "repositorySize": "large",
+  "purpose": "Validates Next.js production application with SSR/SSG",
+  "expectedVerdict": "READY TO SHIP",
+  "expectedRisks": ["server-side rendering", "data fetching patterns", "performance"],
+  "difficulty": "hard",
+  "files": {
+    "package.json": true,
+    "next.config.js": true,
+    "tsconfig.json": true,
+    "app/layout.tsx": true,
+    "app/page.tsx": true,
+    "app/dashboard/page.tsx": true,
+    "app/api/users/route.ts": true,
+    "components/Header.tsx": true,
+    "components/Sidebar.tsx": true,
+    "lib/prisma.ts": true,
+    "lib/auth.ts": true,
+    "types/index.ts": true,
+    "README.md": true,
+    ".gitignore": true
+  }
+}

@@ -4,6 +4,66 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-07-12
+
+### Highlights
+
+Benchmark & Regression Validation Framework. Introduces validation infrastructure to prove correctness across releases. No analysis improvements — only validation that existing capabilities remain correct.
+
+### Added
+
+- **Benchmark Repository Suite** — 9 benchmark scenarios (react-small, react-large, next-production, node-api, express-api, cloudflare-worker, typescript-library, production-ready, intentionally-broken)
+- **Golden Reports** — Canonical FinalCode output for each benchmark
+- **Regression Validation** — Compare previous vs current release across all metrics
+- **Rule Validation Matrix** — Positive/negative/false positive examples for every rule
+- **Benchmark Coverage** — Track rules, frameworks, gates, recommendations, evidence, knowledge base coverage
+- **Regression Dashboard** — Summary table with stability, regression, improvement counts
+- **Rule Stability Registry** — Version, stability, and behavior changes for every rule
+- **Engineering Baselines** — Expected findings/quality/certification for different project types
+- **Release Validation Checklist** — Required validation for every release
+- **Regression Validation Script** — Automated validation of benchmark suite
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated to v3.1.0
+- `README.md` updated to v3.1.0
+- Version bumped to 3.1.0
+
+### Added Files
+
+- `benchmarks/README.md` — Benchmark documentation
+- `benchmarks/metadata.json` — Suite-level metadata
+- `benchmarks/rule-validation-matrix.json` — Rule validation scenarios
+- `benchmarks/coverage.json` — Coverage tracking
+- `benchmarks/regression-dashboard.json` — Regression summary
+- `benchmarks/rule-stability.json` — Rule version tracking
+- `benchmarks/QUICKSTART.md` — Quick start guide
+- `benchmarks/scripts/validate-regression.py` — Validation script
+- `benchmarks/engineering-baselines/baselines.json` — Baseline definitions
+- `benchmarks/benchmarks/react-small/` — React small benchmark
+- `benchmarks/benchmarks/react-large/` — React large benchmark
+- `benchmarks/benchmarks/next-production/` — Next.js production benchmark
+- `benchmarks/benchmarks/node-api/` — Node.js API benchmark
+- `benchmarks/benchmarks/express-api/` — Express API benchmark
+- `benchmarks/benchmarks/cloudflare-worker/` — Cloudflare Worker benchmark
+- `benchmarks/benchmarks/typescript-library/` — TypeScript library benchmark
+- `benchmarks/benchmarks/production-ready/` — Production-ready benchmark
+- `benchmarks/benchmarks/intentionally-broken/` — Intentionally broken benchmark
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Explainability Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v3.0.0
+
 ## [3.0.0] - 2026-07-12
 
 ### Highlights

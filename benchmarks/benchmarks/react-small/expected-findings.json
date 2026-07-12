@@ -1,0 +1,61 @@
+{
+  "benchmarkId": "react-small",
+  "version": "1.0.0",
+  "created": "2026-07-12",
+  "expectedFindings": [
+    {
+      "id": "FC-CODE-001",
+      "classification": "Engineering Recommendation",
+      "severity": "Low",
+      "category": "Code Quality"
+    },
+    {
+      "id": "FC-DOC-001",
+      "classification": "Engineering Recommendation",
+      "severity": "Low",
+      "category": "Documentation"
+    },
+    {
+      "id": "FC-A11Y-001",
+      "classification": "Engineering Recommendation",
+      "severity": "Low",
+      "category": "Accessibility"
+    }
+  ],
+  "expectedQualityGates": {
+    "architecture": "PASS",
+    "codeQuality": "PASS",
+    "deadCode": "PASS",
+    "dependencies": "PASS",
+    "typeSafety": "PASS",
+    "errorHandling": "PASS",
+    "testing": "PASS",
+    "performance": "PASS",
+    "security": "PASS",
+    "accessibility": "PASS",
+    "uiConsistency": "PASS",
+    "documentation": "PASS",
+    "githubReadiness": "PASS"
+  },
+  "expectedCertification": {
+    "verdict": "READY TO SHIP",
+    "healthScore": "92",
+    "grade": "A",
+    "releaseBlockers": 0,
+    "conditionalBlockers": 1,
+    "totalFindings": 3
+  },
+  "expectedSeverityDistribution": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 3,
+    "informational": 0
+  },
+  "expectedPriorityDistribution": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 0,
+    "P3": 3
+  }
+}

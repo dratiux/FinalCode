@@ -1,0 +1,216 @@
+{
+  "version": "1.0.0",
+  "created": "2026-07-12",
+  "description": "Rule stability tracking",
+  "rules": {
+    "RULE-SEC-001": {
+      "ruleId": "RULE-SEC-001",
+      "name": "No Hardcoded Secrets",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-SEC-002": {
+      "ruleId": "RULE-SEC-002",
+      "name": "No SQL Injection",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-SEC-003": {
+      "ruleId": "RULE-SEC-003",
+      "name": "No XSS Vulnerabilities",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-SEC-004": {
+      "ruleId": "RULE-SEC-004",
+      "name": "Secure Dependencies",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-CODE-001": {
+      "ruleId": "RULE-CODE-001",
+      "name": "No Unused Variables",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-CODE-002": {
+      "ruleId": "RULE-CODE-002",
+      "name": "No Dead Code",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-TYPE-001": {
+      "ruleId": "RULE-TYPE-001",
+      "name": "No Any Types",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "2.0.0",
+      "lastModified": "2.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-TYPE-002": {
+      "ruleId": "RULE-TYPE-002",
+      "name": "Strict TypeScript",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "2.0.0",
+      "lastModified": "2.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-PERF-001": {
+      "ruleId": "RULE-PERF-001",
+      "name": "Large List Virtualization",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-PERF-002": {
+      "ruleId": "RULE-PERF-002",
+      "name": "Image Optimization",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-TEST-001": {
+      "ruleId": "RULE-TEST-001",
+      "name": "Core Logic Tests",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-TEST-002": {
+      "ruleId": "RULE-TEST-002",
+      "name": "Test Coverage",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-DOC-001": {
+      "ruleId": "RULE-DOC-001",
+      "name": "Public API Documentation",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-DOC-002": {
+      "ruleId": "RULE-DOC-002",
+      "name": "README Present",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-A11Y-001": {
+      "ruleId": "RULE-A11Y-001",
+      "name": "Interactive Element Accessibility",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-A11Y-002": {
+      "ruleId": "RULE-A11Y-002",
+      "name": "Color Contrast",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-ARCH-001": {
+      "ruleId": "RULE-ARCH-001",
+      "name": "Separation of Concerns",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-ARCH-002": {
+      "ruleId": "RULE-ARCH-002",
+      "name": "Dependency Quality",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-ERR-001": {
+      "ruleId": "RULE-ERR-001",
+      "name": "Error Handling",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    },
+    "RULE-ERR-002": {
+      "ruleId": "RULE-ERR-002",
+      "name": "Error Boundaries",
+      "currentVersion": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "replacementRule": null,
+      "behaviorChanges": []
+    }
+  },
+  "summary": {
+    "totalRules": 20,
+    "stable": 20,
+    "experimental": 0,
+    "deprecated": 0,
+    "averageVersion": "1.0.0",
+    "oldestRule": "1.0.0",
+    "newestRule": "2.0.0"
+  }
+}

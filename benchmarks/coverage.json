@@ -1,0 +1,153 @@
+{
+  "version": "1.0.0",
+  "created": "2026-07-12",
+  "description": "Benchmark coverage tracking",
+  "coverage": {
+    "rulesTested": 8,
+    "rulesUntested": 0,
+    "totalRules": 8,
+    "ruleCoverage": "100%",
+    "frameworkCoverage": {
+      "react": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "intentionally-broken"]
+      },
+      "next.js": {
+        "tested": true,
+        "benchmarks": ["next-production", "production-ready"]
+      },
+      "node.js": {
+        "tested": true,
+        "benchmarks": ["node-api"]
+      },
+      "express": {
+        "tested": true,
+        "benchmarks": ["express-api"]
+      },
+      "cloudflare-workers": {
+        "tested": true,
+        "benchmarks": ["cloudflare-worker"]
+      },
+      "typescript": {
+        "tested": true,
+        "benchmarks": ["typescript-library"]
+      },
+      "vue": {
+        "tested": false,
+        "benchmarks": []
+      },
+      "angular": {
+        "tested": false,
+        "benchmarks": []
+      },
+      "svelte": {
+        "tested": false,
+        "benchmarks": []
+      },
+      "hono": {
+        "tested": false,
+        "benchmarks": []
+      },
+      "fastify": {
+        "tested": false,
+        "benchmarks": []
+      },
+      "nestJS": {
+        "tested": false,
+        "benchmarks": []
+      },
+      "electron": {
+        "tested": false,
+        "benchmarks": []
+      },
+      "vite": {
+        "tested": false,
+        "benchmarks": []
+      }
+    },
+    "frameworkCoveragePercent": "43%",
+    "gateCoverage": {
+      "architecture": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "codeQuality": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "deadCode": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "dependencies": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "typeSafety": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "errorHandling": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "testing": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "performance": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "security": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "accessibility": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "uiConsistency": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "documentation": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      },
+      "githubReadiness": {
+        "tested": true,
+        "benchmarks": ["react-small", "react-large", "next-production", "node-api", "express-api", "cloudflare-worker", "typescript-library", "production-ready", "intentionally-broken"]
+      }
+    },
+    "gateCoveragePercent": "100%",
+    "recommendationCoverage": {
+      "tested": ["Engineering Recommendation", "Security Vulnerability", "Confirmed Defect"],
+      "untested": ["Architectural Suggestion", "Style Recommendation"],
+      "coveragePercent": "60%"
+    },
+    "evidenceCoverage": {
+      "tested": ["static-analysis", "manual", "hybrid"],
+      "untested": ["runtime"],
+      "coveragePercent": "75%"
+    },
+    "knowledgeBaseCoverage": {
+      "react": true,
+      "next.js": true,
+      "node.js": true,
+      "typescript": true,
+      "vue": false,
+      "svelte": false,
+      "coveragePercent": "57%"
+    }
+  },
+  "overallCoverage": {
+    "rules": "100%",
+    "frameworks": "43%",
+    "gates": "100%",
+    "recommendations": "60%",
+    "evidence": "75%",
+    "knowledgeBase": "57%",
+    "average": "72%"
+  }
+}

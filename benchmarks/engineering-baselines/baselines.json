@@ -1,0 +1,189 @@
+{
+  "version": "1.0.0",
+  "created": "2026-07-12",
+  "description": "Engineering baseline definitions",
+  "baselines": {
+    "small-react-project": {
+      "name": "Small React Project",
+      "repositoryType": "application",
+      "framework": "react",
+      "language": "typescript",
+      "complexity": "simple",
+      "repositorySize": "small",
+      "expectedFindings": {
+        "total": "0-5",
+        "security": "0",
+        "codeQuality": "0-2",
+        "performance": "0-1",
+        "architecture": "0-1",
+        "testing": "0-1",
+        "documentation": "0-1"
+      },
+      "expectedQuality": {
+        "healthScore": "85-100",
+        "grade": "A or A-"
+      },
+      "expectedCertification": {
+        "verdict": "READY TO SHIP",
+        "releaseBlockers": 0,
+        "conditionalBlockers": "0-1"
+      }
+    },
+    "large-enterprise-project": {
+      "name": "Large Enterprise Project",
+      "repositoryType": "application",
+      "framework": "react",
+      "language": "typescript",
+      "complexity": "complex",
+      "repositorySize": "large",
+      "expectedFindings": {
+        "total": "10-30",
+        "security": "0-2",
+        "codeQuality": "3-10",
+        "performance": "1-5",
+        "architecture": "2-5",
+        "testing": "1-3",
+        "documentation": "2-5"
+      },
+      "expectedQuality": {
+        "healthScore": "60-80",
+        "grade": "B or B+"
+      },
+      "expectedCertification": {
+        "verdict": "READY WITH WARNINGS",
+        "releaseBlockers": "0-1",
+        "conditionalBlockers": "2-5"
+      }
+    },
+    "backend-api": {
+      "name": "Backend API",
+      "repositoryType": "API",
+      "framework": "express",
+      "language": "typescript",
+      "complexity": "moderate",
+      "repositorySize": "medium",
+      "expectedFindings": {
+        "total": "2-10",
+        "security": "0-1",
+        "codeQuality": "1-4",
+        "performance": "0-2",
+        "architecture": "0-2",
+        "testing": "0-1",
+        "documentation": "1-2"
+      },
+      "expectedQuality": {
+        "healthScore": "80-95",
+        "grade": "A- or B+"
+      },
+      "expectedCertification": {
+        "verdict": "READY TO SHIP",
+        "releaseBlockers": 0,
+        "conditionalBlockers": "0-2"
+      }
+    },
+    "cloudflare-worker": {
+      "name": "Cloudflare Worker",
+      "repositoryType": "worker",
+      "framework": "cloudflare-workers",
+      "language": "typescript",
+      "complexity": "simple",
+      "repositorySize": "small",
+      "expectedFindings": {
+        "total": "0-5",
+        "security": "0",
+        "codeQuality": "0-2",
+        "performance": "0-1",
+        "architecture": "0-1",
+        "testing": "0-1",
+        "documentation": "0-1"
+      },
+      "expectedQuality": {
+        "healthScore": "85-100",
+        "grade": "A or A-"
+      },
+      "expectedCertification": {
+        "verdict": "READY TO SHIP",
+        "releaseBlockers": 0,
+        "conditionalBlockers": "0-1"
+      }
+    },
+    "typescript-library": {
+      "name": "TypeScript Library",
+      "repositoryType": "library",
+      "framework": "none",
+      "language": "typescript",
+      "complexity": "moderate",
+      "repositorySize": "medium",
+      "expectedFindings": {
+        "total": "1-8",
+        "security": "0",
+        "codeQuality": "1-3",
+        "performance": "0-2",
+        "architecture": "0-2",
+        "testing": "0-1",
+        "documentation": "0-2"
+      },
+      "expectedQuality": {
+        "healthScore": "80-95",
+        "grade": "A- or B+"
+      },
+      "expectedCertification": {
+        "verdict": "READY TO SHIP",
+        "releaseBlockers": 0,
+        "conditionalBlockers": "0-1"
+      }
+    },
+    "prototype": {
+      "name": "Prototype",
+      "repositoryType": "application",
+      "framework": "react",
+      "language": "javascript",
+      "complexity": "simple",
+      "repositorySize": "small",
+      "expectedFindings": {
+        "total": "5-20",
+        "security": "1-5",
+        "codeQuality": "2-5",
+        "performance": "1-3",
+        "architecture": "1-3",
+        "testing": "0-2",
+        "documentation": "1-3"
+      },
+      "expectedQuality": {
+        "healthScore": "40-65",
+        "grade": "C+ to B-"
+      },
+      "expectedCertification": {
+        "verdict": "NOT READY",
+        "releaseBlockers": "1-3",
+        "conditionalBlockers": "2-5"
+      }
+    },
+    "production-application": {
+      "name": "Production Application",
+      "repositoryType": "application",
+      "framework": "next.js",
+      "language": "typescript",
+      "complexity": "complex",
+      "repositorySize": "large",
+      "expectedFindings": {
+        "total": "0-15",
+        "security": "0-1",
+        "codeQuality": "0-5",
+        "performance": "0-3",
+        "architecture": "0-3",
+        "testing": "0-2",
+        "documentation": "0-3"
+      },
+      "expectedQuality": {
+        "healthScore": "80-95",
+        "grade": "A- or B+"
+      },
+      "expectedCertification": {
+        "verdict": "READY TO SHIP or READY WITH WARNINGS",
+        "releaseBlockers": 0,
+        "conditionalBlockers": "0-3"
+      }
+    }
+  }
+}

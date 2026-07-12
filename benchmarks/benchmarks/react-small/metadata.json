@@ -1,0 +1,23 @@
+{
+  "benchmarkId": "react-small",
+  "repositoryType": "application",
+  "framework": "react",
+  "language": "typescript",
+  "complexity": "simple",
+  "repositorySize": "small",
+  "purpose": "Validates basic React application analysis",
+  "expectedVerdict": "READY TO SHIP",
+  "expectedRisks": ["minor code quality", "documentation gaps"],
+  "difficulty": "easy",
+  "files": {
+    "package.json": true,
+    "tsconfig.json": true,
+    "src/App.tsx": true,
+    "src/components/Button.tsx": true,
+    "src/hooks/useCounter.ts": true,
+    "src/utils/format.ts": true,
+    "tests/App.test.tsx": true,
+    "README.md": true,
+    ".gitignore": true
+  }
+}

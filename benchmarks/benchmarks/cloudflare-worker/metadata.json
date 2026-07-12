@@ -1,0 +1,24 @@
+{
+  "benchmarkId": "cloudflare-worker",
+  "repositoryType": "worker",
+  "framework": "cloudflare-workers",
+  "language": "typescript",
+  "complexity": "simple",
+  "repositorySize": "small",
+  "purpose": "Validates Cloudflare Worker with edge computing patterns",
+  "expectedVerdict": "READY TO SHIP",
+  "expectedRisks": ["edge runtime constraints", "environment variables", "security"],
+  "difficulty": "easy",
+  "files": {
+    "package.json": true,
+    "tsconfig.json": true,
+    "wrangler.toml": true,
+    "src/index.ts": true,
+    "src/handlers/api.ts": true,
+    "src/handlers/auth.ts": true,
+    "src/utils/response.ts": true,
+    "src/types/env.d.ts": true,
+    "README.md": true,
+    ".gitignore": true
+  }
+}

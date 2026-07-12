@@ -1,0 +1,122 @@
+{
+  "version": "1.0.0",
+  "created": "2026-07-12",
+  "description": "Regression dashboard for benchmark suite",
+  "lastValidation": "2026-07-12",
+  "currentVersion": "3.0.0",
+  "previousVersion": "2.10.0",
+  "benchmarks": {
+    "react-small": {
+      "status": "unchanged",
+      "previousVerdict": "READY TO SHIP",
+      "currentVerdict": "READY TO SHIP",
+      "previousHealthScore": "92",
+      "currentHealthScore": "92",
+      "previousFindings": 3,
+      "currentFindings": 3,
+      "regression": false,
+      "improvement": false
+    },
+    "react-large": {
+      "status": "unchanged",
+      "previousVerdict": "READY WITH WARNINGS",
+      "currentVerdict": "READY WITH WARNINGS",
+      "previousHealthScore": "74",
+      "currentHealthScore": "74",
+      "previousFindings": 18,
+      "currentFindings": 18,
+      "regression": false,
+      "improvement": false
+    },
+    "next-production": {
+      "status": "unchanged",
+      "previousVerdict": "READY TO SHIP",
+      "currentVerdict": "READY TO SHIP",
+      "previousHealthScore": "88",
+      "currentHealthScore": "88",
+      "previousFindings": 5,
+      "currentFindings": 5,
+      "regression": false,
+      "improvement": false
+    },
+    "node-api": {
+      "status": "unchanged",
+      "previousVerdict": "READY TO SHIP",
+      "currentVerdict": "READY TO SHIP",
+      "previousHealthScore": "90",
+      "currentHealthScore": "90",
+      "previousFindings": 4,
+      "currentFindings": 4,
+      "regression": false,
+      "improvement": false
+    },
+    "express-api": {
+      "status": "unchanged",
+      "previousVerdict": "READY TO SHIP",
+      "currentVerdict": "READY TO SHIP",
+      "previousHealthScore": "89",
+      "currentHealthScore": "89",
+      "previousFindings": 4,
+      "currentFindings": 4,
+      "regression": false,
+      "improvement": false
+    },
+    "cloudflare-worker": {
+      "status": "unchanged",
+      "previousVerdict": "READY TO SHIP",
+      "currentVerdict": "READY TO SHIP",
+      "previousHealthScore": "93",
+      "currentHealthScore": "93",
+      "previousFindings": 2,
+      "currentFindings": 2,
+      "regression": false,
+      "improvement": false
+    },
+    "typescript-library": {
+      "status": "unchanged",
+      "previousVerdict": "READY TO SHIP",
+      "currentVerdict": "READY TO SHIP",
+      "previousHealthScore": "88",
+      "currentHealthScore": "88",
+      "previousFindings": 4,
+      "currentFindings": 4,
+      "regression": false,
+      "improvement": false
+    },
+    "production-ready": {
+      "status": "unchanged",
+      "previousVerdict": "READY TO SHIP",
+      "currentVerdict": "READY TO SHIP",
+      "previousHealthScore": "91",
+      "currentHealthScore": "91",
+      "previousFindings": 3,
+      "currentFindings": 3,
+      "regression": false,
+      "improvement": false
+    },
+    "intentionally-broken": {
+      "status": "unchanged",
+      "previousVerdict": "NOT READY",
+      "currentVerdict": "NOT READY",
+      "previousHealthScore": "38",
+      "currentHealthScore": "38",
+      "previousFindings": 15,
+      "currentFindings": 15,
+      "regression": false,
+      "improvement": false
+    }
+  },
+  "summary": {
+    "totalBenchmarks": 9,
+    "passed": 9,
+    "failed": 0,
+    "changed": 0,
+    "improved": 0,
+    "regressed": 0,
+    "unchanged": 9,
+    "overallStability": "Stable",
+    "regressionCount": 0,
+    "improvementCount": 0,
+    "compatibilityStatus": "Compatible"
+  }
+}

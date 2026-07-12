@@ -1,0 +1,61 @@
+{
+  "benchmarkId": "intentionally-broken",
+  "version": "1.0.0",
+  "created": "2026-07-12",
+  "expectedFindings": [
+    {
+      "id": "FC-SEC-001",
+      "classification": "Security Vulnerability",
+      "severity": "Critical",
+      "category": "Security"
+    },
+    {
+      "id": "FC-SEC-002",
+      "classification": "Security Vulnerability",
+      "severity": "Critical",
+      "category": "Security"
+    },
+    {
+      "id": "FC-CODE-002",
+      "classification": "Confirmed Defect",
+      "severity": "High",
+      "category": "Code Quality"
+    }
+  ],
+  "expectedQualityGates": {
+    "architecture": "FAIL",
+    "codeQuality": "FAIL",
+    "deadCode": "PASS",
+    "dependencies": "FAIL",
+    "typeSafety": "FAIL",
+    "errorHandling": "FAIL",
+    "testing": "FAIL",
+    "performance": "WARN",
+    "security": "FAIL",
+    "accessibility": "FAIL",
+    "uiConsistency": "PASS",
+    "documentation": "FAIL",
+    "githubReadiness": "PASS"
+  },
+  "expectedCertification": {
+    "verdict": "NOT READY",
+    "healthScore": "38",
+    "grade": "F",
+    "releaseBlockers": 3,
+    "conditionalBlockers": 2,
+    "totalFindings": 15
+  },
+  "expectedSeverityDistribution": {
+    "critical": 3,
+    "high": 4,
+    "medium": 5,
+    "low": 3,
+    "informational": 0
+  },
+  "expectedPriorityDistribution": {
+    "P0": 3,
+    "P1": 4,
+    "P2": 5,
+    "P3": 3
+  }
+}
