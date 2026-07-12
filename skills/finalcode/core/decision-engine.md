@@ -23,6 +23,10 @@ Evidence Collection
        ↓
 Rule Matching
        ↓
+Context Collection (v3.0.0)
+       ↓
+False Positive Check (v3.0.0)
+       ↓
 Risk Analysis
        ↓
 Classification
@@ -62,6 +66,59 @@ Match evidence against applicable rules:
 - Project profile requirements
 
 **Rule:** Each finding must match at least one rule. If no rule matches, the observation is not a finding.
+
+#### 2.5. Context Collection (v3.0.0)
+
+Collect context for context-aware analysis:
+
+- Load applicable framework knowledge from Knowledge Base
+- Identify project type (library, application, monorepo)
+- Identify environment (browser, server, edge, hybrid)
+- Identify build system and configuration
+- Identify testing strategy
+
+**Context Factors:**
+
+| Factor | Impact on Analysis |
+|--------|-------------------|
+| Framework version | May affect pattern validity |
+| Project type | Affects expected patterns |
+| Environment | Affects security/performance expectations |
+| Build system | Affects configuration expectations |
+| Testing strategy | Affects coverage expectations |
+
+**Rule:** Context collection must occur before false positive check. Context informs interpretation of findings.
+
+#### 2.6. False Positive Check (v3.0.0)
+
+Check findings against known false positive patterns:
+
+- Match against known legitimate patterns from Knowledge Base
+- Evaluate evidence quality and completeness
+- Check for alternative explanations
+- Adjust confidence based on findings
+
+**False Positive Categories:**
+
+| Category | Description | Action |
+|----------|-------------|--------|
+| Known Legitimate | Recognized legitimate pattern | Filter as false positive |
+| Context Dependent | Valid in certain contexts | Flag for manual review |
+| Framework Specific | Valid in specific framework | Adjust confidence |
+| Evidence Dependent | Requires specific evidence | Evaluate evidence quality |
+
+**Confidence Adjustment Rules:**
+
+| Condition | Adjustment |
+|-----------|-----------|
+| Known legitimate pattern | -10% to -20% |
+| Context-dependent pattern | -5% to -10% |
+| Weak evidence | -10% to -15% |
+| Single source | -5% to -10% |
+| Strong evidence | +0% to +5% |
+| Multiple sources | +0% to +5% |
+
+**Rule:** False positive check must occur before risk analysis. Findings with confidence below 30% are filtered as false positives. Findings with confidence between 30% and 50% are flagged for manual review.
 
 #### 3. Risk Analysis
 

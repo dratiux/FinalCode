@@ -71,6 +71,7 @@ Each policy defines blocking rules, enabled gates, required evidence, minimum qu
 
 | Version | Date | Stability | Summary |
 |---------|------|-----------|---------|
+| 3.0.0 | 2026-07-12 | Stable | Analysis Intelligence Engine |
 | 2.10.0 | 2026-07-10 | Stable | Cross-Agent Distribution & Documentation Refinement |
 | 2.8.0 | 2026-07-10 | Stable | Native skills.sh Distribution |
 | 2.7.0 | 2026-07-10 | Stable | Executable Documentation & Extension Contracts |

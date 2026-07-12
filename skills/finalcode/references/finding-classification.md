@@ -260,6 +260,9 @@ Each individual finding must include:
 - **Smart Finding Classification** (required when high-frequency)
 - **Deployment Intelligence** (required for infrastructure findings)
 - **Explainability Block** (see `explainability.md`)
+- **Alternative Explanations** (v3.0.0) — Known legitimate patterns that resemble this finding
+- **False Positive Indicators** (v3.0.0) — Factors that may indicate this is a false positive
+- **Confidence Factors** (v3.0.0) — Factors that affect confidence in this finding
 
 **Security Vulnerabilities additionally include:** CVE Category (if applicable), Attack Vector.
 
@@ -307,3 +310,79 @@ Recommendations must be categorized independently of Severity and Priority:
 - Every finding must have exactly one Recommendation Classification
 - Recommendation Classification is independent of Severity and Priority
 - A Critical severity finding can have a "Documentation" recommendation if the documentation gap creates a security risk
+
+## Alternative Explanations (v3.0.0)
+
+Every finding must include alternative explanations that were considered:
+
+### Alternative Explanation Categories
+
+| Category | Description | Action |
+|----------|-------------|--------|
+| Known Legitimate Pattern | Recognized pattern that is valid | Filter as false positive |
+| Context-Dependent | Valid in certain contexts | Flag for manual review |
+| Framework-Specific | Valid in specific framework | Adjust confidence |
+| Version-Specific | Valid in specific version | Document version constraint |
+| Configuration-Dependent | Valid with specific configuration | Check configuration |
+
+### Alternative Explanation Format
+
+```
+ALTERNATIVE EXPLANATIONS
+-------------------------------------------------
+Pattern: Type assertions in TypeScript
+Context: Third-party library integration
+Analysis: Type assertions may be necessary for external data
+Verdict: False positive if justified by context
+
+Pattern: Console.log in development
+Context: Debug code gated by NODE_ENV
+Analysis: Development logging is necessary
+Verdict: False positive if development-only
+```
+
+**Rules:**
+- Every finding must document at least one alternative explanation considered
+- If no alternative applies, state "No alternative explanations identified"
+- Alternative explanations must be specific to the finding context
+- Alternative explanations inform confidence adjustment
+
+## Confidence Model (v3.0.0)
+
+Every finding must include a confidence assessment:
+
+### Confidence Levels
+
+| Level | Range | Meaning |
+|-------|-------|---------|
+| High | 80-100% | Strong evidence, deterministic check |
+| Medium | 50-79% | Moderate evidence, context-dependent |
+| Low | 30-49% | Weak evidence, needs verification |
+| Very Low | <30% | Insufficient evidence, likely false positive |
+
+### Confidence Factors
+
+| Factor | Impact |
+|--------|--------|
+| Direct evidence | +10-20% |
+| Multiple sources | +5-10% |
+| Deterministic check | +10-15% |
+| Single source | -5-10% |
+| Non-deterministic | -10-15% |
+| Assumed configuration | -5-10% |
+| Known legitimate pattern | -10-20% |
+| Framework-specific context | -5-10% |
+
+### Confidence Adjustment Rules
+
+1. Start with base confidence from rule
+2. Apply evidence quality adjustments
+3. Apply context adjustments
+4. Apply false positive adjustments
+5. Ensure final confidence is within bounds (10-95%)
+
+**Rules:**
+- Every finding must include confidence percentage
+- Confidence must be justified with specific factors
+- Findings below 30% confidence are filtered as false positives
+- Findings between 30-50% confidence are flagged for manual review

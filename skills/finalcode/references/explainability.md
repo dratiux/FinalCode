@@ -105,6 +105,9 @@ Every finding must include an Explainability Block that answers:
 | Alternative Decisions Considered | What other options were considered? |
 | Human Assumptions | What assumptions did FinalCode make? |
 | Confidence Factors | What factors affect confidence in this finding? |
+| Context Analysis (v3.0.0) | What framework and project context was considered? |
+| False Positive Analysis (v3.0.0) | What false positive patterns were checked? |
+| Alternative Explanations (v3.0.0) | What legitimate patterns resemble this finding? |
 
 ### Evidence Chain (v2.2.0)
 
@@ -118,6 +121,9 @@ Every finding must include a complete evidence chain that documents how the conc
 | Engineering Impact | What is the actual engineering impact? |
 | Recommendation | What should be done about it? |
 | Verification Method | How can this finding be verified independently? |
+| Context Analysis (v3.0.0) | What framework and project context was considered? |
+| False Positive Analysis (v3.0.0) | What false positive patterns were checked? |
+| Alternative Explanations (v3.0.0) | What legitimate patterns resemble this finding? |
 
 **Format:**
 ```
@@ -306,6 +312,101 @@ Every finding must list factors that affect confidence:
 - Non-deterministic behavior
 - Unknown runtime environment
 - Assumed configuration
+
+## Context Analysis (v3.0.0)
+
+Every finding must document the context considered during analysis:
+
+### Context Factors
+
+| Factor | Question It Answers |
+|---|---|
+| Framework | What framework is being used and how does it affect this finding? |
+| Project Type | What type of project is this (library, application, monorepo)? |
+| Environment | What environment is this deployed to (browser, server, edge)? |
+| Build System | What build system is used and how does it affect this finding? |
+| Testing Strategy | What testing strategy is used and how does it affect this finding? |
+
+### Context Analysis Format
+
+```
+CONTEXT ANALYSIS
+-------------------------------------------------
+Framework:
+  React 18.2.0 — Hooks rules apply, functional components expected
+
+Project Type:
+  Web application — client-side rendering, interactive UI
+
+Environment:
+  Browser — DOM manipulation, event handling
+
+Build System:
+  Vite — modern bundler, ES modules
+
+Testing Strategy:
+  Jest + React Testing Library — component testing
+```
+
+**Rule:** Context analysis must be specific to the finding and explain how context affects interpretation.
+
+## False Positive Analysis (v3.0.0)
+
+Every finding must document false positive checks performed:
+
+### False Positive Categories
+
+| Category | Description | Action |
+|----------|-------------|--------|
+| Known Legitimate | Recognized legitimate pattern | Filter as false positive |
+| Context Dependent | Valid in certain contexts | Flag for manual review |
+| Framework Specific | Valid in specific framework | Adjust confidence |
+| Version Specific | Valid in specific version | Document version constraint |
+| Configuration Dependent | Valid with specific configuration | Check configuration |
+
+### False Positive Analysis Format
+
+```
+FALSE POSITIVE ANALYSIS
+-------------------------------------------------
+Pattern Checked: Type assertions in TypeScript
+Context: Third-party library integration
+Analysis: Type assertions may be necessary for external data
+Verdict: False positive if justified by context
+
+Pattern Checked: Console.log in development
+Context: Debug code gated by NODE_ENV
+Analysis: Development logging is necessary
+Verdict: False positive if development-only
+```
+
+**Rule:** False positive analysis must document all patterns checked and their verdicts.
+
+## Alternative Explanations (v3.0.0)
+
+Every finding must document alternative explanations considered:
+
+### Alternative Explanation Format
+
+```
+ALTERNATIVE EXPLANATIONS
+-------------------------------------------------
+Pattern: Type assertions in TypeScript
+Context: Third-party library integration
+Analysis: Type assertions may be necessary for external data
+Verdict: False positive if justified by context
+
+Pattern: Console.log in development
+Context: Debug code gated by NODE_ENV
+Analysis: Development logging is necessary
+Verdict: False positive if development-only
+```
+
+**Rules:**
+- Every finding must document at least one alternative explanation considered
+- If no alternative applies, state "No alternative explanations identified"
+- Alternative explanations must be specific to the finding context
+- Alternative explanations inform confidence adjustment
 
 ## Report-Level Explainability
 

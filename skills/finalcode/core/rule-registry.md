@@ -36,6 +36,18 @@ Every rule must have:
 | `deprecated` | string | No | Version when deprecated |
 | `replacement` | string | No | Rule ID that replaces this rule when deprecated |
 
+### Extended Metadata (v3.0.0)
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `confidence` | string | Yes | Rule confidence level (High / Medium / Low) |
+| `verificationSteps` | array | Yes | Steps to verify this rule independently |
+| `falsePositiveChecks` | array | Yes | Known false positive patterns for this rule |
+| `knownLimitations` | array | Yes | Limitations of this rule's detection |
+| `relationships` | object | No | Rule relationships (dependsOn, conflictsWith, relatedTo) |
+| `explanationTemplate` | string | Yes | Template for explaining findings from this rule |
+| `contextFactors` | array | No | Context factors that affect this rule's analysis |
+
 ## Detection Method
 
 The `detection` object specifies how the rule is checked:
