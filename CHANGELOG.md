@@ -4,6 +4,55 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.0] - 2026-07-12
+
+### Highlights
+
+Engineering Policy Framework. Transforms FinalCode into a configurable engineering platform by introducing a Policy Framework. Engineering decisions should no longer be entirely hardcoded. Instead, they must be driven by reusable, versioned engineering policies. All additions remain fully backward compatible.
+
+### Added
+
+- **Policy Engine v2** — Centralized policy engine that consults active policies before every engineering decision
+- **Policy Categories** — Defines separate policy groups for different engineering concerns
+- **Policy Profiles** — Defines predefined profiles that enable different engineering behavior
+- **Custom Policies** — Allows projects to define additional policy packs that extend defaults
+- **Policy Evaluation** — Reports policy consultation, decision, reason, evidence, confidence, and version
+- **Policy Conflict Resolution** — Detects, explains, and resolves policy conflicts
+- **Policy Validation** — Validates policies for consistency, duplicates, circular references, undefined rules, and missing priorities
+- **Policy Versioning** — Manages policy versions with owner, description, priority, compatibility, history, and deprecation status
+- **Policy Dashboard** — Displays active profile, active policies, policy overrides, conflicts, decisions, and coverage
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated with v4.1.0 features
+- `README.md` updated to v4.1.0
+- Version bumped to v4.1.0
+
+### Added Files
+
+- `skills/finalcode/core/policy-engine-v2.md` — Policy Engine v2
+- `skills/finalcode/core/policy-categories.md` — Policy Categories
+- `skills/finalcode/core/policy-profiles.md` — Policy Profiles
+- `skills/finalcode/core/custom-policies.md` — Custom Policies
+- `skills/finalcode/core/policy-evaluation.md` — Policy Evaluation
+- `skills/finalcode/core/policy-conflict.md` — Policy Conflict Resolution
+- `skills/finalcode/core/policy-validation.md` — Policy Validation
+- `skills/finalcode/core/policy-versioning.md` — Policy Versioning
+- `skills/finalcode/core/policy-dashboard.md` — Policy Dashboard
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four existing operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v4.0.0
+
 ## [4.0.0] - 2026-07-12
 
 ### Highlights
