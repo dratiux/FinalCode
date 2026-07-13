@@ -4,6 +4,61 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.0] - 2026-07-12
+
+### Highlights
+
+Capability Intelligence Framework. Transforms FinalCode into a self-aware engineering platform. FinalCode must understand every capability it owns, how capabilities relate to each other, when each capability should be executed, and why. The objective is to eliminate duplicated decision logic by introducing a unified Capability Intelligence Framework. All additions remain fully backward compatible.
+
+### Added
+
+- **Capability Registry** — Centralized registry for all capabilities with ID, name, purpose, inputs, outputs, dependencies, verification, risk, automation, and approval
+- **Capability Categories** — Defines standardized categories for organizing capabilities
+- **Capability Discovery Engine** — Automatically discovers available, compatible, required, optional, deprecated, and unavailable capabilities
+- **Capability Selection Engine** — Automatically selects the best capabilities based on goal, repository state, risk, policies, history, and requirements
+- **Capability Dependency Graph** — Builds and manages dependency graph between capabilities
+- **Capability Composition** — Dynamically composes multiple capabilities into unified engineering operations
+- **Capability Health** — Measures capability health including usage, success rate, verification, execution time, regression prevention, and engineering impact
+- **Capability Conflict Detection** — Detects conflicting capabilities, duplicated responsibilities, overlapping execution, and competing recommendations
+- **Capability Recommendations** — Generates recommendations for unused capabilities, higher-value alternatives, missing capabilities, deprecated capabilities, and potential combinations
+- **Capability Dashboard** — Displays capabilities used, skipped, selection reasons, health, graph, coverage, engineering value, and unused opportunities
+- **Documentation Refactoring** — Standardizes every capability document with consistent structure and required sections
+- **Repository Consistency Audit** — Reviews entire repository for duplicate concepts, overlapping documentation, inconsistent terminology, broken references, and orphan files
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated with v4.2.0 features
+- `README.md` updated to v4.2.0
+- Version bumped to v4.2.0
+
+### Added Files
+
+- `skills/finalcode/core/capability-registry.md` — Capability Registry
+- `skills/finalcode/core/capability-categories.md` — Capability Categories
+- `skills/finalcode/core/capability-discovery.md` — Capability Discovery Engine
+- `skills/finalcode/core/capability-selection.md` — Capability Selection Engine
+- `skills/finalcode/core/capability-dependency.md` — Capability Dependency Graph
+- `skills/finalcode/core/capability-composition.md` — Capability Composition
+- `skills/finalcode/core/capability-health.md` — Capability Health
+- `skills/finalcode/core/capability-conflict.md` — Capability Conflict Detection
+- `skills/finalcode/core/capability-recommendations.md` — Capability Recommendations
+- `skills/finalcode/core/capability-dashboard.md` — Capability Dashboard
+- `skills/finalcode/core/documentation-refactoring.md` — Documentation Refactoring
+- `skills/finalcode/core/repository-consistency.md` — Repository Consistency Audit
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four existing operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v4.1.0
+
 ## [4.1.0] - 2026-07-12
 
 ### Highlights
