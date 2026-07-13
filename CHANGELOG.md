@@ -4,6 +4,52 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0] - 2026-07-12
+
+### Highlights
+
+Engineering Intelligence Edition. Transforms FinalCode from an engineering decision system into an autonomous Senior Software Engineer with 7 new operating modes. Core principles: runtime behavior is sacred, never guess, verify everything, smallest safe change wins.
+
+### Added
+
+- **Engineering Review Mode** — Complete engineering audit across 25+ categories with scores
+- **Architecture Mode** — Architecture review with god component, circular dependency detection
+- **Roadmap Planner** — Prioritized engineering roadmap with sprints and dependencies
+- **Production Audit** — Pre-deployment inspection for environment, security, performance
+- **Pull Request Review** — Senior engineer review with risk assessment and verdicts
+- **Technical Debt Analyzer** — Debt classification, cost estimation, priority matrix
+- **Engineering Memory** — Persistent project knowledge across audits
+- **Verification Pipeline** — TypeScript, lint, tests, build, static analysis verification
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated with v3.3.0 features
+- `README.md` updated to v3.3.0
+- Version bumped to v3.3.0
+
+### Added Files
+
+- `skills/finalcode/core/engineering-review.md` — Engineering Review Mode
+- `skills/finalcode/core/architecture-mode.md` — Architecture Mode
+- `skills/finalcode/core/roadmap-planner.md` — Roadmap Planner
+- `skills/finalcode/core/production-audit.md` — Production Audit
+- `skills/finalcode/core/pr-review.md` — Pull Request Review
+- `skills/finalcode/core/technical-debt-analyzer.md` — Technical Debt Analyzer
+- `skills/finalcode/core/engineering-memory.md` — Engineering Memory
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four existing operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v3.2.0
+
 ## [3.2.0] - 2026-07-12
 
 ### Highlights

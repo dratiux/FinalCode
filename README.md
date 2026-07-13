@@ -8,7 +8,7 @@
   <a href="https://github.com/dratiux/FinalCode/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT"></a>
 </p>
 
-**v3.2.0**
+**v3.3.0**
 
 FinalCode is a production certification system. It runs a senior-engineering audit across 13 quality gates and produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
 
