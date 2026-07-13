@@ -4,6 +4,57 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.6.0] - 2026-07-12
+
+### Highlights
+
+Autonomous Engineering Workflows. Transforms FinalCode from an Engineering Intelligence platform into an Autonomous Engineering Workflow system. Every operation must become a complete engineering workflow with planning, execution, verification, approval gates, rollback planning, and engineering memory updates. All additions remain fully backward compatible.
+
+### Added
+
+- **Workflow Engine** — Reusable workflow engine shared by every operating mode
+- **Workflow Templates** — Reusable templates for common engineering operations
+- **Project Lifecycle** — Identifies current lifecycle stage and adapts recommendations
+- **Task Queue** — Autonomous engineering task queue with priorities and automation
+- **Approval Gate** — Determines approval requirements before workflow execution
+- **Rollback Planning** — Creates rollback plan before every workflow execution
+- **Execution Sessions** — Tracks every workflow as an engineering session
+- **Workflow Verification** — Defines mandatory verification for every workflow
+- **Workflow Recovery** — Handles workflow failures with analysis and safe recovery
+- **Workflow Metrics** — Measures workflow performance and effectiveness
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated with v3.6.0 features
+- `README.md` updated to v3.6.0
+- Version bumped to v3.6.0
+
+### Added Files
+
+- `skills/finalcode/core/workflow-engine.md` — Workflow Engine
+- `skills/finalcode/core/workflow-templates.md` — Workflow Templates
+- `skills/finalcode/core/project-lifecycle.md` — Project Lifecycle
+- `skills/finalcode/core/task-queue.md` — Task Queue
+- `skills/finalcode/core/approval-gate.md` — Approval Gate
+- `skills/finalcode/core/rollback-planning.md` — Rollback Planning
+- `skills/finalcode/core/execution-sessions.md` — Execution Sessions
+- `skills/finalcode/core/workflow-verification.md` — Workflow Verification
+- `skills/finalcode/core/workflow-recovery.md` — Workflow Recovery
+- `skills/finalcode/core/workflow-metrics.md` — Workflow Metrics
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four existing operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v3.5.0
+
 ## [3.5.0] - 2026-07-12
 
 ### Highlights
