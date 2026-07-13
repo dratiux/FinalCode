@@ -4,6 +4,61 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.0] - 2026-07-12
+
+### Highlights
+
+Engineering Learning System. Transforms FinalCode into a self-improving engineering platform. FinalCode must continuously evaluate the quality of its own engineering decisions and use historical evidence to improve future planning, workflow selection, capability selection, and engineering recommendations. All additions remain fully backward compatible.
+
+### Added
+
+- **Decision History** — Records every engineering decision with ID, timestamp, mission, goal, reason, evidence, capabilities, policies, verification, outcome, and score delta
+- **Decision Outcome Analysis** — Evaluates decision success, verification pass, regressions, rollback, and engineering gain
+- **Learning Engine** — Continuously analyzes historical decisions to identify successful patterns, failed patterns, repeated mistakes, and repeated successes
+- **Recommendation Learning** — Improves recommendations over time by ranking by historical success rate, engineering impact, regression avoidance, verification success, and developer acceptance
+- **Workflow Optimization** — Analyzes completed workflows to measure duration, failure rate, rollback frequency, verification success, and approval frequency
+- **Capability Optimization** — Evaluates capability usefulness, overlap, effectiveness, reliability, and execution cost
+- **Policy Effectiveness** — Measures how often each policy is applied, prevents regressions, causes conflicts, is overridden, and provides engineering value
+- **Engineering Knowledge Base** — Builds internal evidence database of successful architectures, repair strategies, verification sequences, failure causes, regression patterns, and deployment lessons
+- **Engineering Insights** — Generates periodic insights about most effective strategies, reliable workflows, highest ROI capabilities, and most valuable policies
+- **Continuous Improvement Report** — Updates decision quality, workflow quality, capability quality, policy quality, engineering maturity, learning confidence, and trend after every mission
+- **Repository Evolution Intelligence** — Tracks architecture, workflow, capability, policy, documentation, and engineering maturity across releases
+- **Learning Dashboard** — Displays learning confidence, knowledge coverage, decision accuracy, recommendation accuracy, workflow success, capability effectiveness, policy effectiveness, engineering maturity, and overall learning score
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated with v4.3.0 features
+- `README.md` updated to v4.3.0
+- Version bumped to v4.3.0
+
+### Added Files
+
+- `skills/finalcode/core/decision-history.md` — Decision History
+- `skills/finalcode/core/decision-outcome.md` — Decision Outcome Analysis
+- `skills/finalcode/core/learning-engine.md` — Learning Engine
+- `skills/finalcode/core/recommendation-learning.md` — Recommendation Learning
+- `skills/finalcode/core/workflow-optimization.md` — Workflow Optimization
+- `skills/finalcode/core/capability-optimization.md` — Capability Optimization
+- `skills/finalcode/core/policy-effectiveness.md` — Policy Effectiveness
+- `skills/finalcode/core/engineering-knowledge-base.md` — Engineering Knowledge Base
+- `skills/finalcode/core/engineering-insights.md` — Engineering Insights
+- `skills/finalcode/core/continuous-improvement.md` — Continuous Improvement Report
+- `skills/finalcode/core/repository-evolution-intelligence.md` — Repository Evolution Intelligence
+- `skills/finalcode/core/learning-dashboard.md` — Learning Dashboard
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four existing operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v4.2.0
+
 ## [4.2.0] - 2026-07-12
 
 ### Highlights

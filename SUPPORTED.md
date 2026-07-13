@@ -71,6 +71,7 @@ Each policy defines blocking rules, enabled gates, required evidence, minimum qu
 
 | Version | Date | Stability | Summary |
 |---------|------|-----------|---------|
+| 4.3.0 | 2026-07-12 | Stable | Engineering Learning System |
 | 4.2.0 | 2026-07-12 | Stable | Capability Intelligence Framework |
 | 4.1.0 | 2026-07-12 | Stable | Engineering Policy Framework |
 | 4.0.0 | 2026-07-12 | Stable | Autonomous Engineering Agent |
