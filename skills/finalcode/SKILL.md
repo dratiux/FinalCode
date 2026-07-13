@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 3.4.0
+Version: 3.5.0
 
 ## Identity
 
@@ -794,7 +794,7 @@ Production Readiness: 98%
 
 Always generate next milestones:
 ```
-Current Version: 3.4.0
+Current Version: 3.5.0
 Current Health: 96%
 Next Milestones:
   ✓ Production Ready

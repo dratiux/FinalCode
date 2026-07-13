@@ -4,6 +4,57 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - 2026-07-12
+
+### Highlights
+
+Continuous Engineering Intelligence. Transforms FinalCode from an execution intelligence system into a continuous engineering platform. Instead of analyzing only the current repository state, FinalCode continuously evaluates engineering evolution across versions. All additions remain fully backward compatible.
+
+### Added
+
+- **Engineering Timeline** — Tracks engineering quality across versions as historical data points
+- **Engineering Trend Analysis** — Detects trends in engineering quality over time
+- **Technical Debt Timeline** — Tracks debt over time with full history
+- **Engineering Hotspots** — Detects unstable areas with highest maintenance cost
+- **Release Evolution** — Compares releases automatically with measurable improvements
+- **Continuous Risk Monitoring** — Tracks regression trends, security trends, architecture drift, debt growth, and testing coverage
+- **Project Knowledge Evolution** — Preserves engineering decisions, security decisions, deployment changes, database evolution, framework migrations, and historical scores
+- **Release Intelligence** — Provides engineering delta, quality delta, risk delta, debt delta, documentation delta, and overall evolution score for each release
+- **Improvement Forecast** — Predicts estimated engineering score, expected debt reduction, expected regression reduction, estimated work remaining, and confidence
+- **Continuous Roadmap** — Generates dynamic roadmap with priority, risk, ROI, estimated effort, dependencies, and engineering impact
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated with v3.5.0 features
+- `README.md` updated to v3.5.0
+- Version bumped to v3.5.0
+
+### Added Files
+
+- `skills/finalcode/core/engineering-timeline.md` — Engineering Timeline
+- `skills/finalcode/core/engineering-trend.md` — Engineering Trend Analysis
+- `skills/finalcode/core/debt-timeline.md` — Technical Debt Timeline
+- `skills/finalcode/core/engineering-hotspots.md` — Engineering Hotspots
+- `skills/finalcode/core/release-evolution.md` — Release Evolution
+- `skills/finalcode/core/continuous-risk.md` — Continuous Risk Monitoring
+- `skills/finalcode/core/knowledge-evolution.md` — Project Knowledge Evolution
+- `skills/finalcode/core/release-intelligence.md` — Release Intelligence
+- `skills/finalcode/core/improvement-forecast.md` — Improvement Forecast
+- `skills/finalcode/core/continuous-roadmap.md` — Continuous Roadmap
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four existing operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v3.4.0
+
 ## [3.4.0] - 2026-07-12
 
 ### Highlights
