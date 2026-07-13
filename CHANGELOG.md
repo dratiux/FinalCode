@@ -4,6 +4,53 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2026-07-12
+
+### Highlights
+
+Autonomous Engineering Agent. Transforms FinalCode from an Autonomous Engineering Workflow platform into an Autonomous Engineering Agent. FinalCode must no longer require the developer to manually choose the correct operating mode. Instead, it must understand the user's engineering objective, build an execution strategy, orchestrate workflows, pause for human approval when required, and continuously verify correctness until the objective is complete. All additions remain fully backward compatible.
+
+### Added
+
+- **Goal-Oriented Planning** — Transforms user requests into structured engineering goals
+- **Planning Engine** — Generates execution strategy with workflows, dependencies, approvals, and verification
+- **Workflow Orchestration** — Dynamically composes and executes workflows based on execution strategy
+- **Objective Tracking** — Tracks mission progress including current goal, completed percentage, remaining work, and stages
+- **Adaptive Decision Engine** — Continuously reevaluates strategy after every workflow and adapts to new information
+- **Engineering Mission** — Represents every request as a Mission with goal, strategy, workflow graph, task queue, verification, history, and outcome
+- **Autonomous Recommendations** — Generates evidence-based recommendations for next missions, quick wins, and long-term improvements
+- **Mission Dashboard** — Displays mission status, progress, completed tasks, remaining tasks, workflow graph, approvals, verification, and engineering delta
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated with v4.0.0 features
+- `README.md` updated to v4.0.0
+- Version bumped to v4.0.0
+
+### Added Files
+
+- `skills/finalcode/core/goal-planning.md` — Goal-Oriented Planning
+- `skills/finalcode/core/planning-engine.md` — Planning Engine
+- `skills/finalcode/core/workflow-orchestration.md` — Workflow Orchestration
+- `skills/finalcode/core/objective-tracking.md` — Objective Tracking
+- `skills/finalcode/core/adaptive-decision.md` — Adaptive Decision Engine
+- `skills/finalcode/core/engineering-mission.md` — Engineering Mission
+- `skills/finalcode/core/autonomous-recommendations.md` — Autonomous Recommendations
+- `skills/finalcode/core/mission-dashboard.md` — Mission Dashboard
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four existing operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v3.6.0
+
 ## [3.6.0] - 2026-07-12
 
 ### Highlights
