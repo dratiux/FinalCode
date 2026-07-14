@@ -8,9 +8,11 @@
   <a href="https://github.com/dratiux/FinalCode/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT"></a>
 </p>
 
-**v4.3.0**
+**v4.4.0**
 
-FinalCode is a production certification system. It runs a senior-engineering audit across 13 quality gates and produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
+FinalCode is a context-aware production certification system. It runs a senior-engineering audit across 13 quality gates, automatically adapts certification requirements to project type, architecture, deployment target, and maturity, and produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
+
+Engineering quality is universal. Certification requirements are contextual. The same repository may receive different certification requirements based on whether it is an Enterprise API, a Brand Website, an Internal Tool, or an Open Source Library — while identical engineering standards are maintained across all project types.
 
 ## Project Status
 
@@ -142,6 +144,17 @@ FinalCode uses a Single Source of Truth (SSOT) architecture. All editable files 
 skills/finalcode/
 ├── SKILL.md                     # Skill specification
 ├── core/                        # Core engine layer
+│   ├── project-classification-engine.md  # Repository classification (v4.4.0)
+│   ├── certification-profiles.md         # Certification profiles (v4.4.0)
+│   ├── adaptive-rule-engine.md           # Context-aware rule evaluation (v4.4.0)
+│   ├── rule-applicability.md             # Rule applicability reporting (v4.4.0)
+│   ├── engineering-context-report.md     # Context report section (v4.4.0)
+│   ├── context-aware-health-score.md     # Multi-dimensional health (v4.4.0)
+│   ├── context-aware-roadmap.md          # Profile-adapted roadmap (v4.4.0)
+│   ├── false-positive-reduction-v2.md    # Context-aware FP reduction (v4.4.0)
+│   ├── repository-intent-detection.md    # Repository intent inference (v4.4.0)
+│   ├── context-memory.md                 # Historical context storage (v4.4.0)
+│   ├── context-documentation.md          # Terminology standards (v4.4.0)
 │   ├── decision-engine.md       # Decision pipeline and rule matching
 │   ├── policy-engine.md         # Policy engine and built-in policies
 │   ├── rule-registry.md         # Rule registry and lifecycle

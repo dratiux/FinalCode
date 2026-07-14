@@ -1,12 +1,12 @@
 ---
 name: finalcode
 description: >-
-  FinalCode is an independent production certification, engineering documentation, and intelligence system for the Skills ecosystem. Certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates (architecture, code quality, dead code, dependencies, type safety, error handling, testing, performance, security, accessibility, UI consistency, documentation, GitHub readiness). Outputs a standardized "FinalCode Certification Report" with PASS/FAIL summary, exit code, and verdict (READY TO SHIP / READY WITH WARNINGS / NOT READY). Generates persistent engineering documentation (CHANGE_REPORT, REFACTOR_REPORT, FINALCODE_SUMMARY, CERTIFICATION_HISTORY, TREND, BASELINE), commit messages, and pull request descriptions. Provides engineering intelligence: Repository Health Score, Historical Trend Analysis, Baseline Comparison, Repair Quality Assessment, Root Cause Intelligence, and Engineering Metrics. Has four modes — Inspect (read-only), Repair (fix and re-inspect), Refactor (maintainability improvement), Certify (read-only sign-off). Use for a repo/code audit, engineering review, production readiness, release certification, health check, security audit, dead code detection, UI/GitHub readiness review, testing evaluation, PR review, engineering documentation generation, or repository health monitoring. Trigger on "run FinalCode", "inspect/repair/refactor/certify this repository", "is this ready to ship", "final gate", "finalcode".
+  FinalCode is a context-aware production certification, engineering documentation, and intelligence system for the Skills ecosystem. Certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates (architecture, code quality, dead code, dependencies, type safety, error handling, testing, performance, security, accessibility, UI consistency, documentation, GitHub readiness). Certification requirements adapt to project type, deployment target, maturity, architecture, and intended usage through the Context-Aware Certification Framework. Outputs a standardized "FinalCode Certification Report" with PASS/FAIL summary, exit code, and verdict (READY TO SHIP / READY WITH WARNINGS / NOT READY). Generates persistent engineering documentation (CHANGE_REPORT, REFACTOR_REPORT, FINALCODE_SUMMARY, CERTIFICATION_HISTORY, TREND, BASELINE), commit messages, and pull request descriptions. Provides engineering intelligence: Repository Health Score, Historical Trend Analysis, Baseline Comparison, Repair Quality Assessment, Root Cause Intelligence, and Engineering Metrics. Has four modes — Inspect (read-only), Repair (fix and re-inspect), Refactor (maintainability improvement), Certify (read-only sign-off). Use for a repo/code audit, engineering review, production readiness, release certification, health check, security audit, dead code detection, UI/GitHub readiness review, testing evaluation, PR review, engineering documentation generation, or repository health monitoring. Trigger on "run FinalCode", "inspect/repair/refactor/certify this repository", "is this ready to ship", "final gate", "finalcode".
 ---
 
 # FinalCode
 
-Version: 4.3.0
+Version: 4.4.0
 
 ## Identity
 
@@ -133,11 +133,11 @@ FinalCode must never:
 
 ## Architecture Overview
 
-FinalCode v2.0.0 is organized into three layers:
+FinalCode v4.4.0 is organized into four layers:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           FinalCode v2.0.0                                  │
+│                          FinalCode v4.4.0                                   │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
@@ -145,6 +145,27 @@ FinalCode v2.0.0 is organized into three layers:
 │  │  • Loads reference documents on demand                             │   │
 │  │  • Manages execution pipeline                                      │   │
 │  │  • Coordinates all engines                                         │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                      Context-Aware Layer (v4.4.0)                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │    Project          │ │   Certification     │                   │   │
+│  │  │    Classification   │ │   Profiles          │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │   Adaptive Rule     │ │    Repository       │                   │   │
+│  │  │   Engine            │ │    Intent Detection │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │   Context Memory    │ │   False Positive    │                   │   │
+│  │  │                     │ │   Reduction v2      │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                    │                                        │
 │                                    ▼                                        │
@@ -195,6 +216,24 @@ FinalCode v2.0.0 is organized into three layers:
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+### Context-Aware Layer (v4.4.0)
+
+The Context-Aware Layer classifies repositories and adapts certification to project context:
+
+| Component | Responsibility | Location |
+|---|---|---|
+| Project Classification Engine | Automatically classifies repository type, architecture, stack, and maturity | `core/project-classification-engine.md` |
+| Certification Profiles | Defines gates, thresholds, and requirements per project type | `core/certification-profiles.md` |
+| Adaptive Rule Engine | Evaluates rules based on project context | `core/adaptive-rule-engine.md` |
+| Rule Applicability | Reports applied/skipped status for every rule | `core/rule-applicability.md` |
+| Engineering Context Report | Provides context-aware report introduction | `core/engineering-context-report.md` |
+| Context-Aware Health Score | Multi-dimensional health scoring per profile | `core/context-aware-health-score.md` |
+| Context-Aware Roadmap | Profile-adapted engineering recommendations | `core/context-aware-roadmap.md` |
+| False Positive Reduction v2 | Context-aware false positive filtering | `core/false-positive-reduction-v2.md` |
+| Repository Intent Detection | Infers repository purpose and profile mapping | `core/repository-intent-detection.md` |
+| Context Memory | Stores and reuses historical project context | `core/context-memory.md` |
+| Context Documentation | Standardized terminology across reports | `core/context-documentation.md` |
 
 ### Core Engine Layer
 
@@ -794,7 +833,7 @@ Production Readiness: 98%
 
 Always generate next milestones:
 ```
-Current Version: 4.3.0
+Current Version: 4.4.0
 Current Health: 96%
 Next Milestones:
   ✓ Production Ready
@@ -813,6 +852,63 @@ Estimated Remaining Work: 12 hours
 Fix only what is justified. Measure every improvement. Preserve behavior. Prefer evidence over assumptions. Prefer verification over confidence. When uncertainty exceeds confidence, stop and request approval.
 
 You are an Engineering Intelligence System, not merely a code generation model.
+
+---
+
+## Context-Aware Certification Framework (v4.4.0)
+
+FinalCode v4.4.0 transforms FinalCode from a universal rule engine into a context-aware engineering certification system. Engineering quality is always evaluated within the context of the project being analyzed. Certification requirements automatically adapt to project type, deployment target, maturity, architecture, and intended usage.
+
+### Core Philosophy
+
+- Context determines expectations.
+- Engineering quality is universal.
+- Certification requirements are contextual.
+- Never lower engineering standards.
+- Only adapt mandatory requirements according to project context.
+
+### Key Capabilities
+
+- **Project Classification Engine:** Automatically classifies every repository before analysis by project type, architecture, technology stack, runtime, deployment target, purpose, maturity, visibility, and commercial classification. Every classification includes confidence, evidence, detection reasoning, and alternative candidates.
+- **Certification Profiles:** Defines profiles for Default, Brand Website, Portfolio, SaaS, Enterprise, API, Browser Extension, Library, CLI, Open Source, Internal Tool, and Experimental. Each profile defines mandatory gates, optional gates, ignored gates, recommended gates, release blockers, minimum documentation, minimum testing, minimum security, deployment expectations, and certification thresholds.
+- **Adaptive Rule Engine:** Every engineering rule defines whether it is Always Required, Context Required, Optional, or Ignored. Rules are evaluated after repository classification. Testing is optional for Brand Websites but mandatory for Enterprise APIs. Rate limiting is ignored for static websites but mandatory for REST APIs.
+- **Rule Applicability:** Every finding reports whether its originating rule was Applied or Skipped, with reason, responsible profile, context dependency, and confidence. No silent suppression.
+- **Engineering Context Report:** Every report begins with detected project type, architecture, deployment model, technology stack, repository intent, certification profile, engineering context, confidence, context risks, and engineering assumptions.
+- **Context-Aware Health Score:** Replaces single health score with Engineering Quality, Production Readiness, Repository Maturity, Documentation Quality, Operational Readiness, Security Readiness, Maintainability, and Certification Score. Dimension weights adapt to the active certification profile.
+- **Context-Aware Roadmap:** Recommendations adapt to project type. Every recommendation includes reason, expected engineering gain, estimated effort, priority, profile dependency, blocking impact, and ROI.
+- **False Positive Reduction v2:** Reduces false positives using project type, repository intent, framework conventions, architecture, deployment model, and project maturity. Every suppressed finding includes original rule, suppression reason, evidence, and confidence.
+- **Repository Intent Detection:** Infers repository purpose (Commercial Product, Production Service, Internal Tool, Learning Project, Prototype, Portfolio, Brand Website, Open Source, Enterprise Platform, Framework, Library, SDK). Every detected intent includes evidence, confidence, explanation, and certification profile mapping.
+- **Context Memory:** Stores project classifications, profile history, context changes, intent evolution, historical certification, repository maturity, and previous engineering assumptions. Future analyses reuse historical context.
+- **Context Documentation:** Standardized terminology across all reports. Every certification report includes Engineering Context, Repository Context, Profile, Intent, Applied Rules, Skipped Rules, Context Risks, Certification Logic, Health Breakdown, and Roadmap.
+
+### Operating Flow
+
+```
+Repository Classification
+        |
+        v
+Certification Profile Selection
+        |
+        v
+Adaptive Rule Evaluation
+        |
+        v
+Finding Generation
+        |
+        v
+Certification
+        |
+        v
+Learning
+```
+
+### Backward Compatibility
+
+- Default Certification Profile behaves exactly like previous FinalCode releases
+- All existing rules remain Always Required by default unless explicitly classified
+- All existing certification logic, gate definitions, thresholds, and verdicts remain unchanged
+- All prior operational modes continue to work identically
+- Existing configuration files continue to work
 
 ---
 
@@ -1023,10 +1119,41 @@ Execution must stop if the Core is inconsistent.
 
 ## Execution Flow
 
-### Phase 0: Repository Discovery
+### Phase 0: Repository Classification (v4.4.0)
+
+Classify:
+- Project type (via Project Classification Engine)
+- Architecture style
+- Technology stack
+- Runtime environment
+- Deployment target
+- Repository purpose
+- Engineering maturity
+- Repository intent (via Repository Intent Detection)
+- Visibility (public/private)
+- Commercial classification
+- Load or initialize Context Memory
+
+### Phase 0.5: Profile Selection (v4.4.0)
+
+Select certification profile based on classification:
+- Select active Certification Profile
+- Load profile gate requirements
+- Apply profile overrides
+- Document profile selection reasoning
+
+### Phase 0.75: Adaptive Rule Loading (v4.4.0)
+
+Load rules based on profile:
+- Load Always Required rules
+- Load Context Required rules matching classification
+- Mark Optional rules
+- Skip Ignored rules
+- Document rule applicability
+
+### Phase 1: Project Discovery
 
 Detect:
-- Project type
 - Framework (via detection rules or profiles)
 - Language(s)
 - Build system
@@ -1034,7 +1161,7 @@ Detect:
 - Entry points
 - Active plugins
 
-### Phase 1: Project Understanding
+### Phase 1.5: Project Understanding
 
 Understand:
 - Architecture
@@ -1332,6 +1459,22 @@ The active mode is selected by:
 
 FinalCode loads reference documents on demand. The following documents are available:
 
+### Context-Aware Layer (v4.4.0)
+
+| Document | Responsibility |
+|---|---|
+| `core/project-classification-engine.md` | Repository Classification, Detection Methods, Classification Output |
+| `core/certification-profiles.md` | Certification Profiles, Gate Requirements, Profile Selection |
+| `core/adaptive-rule-engine.md` | Rule Classification, Context Evaluation, Applicability Pipeline |
+| `core/rule-applicability.md` | Finding Applicability Fields, Skipped Rule Reporting |
+| `core/engineering-context-report.md` | Report Context Section, Context Risks, Assumptions |
+| `core/context-aware-health-score.md` | Multi-dimensional Health Scoring, Profile Weights |
+| `core/context-aware-roadmap.md` | Profile-adapted Recommendations, Priority, ROI |
+| `core/false-positive-reduction-v2.md` | Context-aware Suppression, Evidence-based Filtering |
+| `core/repository-intent-detection.md` | Intent Inference, Evidence, Profile Mapping |
+| `core/context-memory.md` | Historical Context Storage, Memory Reuse |
+| `core/context-documentation.md` | Terminology Standardization, Report Consistency |
+
 ### Core Engine
 
 | Document | Responsibility |
@@ -1376,23 +1519,37 @@ FinalCode loads documents on demand to reduce unnecessary loading:
 
 1. **Always loaded:** SKILL.md (orchestration layer)
 2. **Loaded on detection:** Framework profiles (when framework detected)
-3. **Loaded on execution:** Core engine documents (when pipeline executed)
-4. **Loaded on demand:** Reference documents (when gate or section executed)
+3. **Loaded on classification:** Context-Aware Layer documents (when repository classified)
+4. **Loaded on execution:** Core engine documents (when pipeline executed)
+5. **Loaded on demand:** Reference documents (when gate or section executed)
 
 ### Dependency Relationships
 
 ```
 SKILL.md
     │
+    ├── Context-Aware Layer (v4.4.0)
+    │   ├── Project Classification Engine ← (standalone)
+    │   ├── Certification Profiles ← Project Classification Engine
+    │   ├── Adaptive Rule Engine ← Project Classification Engine, Certification Profiles
+    │   ├── Rule Applicability ← Adaptive Rule Engine
+    │   ├── Engineering Context Report ← Project Classification Engine, Certification Profiles
+    │   ├── Context-Aware Health Score ← Certification Profiles, Health Score
+    │   ├── Context-Aware Roadmap ← Project Classification Engine, Adaptive Rule Engine
+    │   ├── False Positive Reduction v2 ← Project Classification Engine, Repository Intent Detection
+    │   ├── Repository Intent Detection ← (standalone)
+    │   ├── Context Memory ← Project Classification Engine, Certification Profiles
+    │   └── Context Documentation ← (standalone)
+    │
     ├── Core Engine Layer
-    │   ├── Decision Engine ← Rule Registry, Policy Engine
+    │   ├── Decision Engine ← Rule Registry, Policy Engine, Context-Aware Layer
     │   ├── Policy Engine ← (standalone)
     │   ├── Rule Registry ← (standalone)
-    │   ├── Report Engine ← Decision Engine, Health Score, Confidence Model
-    │   ├── Certification Engine ← All Core components
+    │   ├── Report Engine ← Decision Engine, Health Score, Confidence Model, Engineering Context Report
+    │   ├── Certification Engine ← All Core components, Context-Aware Layer
     │   ├── Explainability Engine ← (standalone)
     │   ├── Finding Classification ← (standalone)
-    │   └── Health Score ← (standalone)
+    │   └── Health Score ← Context-Aware Health Score
     │
     ├── Plugin Layer
     │   ├── Plugin SDK ← Rule Registry, Report Engine
@@ -1405,7 +1562,7 @@ SKILL.md
         ├── Security Gate 2.0 ← (standalone)
         ├── Examples ← (standalone)
         ├── Confidence Model ← (standalone)
-        ├── Health Score ← (standalone)
+        ├── Health Score ← Context-Aware Health Score
         ├── Finding Classification ← (standalone)
         ├── Explainability ← (standalone)
         └── Architecture ← (standalone)
@@ -1485,6 +1642,7 @@ Generate a `PULL_REQUEST.md` that is GitHub-ready.
 
 | Version | Date | Changes |
 |---|---|---|
+| 4.4.0 | 2026-07-14 | Context-Aware Certification Framework — Project Classification Engine, Certification Profiles, Adaptive Rule Engine, Rule Applicability, Engineering Context Report, Context-Aware Health Score, Context-Aware Roadmap, False Positive Reduction v2, Repository Intent Detection, Context Memory, Context Documentation |
 | 2.8.0 | 2026-07-10 | Native skills.sh Distribution — Migrated to skills.sh as single official installation method, removed repository-owned install scripts, moved source files to skills/finalcode/ for discoverability |
 | 2.7.0 | 2026-07-10 | Executable Documentation & Extension Contracts — Execution Metadata, Reference Contracts, Execution Dependency Graph, Extension Contracts, Public Interface Classification, Execution Lifecycle, Documentation Consistency Audit, Architecture Explainability, Repository Discoverability, Validation Report |
 | 2.6.0 | 2026-07-10 | Execution Optimization & Knowledge Consolidation — Refactored SKILL.md from 2231 lines to lean orchestration layer, replaced duplicated knowledge with reference routing, created references/certification-rules.md and references/report-format.md |

@@ -4,6 +4,59 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.4.0] - 2026-07-14
+
+### Highlights
+
+Context-Aware Certification Framework. Transforms FinalCode from a universal rule engine into a context-aware engineering certification system. Engineering quality is always evaluated within the context of the project being analyzed. Certification requirements automatically adapt to project type, deployment target, maturity, architecture, and intended usage. All additions remain fully backward compatible.
+
+### Added
+
+- **Project Classification Engine** — Automatically classifies every repository by project type, architecture, technology stack, runtime, deployment target, purpose, maturity, visibility, and commercial classification with confidence, evidence, and alternative candidates
+- **Certification Profiles** — Defines 12 profiles (Default, Brand Website, Portfolio, SaaS, Enterprise, API, Browser Extension, Library, CLI, Open Source, Internal Tool, Experimental) with mandatory, optional, ignored, and recommended gates per profile
+- **Adaptive Rule Engine** — Every rule defines Always Required, Context Required, Optional, or Ignored applicability; rules evaluated after repository classification
+- **Rule Applicability** — Every finding reports applied or skipped status with reason, profile, context dependency, and confidence; no silent suppression
+- **Engineering Context Report** — Every report begins with detected project type, architecture, deployment, stack, intent, profile, confidence, risks, and assumptions
+- **Context-Aware Health Score** — Multi-dimensional health scoring (Engineering Quality, Production Readiness, Repository Maturity, Documentation, Operational Readiness, Security, Maintainability, Certification Score) with profile-adaptive weights
+- **Context-Aware Roadmap** — Recommendations adapt to project type with reason, engineering gain, effort, priority, profile dependency, blocking impact, and ROI
+- **False Positive Reduction v2** — Reduces false positives using project type, intent, framework conventions, architecture, deployment model, and maturity with evidence-based suppression
+- **Repository Intent Detection** — Infers repository purpose (Commercial Product, Production Service, Internal Tool, Learning Project, Prototype, Portfolio, Brand Website, Open Source, Enterprise Platform, Framework, Library, SDK)
+- **Context Memory** — Stores project classifications, profile history, context changes, intent evolution, historical certification, maturity, and engineering assumptions for reuse
+- **Context Documentation** — Standardized terminology across all certification reports
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated with v4.4.0 features
+- `README.md` updated to v4.4.0
+- Version bumped to v4.4.0
+
+### Added Files
+
+- `skills/finalcode/core/project-classification-engine.md` — Project Classification Engine
+- `skills/finalcode/core/certification-profiles.md` — Certification Profiles
+- `skills/finalcode/core/adaptive-rule-engine.md` — Adaptive Rule Engine
+- `skills/finalcode/core/rule-applicability.md` — Rule Applicability
+- `skills/finalcode/core/engineering-context-report.md` — Engineering Context Report
+- `skills/finalcode/core/context-aware-health-score.md` — Context-Aware Health Score
+- `skills/finalcode/core/context-aware-roadmap.md` — Context-Aware Roadmap
+- `skills/finalcode/core/false-positive-reduction-v2.md` — False Positive Reduction v2
+- `skills/finalcode/core/repository-intent-detection.md` — Repository Intent Detection
+- `skills/finalcode/core/context-memory.md` — Context Memory
+- `skills/finalcode/core/context-documentation.md` — Context Documentation
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four existing operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v4.3.0
+
 ## [4.3.0] - 2026-07-12
 
 ### Highlights
