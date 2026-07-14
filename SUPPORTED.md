@@ -46,7 +46,7 @@
 
 ## Plugin Architecture
 
-FinalCode v2.0.0+ includes a Plugin SDK for extending framework support. Plugins can register detection rules, report sections, framework knowledge, recommendations, validation steps, and configuration options. Plugins never modify core logic. See [skills/finalcode/plugins/sdk.md](skills/finalcode/plugins/sdk.md).
+FinalCode v5.0.0+ includes an Organization Intelligence Platform for multi-repository analysis. FinalCode v2.0.0+ includes a Plugin SDK for extending framework support. Plugins can register detection rules, report sections, framework knowledge, recommendations, validation steps, and configuration options. Plugins never modify core logic. See [skills/finalcode/plugins/sdk.md](skills/finalcode/plugins/sdk.md).
 
 ## Framework Profiles
 
@@ -71,6 +71,7 @@ Each policy defines blocking rules, enabled gates, required evidence, minimum qu
 
 | Version | Date | Stability | Summary |
 |---------|------|-----------|---------|
+| 5.0.0 | 2026-07-14 | Stable | Organization Intelligence Platform |
 | 4.5.0 | 2026-07-14 | Stable | Engineering Decision Validation Framework |
 | 4.4.0 | 2026-07-14 | Stable | Context-Aware Certification Framework |
 | 4.3.0 | 2026-07-12 | Stable | Engineering Learning System |

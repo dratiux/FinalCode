@@ -4,6 +4,65 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.0] - 2026-07-14
+
+### Highlights
+
+Organization Intelligence Platform. Expands FinalCode from single-repository analysis to organization-scale engineering intelligence. Analyzes multiple repositories, teams, and services as a unified engineering ecosystem. Discovers shared libraries, cross-repository API dependencies, code duplication patterns, and platform standardization opportunities. Generates executive dashboards, team-level insights, organizational benchmarks, and multi-repository release governance. All additions remain fully backward compatible with v4.5.0; organization features gracefully degrade when only one repository exists.
+
+### Added
+
+- **Organization Registry** — Repository inventory, metadata, classification, health snapshots, and discovery
+- **Multi-Repository Analysis** — Cross-repository finding correlation, best-practice propagation, and pattern detection
+- **Repository Relationship Engine** — Relationship graph, dependency mapping, ownership structure, and co-evolution tracking
+- **Shared Library Discovery** — Duplicate code detection, shared dependency identification, and library extraction recommendations
+- **Engineering Organization Dashboard** — Unified dashboard with health summary, risk heatmap, coverage map, trend overview, and top findings
+- **Organization Roadmap** — Multi-repository engineering roadmap with cross-cutting priorities and dependency-aware planning
+- **Team Engineering Insights** — Per-team metrics, strengths, focus areas, comparison, and trend tracking
+- **API Ecosystem Analysis** — Cross-repository API inventory, consumer/provider mapping, contract drift, and version compatibility
+- **Dependency Graph v2** — Organization-wide dependency graph with inter-repository edges, duplicate detection, and upgrade impact
+- **Platform Standardization** — Standardization analysis with recommendation tracking, adoption metrics, and compliance scoring
+- **Release Governance** — Multi-repository release tracking, cross-repo blocker detection, coordination planning, and rollback coordination
+- **Organization Memory** — Persistent organizational knowledge across sessions, team memory, decision history, and pattern library
+- **Organization Benchmark** — Internal repository ranking, peer comparison, improvement tracking, and top-performer analysis
+- **Executive Reporting** — Executive summaries, trend analysis, risk reports, strategic recommendations, and board-ready presentation
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated with v5.0.0 architecture (7 layers), execution pipeline, reference documents, and version history
+- `README.md` updated to v5.0.0
+- Version bumped to v5.0.0
+
+### Added Files
+
+- `skills/finalcode/core/organization-registry.md` — Organization Registry
+- `skills/finalcode/core/multi-repository-analysis.md` — Multi-Repository Analysis
+- `skills/finalcode/core/repository-relationship-engine.md` — Repository Relationship Engine
+- `skills/finalcode/core/shared-library-discovery.md` — Shared Library Discovery
+- `skills/finalcode/core/engineering-organization-dashboard.md` — Engineering Organization Dashboard
+- `skills/finalcode/core/organization-roadmap.md` — Organization Roadmap
+- `skills/finalcode/core/team-engineering-insights.md` — Team Engineering Insights
+- `skills/finalcode/core/api-ecosystem-analysis.md` — API Ecosystem Analysis
+- `skills/finalcode/core/dependency-graph-v2.md` — Dependency Graph v2
+- `skills/finalcode/core/platform-standardization.md` — Platform Standardization
+- `skills/finalcode/core/release-governance.md` — Release Governance
+- `skills/finalcode/core/organization-memory.md` — Organization Memory
+- `skills/finalcode/core/organization-benchmark.md` — Organization Benchmark
+- `skills/finalcode/core/executive-reporting.md` — Executive Reporting
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four existing operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v4.5.0
+
 ## [4.5.0] - 2026-07-14
 
 ### Highlights

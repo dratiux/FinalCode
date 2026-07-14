@@ -8,9 +8,9 @@
   <a href="https://github.com/dratiux/FinalCode/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT"></a>
 </p>
 
-**v4.5.0**
+**v5.0.0**
 
-FinalCode is a context-aware production certification system. It runs a senior-engineering audit across 13 quality gates, automatically adapts certification requirements to project type, architecture, deployment target, and maturity, and validates engineering decisions to distinguish defects from intentional trade-offs. Produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
+FinalCode is a context-aware production certification and organization intelligence platform. It runs a senior-engineering audit across 13 quality gates, automatically adapts certification requirements to project type, architecture, deployment target, and maturity, validates engineering decisions to distinguish defects from intentional trade-offs, and extends analysis from single repositories to entire engineering organizations — correlating, comparing, and improving multi-repository ecosystems with cross-repository findings, organizational dashboards, team insights, and executive reporting. Produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
 
 Engineering quality is universal. Certification requirements are contextual. Not every deviation from best practice is a defect — FinalCode's Engineering Decision Validation Framework ensures intentional decisions and accepted trade-offs are recognized, not penalized.
 
@@ -142,8 +142,22 @@ FinalCode uses a Single Source of Truth (SSOT) architecture. All editable files 
 
 ```
 skills/finalcode/
-├── SKILL.md                     # Skill specification
-├── core/                        # Core engine layer
+├── SKILL.md                     # Skill specification (v5.0.0)
+├── core/                        # Core engine + organization intelligence layer
+│   ├── organization-registry.md           # Repository inventory (v5.0.0)
+│   ├── multi-repository-analysis.md       # Cross-repo analysis (v5.0.0)
+│   ├── repository-relationship-engine.md  # Relationship graph (v5.0.0)
+│   ├── shared-library-discovery.md        # Duplicate detection (v5.0.0)
+│   ├── engineering-organization-dashboard.md # Org dashboard (v5.0.0)
+│   ├── organization-roadmap.md            # Org-wide roadmap (v5.0.0)
+│   ├── team-engineering-insights.md       # Team metrics (v5.0.0)
+│   ├── api-ecosystem-analysis.md          # Cross-repo API analysis (v5.0.0)
+│   ├── dependency-graph-v2.md             # Org dependency graph (v5.0.0)
+│   ├── platform-standardization.md        # Standardization (v5.0.0)
+│   ├── release-governance.md              # Multi-repo release tracking (v5.0.0)
+│   ├── organization-memory.md             # Org knowledge (v5.0.0)
+│   ├── organization-benchmark.md          # Internal repo ranking (v5.0.0)
+│   ├── executive-reporting.md             # Executive summaries (v5.0.0)
 │   ├── engineering-decision-engine.md     # Observation classification (v4.5.0)
 │   ├── decision-validation.md             # Intent validation (v4.5.0)
 │   ├── decision-confidence.md             # Decision confidence (v4.5.0)
@@ -154,17 +168,6 @@ skills/finalcode/
 │   ├── benchmark-intelligence.md          # Benchmark comparison (v4.5.0)
 │   ├── decision-timeline.md               # Decision history (v4.5.0)
 │   ├── engineering-intent-memory.md       # Intent persistence (v4.5.0)
-│   ├── project-classification-engine.md  # Repository classification (v4.4.0)
-│   ├── certification-profiles.md         # Certification profiles (v4.4.0)
-│   ├── adaptive-rule-engine.md           # Context-aware rule evaluation (v4.4.0)
-│   ├── rule-applicability.md             # Rule applicability reporting (v4.4.0)
-│   ├── engineering-context-report.md     # Context report section (v4.4.0)
-│   ├── context-aware-health-score.md     # Multi-dimensional health (v4.4.0)
-│   ├── context-aware-roadmap.md          # Profile-adapted roadmap (v4.4.0)
-│   ├── false-positive-reduction-v2.md    # Context-aware FP reduction (v4.4.0)
-│   ├── repository-intent-detection.md    # Repository intent inference (v4.4.0)
-│   ├── context-memory.md                 # Historical context storage (v4.4.0)
-│   ├── context-documentation.md          # Terminology standards (v4.4.0)
 │   ├── decision-engine.md       # Decision pipeline and rule matching
 │   ├── policy-engine.md         # Policy engine and built-in policies
 │   ├── rule-registry.md         # Rule registry and lifecycle

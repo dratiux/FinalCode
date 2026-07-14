@@ -1,12 +1,12 @@
 ---
 name: finalcode
 description: >-
-  FinalCode is a context-aware production certification, engineering documentation, and intelligence system for the Skills ecosystem. Certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates (architecture, code quality, dead code, dependencies, type safety, error handling, testing, performance, security, accessibility, UI consistency, documentation, GitHub readiness). Certification requirements adapt to project type, deployment target, maturity, architecture, and intended usage through the Context-Aware Certification Framework. The Engineering Decision Validation Framework distinguishes engineering defects from intentional engineering decisions, accepted trade-offs, and contextual constraints before reporting findings. Outputs a standardized "FinalCode Certification Report" with PASS/FAIL summary, exit code, and verdict (READY TO SHIP / READY WITH WARNINGS / NOT READY). Generates persistent engineering documentation (CHANGE_REPORT, REFACTOR_REPORT, FINALCODE_SUMMARY, CERTIFICATION_HISTORY, TREND, BASELINE), commit messages, and pull request descriptions. Provides engineering intelligence: Repository Health Score, Historical Trend Analysis, Baseline Comparison, Repair Quality Assessment, Root Cause Intelligence, and Engineering Metrics. Has four modes — Inspect (read-only), Repair (fix and re-inspect), Refactor (maintainability improvement), Certify (read-only sign-off). Use for a repo/code audit, engineering review, production readiness, release certification, health check, security audit, dead code detection, UI/GitHub readiness review, testing evaluation, PR review, engineering documentation generation, or repository health monitoring. Trigger on "run FinalCode", "inspect/repair/refactor/certify this repository", "is this ready to ship", "final gate", "finalcode".
+  FinalCode is a context-aware production certification, engineering documentation, and intelligence system for the Skills ecosystem. Certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates (architecture, code quality, dead code, dependencies, type safety, error handling, testing, performance, security, accessibility, UI consistency, documentation, GitHub readiness). Certification requirements adapt to project type, deployment target, maturity, architecture, and intended usage through the Context-Aware Certification Framework. The Engineering Decision Validation Framework distinguishes engineering defects from intentional engineering decisions, accepted trade-offs, and contextual constraints before reporting findings. The Organization Intelligence Platform extends analysis from single repositories to entire engineering organizations — correlating, comparing, and improving multi-repository ecosystems with cross-repository findings, organizational dashboards, team insights, and executive reporting. Outputs a standardized "FinalCode Certification Report" with PASS/FAIL summary, exit code, and verdict (READY TO SHIP / READY WITH WARNINGS / NOT READY). Generates persistent engineering documentation (CHANGE_REPORT, REFACTOR_REPORT, FINALCODE_SUMMARY, CERTIFICATION_HISTORY, TREND, BASELINE), commit messages, and pull request descriptions. Provides engineering intelligence: Repository Health Score, Historical Trend Analysis, Baseline Comparison, Repair Quality Assessment, Root Cause Intelligence, and Engineering Metrics. Has four modes — Inspect (read-only), Repair (fix and re-inspect), Refactor (maintainability improvement), Certify (read-only sign-off). Use for a repo/code audit, engineering review, production readiness, release certification, health check, security audit, dead code detection, UI/GitHub readiness review, testing evaluation, PR review, engineering documentation generation, or repository health monitoring. Trigger on "run FinalCode", "inspect/repair/refactor/certify this repository", "is this ready to ship", "final gate", "finalcode".
 ---
 
 # FinalCode
 
-Version: 4.5.0
+Version: 5.0.0
 
 ## Identity
 
@@ -133,11 +133,11 @@ FinalCode must never:
 
 ## Architecture Overview
 
-FinalCode v4.5.0 is organized into five layers:
+FinalCode v5.0.0 is organized into seven layers:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                          FinalCode v4.5.0                                   │
+│                          FinalCode v5.0.0                                   │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
@@ -145,6 +145,47 @@ FinalCode v4.5.0 is organized into five layers:
 │  │  • Loads reference documents on demand                             │   │
 │  │  • Manages execution pipeline                                      │   │
 │  │  • Coordinates all engines                                         │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │              Organization Intelligence Layer (v5.0.0)               │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Organization       │ │  Multi-Repository   │                   │   │
+│  │  │  Registry           │ │  Analysis           │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Repository         │ │  Shared Library     │                   │   │
+│  │  │  Relationship       │ │  Discovery          │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Engineering        │ │  Organization       │                   │   │
+│  │  │  Organization Dash. │ │  Roadmap            │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Team Engineering   │ │  API Ecosystem      │                   │   │
+│  │  │  Insights           │ │  Analysis           │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Dependency Graph   │ │  Platform           │                   │   │
+│  │  │  v2                 │ │  Standardization    │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Release            │ │  Organization       │                   │   │
+│  │  │  Governance         │ │  Memory             │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Organization       │ │  Executive          │                   │   │
+│  │  │  Benchmark          │ │  Reporting          │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                    │                                        │
 │                                    ▼                                        │
@@ -201,6 +242,27 @@ FinalCode v4.5.0 is organized into five layers:
 │                                    │                                        │
 │                                    ▼                                        │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │               Learning & Capability Layer (v4.3.0 / v4.2.0)        │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Learning           │ │  Capability         │                   │   │
+│  │  │  Engine             │ │  Registry           │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Decision           │ │  Capability         │                   │   │
+│  │  │  History            │ │  Selection          │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Workflow           │ │  Policy             │                   │   │
+│  │  │  Optimization       │ │  Effectiveness      │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
 │  │                        Core Engine Layer                            │   │
 │  │                                                                     │   │
 │  │  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐  │   │
@@ -249,6 +311,27 @@ FinalCode v4.5.0 is organized into five layers:
 ```
 
 
+### Organization Intelligence Layer (v5.0.0)
+
+The Organization Intelligence Layer extends analysis from single repositories to entire engineering organizations:
+
+| Component | Responsibility | Location |
+|---|---|---|
+| Organization Registry | Maintains repository inventory, metadata, classification, and health snapshots | `core/organization-registry.md` |
+| Multi-Repository Analysis | Correlates findings and propagates best practices across repositories | `core/multi-repository-analysis.md` |
+| Repository Relationship Engine | Maps dependency, ownership, and co-evolution relationships between repos | `core/repository-relationship-engine.md` |
+| Shared Library Discovery | Detects duplicate code and shared dependencies across repositories | `core/shared-library-discovery.md` |
+| Engineering Organization Dashboard | Provides unified health summary, risk heatmap, and trend overview | `core/engineering-organization-dashboard.md` |
+| Organization Roadmap | Generates multi-repository engineering roadmap with cross-cutting priorities | `core/organization-roadmap.md` |
+| Team Engineering Insights | Per-team metrics, strengths, focus areas, and trend tracking | `core/team-engineering-insights.md` |
+| API Ecosystem Analysis | Cross-repository API inventory, consumer/provider mapping, and contract drift | `core/api-ecosystem-analysis.md` |
+| Dependency Graph v2 | Organization-wide dependency graph with inter-repository edges and duplicate detection | `core/dependency-graph-v2.md` |
+| Platform Standardization | Standardization analysis, adoption metrics, and compliance scoring | `core/platform-standardization.md` |
+| Release Governance | Multi-repository release tracking, blocker detection, and coordination planning | `core/release-governance.md` |
+| Organization Memory | Persistent organizational knowledge, team memory, and pattern library | `core/organization-memory.md` |
+| Organization Benchmark | Internal repository ranking, peer comparison, and top-performer analysis | `core/organization-benchmark.md` |
+| Executive Reporting | Executive summaries, trend analysis, risk reports, and strategic recommendations | `core/executive-reporting.md` |
+
 ### Context-Aware Layer (v4.4.0)
 
 The Context-Aware Layer classifies repositories and adapts certification to project context:
@@ -283,6 +366,29 @@ The Decision Validation Layer evaluates every observation before reporting, dist
 | Benchmark Intelligence | Compares repository quality against repositories of the same type | `core/benchmark-intelligence.md` |
 | Decision Timeline | Tracks engineering decisions over time including acceptance, reversal, and evolution | `core/decision-timeline.md` |
 | Engineering Intent Memory | Persists verified engineering decisions for reuse across analyses | `core/engineering-intent-memory.md` |
+
+### Learning & Capability Layer (v4.3.0 / v4.2.0)
+
+The Learning & Capability Layer enables FinalCode to learn from past decisions, optimize workflows, and understand its own capabilities:
+
+| Component | Responsibility | Location |
+|---|---|---|
+| Learning Engine | Continuously analyzes historical decisions to identify successful and failed patterns | `core/learning-engine.md` |
+| Decision History | Records every engineering decision with ID, timestamp, mission, goal, evidence, and outcome | `core/decision-history.md` |
+| Decision Outcome Analysis | Evaluates decision success, verification pass, regressions, and engineering gain | `core/decision-outcome.md` |
+| Recommendation Learning | Improves recommendations by ranking by historical success rate and engineering impact | `core/recommendation-learning.md` |
+| Workflow Optimization | Analyzes completed workflows to measure duration, failure rate, and verification success | `core/workflow-optimization.md` |
+| Capability Registry | Centralized registry for all capabilities with ID, name, purpose, inputs, and outputs | `core/capability-registry.md` |
+| Capability Discovery Engine | Automatically discovers available, compatible, required, and deprecated capabilities | `core/capability-discovery.md` |
+| Capability Selection Engine | Selects best capabilities based on goal, repository state, risk, and policies | `core/capability-selection.md` |
+| Capability Dependency Graph | Builds and manages dependency graph between capabilities | `core/capability-dependency.md` |
+| Capability Health | Measures capability health including usage, success rate, and engineering impact | `core/capability-health.md` |
+| Policy Effectiveness | Measures how often each policy prevents regressions, causes conflicts, and provides value | `core/policy-effectiveness.md` |
+| Engineering Knowledge Base | Builds internal evidence database of successful architectures and repair strategies | `core/engineering-knowledge-base.md` |
+| Engineering Insights | Generates periodic insights about most effective strategies and highest ROI capabilities | `core/engineering-insights.md` |
+| Continuous Improvement Report | Updates decision quality, workflow quality, and engineering maturity after every mission | `core/continuous-improvement.md` |
+| Learning Dashboard | Displays learning confidence, knowledge coverage, decision accuracy, and overall learning score | `core/learning-dashboard.md` |
+| Capability Dashboard | Displays capabilities used, skipped, selection reasons, health, and engineering value | `core/capability-dashboard.md` |
 
 ### Core Engine Layer
 
@@ -328,8 +434,11 @@ FinalCode loads reference documents on demand:
 
 1. **Always loaded:** Core engine components (SKILL.md orchestrates)
 2. **Loaded on detection:** Framework profiles (when framework detected)
-3. **Loaded on execution:** Reference documents (when gate executed)
-4. **Loaded on demand:** Configuration, examples, architecture (when requested)
+3. **Loaded on detection:** Organization context (when organization scope detected)
+4. **Loaded on classification:** Context-Aware Layer documents (when repository classified)
+5. **Loaded on execution:** Learning & Capability Layer documents (when pipeline executed)
+6. **Loaded on execution:** Reference documents (when gate executed)
+7. **Loaded on demand:** Configuration, examples, architecture (when requested)
 
 This reduces unnecessary loading and improves performance.
 
@@ -882,7 +991,7 @@ Production Readiness: 98%
 
 Always generate next milestones:
 ```
-Current Version: 4.5.0
+Current Version: 5.0.0
 Current Health: 96%
 Next Milestones:
   ✓ Production Ready
@@ -1270,6 +1379,16 @@ Validate engineering decisions before reporting:
 - Consult Engineering Intent Memory for historical decisions
 - Record decisions in Decision Timeline
 
+### Phase 0.9: Organization Intelligence Context (v5.0.0)
+
+Detect and load organization context when multi-repository scope is available:
+- Load Organization Registry for repository inventory
+- Detect shared libraries and dependencies across repositories
+- Map repository relationships (ownership, dependency, co-evolution)
+- Load Organization Memory for historical organizational knowledge
+- Determine organization analysis scope (single repo vs. multi-repo)
+- Populate Engineering Organization Dashboard baseline
+
 ### Phase 1: Project Discovery
 
 Detect:
@@ -1307,6 +1426,19 @@ Execute 13 Quality Gates:
 13. GitHub Readiness
 
 Plus Security Gate 2.0 (14 categories).
+
+### Phase 2.5: Organization Intelligence Analysis (v5.0.0)
+
+When organization scope is detected, perform cross-repository analysis:
+- Correlate findings across repositories via Multi-Repository Analysis
+- Detect shared libraries and duplicate code via Shared Library Discovery
+- Map API contracts and dependencies via API Ecosystem Analysis
+- Identify platform standardization opportunities via Platform Standardization
+- Generate organization dependency graph via Dependency Graph v2
+- Calculate per-team engineering insights via Team Engineering Insights
+- Update Engineering Organization Dashboard with cross-repo data
+- Generate Executive Reporting summaries
+- Update Organization Roadmap with cross-cutting priorities
 
 ### Phase 3: Decision Pipeline
 
@@ -1578,6 +1710,46 @@ The active mode is selected by:
 
 FinalCode loads reference documents on demand. The following documents are available:
 
+### Organization Intelligence Layer (v5.0.0)
+
+| Document | Responsibility |
+|---|---|
+| `core/organization-registry.md` | Repository Inventory, Metadata, Health Snapshots, Discovery |
+| `core/multi-repository-analysis.md` | Cross-repository Correlation, Best-practice Propagation, Pattern Detection |
+| `core/repository-relationship-engine.md` | Relationship Graph, Dependency Mapping, Ownership Structure, Co-evolution |
+| `core/shared-library-discovery.md` | Duplicate Detection, Shared Dependency Identification, Extraction Recommendations |
+| `core/engineering-organization-dashboard.md` | Unified Dashboard, Health Summary, Risk Heatmap, Coverage Map |
+| `core/organization-roadmap.md` | Multi-repository Roadmap, Cross-cutting Priorities, Dependency-aware Planning |
+| `core/team-engineering-insights.md` | Per-team Metrics, Strengths, Focus Areas, Comparison, Trend Tracking |
+| `core/api-ecosystem-analysis.md` | API Inventory, Consumer/Provider Mapping, Contract Drift, Version Compatibility |
+| `core/dependency-graph-v2.md` | Organization Dependency Graph, Inter-repository Edges, Upgrade Impact |
+| `core/platform-standardization.md` | Standardization Analysis, Adoption Metrics, Compliance Scoring |
+| `core/release-governance.md` | Multi-repo Release Tracking, Cross-repo Blockers, Coordination Planning |
+| `core/organization-memory.md` | Persistent Organizational Knowledge, Team Memory, Pattern Library |
+| `core/organization-benchmark.md` | Internal Repository Ranking, Peer Comparison, Top-performer Analysis |
+| `core/executive-reporting.md` | Executive Summaries, Trend Analysis, Risk Reports, Strategic Recommendations |
+
+### Learning & Capability Layer (v4.3.0 / v4.2.0)
+
+| Document | Responsibility |
+|---|---|
+| `core/learning-engine.md` | Historical Decision Analysis, Pattern Recognition, Continuous Improvement |
+| `core/decision-history.md` | Decision Recording, Mission Tracking, Evidence, Outcomes |
+| `core/decision-outcome.md` | Decision Success Evaluation, Regression Detection, Engineering Gain |
+| `core/recommendation-learning.md` | Recommendation Ranking, Historical Success Rate, Engineering Impact |
+| `core/workflow-optimization.md` | Workflow Duration, Failure Rate, Verification Success, Approval Frequency |
+| `core/capability-registry.md` | Centralized Capability Registry, Capability Metadata, Lifecycle |
+| `core/capability-discovery.md` | Capability Discovery, Compatibility Detection, Deprecation Detection |
+| `core/capability-selection.md` | Capability Selection, Goal-based Matching, Risk-aware Selection |
+| `core/capability-dependency.md` | Dependency Graph, Dependency Resolution, Conflict Detection |
+| `core/capability-health.md` | Capability Health Monitoring, Usage Tracking, Success Rate |
+| `core/policy-effectiveness.md` | Policy Impact, Regression Prevention, Conflict Frequency |
+| `core/engineering-knowledge-base.md` | Evidence Database, Repair Strategies, Architecture Patterns |
+| `core/engineering-insights.md` | Engineering Insights, Strategy Recommendations, ROI Analysis |
+| `core/continuous-improvement.md` | Decision Quality, Workflow Quality, Engineering Maturity Trending |
+| `core/learning-dashboard.md` | Learning Confidence, Knowledge Coverage, Decision Accuracy |
+| `core/capability-dashboard.md` | Capability Usage, Health, Conflicts, Engineering Value |
+
 ### Context-Aware Layer (v4.4.0)
 
 | Document | Responsibility |
@@ -1653,14 +1825,32 @@ FinalCode loads documents on demand to reduce unnecessary loading:
 
 1. **Always loaded:** SKILL.md (orchestration layer)
 2. **Loaded on detection:** Framework profiles (when framework detected)
-3. **Loaded on classification:** Context-Aware Layer documents (when repository classified)
-4. **Loaded on execution:** Core engine documents (when pipeline executed)
-5. **Loaded on demand:** Reference documents (when gate or section executed)
+3. **Loaded on detection:** Organization Intelligence Layer documents (when organization scope detected)
+4. **Loaded on classification:** Context-Aware Layer documents (when repository classified)
+5. **Loaded on execution:** Learning & Capability Layer documents (when pipeline executed)
+6. **Loaded on execution:** Core engine documents (when pipeline executed)
+7. **Loaded on demand:** Reference documents (when gate or section executed)
 
 ### Dependency Relationships
 
 ```
 SKILL.md
+    │
+    ├── Organization Intelligence Layer (v5.0.0)
+    │   ├── Organization Registry ← (standalone)
+    │   ├── Multi-Repository Analysis ← Organization Registry, Core Engine Layer
+    │   ├── Repository Relationship Engine ← Organization Registry
+    │   ├── Shared Library Discovery ← Organization Registry, Multi-Repository Analysis
+    │   ├── Engineering Organization Dashboard ← All Organization Intelligence components
+    │   ├── Organization Roadmap ← Multi-Repository Analysis, Repository Relationship Engine
+    │   ├── Team Engineering Insights ← Organization Registry, Multi-Repository Analysis
+    │   ├── API Ecosystem Analysis ← Organization Registry, Multi-Repository Analysis
+    │   ├── Dependency Graph v2 ← Organization Registry, Repository Relationship Engine
+    │   ├── Platform Standardization ← Organization Registry, Multi-Repository Analysis
+    │   ├── Release Governance ← Organization Registry, Dependency Graph v2
+    │   ├── Organization Memory ← (standalone)
+    │   ├── Organization Benchmark ← Organization Registry, Context-Aware Layer
+    │   └── Executive Reporting ← All Organization Intelligence components, Decision Validation Layer
     │
     ├── Decision Validation Layer (v4.5.0)
     │   ├── Engineering Decision Engine ← Context-Aware Layer, Core Engine Layer
@@ -1686,6 +1876,24 @@ SKILL.md
     │   ├── Repository Intent Detection ← (standalone)
     │   ├── Context Memory ← Project Classification Engine, Certification Profiles
     │   └── Context Documentation ← (standalone)
+    │
+    ├── Learning & Capability Layer (v4.3.0 / v4.2.0)
+    │   ├── Learning Engine ← Decision History, Decision Outcome
+    │   ├── Decision History ← Decision Validation Layer, Context-Aware Layer
+    │   ├── Decision Outcome Analysis ← Decision History
+    │   ├── Recommendation Learning ← Learning Engine, Decision Outcome
+    │   ├── Workflow Optimization ← Learning Engine
+    │   ├── Capability Registry ← (standalone)
+    │   ├── Capability Discovery ← Capability Registry
+    │   ├── Capability Selection ← Capability Registry, Context-Aware Layer
+    │   ├── Capability Dependency ← Capability Registry, Capability Discovery
+    │   ├── Capability Health ← Capability Registry, Capability Selection
+    │   ├── Policy Effectiveness ← Policy Engine, Learning Engine
+    │   ├── Engineering Knowledge Base ← Learning Engine
+    │   ├── Engineering Insights ← Learning Engine, Engineering Knowledge Base
+    │   ├── Continuous Improvement ← All Learning components
+    │   ├── Learning Dashboard ← All Learning components
+    │   └── Capability Dashboard ← All Capability components
     │
     ├── Core Engine Layer
     │   ├── Decision Engine ← Rule Registry, Policy Engine, Context-Aware Layer, Decision Validation Layer
@@ -1788,6 +1996,7 @@ Generate a `PULL_REQUEST.md` that is GitHub-ready.
 
 | Version | Date | Changes |
 |---|---|---|
+| 5.0.0 | 2026-07-14 | Organization Intelligence Platform — Organization Registry, Multi-Repository Analysis, Repository Relationship Engine, Shared Library Discovery, Engineering Organization Dashboard, Organization Roadmap, Team Engineering Insights, API Ecosystem Analysis, Dependency Graph v2, Platform Standardization, Release Governance, Organization Memory, Organization Benchmark, Executive Reporting. Architecture expanded from 5 to 7 layers. |
 | 4.5.0 | 2026-07-14 | Engineering Decision Validation Framework — Engineering Decision Engine, Decision Validation, Decision Confidence, Trade-off Registry, Decision Explainability, Recommendation ROI, Engineering Recognition, Benchmark Intelligence, Decision Timeline, Engineering Intent Memory |
 | 4.4.0 | 2026-07-14 | Context-Aware Certification Framework — Project Classification Engine, Certification Profiles, Adaptive Rule Engine, Rule Applicability, Engineering Context Report, Context-Aware Health Score, Context-Aware Roadmap, False Positive Reduction v2, Repository Intent Detection, Context Memory, Context Documentation |
 | 2.8.0 | 2026-07-10 | Native skills.sh Distribution — Migrated to skills.sh as single official installation method, removed repository-owned install scripts, moved source files to skills/finalcode/ for discoverability |
