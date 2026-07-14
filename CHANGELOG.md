@@ -4,6 +4,57 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.5.0] - 2026-07-14
+
+### Highlights
+
+Engineering Decision Validation Framework. Upgrades FinalCode from context-aware certification to engineering decision-aware certification. Before reporting any finding, FinalCode determines whether the observed implementation is an engineering defect, an intentional decision, a contextual trade-off, or an acceptable architectural compromise. Engineering decisions are never treated as defects without sufficient evidence. All additions remain fully backward compatible.
+
+### Added
+
+- **Engineering Decision Engine** — Dedicated reasoning stage before finding classification; classifies every observation as Confirmed Defect, Engineering Recommendation, Architecture Decision, Accepted Trade-off, Contextual Constraint, Intentional Simplification, Unknown Decision, or Unsupported Pattern
+- **Decision Validation** — Validates whether findings are intentional, accidental, or unknown using repository context, project profile, documentation, code comments, configuration, historical memory, architecture patterns, and deployment model
+- **Decision Confidence** — Every decision reports confidence level (Very High, High, Medium, Low, Unknown), evidence strength, alternative interpretations, missing evidence, and human verification requirements
+- **Trade-off Registry** — Standardizes acceptable engineering trade-offs per project context with benefits, risks, and recommended upgrade paths
+- **Decision Explainability** — Every recommendation explains why it exists, why it matters, why it was not classified as a defect, alternative approaches, engineering impact, risk, and confidence
+- **Recommendation ROI** — Every recommendation includes engineering gain, risk, complexity, estimated time, expected health improvement, priority, and return on investment with highest ROI first
+- **Engineering Recognition** — Identifies and celebrates engineering strengths across 12 categories with evidence and impact assessment
+- **Benchmark Intelligence** — Compares repository quality against repositories of the same type with Above Average, Average, Best Practice, and Industry Leading levels
+- **Decision Timeline** — Tracks engineering decisions over time including acceptance, reversal, trade-off introduction and removal, architecture evolution, and recommendation history
+- **Engineering Intent Memory** — Persists verified engineering decisions for reuse across analyses; once classified as intentional, decisions are not re-evaluated unless context changes
+
+### Changed
+
+- `skills/finalcode/SKILL.md` updated with v4.5.0 features
+- `README.md` updated to v4.5.0
+- Version bumped to v4.5.0
+
+### Added Files
+
+- `skills/finalcode/core/engineering-decision-engine.md` — Engineering Decision Engine
+- `skills/finalcode/core/decision-validation.md` — Decision Validation
+- `skills/finalcode/core/decision-confidence.md` — Decision Confidence
+- `skills/finalcode/core/tradeoff-registry.md` — Trade-off Registry
+- `skills/finalcode/core/decision-explainability.md` — Decision Explainability
+- `skills/finalcode/core/recommendation-roi.md` — Recommendation ROI
+- `skills/finalcode/core/engineering-recognition.md` — Engineering Recognition
+- `skills/finalcode/core/benchmark-intelligence.md` — Benchmark Intelligence
+- `skills/finalcode/core/decision-timeline.md` — Decision Timeline
+- `skills/finalcode/core/engineering-intent-memory.md` — Engineering Intent Memory
+
+### Not Modified
+
+- 13 Quality Gates unchanged
+- Security Gate 2.0 unchanged
+- All four existing operational modes preserved
+- Certification Engine unchanged
+- Configuration System unchanged
+- Plugin System unchanged
+- Evidence Engine unchanged
+- Exit codes unchanged
+- SSOT Architecture unchanged
+- Backward compatible with v4.4.0
+
 ## [4.4.0] - 2026-07-14
 
 ### Highlights

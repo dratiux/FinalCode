@@ -1,12 +1,12 @@
 ---
 name: finalcode
 description: >-
-  FinalCode is a context-aware production certification, engineering documentation, and intelligence system for the Skills ecosystem. Certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates (architecture, code quality, dead code, dependencies, type safety, error handling, testing, performance, security, accessibility, UI consistency, documentation, GitHub readiness). Certification requirements adapt to project type, deployment target, maturity, architecture, and intended usage through the Context-Aware Certification Framework. Outputs a standardized "FinalCode Certification Report" with PASS/FAIL summary, exit code, and verdict (READY TO SHIP / READY WITH WARNINGS / NOT READY). Generates persistent engineering documentation (CHANGE_REPORT, REFACTOR_REPORT, FINALCODE_SUMMARY, CERTIFICATION_HISTORY, TREND, BASELINE), commit messages, and pull request descriptions. Provides engineering intelligence: Repository Health Score, Historical Trend Analysis, Baseline Comparison, Repair Quality Assessment, Root Cause Intelligence, and Engineering Metrics. Has four modes — Inspect (read-only), Repair (fix and re-inspect), Refactor (maintainability improvement), Certify (read-only sign-off). Use for a repo/code audit, engineering review, production readiness, release certification, health check, security audit, dead code detection, UI/GitHub readiness review, testing evaluation, PR review, engineering documentation generation, or repository health monitoring. Trigger on "run FinalCode", "inspect/repair/refactor/certify this repository", "is this ready to ship", "final gate", "finalcode".
+  FinalCode is a context-aware production certification, engineering documentation, and intelligence system for the Skills ecosystem. Certifies whether a project is genuinely ready for production via a senior-engineering audit across 13 quality gates (architecture, code quality, dead code, dependencies, type safety, error handling, testing, performance, security, accessibility, UI consistency, documentation, GitHub readiness). Certification requirements adapt to project type, deployment target, maturity, architecture, and intended usage through the Context-Aware Certification Framework. The Engineering Decision Validation Framework distinguishes engineering defects from intentional engineering decisions, accepted trade-offs, and contextual constraints before reporting findings. Outputs a standardized "FinalCode Certification Report" with PASS/FAIL summary, exit code, and verdict (READY TO SHIP / READY WITH WARNINGS / NOT READY). Generates persistent engineering documentation (CHANGE_REPORT, REFACTOR_REPORT, FINALCODE_SUMMARY, CERTIFICATION_HISTORY, TREND, BASELINE), commit messages, and pull request descriptions. Provides engineering intelligence: Repository Health Score, Historical Trend Analysis, Baseline Comparison, Repair Quality Assessment, Root Cause Intelligence, and Engineering Metrics. Has four modes — Inspect (read-only), Repair (fix and re-inspect), Refactor (maintainability improvement), Certify (read-only sign-off). Use for a repo/code audit, engineering review, production readiness, release certification, health check, security audit, dead code detection, UI/GitHub readiness review, testing evaluation, PR review, engineering documentation generation, or repository health monitoring. Trigger on "run FinalCode", "inspect/repair/refactor/certify this repository", "is this ready to ship", "final gate", "finalcode".
 ---
 
 # FinalCode
 
-Version: 4.4.0
+Version: 4.5.0
 
 ## Identity
 
@@ -133,11 +133,11 @@ FinalCode must never:
 
 ## Architecture Overview
 
-FinalCode v4.4.0 is organized into four layers:
+FinalCode v4.5.0 is organized into five layers:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                          FinalCode v4.4.0                                   │
+│                          FinalCode v4.5.0                                   │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
@@ -145,6 +145,37 @@ FinalCode v4.4.0 is organized into four layers:
 │  │  • Loads reference documents on demand                             │   │
 │  │  • Manages execution pipeline                                      │   │
 │  │  • Coordinates all engines                                         │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                Decision Validation Layer (v4.5.0)                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Engineering        │ │   Decision          │                   │   │
+│  │  │  Decision Engine    │ │   Validation        │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Decision           │ │   Trade-off         │                   │   │
+│  │  │  Confidence         │ │   Registry          │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Decision           │ │   Recommendation    │                   │   │
+│  │  │  Explainability    │ │   ROI               │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Engineering        │ │   Benchmark         │                   │   │
+│  │  │  Recognition        │ │   Intelligence      │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
+│  │  ┌─────────────────────┐ ┌─────────────────────┐                   │   │
+│  │  │  Decision           │ │   Engineering       │                   │   │
+│  │  │  Timeline           │ │   Intent Memory     │                   │   │
+│  │  └─────────────────────┘ └─────────────────────┘                   │   │
+│  │                                                                     │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                    │                                        │
 │                                    ▼                                        │
@@ -217,6 +248,7 @@ FinalCode v4.4.0 is organized into four layers:
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
+
 ### Context-Aware Layer (v4.4.0)
 
 The Context-Aware Layer classifies repositories and adapts certification to project context:
@@ -234,6 +266,23 @@ The Context-Aware Layer classifies repositories and adapts certification to proj
 | Repository Intent Detection | Infers repository purpose and profile mapping | `core/repository-intent-detection.md` |
 | Context Memory | Stores and reuses historical project context | `core/context-memory.md` |
 | Context Documentation | Standardized terminology across reports | `core/context-documentation.md` |
+
+### Decision Validation Layer (v4.5.0)
+
+The Decision Validation Layer evaluates every observation before reporting, distinguishing defects from intentional decisions:
+
+| Component | Responsibility | Location |
+|---|---|---|
+| Engineering Decision Engine | Classifies observations as defect, recommendation, architecture decision, trade-off, constraint, simplification, or unknown | `core/engineering-decision-engine.md` |
+| Decision Validation | Validates whether findings are intentional, accidental, or unknown | `core/decision-validation.md` |
+| Decision Confidence | Reports confidence, evidence strength, alternative interpretations, and human verification requirements | `core/decision-confidence.md` |
+| Trade-off Registry | Standardizes acceptable engineering trade-offs per project context | `core/tradeoff-registry.md` |
+| Decision Explainability | Explains why recommendations exist, why they are not defects, and alternative approaches | `core/decision-explainability.md` |
+| Recommendation ROI | Calculates engineering gain, risk, complexity, time, health improvement, and return on investment | `core/recommendation-roi.md` |
+| Engineering Recognition | Identifies and celebrates engineering strengths per category | `core/engineering-recognition.md` |
+| Benchmark Intelligence | Compares repository quality against repositories of the same type | `core/benchmark-intelligence.md` |
+| Decision Timeline | Tracks engineering decisions over time including acceptance, reversal, and evolution | `core/decision-timeline.md` |
+| Engineering Intent Memory | Persists verified engineering decisions for reuse across analyses | `core/engineering-intent-memory.md` |
 
 ### Core Engine Layer
 
@@ -833,7 +882,7 @@ Production Readiness: 98%
 
 Always generate next milestones:
 ```
-Current Version: 4.4.0
+Current Version: 4.5.0
 Current Health: 96%
 Next Milestones:
   ✓ Production Ready
@@ -909,6 +958,66 @@ Learning
 - All existing certification logic, gate definitions, thresholds, and verdicts remain unchanged
 - All prior operational modes continue to work identically
 - Existing configuration files continue to work
+
+---
+
+## Engineering Decision Validation Framework (v4.5.0)
+
+FinalCode v4.5.0 upgrades FinalCode from context-aware certification to engineering decision-aware certification. Before reporting any finding, FinalCode determines whether the observed implementation is an engineering defect, an intentional engineering decision, a contextual trade-off, or an acceptable architectural compromise. Engineering decisions are never treated as defects without sufficient evidence.
+
+### Core Philosophy
+
+- Not every deviation from best practice is a defect.
+- Engineering is the process of making trade-offs.
+- FinalCode must distinguish poor engineering from intentional engineering.
+- Always explain WHY.
+- Never guess.
+- Evidence is mandatory.
+
+### Key Capabilities
+
+- **Engineering Decision Engine:** Dedicated reasoning stage before finding classification. Every observation is classified as Confirmed Defect, Engineering Recommendation, Architecture Decision, Accepted Trade-off, Contextual Constraint, Intentional Simplification, Unknown Decision, or Unsupported Pattern.
+- **Decision Validation:** Validates whether findings are intentional, accidental, or unknown using repository context, project profile, repository intent, documentation, code comments, configuration, historical engineering memory, architecture patterns, and deployment model.
+- **Decision Confidence:** Every decision reports confidence level (Very High, High, Medium, Low, Unknown), evidence strength, alternative interpretations, missing evidence, and whether human verification is required.
+- **Trade-off Registry:** Standardizes acceptable engineering trade-offs. mailto contact forms are acceptable for Brand Websites but not for SaaS. No automated tests are acceptable for portfolios but mandatory for Enterprise APIs. Every trade-off includes context, benefits, risks, and a recommended upgrade path.
+- **Decision Explainability:** Every recommendation explains why it exists, why it matters, why it was not classified as a defect, what alternative approaches were considered, and the engineering impact, risk, and confidence.
+- **Recommendation ROI:** Every recommendation includes engineering gain, risk, complexity, estimated time, expected health improvement, priority, and return on investment. Highest ROI recommendations appear first.
+- **Positive Engineering Recognition:** Identifies engineering strengths across categories including Type Safety, Architecture, Accessibility, Performance, Component Design, Design System, Security, Documentation, Testing, Developer Experience, CI/CD, and Dependency Management.
+- **Benchmark Intelligence:** Compares repository quality against repositories of the same type (Brand Website, Open Source Library, SaaS, Enterprise, REST API, Browser Extension) with levels: Above Average, Average, Best Practice, and Industry Leading.
+- **Decision Timeline:** Tracks engineering decisions over time including decisions accepted, decisions reversed, trade-offs introduced, trade-offs removed, architecture evolution, recommendation history, and historical reasoning.
+- **Engineering Intent Memory:** Persists verified engineering decisions so future analyses reuse validated intent. Once a decision is classified as intentional, it is not re-evaluated unless context changes.
+
+### Updated Pipeline
+
+```
+Repository Classification
+        |
+        v
+Context Detection
+        |
+        v
+Engineering Decision Validation
+        |
+        v
+Adaptive Rule Evaluation
+        |
+        v
+Finding Classification
+        |
+        v
+Certification
+        |
+        v
+Learning
+```
+
+### Backward Compatibility
+
+- All existing certification logic, gate definitions, thresholds, and verdicts remain unchanged
+- Decision Validation is additive — it does not change the verdict of previously passing gates
+- All prior operational modes continue to work identically
+- Existing configuration files continue to work
+- Default behavior remains unchanged unless Decision Validation is enabled
 
 ---
 
@@ -1150,6 +1259,16 @@ Load rules based on profile:
 - Mark Optional rules
 - Skip Ignored rules
 - Document rule applicability
+
+### Phase 0.875: Engineering Decision Validation (v4.5.0)
+
+Validate engineering decisions before reporting:
+- Classify observations via Engineering Decision Engine
+- Validate intent via Decision Validation
+- Check Trade-off Registry for matched trade-offs
+- Calculate Decision Confidence
+- Consult Engineering Intent Memory for historical decisions
+- Record decisions in Decision Timeline
 
 ### Phase 1: Project Discovery
 
@@ -1475,6 +1594,21 @@ FinalCode loads reference documents on demand. The following documents are avail
 | `core/context-memory.md` | Historical Context Storage, Memory Reuse |
 | `core/context-documentation.md` | Terminology Standardization, Report Consistency |
 
+### Decision Validation Layer (v4.5.0)
+
+| Document | Responsibility |
+|---|---|
+| `core/engineering-decision-engine.md` | Observation Classification, Decision Pipeline |
+| `core/decision-validation.md` | Intent Validation, Validation Sources, Validation Process |
+| `core/decision-confidence.md` | Confidence Levels, Evidence Strength, Alternative Interpretations |
+| `core/tradeoff-registry.md` | Trade-off Standardization, Context, Benefits, Risks, Upgrade Paths |
+| `core/decision-explainability.md` | Recommendation Explanation, Alternatives, Impact, Risk |
+| `core/recommendation-roi.md` | ROI Calculation, Engineering Gain, Priority, Health Improvement |
+| `core/engineering-recognition.md` | Engineering Strengths, Recognition Categories, Evidence |
+| `core/benchmark-intelligence.md` | Benchmark Comparison, Project Type Benchmarks, Confidence |
+| `core/decision-timeline.md` | Decision History, Timeline Events, Historical Reasoning |
+| `core/engineering-intent-memory.md` | Intent Persistence, Memory Reuse, Decision Storage |
+
 ### Core Engine
 
 | Document | Responsibility |
@@ -1528,6 +1662,18 @@ FinalCode loads documents on demand to reduce unnecessary loading:
 ```
 SKILL.md
     │
+    ├── Decision Validation Layer (v4.5.0)
+    │   ├── Engineering Decision Engine ← Context-Aware Layer, Core Engine Layer
+    │   ├── Decision Validation ← Engineering Decision Engine, Engineering Intent Memory
+    │   ├── Decision Confidence ← Engineering Decision Engine, Decision Validation
+    │   ├── Trade-off Registry ← (standalone)
+    │   ├── Decision Explainability ← Engineering Decision Engine, Decision Confidence
+    │   ├── Recommendation ROI ← Engineering Decision Engine, Decision Confidence
+    │   ├── Engineering Recognition ← Engineering Decision Engine
+    │   ├── Benchmark Intelligence ← Engineering Decision Engine, Context-Aware Layer
+    │   ├── Decision Timeline ← Context Memory, Engineering Intent Memory
+    │   └── Engineering Intent Memory ← Decision Validation, Decision Timeline
+    │
     ├── Context-Aware Layer (v4.4.0)
     │   ├── Project Classification Engine ← (standalone)
     │   ├── Certification Profiles ← Project Classification Engine
@@ -1542,11 +1688,11 @@ SKILL.md
     │   └── Context Documentation ← (standalone)
     │
     ├── Core Engine Layer
-    │   ├── Decision Engine ← Rule Registry, Policy Engine, Context-Aware Layer
+    │   ├── Decision Engine ← Rule Registry, Policy Engine, Context-Aware Layer, Decision Validation Layer
     │   ├── Policy Engine ← (standalone)
     │   ├── Rule Registry ← (standalone)
-    │   ├── Report Engine ← Decision Engine, Health Score, Confidence Model, Engineering Context Report
-    │   ├── Certification Engine ← All Core components, Context-Aware Layer
+    │   ├── Report Engine ← Decision Engine, Health Score, Confidence Model, Engineering Context Report, Decision Explainability
+    │   ├── Certification Engine ← All Core components, Context-Aware Layer, Decision Validation Layer
     │   ├── Explainability Engine ← (standalone)
     │   ├── Finding Classification ← (standalone)
     │   └── Health Score ← Context-Aware Health Score
@@ -1642,6 +1788,7 @@ Generate a `PULL_REQUEST.md` that is GitHub-ready.
 
 | Version | Date | Changes |
 |---|---|---|
+| 4.5.0 | 2026-07-14 | Engineering Decision Validation Framework — Engineering Decision Engine, Decision Validation, Decision Confidence, Trade-off Registry, Decision Explainability, Recommendation ROI, Engineering Recognition, Benchmark Intelligence, Decision Timeline, Engineering Intent Memory |
 | 4.4.0 | 2026-07-14 | Context-Aware Certification Framework — Project Classification Engine, Certification Profiles, Adaptive Rule Engine, Rule Applicability, Engineering Context Report, Context-Aware Health Score, Context-Aware Roadmap, False Positive Reduction v2, Repository Intent Detection, Context Memory, Context Documentation |
 | 2.8.0 | 2026-07-10 | Native skills.sh Distribution — Migrated to skills.sh as single official installation method, removed repository-owned install scripts, moved source files to skills/finalcode/ for discoverability |
 | 2.7.0 | 2026-07-10 | Executable Documentation & Extension Contracts — Execution Metadata, Reference Contracts, Execution Dependency Graph, Extension Contracts, Public Interface Classification, Execution Lifecycle, Documentation Consistency Audit, Architecture Explainability, Repository Discoverability, Validation Report |

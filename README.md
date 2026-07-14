@@ -8,11 +8,11 @@
   <a href="https://github.com/dratiux/FinalCode/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT"></a>
 </p>
 
-**v4.4.0**
+**v4.5.0**
 
-FinalCode is a context-aware production certification system. It runs a senior-engineering audit across 13 quality gates, automatically adapts certification requirements to project type, architecture, deployment target, and maturity, and produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
+FinalCode is a context-aware production certification system. It runs a senior-engineering audit across 13 quality gates, automatically adapts certification requirements to project type, architecture, deployment target, and maturity, and validates engineering decisions to distinguish defects from intentional trade-offs. Produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
 
-Engineering quality is universal. Certification requirements are contextual. The same repository may receive different certification requirements based on whether it is an Enterprise API, a Brand Website, an Internal Tool, or an Open Source Library — while identical engineering standards are maintained across all project types.
+Engineering quality is universal. Certification requirements are contextual. Not every deviation from best practice is a defect — FinalCode's Engineering Decision Validation Framework ensures intentional decisions and accepted trade-offs are recognized, not penalized.
 
 ## Project Status
 
@@ -144,6 +144,16 @@ FinalCode uses a Single Source of Truth (SSOT) architecture. All editable files 
 skills/finalcode/
 ├── SKILL.md                     # Skill specification
 ├── core/                        # Core engine layer
+│   ├── engineering-decision-engine.md     # Observation classification (v4.5.0)
+│   ├── decision-validation.md             # Intent validation (v4.5.0)
+│   ├── decision-confidence.md             # Decision confidence (v4.5.0)
+│   ├── tradeoff-registry.md               # Trade-off standardization (v4.5.0)
+│   ├── decision-explainability.md         # Recommendation explanation (v4.5.0)
+│   ├── recommendation-roi.md              # Recommendation ROI (v4.5.0)
+│   ├── engineering-recognition.md         # Engineering strengths (v4.5.0)
+│   ├── benchmark-intelligence.md          # Benchmark comparison (v4.5.0)
+│   ├── decision-timeline.md               # Decision history (v4.5.0)
+│   ├── engineering-intent-memory.md       # Intent persistence (v4.5.0)
 │   ├── project-classification-engine.md  # Repository classification (v4.4.0)
 │   ├── certification-profiles.md         # Certification profiles (v4.4.0)
 │   ├── adaptive-rule-engine.md           # Context-aware rule evaluation (v4.4.0)
