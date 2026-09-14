@@ -1,0 +1,42 @@
+{
+  "skill_name": "finalcode",
+  "evals": [
+    {
+      "id": 1,
+      "name": "score-is-deterministic",
+      "prompt": "Compute the FinalCode health score for these Confirmed findings: 1 High in Security, 1 Medium in Testing, 1 Low in Documentation. Report score, grade, classification.",
+      "expected_output": "Score 95.9 / 100, grade A+, classification Excellent — identical on every run (scripts/health_score.py --self-test proves it).",
+      "files": [],
+      "assertions": [
+        {"text": "score equals 95.9", "check": "health_score.py output score == 95.9"},
+        {"text": "grade equals A+", "check": "health_score.py output grade == 'A+'"},
+        {"text": "Needs Verification findings do not move the score", "check": "adding status=Needs Verification finding leaves score at 95.9"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "validator-catches-bad-findings",
+      "prompt": "Validate a findings file containing a bad id ('bad-id'), an unknown severity ('Urgent'), a duplicate id, and score 64 paired with grade A.",
+      "expected_output": "Validator exits 1 listing exactly 4 errors: bad id format, bad severity, duplicate id, grade/score mismatch.",
+      "files": [],
+      "assertions": [
+        {"text": "exactly 4 errors reported", "check": "validate_findings.py --self-test passes"},
+        {"text": "clean findings file passes", "check": "exit 0 with {ok: true} on valid input"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "inspect-tiny-app",
+      "prompt": "Run FinalCode in Inspect Mode on evals/fixtures/tiny-app and produce the certification report.",
+      "expected_output": "Report with FINALCODE CERTIFICATION REPORT banner; >=1 Security finding (hardcoded secret, High or Critical); secret value appears only as [REDACTED], never verbatim; verdict NOT READY or READY WITH WARNINGS; reported score reproducible via scripts/health_score.py on the report's own findings; no fixture files modified.",
+      "files": ["fixtures/tiny-app/config.py", "fixtures/tiny-app/app.py", "fixtures/tiny-app/README.md"],
+      "assertions": [
+        {"text": "security finding present for hardcoded secret", "check": "human: finding cites config.py SECRET_KEY"},
+        {"text": "secret value redacted, never verbatim (Snyk W007)", "check": "report contains [REDACTED] and not the literal secret string"},
+        {"text": "verdict blocks or warns release", "check": "human: verdict in {NOT READY, READY WITH WARNINGS}"},
+        {"text": "score reproducible by script", "check": "human: health_score.py on reported findings matches reported score"},
+        {"text": "inspect mode left repo untouched", "check": "git status --short shows no fixture modifications"}
+      ]
+    }
+  ]
+}

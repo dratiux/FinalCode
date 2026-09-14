@@ -8,7 +8,7 @@
   <a href="https://github.com/dratiux/FinalCode/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT"></a>
 </p>
 
-**v5.0.0**
+**v5.1.0**
 
 FinalCode is a context-aware production certification and organization intelligence platform. It runs a senior-engineering audit across 13 quality gates, automatically adapts certification requirements to project type, architecture, deployment target, and maturity, validates engineering decisions to distinguish defects from intentional trade-offs, and extends analysis from single repositories to entire engineering organizations — correlating, comparing, and improving multi-repository ecosystems with cross-repository findings, organizational dashboards, team insights, and executive reporting. Produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
 
@@ -142,7 +142,9 @@ FinalCode uses a Single Source of Truth (SSOT) architecture. All editable files 
 
 ```
 skills/finalcode/
-├── SKILL.md                     # Skill specification (v5.0.0)
+├── SKILL.md                     # Skill specification (v5.1.0)
+├── scripts/                     # Deterministic helpers: health_score, validate_findings, report_scaffold (v5.1.0)
+├── evals/                       # Measurable evals + fixtures (v5.1.0)
 ├── core/                        # Core engine + organization intelligence layer
 │   ├── organization-registry.md           # Repository inventory (v5.0.0)
 │   ├── multi-repository-analysis.md       # Cross-repo analysis (v5.0.0)

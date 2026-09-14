@@ -20,6 +20,8 @@ Production Audit inspects the repository before deployment to ensure it's produc
 
 ## Audit Checklist
 
+When checking secrets, verify presence, location, and handling — never read out or copy secret values. Findings cite the variable name plus file and line with the value as `[REDACTED]` (see `references/certification-rules.md` § Security Evidence Rules).
+
 ### Environment Variables
 
 | Check | Description | Status |

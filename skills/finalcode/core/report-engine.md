@@ -199,7 +199,7 @@ Every section uses the same formatting primitives:
 
 ## Report Template
 
-The complete report template is defined in the SKILL.md file. The Report Engine implements this template exactly. No sections may be added, removed, or reordered without updating both the template and this document.
+The complete report template is defined in `references/report-format.md`. The Report Engine implements this template exactly. No sections may be added, removed, or reordered without updating both the template and this document.
 
 ## Architecture Explainability
 

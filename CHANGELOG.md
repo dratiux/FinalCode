@@ -4,6 +4,25 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.0] - 2026-09-14
+
+### Security
+
+- **Secret redaction rule (fixes Snyk W007):** secret values (passwords, API keys, tokens, private keys, connection strings, env contents) must never appear verbatim in findings, reports, or chat output. Findings cite variable name plus file and line with the value as `[REDACTED]` (`skills/finalcode/references/certification-rules.md`, `skills/finalcode/SKILL.md`, `skills/finalcode/core/production-audit.md`).
+
+### Added
+
+- `skills/finalcode/scripts/` — deterministic helpers (stdlib only, each with `--self-test`): `health_score.py` (implements `references/health-score.md` as a pure function), `validate_findings.py` (Finding Format contract, exit 0/1), `report_scaffold.py` (timestamped skeleton parsed from `references/report-format.md`, never overwrites).
+- `skills/finalcode/evals/` — measurable evals (`evals.json`, 3 cases), `fixtures/tiny-app` fixture, `results.md` (iteration 1: 3/3 PASS).
+
+### Changed
+
+- `skills/finalcode/SKILL.md` slimmed from 2017 lines / 113 KB to ~120 lines / 13 KB: pure router (identity, modes, single Phase 0–6 pipeline, finding contract, verdicts, docs index) with verified pointers; all duplicated content removed (architecture diagram, 55-section lists, version history now live in their canonical docs).
+- Frontmatter description shortened (~300 → ~72 words).
+- `references/certification-rules.md`: imperatives rewritten with reasons; stale cross-references fixed; duplicate Health Score weights removed in favor of `references/health-score.md` as single source of truth.
+- `references/architecture.md`: SKILL.md Phase 0–6 pipeline declared canonical, with mapping from the component-level flow.
+- `core/report-engine.md`: report template source corrected to `references/report-format.md`.
+
 ## [5.0.0] - 2026-07-14
 
 ### Highlights

@@ -368,6 +368,8 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 ## Execution Flow
 
+The canonical execution model is the Phase 0–6 Pipeline in SKILL.md (single pipeline: Discovery → Decision validation → Understanding → Gates → Decision & policy → Act → Report & certify, plus multi-repo Phase 6). The steps below describe the same run at component granularity: 1–2 map to Pipeline Phase 0 setup, 3 maps to Phases 0–1, 4 maps to Phase 2, 5 maps to Phase 3, and 6–7 map to Phase 5.
+
 ### 1. Initialization
 
 ```

@@ -47,11 +47,11 @@ Every finding must have a stable, unique identifier. IDs follow the format `FC-<
 | Dependencies | DEP | FC-DEP-001 |
 | GitHub Readiness | GH | FC-GH-001 |
 
-IDs must remain stable across re-runs. Never renumber previous IDs. When a finding is fixed, its ID is recorded in `CHANGE_REPORT.md` with the resolution details.
+IDs must remain stable across re-runs — trend history, baselines, and `CHANGE_REPORT.md` all reference them, so renumbering would silently break traceability. When a finding is fixed, record its ID in `CHANGE_REPORT.md` with the resolution details.
 
 ## Severity Calibration
 
-Severity must reflect actual engineering impact. Never assume Engineering Recommendations are Low.
+Severity must reflect actual engineering impact, because severity drives the release-blocking decision — an inflated severity blocks a shippable release, a deflated one ships a real risk. Calibrate recommendations on their own merit instead of defaulting them to Low.
 
 | Severity | Meaning |
 |---|---|
@@ -65,11 +65,11 @@ Every severity must include justification explaining why that level was chosen b
 
 ## Evidence-Based Findings
 
-Every reported issue must be supported by objective evidence — file paths, line numbers, build output, type-check results, lint results, dependency analysis, accessibility inspection, runtime observations, static analysis, or UI inspection. Never report speculative findings. If sufficient evidence is unavailable, classify the finding as **Needs Verification** rather than a confirmed defect.
+Every reported issue must be supported by objective evidence — file paths, line numbers, build output, type-check results, lint results, dependency analysis, accessibility inspection, runtime observations, static analysis, or UI inspection. Speculative findings erode trust in the whole report and bury real issues, so when sufficient evidence is unavailable, classify the finding as **Needs Verification** rather than a confirmed defect.
 
 ## Fix Verification
 
-Never assume a fix is correct. Every applied fix (Repair Mode only) must be verified before being marked resolved, via one or more of: code inspection, successful build, successful type-check, successful lint, regression review, dependency validation, or UI consistency verification. If verification cannot be completed, clearly state that limitation in the report rather than marking the fix as confirmed.
+An unverified fix that gets marked resolved certifies broken code, so every applied fix (Repair Mode only) must be verified before being marked resolved, via one or more of: code inspection, successful build, successful type-check, successful lint, regression review, dependency validation, or UI consistency verification. If verification cannot be completed, state that limitation in the report instead of marking the fix as confirmed.
 
 ## Release Blocking Policy
 
@@ -83,7 +83,7 @@ Never assume a fix is correct. Every applied fix (Repair Mode only) must be veri
 
 ## Confidence Model 2.0
 
-FinalCode v1.8.1 replaces the single confidence number (and the older per-category breakdown) with a six-metric model where every metric states **why** it has that value. See the **Report Quality & Decision Support (v1.8.1)** section for the full definitions. The model is:
+FinalCode v1.8.1 replaces the single confidence number (and the older per-category breakdown) with a six-metric model where every metric states **why** it has that value. See `references/confidence-model.md` for the full definitions. The model is:
 
 | Metric | Meaning |
 |---|---|
@@ -139,7 +139,7 @@ Every report must clearly state what was verified and what was not performed. Us
 - Real-user Testing
 - Production Deployment Validation
 
-The assistant must never claim verification unless it was actually performed.
+Claim verification only for checks actually performed — a report that cries "verified" over untested ground gives the release decision false confidence.
 
 ## Certification Integrity
 
@@ -147,7 +147,7 @@ Every report must clearly state: FinalCode provides engineering certification ba
 
 ## Change Budget
 
-Always prefer the smallest safe modification. When multiple valid fixes exist, choose the one with the smallest patch, the lowest regression risk, preserved architecture, and the highest readability. Avoid unnecessary refactoring — this reinforces the Non-Goals, OpenCode Integration, and Repair Rules above.
+Always prefer the smallest safe modification. When multiple valid fixes exist, choose the one with the smallest patch, the lowest regression risk, preserved architecture, and the highest readability. Avoid unnecessary refactoring — cosmetic churn raises regression risk without fixing any verified defect.
 
 ## Regression Protection
 
@@ -155,25 +155,26 @@ After every applied fix: review the surrounding code, review related modules, re
 
 ## UI Evidence Requirements
 
-Every UI Consistency Gate finding must use this structure instead of the generic Finding Format: **Component**, **Objective Observation**, **Expected Behavior**, **User Impact**, **Recommended Correction**. Never report subjective design opinions, and never fail certification because of subjective UI preferences — only measurable usability or consistency issues (e.g. inconsistent spacing values across the same component, a contrast ratio below WCAG AA, a missing focus state).
+Every UI Consistency Gate finding must use this structure instead of the generic Finding Format: **Component**, **Objective Observation**, **Expected Behavior**, **User Impact**, **Recommended Correction**. Subjective design taste would make certification arbitrary and unappealable, so report only measurable usability or consistency issues (e.g. inconsistent spacing values across the same component, a contrast ratio below WCAG AA, a missing focus state) — and fail certification only on those.
 
 ## Security Gate 2.0
 
-The Security Gate's checklist is significantly expanded — covering authentication, authorization, session management, input validation, secrets management, dependency security, API security, frontend security, backend security, deployment security, cloud configuration, rate limiting, security headers, and environment configuration. See `references/security-gate.md` for the full checklist; every audit must apply it in full, not just the condensed summary in the Phase 2 table. Every discovered vulnerability must report: Severity, CVE category (if applicable), Affected Files, Attack Vector, Potential Impact, Recommended Mitigation, Verification Method. Every report must also include a FinalCode Security Report with a per-category rating and an overall Security Rating (A+ through F) — see the report format below.
+The Security Gate's checklist is significantly expanded — covering authentication, authorization, session management, input validation, secrets management, dependency security, API security, frontend security, backend security, deployment security, cloud configuration, rate limiting, security headers, and environment configuration. See `references/security-gate.md` for the full checklist; every audit applies it in full. Every discovered vulnerability must report: Severity, CVE category (if applicable), Affected Files, Attack Vector, Potential Impact, Recommended Mitigation, Verification Method. Every report also includes a FinalCode Security Report with a per-category rating and an overall Security Rating (A+ through F) — see `references/report-format.md`.
 
 ## Security Evidence Rules
 
-Never report a category as **clean** unless objective evidence exists to support that conclusion.
+A category marked **clean** without evidence is the most dangerous output this system can produce, so report a category as clean only with objective evidence behind the claim.
+
+**Secret redaction:** secret values (passwords, API keys, tokens, private keys, connection strings, env var contents) must never appear verbatim in findings, reports, or chat output. Reports persist to `.finalcode/` files and chat logs where a pasted secret becomes a leaked secret, so cite the variable name plus file and line only (e.g. `SECRET_KEY in config.py:1 — value [REDACTED]`) and describe the pattern (hardcoded, logged, committed), never the value.
 
 Differentiate between **Verified** and **Assumed** security status:
 
 - If dependency scanners were not executed, state: "Dependency vulnerability scan not executed. Static repository inspection found no obvious vulnerable patterns."
 - If runtime security testing was not performed, state it explicitly.
-- Never claim a clean security posture without evidence.
 
 ## Root Cause Intelligence
 
-Every finding must include a **Root Cause Classification** and a **Preventive Recommendation**. Never leave Root Cause blank.
+Every finding must include a **Root Cause Classification** and a **Preventive Recommendation** — a finding without a root cause will recur, and prevention guidance is the whole point of recording it.
 
 **Root Cause Classification** (exactly one):
 
@@ -190,7 +191,7 @@ Every finding must include a **Root Cause Classification** and a **Preventive Re
 | Technical Debt | Accumulated shortcuts or deferred improvements |
 | Legacy Code | Outdated code that needs modernization |
 
-**Preventive Recommendation:** explain how to prevent recurrence of this class of issue. Never leave blank — every finding must include actionable prevention guidance.
+**Preventive Recommendation:** explain how to prevent recurrence of this class of issue. Every finding includes actionable prevention guidance, because a report that only names bugs without preventing the next ones adds little lasting value.
 
 ## Repair Quality Assessment
 
@@ -237,45 +238,13 @@ Every Inspect and Certify report must include an **Engineering Metrics** section
 | Build Success | Pass / Fail |
 | Type Check | Pass / Fail / Not Configured |
 
-Where measurement cannot be performed, state **Not Measured**. Never fabricate values.
+Where measurement cannot be performed, state **Not Measured** — an honest gap is actionable, while a fabricated metric silently destroys the report's credibility.
 
 ## Repository Health Score
 
-Every report must include a **Repository Health Score** — a composite score from 0 to 100 measuring overall repository quality.
+Every report must include a **Repository Health Score** (0–100). The formula, exact category weights, grade bands, and explanation format are defined once in `references/health-score.md` — compute it with `scripts/health_score.py`, never by hand, so the score stays reproducible. Display: `Health Score: 94 / 100 (Excellent)`.
 
-**Score Range:** 0–100
-
-**Classification:**
-
-| Range | Classification |
-|---|---|
-| 90–100 | Excellent |
-| 75–89 | Good |
-| 50–74 | Fair |
-| 0–49 | Poor |
-
-**Weighted Categories:**
-
-| Category | Weight |
-|---|---|
-| Security | High |
-| Architecture | High |
-| Maintainability | High |
-| Performance | Medium |
-| Documentation | Medium |
-| Accessibility | Medium |
-| Testing | High |
-| Type Safety | Medium |
-| GitHub Readiness | Low |
-| Dead Code | Low |
-
-**Display:**
-
-```
-Health Score: 94 / 100 (Excellent)
-```
-
-Explain the calculation. This is independent from Confidence — Confidence measures audit certainty; Health Score measures repository quality.
+Health Score measures repository quality; Confidence measures audit certainty. Keep the two independent.
 
 ## Historical Trend Analysis
 
@@ -311,7 +280,7 @@ Tech Debt:   High →  Med → Low
 Health:       71  →  85  →  94
 ```
 
-Never overwrite previous history. Always append.
+History is the trend signal, so append every snapshot and keep all previous ones — overwriting destroys the evolution story.
 
 ## Baseline Analysis
 
@@ -339,4 +308,4 @@ Testing:      +15   (45 → 60)
 Dead Code:    -42%  (28 files → 16 files)
 ```
 
-Only generate BASELINE.md once. Never overwrite it.
+Generate `.finalcode/BASELINE.md` only on the first execution and keep it immutable afterwards — the baseline is the fixed comparison point, and moving it rewrites history.
