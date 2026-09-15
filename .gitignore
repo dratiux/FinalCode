@@ -62,3 +62,10 @@ pnpm-lock.yaml
 .agents/
 skills-lock.json
 
+# Python bytecode (skill scripts are stdlib-only; imports/tests generate these)
+__pycache__/
+*.pyc
+
+# Trial transcripts (summarized in skills/finalcode/evals/results.md; kept locally only)
+skills/finalcode/evals/iteration-*/
+

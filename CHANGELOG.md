@@ -4,6 +4,16 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.1] - 2026-09-14
+
+### Fixed
+
+- `references/examples.md`: grade for score 64 corrected D → C to match the grade table (found by fresh-agent trial).
+- `references/security-gate.md`: committed credential anchored at Critical by default — trial runs varied between High and Critical for the same secret.
+- `scripts/health_score.py`: Dead Code deductions now flow into Maintainability per the documented footnote (previously a 0%-bucket gap); self-test extended.
+- `skills/finalcode/SKILL.md`: read-only modes write `.finalcode/` artifacts to the caller's workspace, never inside the audited repository.
+- `references/certification-rules.md`: Not-Configured checks are recorded as Not Verifiable — they cap Verification Coverage instead of counting as verified.
+
 ## [5.1.0] - 2026-09-14
 
 ### Security

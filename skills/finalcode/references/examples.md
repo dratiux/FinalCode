@@ -785,7 +785,7 @@ How to Gain the Next 5 Points (target: 69):
   3. Add architecture documentation (+1.5 points)
   Total potential gain: +8.0 points (to 72; exceeds target)
 
-REPOSITORY QUALITY GRADE: D (64 → D range 50–59)
+REPOSITORY QUALITY GRADE: C (64 → C range 60–69)
 
 Reason:
   Fair architecture — some circular dependencies detected.

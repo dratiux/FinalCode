@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 5.1.0
+Version: 5.1.1
 
 ## Identity
 
@@ -47,7 +47,7 @@ Execute in order; never skip Discovery before auditing. Load the referenced docu
 | 2. Gate execution | Run the 13 Quality Gates (§ Quality Gates) plus Security Gate 2.0; correlate related findings into root causes instead of listing symptoms | `references/gates.md`, `references/security-gate.md`, `core/correlation-engine.md` |
 | 3. Decision & policy | Classify severity and release impact per finding; apply active policy (config > profile default > flag > `POLICY-DEFAULT`) | `core/decision-engine.md`, `core/policy-engine.md`, `core/rule-registry.md`, `references/finding-classification.md` |
 | 4. Act (Repair/Refactor only) | Apply fix, then verify via the pipeline in `core/workflow-verification.md` (typecheck, lint, tests, build). A fix that weakens a test to make the suite pass is a failure, not a fix. | `core/workflow-verification.md` |
-| 5. Report & certify | Emit the report (§ Report), health score, verdict, and exit code; append trend snapshot (create `.finalcode/BASELINE.md` on first run only; never overwrite files in `.finalcode/reports/`) | `references/report-format.md`, `references/health-score.md`, `references/confidence-model.md` |
+| 5. Report & certify | Emit the report (§ Report), health score, verdict, and exit code; append trend snapshot (create `.finalcode/BASELINE.md` on first run only; never overwrite files in `.finalcode/reports/`). In read-only modes artifacts go to the caller's workspace, never inside the audited repository | `references/report-format.md`, `references/health-score.md`, `references/confidence-model.md` |
 | 6. Organization (multi-repo only) | Only when more than one repository is in scope: correlate cross-repo findings, shared libraries, API contracts, standardization, team insights, executive summary | `core/multi-repository-analysis.md`, `core/engineering-organization-dashboard.md`, `core/executive-reporting.md` |
 
 Rule details (lifecycle, versioning, verification steps, false-positive patterns, framework knowledge): `core/rule-registry.md`, `references/false-positive-reduction.md`, `references/knowledge-base.md`. Learning from past decisions and capability selection: `core/learning-engine.md`, `core/capability-selection.md`.
@@ -87,7 +87,7 @@ FinalCode does not guarantee absence of bugs — the verdict states what was ins
 - **Inspect and Certify are read-only.** No code changes in these modes.
 - **Change budget:** smallest modification that fixes the verified defect; no cosmetic refactors bundled in; no framework/library/architecture replacement without explicit request or a hard vulnerability with no in-place fix.
 - **Regression protection:** review surrounding code after every fix and run the verification pipeline before marking resolved.
-- **Runtime artifacts:** `.finalcode/` is created on first execution that needs it, never during installation.
+- **Runtime artifacts:** `.finalcode/` is created on first execution that needs it, never during installation — and in Inspect/Certify modes it lives in the caller's workspace, never inside the audited repository (read-only means read-only).
 - **Engineering recognition:** call out verified strengths per category, not just defects (`core/engineering-recognition.md`).
 
 ## Docs Index

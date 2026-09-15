@@ -65,6 +65,10 @@ def calculate(findings, weights=None):
         pts = DEDUCTIONS[sev]
         cats[cat]["deduction"] += pts
         cats[cat]["count"] += 1
+        if cat == "Dead Code":
+            # health-score.md footnote: dead code carries 0% weight of its own
+            # and contributes via Maintainability instead.
+            cats["Maintainability"]["deduction"] += pts
         deductions.append({"finding": f.get("id"), "category": cat,
                            "severity": sev, "points": pts})
     breakdown, total = {}, 0.0
@@ -104,6 +108,11 @@ def self_test():
     assert r["grade"] == "A+" and r["classification"] == "Excellent"
     assert r["categories"]["Dead Code"] == {"score": 100, "weight": 0,
                                             "contribution": 0.0, "findings": 0}
+    r2 = calculate(findings + [{"id": "FC-DEAD-1", "category": "Dead Code",
+                                "severity": "Medium", "status": "Confirmed"}])
+    assert r2["categories"]["Dead Code"]["score"] == 92
+    assert r2["categories"]["Maintainability"]["score"] == 92  # shared deduction
+    assert r2["score"] == 94.7, r2["score"]
     print("health_score self-test OK (95.9 / A+)")
 
 

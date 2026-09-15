@@ -56,6 +56,8 @@ Every discovered vulnerability must report: **Severity**, **CVE Category** (if a
 - Secret leakage
 - Hardcoded secrets
 
+**Severity anchor:** a credential committed to source is **Critical** — it is exposed to everyone with read access to the repository, not just to production attackers. Downgrade only with evidence the value is fake, revoked, or unreachable.
+
 ## Dependency Security
 - Known vulnerable packages
 - Deprecated packages

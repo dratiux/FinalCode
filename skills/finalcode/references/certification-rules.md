@@ -69,7 +69,7 @@ Every reported issue must be supported by objective evidence — file paths, lin
 
 ## Fix Verification
 
-An unverified fix that gets marked resolved certifies broken code, so every applied fix (Repair Mode only) must be verified before being marked resolved, via one or more of: code inspection, successful build, successful type-check, successful lint, regression review, dependency validation, or UI consistency verification. If verification cannot be completed, state that limitation in the report instead of marking the fix as confirmed.
+An unverified fix that gets marked resolved certifies broken code, so every applied fix (Repair Mode only) must be verified before being marked resolved, via one or more of: code inspection, successful build, successful type-check, successful lint, regression review, dependency validation, or UI consistency verification. If verification cannot be completed, state that limitation in the report instead of marking the fix as confirmed. Checks that are Not Configured (no test runner, no type-checker, no build) are recorded as Not Verifiable — they cap Verification Coverage instead of counting as verified.
 
 ## Release Blocking Policy
 
