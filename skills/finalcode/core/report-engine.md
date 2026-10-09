@@ -249,6 +249,7 @@ The complete report template is defined in `references/report-format.md`. The Re
 - `references/confidence-model.md` — provides confidence metrics
 - `references/explainability.md` — defines explainability requirements
 - `references/examples.md` — provides formatting examples
+- `references/maturity-model.md` — provides maturity assessment for §57 Repository Maturity Assessment
 
 ### Used By
 

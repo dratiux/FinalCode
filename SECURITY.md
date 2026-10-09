@@ -20,11 +20,9 @@ You should receive a response within 48 hours. If you do not, follow up to confi
 
 | Version | Supported |
 |---------|-----------|
-| 2.1.x | Yes |
-| 2.0.x | Yes |
-| 1.9.x | Yes |
-| 1.8.x | Yes |
-| < 1.8 | No |
+| 5.1.x | Yes |
+| 5.0.x | Yes |
+| < 5.0 | No |
 
 Security patches are applied to the current major version and the previous two minor versions.
 

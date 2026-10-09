@@ -37,6 +37,18 @@
         {"text": "score reproducible by script", "check": "human: health_score.py on reported findings matches reported score"},
         {"text": "inspect mode left repo untouched", "check": "git status --short shows no fixture modifications"}
       ]
+    },
+    {
+      "id": 4,
+      "name": "organization-two-repos",
+      "prompt": "Run FinalCode Phase 6 organization analysis on benchmarks/benchmarks/react-small + benchmarks/benchmarks/react-large (two repos in scope) and produce cross-repo correlation with executive summary.",
+      "expected_output": "Report with FINALCODE CERTIFICATION REPORT banner plus Phase 6 section; cross-repo finding correlation present; per-repo verdicts preserved (react-small READY TO SHIP); executive summary present; no benchmark files modified.",
+      "files": [],
+      "assertions": [
+        {"text": "phase 6 section present", "check": "human: report contains multi-repository / organization section"},
+        {"text": "per-repo verdicts preserved", "check": "human: react-small verdict still READY TO SHIP"},
+        {"text": "read-only, benchmarks untouched", "check": "git status --short shows no benchmark modifications"}
+      ]
     }
   ]
 }

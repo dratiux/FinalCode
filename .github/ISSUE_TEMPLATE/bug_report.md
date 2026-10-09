@@ -26,7 +26,7 @@ What actually happened.
 
 ## Environment
 
-- OpenCode version:
+- AI agent and version:
 - Operating system:
 - Repository being audited (if applicable):
 

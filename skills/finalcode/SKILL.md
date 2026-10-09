@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 5.1.1
+Version: 5.2.0
 
 ## Identity
 
@@ -101,9 +101,10 @@ Load on demand — SKILL.md orchestrates, the documents below do the work. Syste
 | Decision validation (intent, trade-offs, ROI, recognition, timeline) | Phase 0.5 | `core/engineering-decision-engine.md`, `core/decision-*.md`, `core/tradeoff-registry.md`, `core/recommendation-roi.md`, `core/engineering-recognition.md` |
 | Analysis (correlation, debt, architecture, API, CI/CD, risks) | Phase 1–2 | `core/correlation-engine.md`, `core/technical-debt-analyzer.md`, `core/architecture-*.md`, `core/api-contract.md`, `core/cicd-audit.md`, `core/continuous-risk.md` |
 | Learning & capability (history, optimization, policies, workflows) | After execution | `core/learning-engine.md`, `core/decision-history.md`, `core/capability-*.md`, `core/policy-*.md`, `core/workflow-*.md` |
+| Capability library (legacy v3.x–v4.x, on demand) | Deep dive only | `core/adaptive-decision.md`, `core/api-ecosystem-analysis.md`, `core/approval-gate.md`, `core/autonomous-recommendations.md`, `core/benchmark-intelligence.md`, `core/change-impact.md`, `core/continuous-improvement.md`, `core/continuous-roadmap.md`, `core/cross-file-refactor.md`, `core/custom-policies.md`, `core/database-consistency.md`, `core/debt-timeline.md`, `core/dependency-graph-v2.md`, `core/dependency-impact.md`, `core/documentation-refactoring.md`, `core/engineering-context-report.md`, `core/engineering-hotspots.md`, `core/engineering-intent-memory.md`, `core/engineering-knowledge-base.md`, `core/engineering-mission.md`, `core/engineering-review.md`, `core/engineering-timeline.md`, `core/engineering-trend.md`, `core/execution-sessions.md`, `core/false-positive-reduction-v2.md`, `core/goal-planning.md`, `core/improvement-forecast.md`, `core/knowledge-evolution.md`, `core/learning-dashboard.md`, `core/mission-dashboard.md`, `core/objective-tracking.md`, `core/planning-engine.md`, `core/platform-standardization.md`, `core/project-lifecycle.md`, `core/recommendation-learning.md`, `core/regression-prediction.md`, `core/release-evolution.md`, `core/release-governance.md`, `core/release-intelligence.md`, `core/repository-consistency.md`, `core/repository-evolution-intelligence.md`, `core/repository-relationship-engine.md`, `core/rollback-planning.md`, `core/shared-library-discovery.md`, `core/task-queue.md` |
 | Organization (multi-repo) | Phase 6 | `core/organization-*.md`, `core/multi-repository-analysis.md`, `core/team-engineering-insights.md`, `core/executive-reporting.md` |
 | Plugins & frameworks | Framework detected / extension needed | `plugins/sdk.md`, `plugins/profiles.md`, `plugins/marketplace.md` |
-| Rules & formats | During audit/report | `references/certification-rules.md`, `references/report-format.md`, `references/gates.md`, `references/security-gate.md`, `references/finding-classification.md`, `references/explainability.md`, `references/health-score.md`, `references/confidence-model.md`, `references/configuration.md`, `references/examples.md` |
+| Rules & formats | During audit/report | `references/certification-rules.md`, `references/report-format.md`, `references/gates.md`, `references/security-gate.md`, `references/finding-classification.md`, `references/explainability.md`, `references/health-score.md`, `references/confidence-model.md`, `references/configuration.md`, `references/examples.md`, `references/maturity-model.md` |
 
 Before executing, self-validate Core consistency and stop if inconsistent: duplicate rule IDs, duplicate finding IDs, missing references, invalid profiles, broken plugin registrations, invalid report sections, inconsistent policies.
 

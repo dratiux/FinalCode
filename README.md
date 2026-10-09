@@ -2,13 +2,13 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
+# FinalCode
+
 <p align="center">
   <a href="https://www.skills.sh/b/dratiux/FinalCode"><img src="https://www.skills.sh/b/dratiux/FinalCode" alt="Skills"></a>
   <a href="https://github.com/dratiux/FinalCode/releases"><img src="https://img.shields.io/github/v/release/dratiux/FinalCode" alt="Release"></a>
   <a href="https://github.com/dratiux/FinalCode/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT"></a>
 </p>
-
-**v5.1.1**
 
 FinalCode is a context-aware production certification and organization intelligence platform. It runs a senior-engineering audit across 13 quality gates, automatically adapts certification requirements to project type, architecture, deployment target, and maturity, validates engineering decisions to distinguish defects from intentional trade-offs, and extends analysis from single repositories to entire engineering organizations — correlating, comparing, and improving multi-repository ecosystems with cross-repository findings, organizational dashboards, team insights, and executive reporting. Produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
 
@@ -142,9 +142,9 @@ FinalCode uses a Single Source of Truth (SSOT) architecture. All editable files 
 
 ```
 skills/finalcode/
-├── SKILL.md                     # Skill specification (v5.1.1)
+├── SKILL.md                     # Skill specification (v5.2.0)
 ├── scripts/                     # Deterministic helpers: health_score, validate_findings, report_scaffold (v5.1.0)
-├── evals/                       # Measurable evals + fixtures (v5.1.0)
+├── evals/                       # Measurable evals + fixtures (v5.2.0, 4 evals)
 ├── core/                        # Core engine + organization intelligence layer
 │   ├── organization-registry.md           # Repository inventory (v5.0.0)
 │   ├── multi-repository-analysis.md       # Cross-repo analysis (v5.0.0)
@@ -285,6 +285,12 @@ See [SUPPORT.md](SUPPORT.md) for troubleshooting.
 
 MIT License. See [LICENSE](LICENSE).
 
-## Credits
+---
 
-Created by Dratiux. Built for the Skills ecosystem.
+<p align="center">
+  <br>
+  <sub>CRAFTED WITH CARE BY DRATIUX</sub>
+  <br><br>
+  <a href="https://paypal.me/dratiux"><img src="https://img.shields.io/badge/PayPal-F2F2F2?logo=paypal&logoColor=003087&style=flat" alt="PayPal"></a>
+  <a href="https://ko-fi.com/dratiux"><img src="https://img.shields.io/badge/Ko--fi-F2F2F2?logo=ko-fi&logoColor=FF5E5B&style=flat" alt="Ko-fi"></a>
+</p>

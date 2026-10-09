@@ -14,7 +14,7 @@
     "production-ready",
     "intentionally-broken"
   ],
-  "rulesValidated": 0,
-  "gatesValidated": 0,
-  "frameworksValidated": 0
+  "rulesValidated": 8,
+  "gatesValidated": 13,
+  "frameworksValidated": 6
 }

@@ -4,6 +4,19 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.0] - 2026-10-09
+
+### Added
+
+- `benchmarks/benchmarks/{cloudflare-worker,express-api,next-production,node-api,production-ready,typescript-library}/` — missing `expected-findings.json` + `golden-report.md` added (all READY TO SHIP, Low-only recommendations); suite is now 9/9 complete.
+- `skills/finalcode/evals/evals.json` — eval 4 `organization-two-repos`: Phase 6 analysis on react-small + react-large, cross-repo correlation + executive summary, read-only.
+- `skills/finalcode/SKILL.md` Docs Index — new `Capability library (legacy v3.x–v4.x, on demand)` row routing all 45 previously-unrouted core docs; `references/maturity-model.md` added to Rules & formats.
+- `skills/finalcode/core/report-engine.md` — Related Documents now links `references/maturity-model.md` for §57 Repository Maturity Assessment.
+
+### Fixed
+
+- `benchmarks/metadata.json`: `rulesValidated` 0 → 8, `gatesValidated` 0 → 13, `frameworksValidated` 0 → 6 to match `benchmarks/coverage.json`.
+
 ## [5.1.1] - 2026-09-14
 
 ### Fixed
