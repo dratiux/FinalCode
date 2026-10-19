@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "validate": { "command": "python3 benchmarks/scripts/validate-regression.py" }
+  },
+  "metadataGeneration": {
+    "branchName": { "instructions": "Prefix branches with feat/ or fix/ and a short kebab-case description (e.g. fix/severity-anchor). No personal prefixes." },
+    "commitMessage": { "instructions": "Use Conventional Commits with a scope, matching repo history: feat(finalcode): vN.N.N — <summary> for releases; fix(<area>): <what changed> otherwise." },
+    "pullRequest": { "instructions": "Describe the change and why. Per CONTRIBUTING, changes belong in skills/finalcode/ only. Include a Test plan section listing the validate script results." }
+  }
+}
