@@ -4,6 +4,18 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.0] - 2026-11-13
+
+### Added
+
+- `skills/finalcode/scripts/validate_skill_integrity.py` — deterministic integrity validation (stdlib, `--self-test`): scans SKILL.md and all documents for broken references, orphaned files, and outdated version declarations; broken refs/orphans are errors, outdated versions informational warnings. Mandated in SKILL.md self-validation.
+- Multi-model determinism evaluation: `scripts/compare_eval_runs.py` (stdlib, `--self-test`) analyzes eval run logs across models on the `tiny-app` fixture and the 9 benchmarks, reporting Severity Drift, Phase 0.5 Classification Drift (Confirmed Defect vs Accepted Trade-off), and Score Variance; `evals/evals.json` extended with `run_log_schema` + eval 5 `multi-model-determinism`; `evals/runs.json` canonical run-log store populated from the iteration-2 baseline.
+- `references/capabilities-registry.md` + `references/workflows.md` — unified registries absorbing the 11 capability and 7 workflow documents (sources archived under `archive/core/`).
+
+### Changed
+
+- `core/decision-engine.md` — engineering decision engine consolidated into it as Phase 0.5 — Observation Classification; `architecture.md`, SKILL.md Docs Index, and `core/rule-registry.md` updated to v5.3.0.
+
 ## [5.2.0] - 2026-10-09
 
 ### Added

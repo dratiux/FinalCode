@@ -64,12 +64,17 @@ The `detection` object specifies how the rule is checked:
 
 ## Rule Registry Format
 
-The Rule Registry is a JSON file at `skills/finalcode/core/rule-registry.json`:
+Rules are canonically documented in the core and reference markdown documents
+(the Quality Gate checklists in `references/gates.md` and `references/security-gate.md`,
+and the lifecycle/format rules in this file). The JSON format below is the
+machine-readable serialization used when a registry is exported or when a plugin
+declares its rules (see `plugins/sdk.md`); a standalone `rule-registry.json` is
+not required by core execution:
 
 ```json
 {
-  "version": "2.0.0",
-  "lastUpdated": "2026-07-09",
+  "version": "5.3.0",
+  "lastUpdated": "2026-10-09",
   "rules": [
     {
       "ruleId": "RULE-SEC-001",

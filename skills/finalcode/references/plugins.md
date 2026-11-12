@@ -100,7 +100,11 @@ FinalCode ships guidance (not enforced code) for common ecosystems. Each is acti
 
 ## Writing a Plugin (Example: React)
 
-`plugins/react/plugin.json`:
+The following is a **conceptual example** of a plugin layout. The `react/` plugin
+directory is not shipped with FinalCode — the paths below show the convention a
+plugin must follow, not files that exist in this repository:
+
+`plugins/<plugin-name>/plugin.json` (example layout):
 
 ```json
 {
@@ -113,7 +117,7 @@ FinalCode ships guidance (not enforced code) for common ecosystems. Each is acti
 }
 ```
 
-`plugins/react/checks.md` (loaded when active):
+`plugins/<plugin-name>/checks.md` (loaded when the plugin is active):
 
 ```markdown
 # React Best-Practices Gate (plugin: react)

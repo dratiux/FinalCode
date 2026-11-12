@@ -6,7 +6,7 @@ description: >-
 
 # FinalCode
 
-Version: 5.2.0
+Version: 5.3.0
 
 ## Identity
 
@@ -42,15 +42,15 @@ Execute in order; never skip Discovery before auditing. Load the referenced docu
 | Phase | What happens | Reference |
 |---|---|---|
 | 0. Discovery | Classify project type, architecture, stack, runtime, deployment target, maturity, intent; select certification profile; load applicable rules (Always Required / Context Required / Optional / Ignored) and record skipped rules with reasons | `core/project-classification-engine.md`, `core/certification-profiles.md`, `core/adaptive-rule-engine.md`, `core/rule-applicability.md` |
-| 0.5 Decision validation | Before reporting anything, classify each observation: Confirmed Defect, Engineering Recommendation, Architecture Decision, Accepted Trade-off, Contextual Constraint, Intentional Simplification, or Unknown. Intentional engineering is never reported as a defect. Record confidence, evidence strength, alternatives, and ROI | `core/engineering-decision-engine.md`, `core/decision-validation.md`, `core/decision-confidence.md`, `core/tradeoff-registry.md`, `core/decision-explainability.md`, `core/recommendation-roi.md` |
+| 0.5 Decision validation | Before reporting anything, classify each observation: Confirmed Defect, Engineering Recommendation, Architecture Decision, Accepted Trade-off, Contextual Constraint, Intentional Simplification, or Unknown. Intentional engineering is never reported as a defect. Record confidence, evidence strength, alternatives, and ROI | `core/decision-engine.md` (§ Phase 0.5), `core/decision-validation.md`, `core/decision-confidence.md`, `core/tradeoff-registry.md`, `core/decision-explainability.md`, `core/recommendation-roi.md` |
 | 1. Project understanding | Detect frameworks, languages, build system, package manager, entry points, tests, CI/CD, config | `core/repository-intelligence.md`, framework profile in `plugins/profiles.md` |
 | 2. Gate execution | Run the 13 Quality Gates (§ Quality Gates) plus Security Gate 2.0; correlate related findings into root causes instead of listing symptoms | `references/gates.md`, `references/security-gate.md`, `core/correlation-engine.md` |
 | 3. Decision & policy | Classify severity and release impact per finding; apply active policy (config > profile default > flag > `POLICY-DEFAULT`) | `core/decision-engine.md`, `core/policy-engine.md`, `core/rule-registry.md`, `references/finding-classification.md` |
-| 4. Act (Repair/Refactor only) | Apply fix, then verify via the pipeline in `core/workflow-verification.md` (typecheck, lint, tests, build). A fix that weakens a test to make the suite pass is a failure, not a fix. | `core/workflow-verification.md` |
+| 4. Act (Repair/Refactor only) | Apply fix, then verify via the pipeline in `references/workflows.md` (§ Verification) (typecheck, lint, tests, build). A fix that weakens a test to make the suite pass is a failure, not a fix. | `references/workflows.md` (§ Verification) |
 | 5. Report & certify | Emit the report (§ Report), health score, verdict, and exit code; append trend snapshot (create `.finalcode/BASELINE.md` on first run only; never overwrite files in `.finalcode/reports/`). In read-only modes artifacts go to the caller's workspace, never inside the audited repository | `references/report-format.md`, `references/health-score.md`, `references/confidence-model.md` |
 | 6. Organization (multi-repo only) | Only when more than one repository is in scope: correlate cross-repo findings, shared libraries, API contracts, standardization, team insights, executive summary | `core/multi-repository-analysis.md`, `core/engineering-organization-dashboard.md`, `core/executive-reporting.md` |
 
-Rule details (lifecycle, versioning, verification steps, false-positive patterns, framework knowledge): `core/rule-registry.md`, `references/false-positive-reduction.md`, `references/knowledge-base.md`. Learning from past decisions and capability selection: `core/learning-engine.md`, `core/capability-selection.md`.
+Rule details (lifecycle, versioning, verification steps, false-positive patterns, framework knowledge): `core/rule-registry.md`, `references/false-positive-reduction.md`, `references/knowledge-base.md`. Learning from past decisions and capability selection: `core/learning-engine.md`, `references/capabilities-registry.md` (§ Capability Selection).
 
 ## Quality Gates
 
@@ -98,15 +98,21 @@ Load on demand — SKILL.md orchestrates, the documents below do the work. Syste
 |---|---|---|
 | Core engine (decision, policy, rules, report, certification) | Phase 3–5 | `core/decision-engine.md`, `core/policy-engine.md`, `core/rule-registry.md`, `core/report-engine.md`, `core/certification-engine.md` |
 | Context-aware (classification, profiles, adaptive rules, intent, memory) | Phase 0 | `core/project-classification-engine.md`, `core/certification-profiles.md`, `core/adaptive-rule-engine.md`, `core/repository-intent-detection.md`, `core/context-memory.md`, plus `core/context-*.md` |
-| Decision validation (intent, trade-offs, ROI, recognition, timeline) | Phase 0.5 | `core/engineering-decision-engine.md`, `core/decision-*.md`, `core/tradeoff-registry.md`, `core/recommendation-roi.md`, `core/engineering-recognition.md` |
+| Decision validation (intent, trade-offs, ROI, recognition, timeline) | Phase 0.5 | `core/decision-engine.md` (§ Phase 0.5), `core/decision-*.md`, `core/tradeoff-registry.md`, `core/recommendation-roi.md`, `core/engineering-recognition.md` |
 | Analysis (correlation, debt, architecture, API, CI/CD, risks) | Phase 1–2 | `core/correlation-engine.md`, `core/technical-debt-analyzer.md`, `core/architecture-*.md`, `core/api-contract.md`, `core/cicd-audit.md`, `core/continuous-risk.md` |
-| Learning & capability (history, optimization, policies, workflows) | After execution | `core/learning-engine.md`, `core/decision-history.md`, `core/capability-*.md`, `core/policy-*.md`, `core/workflow-*.md` |
+| Learning & capability (history, optimization, policies, capabilities, workflows) | After execution | `core/learning-engine.md`, `core/decision-history.md`, `references/capabilities-registry.md`, `references/workflows.md`, `core/policy-*.md` |
 | Capability library (legacy v3.x–v4.x, on demand) | Deep dive only | `core/adaptive-decision.md`, `core/api-ecosystem-analysis.md`, `core/approval-gate.md`, `core/autonomous-recommendations.md`, `core/benchmark-intelligence.md`, `core/change-impact.md`, `core/continuous-improvement.md`, `core/continuous-roadmap.md`, `core/cross-file-refactor.md`, `core/custom-policies.md`, `core/database-consistency.md`, `core/debt-timeline.md`, `core/dependency-graph-v2.md`, `core/dependency-impact.md`, `core/documentation-refactoring.md`, `core/engineering-context-report.md`, `core/engineering-hotspots.md`, `core/engineering-intent-memory.md`, `core/engineering-knowledge-base.md`, `core/engineering-mission.md`, `core/engineering-review.md`, `core/engineering-timeline.md`, `core/engineering-trend.md`, `core/execution-sessions.md`, `core/false-positive-reduction-v2.md`, `core/goal-planning.md`, `core/improvement-forecast.md`, `core/knowledge-evolution.md`, `core/learning-dashboard.md`, `core/mission-dashboard.md`, `core/objective-tracking.md`, `core/planning-engine.md`, `core/platform-standardization.md`, `core/project-lifecycle.md`, `core/recommendation-learning.md`, `core/regression-prediction.md`, `core/release-evolution.md`, `core/release-governance.md`, `core/release-intelligence.md`, `core/repository-consistency.md`, `core/repository-evolution-intelligence.md`, `core/repository-relationship-engine.md`, `core/rollback-planning.md`, `core/shared-library-discovery.md`, `core/task-queue.md` |
 | Organization (multi-repo) | Phase 6 | `core/organization-*.md`, `core/multi-repository-analysis.md`, `core/team-engineering-insights.md`, `core/executive-reporting.md` |
-| Plugins & frameworks | Framework detected / extension needed | `plugins/sdk.md`, `plugins/profiles.md`, `plugins/marketplace.md` |
+| Plugins & frameworks | Framework detected / extension needed | `plugins/sdk.md`, `plugins/profiles.md`, `plugins/marketplace.md`, `references/plugins.md`, `references/extension-contract-schema.md`, `references/knowledge-base-react.md`, `references/knowledge-base-nextjs.md`, `references/knowledge-base-nodejs.md`, `references/knowledge-base-typescript.md` |
 | Rules & formats | During audit/report | `references/certification-rules.md`, `references/report-format.md`, `references/gates.md`, `references/security-gate.md`, `references/finding-classification.md`, `references/explainability.md`, `references/health-score.md`, `references/confidence-model.md`, `references/configuration.md`, `references/examples.md`, `references/maturity-model.md` |
 
-Before executing, self-validate Core consistency and stop if inconsistent: duplicate rule IDs, duplicate finding IDs, missing references, invalid profiles, broken plugin registrations, invalid report sections, inconsistent policies.
+Before executing, self-validate Core consistency and stop if inconsistent: duplicate rule IDs, duplicate finding IDs, missing references, invalid profiles, broken plugin registrations, invalid report sections, inconsistent policies. Run the deterministic integrity check first:
+
+```
+python3 scripts/validate_skill_integrity.py
+```
+
+It exits 0 only when there are no broken file references and no orphaned documents; outdated-version warnings are informational (a version inside a behavioral note is legitimate) and do not fail the run. On non-zero exit, read the JSON report, fix broken/orphaned items in this skill tree, and re-run until clean — do not audit a target repository on top of a broken skill.
 
 ## Commit & PR Assistance
 

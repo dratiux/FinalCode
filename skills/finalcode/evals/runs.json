@@ -1,0 +1,127 @@
+{
+  "description": "Canonical run-log store for multi-model determinism trials (schema: evals/evals.json run_log_schema). Read by scripts/compare_eval_runs.py.",
+  "runs": [
+    {
+      "run_id": "iter2-inspect-1",
+      "eval_name": "inspect-tiny-app",
+      "fixture": "tiny-app",
+      "benchmarks": [],
+      "model_id": null,
+      "provider": null,
+      "run_index": 1,
+      "date": "2026-09-14",
+      "note": "Baseline: fresh-agent trial, author-simulated run; model family not recorded.",
+      "detected_findings": [
+        {"id": "FC-SEC-001", "locations": ["config.py", "app.py"]},
+        {"id": "FC-SEC-002", "locations": ["config.py"]},
+        {"id": "FC-DEAD-001", "locations": ["app.py"]},
+        {"id": "FC-ERR-001", "locations": ["app.py"]},
+        {"id": "FC-TEST-001", "locations": ["tiny-app"]}
+      ],
+      "assigned_severities": [
+        {"id": "FC-SEC-001", "severity": "High"},
+        {"id": "FC-SEC-002", "severity": "Medium"},
+        {"id": "FC-DEAD-001", "severity": "Low"},
+        {"id": "FC-ERR-001", "severity": "Medium"},
+        {"id": "FC-TEST-001", "severity": "Medium"}
+      ],
+      "phase_05_classifications": [
+        {"id": "FC-SEC-001", "classification": "Confirmed Defect"},
+        {"id": "FC-SEC-002", "classification": "Confirmed Defect"},
+        {"id": "FC-DEAD-001", "classification": "Confirmed Defect"},
+        {"id": "FC-ERR-001", "classification": "Confirmed Defect"},
+        {"id": "FC-TEST-001", "classification": "Confirmed Defect"}
+      ],
+      "final_health_score": 93.4,
+      "verdict": "NOT READY"
+    },
+    {
+      "run_id": "iter2-inspect-2",
+      "eval_name": "inspect-tiny-app",
+      "fixture": "tiny-app",
+      "benchmarks": [],
+      "model_id": null,
+      "provider": null,
+      "run_index": 2,
+      "date": "2026-09-14",
+      "note": "Baseline: fresh-agent trial, author-simulated run; model family not recorded. Assigned FC-SEC-001 Critical (severity drift vs inspect-1).",
+      "detected_findings": [
+        {"id": "FC-SEC-001", "locations": ["evals/fixtures/tiny-app/config.py:1", "evals/fixtures/tiny-app/app.py:1", "evals/fixtures/tiny-app/app.py:10"]},
+        {"id": "FC-SEC-002", "locations": ["evals/fixtures/tiny-app/config.py:3"]},
+        {"id": "FC-ERR-001", "locations": ["evals/fixtures/tiny-app/app.py:9-12"]},
+        {"id": "FC-DEAD-001", "locations": ["evals/fixtures/tiny-app/app.py:4-5"]},
+        {"id": "FC-TEST-001", "locations": ["evals/fixtures/tiny-app/"]}
+      ],
+      "assigned_severities": [
+        {"id": "FC-SEC-001", "severity": "Critical"},
+        {"id": "FC-SEC-002", "severity": "Medium"},
+        {"id": "FC-ERR-001", "severity": "Medium"},
+        {"id": "FC-DEAD-001", "severity": "Low"},
+        {"id": "FC-TEST-001", "severity": "Medium"}
+      ],
+      "phase_05_classifications": [
+        {"id": "FC-SEC-001", "classification": "Confirmed Defect"},
+        {"id": "FC-SEC-002", "classification": "Confirmed Defect"},
+        {"id": "FC-ERR-001", "classification": "Confirmed Defect"},
+        {"id": "FC-DEAD-001", "classification": "Confirmed Defect"},
+        {"id": "FC-TEST-001", "classification": "Confirmed Defect"}
+      ],
+      "final_health_score": 91.4,
+      "verdict": "NOT READY"
+    },
+    {
+      "run_id": "iter2-repair-1",
+      "eval_name": "repair-tiny-app",
+      "fixture": "tiny-app",
+      "benchmarks": [],
+      "model_id": null,
+      "provider": null,
+      "run_index": 3,
+      "date": "2026-09-14",
+      "note": "Baseline: Repair Mode on a copy; final_health_score is post-repair (pre-repair 90.8/A). FC-SEC-001 was Critical; 3 of 4 findings fixed, FC-ERR-001 deferred to human decision.",
+      "detected_findings": [
+        {"id": "FC-SEC-001", "locations": ["config.py:2", "app.py:1", "app.py:10"]},
+        {"id": "FC-SEC-002", "locations": ["config.py:3"]},
+        {"id": "FC-DEAD-001", "locations": ["app.py:4"]},
+        {"id": "FC-ERR-001", "locations": ["app.py:11", "app.py:12"]}
+      ],
+      "assigned_severities": [
+        {"id": "FC-SEC-001", "severity": "Critical"},
+        {"id": "FC-SEC-002", "severity": "High"},
+        {"id": "FC-DEAD-001", "severity": "Low"},
+        {"id": "FC-ERR-001", "severity": "Medium"}
+      ],
+      "phase_05_classifications": [
+        {"id": "FC-SEC-001", "classification": "Confirmed Defect"},
+        {"id": "FC-SEC-002", "classification": "Confirmed Defect"},
+        {"id": "FC-DEAD-001", "classification": "Confirmed Defect"},
+        {"id": "FC-ERR-001", "classification": "Confirmed Defect"}
+      ],
+      "final_health_score": 98.8,
+      "pre_repair_health_score": 90.8,
+      "verdict": "READY WITH WARNINGS"
+    },
+    {
+      "run_id": "EXAMPLE-2026-11-13-claude-sonnet-4-1",
+      "eval_name": "inspect-tiny-app",
+      "fixture": "tiny-app",
+      "benchmarks": ["cloudflare-worker", "express-api", "intentionally-broken", "next-production", "node-api", "production-ready", "react-large", "react-small", "typescript-library"],
+      "model_id": "claude-sonnet-4",
+      "provider": "anthropic",
+      "run_index": 1,
+      "date": "2026-11-13",
+      "is_template": true,
+      "note": "TEMPLATE ROW — replace with a real trial before release; the comparison script skips is_template rows.",
+      "detected_findings": [
+        {"id": "<FC-ID>", "locations": ["<file:line>"]}
+      ],
+      "assigned_severities": [
+        {"id": "<FC-ID>", "severity": "<Critical|High|Medium|Low|Informational>"}
+      ],
+      "phase_05_classifications": [
+        {"id": "<FC-ID>", "classification": "<Confirmed Defect|Engineering Recommendation|Architecture Decision|Accepted Trade-off|Contextual Constraint>"}
+      ],
+      "final_health_score": 0.0
+    }
+  ]
+}

@@ -1,5 +1,24 @@
 {
   "skill_name": "finalcode",
+  "version": "2.0",
+  "run_log_schema": {
+    "description": "Canonical run-log record for multi-model determinism trials. Every trial appends one run object to evals/runs.json. The comparison script (scripts/compare_eval_runs.py) reads that store and reports Severity Drift, Classification Drift (Phase 0.5), and Score Variance across models.",
+    "fields": {
+      "run_id": "unique string, e.g. 2026-11-13-claude-sonnet-4-1",
+      "eval_name": "eval name from this file (e.g. inspect-tiny-app)",
+      "fixture": "fixture scope: \"tiny-app\" (evals/fixtures/tiny-app)",
+      "benchmarks": "optional array of benchmark names tried (of: cloudflare-worker, express-api, intentionally-broken, next-production, node-api, production-ready, react-large, react-small, typescript-library)",
+      "model_id": "provider model id, e.g. claude-sonnet-4, gpt-5, qwen-max; empty/null when unknown (baseline runs)",
+      "provider": "provider name, e.g. anthropic, openai, sovereign; null when unknown",
+      "run_index": "1-based ordinal of the trial for this eval/model",
+      "date": "ISO date of the trial",
+      "detected_findings": "array of {id, locations} for every finding the run reported",
+      "assigned_severities": "array of {id, severity} — the severity each finding received from this run",
+      "phase_05_classifications": "array of {id, classification} using Phase 0.5 categories: Confirmed Defect, Engineering Recommendation, Architecture Decision, Accepted Trade-off, Contextual Constraint (see core/decision-engine.md, Phase 0.5); missing = observation not surfaced by the run",
+      "final_health_score": "number, the health score the run reported (reproducible via scripts/health_score.py on the run's findings)"
+    },
+    "scoring_baseline": {"score-is-deterministic": "95.9 / A+ / Excellent (invariant across models)"}
+  },
   "evals": [
     {
       "id": 1,
@@ -48,6 +67,20 @@
         {"text": "phase 6 section present", "check": "human: report contains multi-repository / organization section"},
         {"text": "per-repo verdicts preserved", "check": "human: react-small verdict still READY TO SHIP"},
         {"text": "read-only, benchmarks untouched", "check": "git status --short shows no benchmark modifications"}
+      ]
+    },
+    {
+      "id": 5,
+      "name": "multi-model-determinism",
+      "prompt": "Re-run eval 3 (inspect-tiny-app) on the same tiny-app fixture with >=2 different models (plus the 9 benchmarks where available), record each trial as a run_log_schema object into evals/runs.json, then run scripts/compare_eval_runs.py and report the drift results in results.md.",
+      "expected_output": "Each trial logged with model_id, provider, run_index, detected_findings, assigned_severities, phase_05_classifications, final_health_score. Compare script prints Severity Drift, Classification Drift (Phase 0.5), Score Variance; zero drift is the pass bar; any drift is a release-blocking review item for the next release.",
+      "files": ["runs.json", "results.md"],
+      "assertions": [
+        {"text": "run log complete", "check": "every run object has all 7 run_log_schema tracking fields present"},
+        {"text": "no Severity Drift on same-finding ids", "check": "compare_eval_runs.py reports empty severity drift section"},
+        {"text": "no Phase 0.5 Classification Drift (Confirmed Defect vs Accepted Trade-off)", "check": "compare_eval_runs.py reports empty classification drift section"},
+        {"text": "Score Variance within tolerance", "check": "compare_eval_runs.py reports max final_health_score delta == 0.0"},
+        {"text": "determinism invariant still holds", "check": "health_score.py on identical severities yields the identical score for both models"}
       ]
     }
   ]

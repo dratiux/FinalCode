@@ -106,8 +106,6 @@ Framework-specific knowledge is stored in separate documents:
 | `knowledge-base-nextjs.md` | Next.js |
 | `knowledge-base-nodejs.md` | Node.js |
 | `knowledge-base-typescript.md` | TypeScript |
-| `knowledge-base-vue.md` | Vue |
-| `knowledge-base-svelte.md` | Svelte |
 
 ## Architecture Explainability
 

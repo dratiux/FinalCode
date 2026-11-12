@@ -12,7 +12,7 @@
 | Consumers | All components, plugin developers, contributors |
 | Applies To | All audits |
 
-This document describes the FinalCode v2.3.0 architecture. It provides a comprehensive overview of the system, its components, and their relationships.
+This document describes the FinalCode v5.3.0 architecture. It provides a comprehensive overview of the system, its components, and their relationships.
 
 ## System Overview
 
@@ -20,7 +20,7 @@ FinalCode is a production certification, engineering documentation, and intellig
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           FinalCode v2.0.0                                  │
+│                           FinalCode v5.3.0                                  │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │

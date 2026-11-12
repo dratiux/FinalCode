@@ -1,0 +1,130 @@
+{
+  "benchmarks": {
+    "total_benchmarks": 9,
+    "valid": 9,
+    "invalid": 0,
+    "results": [
+      {
+        "benchmark": "react-small",
+        "metadata_loaded": true,
+        "expected_findings_loaded": true,
+        "golden_report_loaded": true,
+        "status": "valid",
+        "issues": []
+      },
+      {
+        "benchmark": "react-large",
+        "metadata_loaded": true,
+        "expected_findings_loaded": true,
+        "golden_report_loaded": true,
+        "status": "valid",
+        "issues": []
+      },
+      {
+        "benchmark": "next-production",
+        "metadata_loaded": true,
+        "expected_findings_loaded": true,
+        "golden_report_loaded": true,
+        "status": "valid",
+        "issues": []
+      },
+      {
+        "benchmark": "node-api",
+        "metadata_loaded": true,
+        "expected_findings_loaded": true,
+        "golden_report_loaded": true,
+        "status": "valid",
+        "issues": []
+      },
+      {
+        "benchmark": "express-api",
+        "metadata_loaded": true,
+        "expected_findings_loaded": true,
+        "golden_report_loaded": true,
+        "status": "valid",
+        "issues": []
+      },
+      {
+        "benchmark": "cloudflare-worker",
+        "metadata_loaded": true,
+        "expected_findings_loaded": true,
+        "golden_report_loaded": true,
+        "status": "valid",
+        "issues": []
+      },
+      {
+        "benchmark": "typescript-library",
+        "metadata_loaded": true,
+        "expected_findings_loaded": true,
+        "golden_report_loaded": true,
+        "status": "valid",
+        "issues": []
+      },
+      {
+        "benchmark": "production-ready",
+        "metadata_loaded": true,
+        "expected_findings_loaded": true,
+        "golden_report_loaded": true,
+        "status": "valid",
+        "issues": []
+      },
+      {
+        "benchmark": "intentionally-broken",
+        "metadata_loaded": true,
+        "expected_findings_loaded": true,
+        "golden_report_loaded": true,
+        "status": "valid",
+        "issues": []
+      }
+    ]
+  },
+  "dashboard": {
+    "status": "valid",
+    "issues": [],
+    "summary": {
+      "totalBenchmarks": 9,
+      "passed": 9,
+      "failed": 0,
+      "changed": 0,
+      "improved": 0,
+      "regressed": 0,
+      "unchanged": 9,
+      "overallStability": "Stable",
+      "regressionCount": 0,
+      "improvementCount": 0,
+      "compatibilityStatus": "Compatible"
+    }
+  },
+  "coverage": {
+    "status": "valid",
+    "issues": [],
+    "overallCoverage": {
+      "rules": "100%",
+      "frameworks": "43%",
+      "gates": "100%",
+      "recommendations": "60%",
+      "evidence": "75%",
+      "knowledgeBase": "57%",
+      "average": "72%"
+    }
+  },
+  "stability": {
+    "status": "valid",
+    "issues": [],
+    "summary": {
+      "totalRules": 20,
+      "stable": 20,
+      "experimental": 0,
+      "deprecated": 0,
+      "averageVersion": "1.0.0",
+      "oldestRule": "1.0.0",
+      "newestRule": "2.0.0"
+    }
+  },
+  "matrix": {
+    "status": "valid",
+    "issues": [],
+    "rulesCount": 8
+  },
+  "overallStatus": "PASS"
+}
