@@ -281,10 +281,6 @@ See [SECURITY.md](SECURITY.md).
 
 See [SUPPORT.md](SUPPORT.md) for troubleshooting.
 
-## License
-
-MIT License. See [LICENSE](LICENSE).
-
 ---
 
 <p align="center">
