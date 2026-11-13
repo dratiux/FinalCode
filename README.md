@@ -33,7 +33,6 @@ FinalCode is an independent open-source project created and maintained by Dratiu
 - [Contributing](#contributing)
 - [Security](#security)
 - [Support](#support)
-- [License](#license)
 
 ## Quick Start
 
