@@ -2,8 +2,6 @@
   <img src="assets/finalcode-logo.svg" alt="FinalCode" width="468">
 </p>
 
-# FinalCode
-
 <p align="center">
   <a href="https://www.skills.sh/b/dratiux/FinalCode"><img src="https://www.skills.sh/b/dratiux/FinalCode" alt="Skills"></a>
   <a href="https://github.com/dratiux/FinalCode/releases"><img src="https://img.shields.io/github/v/release/dratiux/FinalCode" alt="Release"></a>
