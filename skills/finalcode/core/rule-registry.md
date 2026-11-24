@@ -73,8 +73,8 @@ not required by core execution:
 
 ```json
 {
-  "version": "5.3.0",
-  "lastUpdated": "2026-10-09",
+  "version": "5.3.1",
+  "lastUpdated": "2026-11-24",
   "rules": [
     {
       "ruleId": "RULE-SEC-001",

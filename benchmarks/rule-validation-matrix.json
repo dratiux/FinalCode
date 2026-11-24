@@ -84,6 +84,88 @@
       ],
       "expectedCertificationImpact": "Release Blocker"
     },
+    "RULE-SEC-003": {
+      "name": "No XSS Vulnerabilities",
+      "version": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "gate": "Security",
+      "severity": "Critical",
+      "classification": "Security Vulnerability",
+      "positiveExamples": [
+        "F dangerouslySetInnerHTML with user input",
+        "v-html with unsanitized data",
+        "innerHTML assignment from request data"
+      ],
+      "negativeExamples": [
+        "Text node rendering",
+        "DOMPurify sanitizer",
+        "React auto-escaping"
+      ],
+      "falsePositiveExamples": [
+        "Static trusted content",
+        "Sanitized rich text",
+        "Escaped output"
+      ],
+      "falseNegativeRisks": [
+        "Script injection",
+        "Session theft",
+        "Data exfiltration"
+      ],
+      "expectedEvidence": [
+        "File path and line number",
+        "Sink pattern match",
+        "Input source"
+      ],
+      "expectedRecommendation": [
+        "Escape output",
+        "Use a sanitizer",
+        "Render as text nodes"
+      ],
+      "expectedCertificationImpact": "Release Blocker"
+    },
+    "RULE-SEC-004": {
+      "name": "Secure Dependencies",
+      "version": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "gate": "Security",
+      "severity": "High",
+      "classification": "Security Vulnerability",
+      "positiveExamples": [
+        "Dependency with known CVE",
+        "Package with critical advisory",
+        "Outdated package with public exploit"
+      ],
+      "negativeExamples": [
+        "Patched dependency version",
+        "Audit-clean lockfile",
+        "Pinned safe version"
+      ],
+      "falsePositiveExamples": [
+        "Dev-only dependency with low-severity advisory",
+        "Vulnerability in unused code path",
+        "Fixed version available and applied"
+      ],
+      "falseNegativeRisks": [
+        "Known CVE in production dependency",
+        "Supply-chain compromise",
+        "Remote code execution risk"
+      ],
+      "expectedEvidence": [
+        "Lockfile entry",
+        "Advisory identifier",
+        "Affected version range"
+      ],
+      "expectedRecommendation": [
+        "Upgrade the package",
+        "Apply a patch release",
+        "Replace the dependency"
+      ],
+      "expectedCertificationImpact": "Release Blocker"
+    },
     "RULE-CODE-001": {
       "name": "No Unused Variables",
       "version": "1.0.0",
@@ -121,6 +203,47 @@
       "expectedRecommendation": [
         "Remove unused variable",
         "Clean up imports"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-CODE-002": {
+      "name": "No Dead Code",
+      "version": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "gate": "Code Quality",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Export never imported",
+        "Function defined but never called",
+        "File unreachable from any entry point"
+      ],
+      "negativeExamples": [
+        "Export consumed by application code",
+        "Function invoked in code",
+        "File reachable from an entry point"
+      ],
+      "falsePositiveExamples": [
+        "Entry points",
+        "Dynamic imports",
+        "Framework-registered modules"
+      ],
+      "falseNegativeRisks": [
+        "Maintenance burden",
+        "Bundle size inflation",
+        "Reader confusion"
+      ],
+      "expectedEvidence": [
+        "File path and line number",
+        "Unresolved export or file",
+        "Reference-graph output"
+      ],
+      "expectedRecommendation": [
+        "Remove the dead code",
+        "Delete the unused export",
+        "Prune unreachable files"
       ],
       "expectedCertificationImpact": "None"
     },
@@ -165,6 +288,47 @@
       ],
       "expectedCertificationImpact": "None"
     },
+    "RULE-TYPE-002": {
+      "name": "Strict TypeScript",
+      "version": "1.0.0",
+      "firstIntroduced": "2.0.0",
+      "lastModified": "2.0.0",
+      "stability": "stable",
+      "gate": "Type Safety",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "strict: false in tsconfig.json",
+        "Missing strict mode in compiler options",
+        "Implicit any enabled globally"
+      ],
+      "negativeExamples": [
+        "strict: true in tsconfig.json",
+        "Per-file strictness enforced",
+        "checkedJs with strict"
+      ],
+      "falsePositiveExamples": [
+        "Legacy code excluded via migration paths",
+        "Generated files",
+        "Third-party declarations"
+      ],
+      "falseNegativeRisks": [
+        "Runtime type errors",
+        "Unchecked null access",
+        "Harder refactoring"
+      ],
+      "expectedEvidence": [
+        "tsconfig.json path",
+        "Compiler option value",
+        "Strict-mode status"
+      ],
+      "expectedRecommendation": [
+        "Enable strict mode",
+        "Adopt strict flags incrementally",
+        "Fix files excluded from strict checks"
+      ],
+      "expectedCertificationImpact": "None"
+    },
     "RULE-PERF-001": {
       "name": "Large List Virtualization",
       "version": "1.0.0",
@@ -203,6 +367,47 @@
         "Add virtualization",
         "Use windowing library",
         "Implement pagination"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-PERF-002": {
+      "name": "Image Optimization",
+      "version": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "gate": "Performance",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Unoptimized bitmap served from markup",
+        "Oversized image without srcset",
+        "Full-size image in a thumbnail slot"
+      ],
+      "negativeExamples": [
+        "Image with srcset and sizes",
+        "Modern format (WebP/AVIF)",
+        "Lazy loading attribute"
+      ],
+      "falsePositiveExamples": [
+        "Vector logos",
+        "Above-the-fold hero with eager loading",
+        "Icons"
+      ],
+      "falseNegativeRisks": [
+        "Slow page loads",
+        "Excess bandwidth use",
+        "LCP degradation"
+      ],
+      "expectedEvidence": [
+        "File path or asset reference",
+        "Image element or asset",
+        "Format and size data"
+      ],
+      "expectedRecommendation": [
+        "Add srcset and sizes",
+        "Convert to a modern format",
+        "Enable lazy loading"
       ],
       "expectedCertificationImpact": "None"
     },
@@ -246,6 +451,47 @@
       ],
       "expectedCertificationImpact": "None"
     },
+    "RULE-TEST-002": {
+      "name": "Test Coverage",
+      "version": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "gate": "Testing",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Coverage below project threshold",
+        "Untested critical module",
+        "Missing coverage report in CI"
+      ],
+      "negativeExamples": [
+        "Coverage meets threshold",
+        "CI enforces coverage gating",
+        "Critical paths covered"
+      ],
+      "falsePositiveExamples": [
+        "New modules excluded from threshold during rollout",
+        "Coverage from unrelated tests",
+        "False instrumentation gaps"
+      ],
+      "falseNegativeRisks": [
+        "Silent regressions",
+        "Low release confidence",
+        "Undetected breakage"
+      ],
+      "expectedEvidence": [
+        "Coverage report output",
+        "Threshold configuration",
+        "Module inventory"
+      ],
+      "expectedRecommendation": [
+        "Raise coverage toward the threshold",
+        "Add tests for critical modules",
+        "Enforce coverage in CI"
+      ],
+      "expectedCertificationImpact": "None"
+    },
     "RULE-DOC-001": {
       "name": "Public API Documentation",
       "version": "1.0.0",
@@ -283,6 +529,47 @@
       "expectedRecommendation": [
         "Add JSDoc comments",
         "Document public APIs"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-DOC-002": {
+      "name": "README Present",
+      "version": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "gate": "Documentation",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Repository without README.md",
+        "README without project description",
+        "README without setup instructions"
+      ],
+      "negativeExamples": [
+        "README present with description and setup",
+        "Quickstart available",
+        "Contributing section present"
+      ],
+      "falsePositiveExamples": [
+        "Monorepo child packages pointing to root README",
+        "Private service packages",
+        "Generated packages"
+      ],
+      "falseNegativeRisks": [
+        "Poor first impression",
+        "Longer onboarding",
+        "Unclear setup"
+      ],
+      "expectedEvidence": [
+        "Path checked",
+        "Missing file or missing sections",
+        "Repository layout"
+      ],
+      "expectedRecommendation": [
+        "Add a README with purpose and setup",
+        "Document prerequisites and scripts",
+        "Add a quickstart"
       ],
       "expectedCertificationImpact": "None"
     },
@@ -324,6 +611,211 @@
         "Add aria-label",
         "Add accessible name",
         "Add label"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-A11Y-002": {
+      "name": "Color Contrast",
+      "version": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "gate": "Accessibility",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Text below WCAG AA contrast ratio",
+        "Disabled-state styling indistinguishable from enabled",
+        "Inherited color overriding a specified contrast fix"
+      ],
+      "negativeExamples": [
+        "Contrast ratio meets AA (4.5:1 body, 3:1 large text)",
+        "Design token with compliant palette",
+        "High-contrast mode honored"
+      ],
+      "falsePositiveExamples": [
+        "Decorative text",
+        "Disabled controls per WCAG",
+        "Logos and brand elements"
+      ],
+      "falseNegativeRisks": [
+        "Low-vision users excluded",
+        "WCAG violations",
+        "Legal compliance risk"
+      ],
+      "expectedEvidence": [
+        "File path or component",
+        "Element and style source",
+        "Measured contrast ratio"
+      ],
+      "expectedRecommendation": [
+        "Adjust colors to meet ratio (4.5:1 body, 3:1 large text)",
+        "Update design tokens",
+        "Add contrast checks to CI"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-ARCH-001": {
+      "name": "Separation of Concerns",
+      "version": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "gate": "Architecture",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "UI layer importing persistence internals",
+        "Shared module importing a presentation layer",
+        "Cyclic dependency between modules"
+      ],
+      "negativeExamples": [
+        "Layer-permitted imports only",
+        "Dependency direction consistent",
+        "Module boundaries respected"
+      ],
+      "falsePositiveExamples": [
+        "Boundary cases sanctioned by architecture",
+        "Barrel re-exports",
+        "Framework initialization wiring"
+      ],
+      "falseNegativeRisks": [
+        "Tangled codebase",
+        "High coupling causing regressions",
+        "Refactoring resistance"
+      ],
+      "expectedEvidence": [
+        "Import crossing a boundary",
+        "File paths involved",
+        "Module layout"
+      ],
+      "expectedRecommendation": [
+        "Move the code to the proper layer",
+        "Introduce an interface at the boundary",
+        "Break the cycle"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-ARCH-002": {
+      "name": "Dependency Quality",
+      "version": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "gate": "Architecture",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Low-value dependency for trivial functionality",
+        "Duplicate libraries with overlapping purpose",
+        "Unmaintained dependency used in a critical path"
+      ],
+      "negativeExamples": [
+        "Lean dependency set",
+        "Single library per purpose",
+        "Actively maintained dependencies"
+      ],
+      "falsePositiveExamples": [
+        "Deliberately chosen standard library",
+        "Peer-dependency requirement",
+        "Transitive dependency outside control"
+      ],
+      "falseNegativeRisks": [
+        "Dependency sprawl",
+        "Larger install and bundle size",
+        "Higher maintenance cost"
+      ],
+      "expectedEvidence": [
+        "Manifest entry",
+        "Usage inventory",
+        "Package health indicators"
+      ],
+      "expectedRecommendation": [
+        "Replace the dependency with lighter code",
+        "Consolidate overlapping libraries",
+        "Evaluate an alternative package"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-ERR-001": {
+      "name": "Error Handling",
+      "version": "1.0.0",
+      "firstIntroduced": "1.0.0",
+      "lastModified": "1.0.0",
+      "stability": "stable",
+      "gate": "Error Handling",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Async call without rejection handling",
+        "Promise rejection swallowed",
+        "Catch block voiding the error"
+      ],
+      "negativeExamples": [
+        "Rejections handled and propagated",
+        "Errors surface to the user",
+        "Centralized error handling"
+      ],
+      "falsePositiveExamples": [
+        "Exhaustive handling in a catch-all boundary",
+        "Retry loop with final rejection",
+        "Test code"
+      ],
+      "falseNegativeRisks": [
+        "Silent failures",
+        "Unrecoverable user states",
+        "Lost debugging signal"
+      ],
+      "expectedEvidence": [
+        "File path and line number",
+        "Promise or async call",
+        "Handling flow"
+      ],
+      "expectedRecommendation": [
+        "Handle or propagate rejections",
+        "Log with context and rethrow",
+        "Add a catch at the integration boundary"
+      ],
+      "expectedCertificationImpact": "None"
+    },
+    "RULE-ERR-002": {
+      "name": "Error Boundaries",
+      "version": "1.0.0",
+      "firstIntroduced": "1.5.0",
+      "lastModified": "1.5.0",
+      "stability": "stable",
+      "gate": "Error Handling",
+      "severity": "Medium",
+      "classification": "Engineering Recommendation",
+      "positiveExamples": [
+        "Root component without error boundary",
+        "Routed view without boundary",
+        "Boundary swallowing and hiding failure state"
+      ],
+      "negativeExamples": [
+        "Error boundary per route or section",
+        "Fallback UI defined",
+        "Boundary reports to observability"
+      ],
+      "falsePositiveExamples": [
+        "Boundary at the app root with per-route coverage",
+        "Server-rendered error pages",
+        "Non-UI runtimes without boundaries"
+      ],
+      "falseNegativeRisks": [
+        "Blank screen on render errors",
+        "Broken interaction after failure",
+        "Unreported UI crashes"
+      ],
+      "expectedEvidence": [
+        "Component tree location",
+        "View without a boundary",
+        "Fallback behavior"
+      ],
+      "expectedRecommendation": [
+        "Add an error boundary with fallback UI",
+        "Add reporting to the boundary",
+        "Verify fallback recovery"
       ],
       "expectedCertificationImpact": "None"
     }

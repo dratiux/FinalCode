@@ -99,13 +99,13 @@
     "status": "valid",
     "issues": [],
     "overallCoverage": {
-      "rules": "100%",
+      "rules": "40%",
       "frameworks": "43%",
       "gates": "100%",
       "recommendations": "60%",
       "evidence": "75%",
       "knowledgeBase": "57%",
-      "average": "72%"
+      "average": "62%"
     }
   },
   "stability": {
@@ -124,7 +124,7 @@
   "matrix": {
     "status": "valid",
     "issues": [],
-    "rulesCount": 8
+    "rulesCount": 20
   },
   "overallStatus": "PASS"
 }

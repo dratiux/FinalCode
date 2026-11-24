@@ -6,6 +6,7 @@
   <a href="https://www.skills.sh/b/dratiux/FinalCode"><img src="https://www.skills.sh/b/dratiux/FinalCode" alt="Skills"></a>
   <a href="https://github.com/dratiux/FinalCode/releases"><img src="https://img.shields.io/github/v/release/dratiux/FinalCode" alt="Release"></a>
   <a href="https://github.com/dratiux/FinalCode/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT"></a>
+  <a href="https://github.com/dratiux/FinalCode/actions/workflows/ci.yml"><img src="https://github.com/dratiux/FinalCode/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
 </p>
 
 FinalCode is a context-aware production certification and organization intelligence platform. It runs a senior-engineering audit across 13 quality gates, automatically adapts certification requirements to project type, architecture, deployment target, and maturity, validates engineering decisions to distinguish defects from intentional trade-offs, and extends analysis from single repositories to entire engineering organizations — correlating, comparing, and improving multi-repository ecosystems with cross-repository findings, organizational dashboards, team insights, and executive reporting. Produces a standardized Certification Report with a clear verdict: READY TO SHIP, READY WITH WARNINGS, or NOT READY.
@@ -139,9 +140,9 @@ FinalCode uses a Single Source of Truth (SSOT) architecture. All editable files 
 
 ```
 skills/finalcode/
-├── SKILL.md                     # Skill specification (v5.2.0)
+├── SKILL.md                     # Skill specification (v5.3.1)
 ├── scripts/                     # Deterministic helpers: health_score, validate_findings, report_scaffold (v5.1.0)
-├── evals/                       # Measurable evals + fixtures (v5.2.0, 4 evals)
+├── evals/                       # Measurable evals + fixtures (v5.2.0, 5 evals)
 ├── core/                        # Core engine + organization intelligence layer
 │   ├── organization-registry.md           # Repository inventory (v5.0.0)
 │   ├── multi-repository-analysis.md       # Cross-repo analysis (v5.0.0)
@@ -157,8 +158,7 @@ skills/finalcode/
 │   ├── organization-memory.md             # Org knowledge (v5.0.0)
 │   ├── organization-benchmark.md          # Internal repo ranking (v5.0.0)
 │   ├── executive-reporting.md             # Executive summaries (v5.0.0)
-│   ├── engineering-decision-engine.md     # Observation classification (v4.5.0)
-│   ├── decision-validation.md             # Intent validation (v4.5.0)
+│   ├── decision-validation.md             # Intent validation (v4.5.0: observation classification lives in decision-engine.md)
 │   ├── decision-confidence.md             # Decision confidence (v4.5.0)
 │   ├── tradeoff-registry.md               # Trade-off standardization (v4.5.0)
 │   ├── decision-explainability.md         # Recommendation explanation (v4.5.0)

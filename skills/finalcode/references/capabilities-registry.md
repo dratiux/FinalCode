@@ -12,7 +12,7 @@
 | Consumers | All operating modes, Workflow Orchestration, Learning Engine, User |
 | Applies To | All engineering operations |
 
-This document consolidates the former `core/capability-*.md` files (11 components) into a single reference registry. The standalone files are archived under `archive/core/`. Every capability must be discoverable, selectable, composable, measurable, and explainable through the components defined here.
+This document consolidates the former `core/capability-*.md` files (11 components) into a single reference registry. The standalone files are archived at the repository root `archive/`, outside the skill package. Every capability must be discoverable, selectable, composable, measurable, and explainable through the components defined here.
 
 > Architecture boundaries (apply to all components in this registry): each capability component is responsible only for its own stage's decisions; it does not make findings (Decision Engine), classify findings (Finding Classification), generate reports (Report Engine), or calculate repository health scores (Health Score).
 
