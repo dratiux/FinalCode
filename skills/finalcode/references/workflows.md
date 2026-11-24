@@ -12,7 +12,7 @@
 | Consumers | All operating modes, Objective Tracking, Learning Engine, User |
 | Applies To | All engineering operations |
 
-This document consolidates the former `core/workflow-*.md` files (7 components) into a single reference registry. The standalone files are archived under `archive/core/`. Every engineering action follows the standardized workflow lifecycle defined here, and no workflow completes before verification passes.
+This document consolidates the former `core/workflow-*.md` files (7 components) into a single reference registry. The standalone files are archived at the repository root `archive/`, outside the skill package. Every engineering action follows the standardized workflow lifecycle defined here, and no workflow completes before verification passes.
 
 ## 1. Workflow Engine (Standard Pipeline)
 

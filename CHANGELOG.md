@@ -4,6 +4,25 @@ All notable changes to FinalCode are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.1] - 2026-11-24
+
+### Fixed
+
+- `benchmarks/rule-validation-matrix.json` — added the 12 registry rules missing from the matrix (RULE-SEC-003/004, RULE-CODE-002, RULE-TYPE-002, RULE-PERF-002, RULE-TEST-002, RULE-DOC-002, RULE-A11Y-002, RULE-ARCH-001/002, RULE-ERR-001/002). The matrix now mirrors `rule-stability.json` 1:1 (20 rules) with gate, severity, classification, example, evidence, and certification-impact fields per rule.
+- `benchmarks/coverage.json` — rule coverage corrected from a misleading `100%` (8/8) to an honest `40%` (8/20 against the full registry), with `rulesUntested: 12` recorded instead of 0; `overallCoverage.rules` updated with the average recalculated (72% → 62%). Re-validated with `validate-regression.py` (PASS, matrix rulesCount 20).
+- `README.md` — architecture tree refreshed (stale `engineering-decision-engine.md` entry replaced by the v5.3.0 consolidation note, evals count corrected 4 → 5, SKILL.md annotation bumped), CI badge added.
+
+### Added
+
+- `.github/workflows/ci.yml` — deterministic checks on every push and PR: skill integrity validation, all five script `--self-test` runs, and benchmark regression validation.
+- `CONTRIBUTING.md` — Local Verification section listing the three required pre-PR checks.
+- Rule validation matrix entries for the 12 previously unmapped rules follow the exact schema of the existing 8 entries; severity anchors follow `references/certification-rules.md` (secrets-adjacent dependencies High, XSS Critical, recommendation-level findings Medium/Low and never blocking).
+
+### Changed
+
+- `skills/finalcode/archive/` moved to the repository root `archive/` — archived material no longer ships inside the skill package; in-skill references updated to the new location.
+- Version declarations in `SKILL.md`, `references/architecture.md`, and `core/rule-registry.md` bumped to 5.3.1.
+
 ## [5.3.0] - 2026-11-13
 
 ### Added

@@ -75,6 +75,18 @@ Use consistent terms throughout all documentation:
 - Reference specific files when linking: `[skills/finalcode/references/gates.md](skills/finalcode/references/gates.md)` not "the gates documentation"
 - Update the changelog when adding or changing features
 
+## Local Verification
+
+Run all three deterministic checks before opening a pull request. CI runs the same checks on every push and PR:
+
+```bash
+python3 skills/finalcode/scripts/validate_skill_integrity.py
+for script in skills/finalcode/scripts/*.py; do python3 "$script" --self-test; done
+python3 benchmarks/scripts/validate-regression.py
+```
+
+All three must exit 0. The first also exits 0 with informational outdated-version warnings; broken references or orphaned documents fail the run.
+
 ## Pull Request Expectations
 
 Before submitting a pull request:

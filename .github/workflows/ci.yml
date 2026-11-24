@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    name: Skill integrity, self-tests, benchmark regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Validate skill integrity
+        run: python3 skills/finalcode/scripts/validate_skill_integrity.py
+
+      - name: Run deterministic script self-tests
+        run: |
+          for script in skills/finalcode/scripts/*.py; do
+            echo "::group::$script --self-test"
+            python3 "$script" --self-test
+            echo "::endgroup::"
+          done
+
+      - name: Validate benchmark regression
+        run: python3 benchmarks/scripts/validate-regression.py

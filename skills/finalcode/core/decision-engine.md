@@ -345,7 +345,7 @@ Generate the finding entry in the report:
 ## Phase 0.5 — Observation Classification (Engineering Decision Stage)
 
 > Consolidated here from the former Engineering Decision Engine
-> (single standalone file, now archived under `archive/core/`).
+> (single standalone file, archived at the repository root `archive/core/`, outside the skill package).
 
 Introduce a dedicated reasoning stage before finding classification. Every observation must be evaluated to determine whether it is an engineering defect, an intentional decision, a contextual trade-off, or an acceptable architectural compromise before it is reported. This is Phase 0.5 of the SKILL.md pipeline — it runs after Adaptive Rule Evaluation and before Finding Classification.
 
